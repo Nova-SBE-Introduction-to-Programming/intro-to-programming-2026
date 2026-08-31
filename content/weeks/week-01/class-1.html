@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intro to Programming · Class 1</title>
+<style>
+  :root{
+    --bg:#0f1115; --bg2:#161a22; --fg:#f2f3f5; --muted:#9aa3b2; --line:#2a3040;
+    --accent:#ff6a3d; --accent2:#5ad1b3; --accent3:#f5c542;
+    --b1:#5ad1b3; --b2:#f5c542; --b3:#ff6a3d; --pres:#b28dff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+  .slide{position:absolute;inset:0;padding:6vh 8vw;display:none;flex-direction:column;justify-content:center;
+    opacity:0;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease}
+  .slide.active{display:flex;opacity:1;transform:none}
+  h1{font-size:clamp(40px,6.5vw,88px);line-height:1.02;margin:0 0 .3em;letter-spacing:-.02em;font-weight:800}
+  h2{font-size:clamp(30px,4.2vw,58px);line-height:1.08;margin:0 0 .5em;letter-spacing:-.02em;font-weight:800}
+  h3{font-size:clamp(18px,1.8vw,26px);margin:0 0 .4em;font-weight:700}
+  p,li{font-size:clamp(17px,1.6vw,24px);line-height:1.45;margin:0}
+  p+p{margin-top:.6em}
+  .muted{color:var(--muted)}
+  .kicker{font-size:clamp(13px,1.1vw,16px);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:1.2em}
+  .kicker.b1{color:var(--b1)} .kicker.b2{color:var(--b2)} .kicker.b3{color:var(--b3)} .kicker.pres{color:var(--pres)}
+  .big{font-size:clamp(26px,3vw,42px);line-height:1.25;font-weight:600;max-width:22ch}
+  .accent{color:var(--accent)}
+  .grid{display:grid;gap:clamp(12px,1.6vw,24px)}
+  .g2{grid-template-columns:1fr 1fr} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:clamp(14px,1.8vw,26px)}
+  .card h3{margin-bottom:.35em}
+  .card p{font-size:clamp(15px,1.25vw,19px);color:#c9d0db}
+  .card .n{font-size:clamp(11px,.95vw,13px);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.6em;font-weight:700}
+  .tbd{border:1px dashed var(--accent3);color:var(--accent3);border-radius:8px;padding:.15em .5em;font-size:.85em;font-weight:700;white-space:nowrap}
+  .tbd-card{border-style:dashed;border-color:var(--accent3)}
+  /* timeline */
+  .tl{display:grid;grid-template-columns:repeat(12,1fr);gap:8px;margin-top:2vh}
+  .tl .w{height:clamp(64px,9vh,96px);border-radius:12px;display:flex;flex-direction:column;justify-content:space-between;padding:10px 10px;font-size:clamp(12px,1vw,15px);font-weight:700;color:#0f1115}
+  .tl .w small{font-weight:600;opacity:.8;font-size:.85em}
+  .w.b1{background:var(--b1)} .w.b2{background:var(--b2)} .w.b3{background:var(--b3)} .w.pres{background:var(--pres)}
+  .w.t{outline:3px solid rgba(255,255,255,.55);outline-offset:-3px}
+  .legend{display:flex;gap:2.2em;margin-top:2.2vh;font-size:clamp(13px,1.15vw,17px);color:var(--muted)}
+  .legend span::before{content:"";display:inline-block;width:.9em;height:.9em;border-radius:4px;margin-right:.5em;vertical-align:-1px}
+  .legend .l1::before{background:var(--b1)} .legend .l2::before{background:var(--b2)} .legend .l3::before{background:var(--b3)} .legend .l4::before{background:var(--pres)}
+  .legend .lt::before{background:transparent;outline:3px solid rgba(255,255,255,.55);outline-offset:-3px}
+  /* tables */
+  table{border-collapse:collapse;width:100%;font-size:clamp(15px,1.35vw,21px)}
+  th,td{text-align:left;padding:.55em .8em;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:700;font-size:.8em;letter-spacing:.12em;text-transform:uppercase}
+  td.w{width:3.5em;color:var(--muted);font-weight:700}
+  .pill{display:inline-block;padding:.1em .55em;border-radius:999px;font-size:.75em;font-weight:800;letter-spacing:.06em;color:#0f1115}
+  .pill.t{background:#fff} .pill.p{background:var(--muted)}
+  /* section slides */
+  .section{justify-content:flex-end}
+  .section .num{font-size:clamp(90px,16vw,220px);font-weight:900;line-height:.9;letter-spacing:-.05em;opacity:.18}
+  .section.b1 .num{color:var(--b1)} .section.b2 .num{color:var(--b2)} .section.b3 .num{color:var(--b3)} .section.pres .num{color:var(--pres)}
+  .section h2{max-width:16ch}
+  .section .sub{font-size:clamp(18px,1.8vw,26px);color:var(--muted);max-width:40ch}
+  /* misc */
+  .rule{display:grid;grid-template-columns:auto 1fr;gap:1.2em;align-items:baseline;margin-top:.9em}
+  .rule b{color:var(--accent);font-size:1.3em}
+  ul.clean{list-style:none;padding:0;margin:.4em 0 0}
+  ul.clean li{padding:.35em 0 .35em 1.4em;position:relative}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--accent)}
+  .stack{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em}
+  .stack span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.35em .9em;font-size:clamp(14px,1.2vw,18px);font-weight:600}
+  .foot{position:absolute;left:8vw;right:8vw;bottom:3.5vh;display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+  .progress{position:fixed;left:0;bottom:0;height:3px;background:var(--accent);width:0;transition:width .3s}
+  .counter{position:fixed;right:18px;bottom:12px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .help{position:fixed;left:18px;bottom:12px;font-size:12px;color:var(--muted)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--bg2);border:1px solid var(--line);padding:.1em .4em;border-radius:6px;font-size:.9em}
+  @media (max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}.tl{grid-template-columns:repeat(6,1fr)}.slide{padding:5vh 6vw;justify-content:flex-start;overflow:auto}}
+  @media print{.slide{display:flex!important;opacity:1!important;transform:none!important;position:relative;height:100vh;page-break-after:always}.progress,.counter,.help{display:none}}
+  .notes{display:none;position:absolute;left:8vw;right:8vw;bottom:9vh;background:#1d2230;border-left:4px solid var(--accent3);padding:.8em 1em;font-size:15px;line-height:1.45;color:#dfe4ec;border-radius:8px}
+  body.show-notes .slide.active .notes{display:block}
+</style>
+</head>
+<body>
+<div class="deck">
+<!-- 1 · Title -->
+<section class="slide">
+  <div class="kicker">Nova SBE · 2026/27 · Ricardo Pereira</div>
+  <h1>Introduction to<br>Programming</h1>
+  <p class="big">From idea to app — building software with AI.</p>
+  <p class="muted" style="margin-top:2em">Class 1 · 12 weeks · 3 blocks</p>
+</section>
+
+<!-- 2 · Thesis -->
+<section class="slide">
+  <div class="kicker">Why this course is different</div>
+  <h2>You'll work the way a developer joins a company.</h2>
+  <div class="grid g3" style="margin-top:1em">
+    <div class="card"><div class="n">First</div><h3>Read</h3><p>You get a real codebase on day one. You ask it questions, you find your way around, you change one thing and see it work.</p></div>
+    <div class="card"><div class="n">Then</div><h3>Build</h3><p>You add features, first to our app, then to your own. AI writes most of the code. You decide what to build and whether it's right.</p></div>
+    <div class="card"><div class="n">Finally</div><h3>Ship</h3><p>Something deployed, with a URL, that other people can click. And you can explain every part of it.</p></div>
+  </div>
+</section>
+
+<!-- 3 · The rule -->
+<section class="slide">
+  <div class="kicker">The one rule</div>
+  <h2>AI is allowed everywhere.<br><span class="accent">You can't ship what you can't explain.</span></h2>
+  <p class="muted" style="max-width:48ch;margin-top:1em">Lists, loops, functions, classes — you'll meet all of them. Not to memorise them, but to read what the AI wrote, catch it when it's wrong, and tell it what you actually want.</p>
+</section>
+
+<!-- 4 · Semester map -->
+<section class="slide">
+  <div class="kicker">The semester at a glance</div>
+  <h2>Three blocks, then you present.</h2>
+  <div class="tl">
+    <div class="w b1 t">W1<small>Tour + git</small></div>
+    <div class="w b1">W2<small>Ask the code</small></div>
+    <div class="w b1 t">W3<small>Read a feature</small></div>
+    <div class="w b1">W4<small>Build it</small></div>
+    <div class="w b2 t">W5<small>Solo brief</small></div>
+    <div class="w b2">W6<small>Build</small></div>
+    <div class="w b2">W7<small>Build</small></div>
+    <div class="w b3 t">W8<small>Team brief</small></div>
+    <div class="w b3">W9<small>Sprint 1</small></div>
+    <div class="w b3">W10<small>Sprint 2</small></div>
+    <div class="w pres">W11<small>Demos</small></div>
+    <div class="w pres">W12<small>Demos</small></div>
+  </div>
+  <div class="legend">
+    <span class="l1">Block 1 · Join the company</span>
+    <span class="l2">Block 2 · Solo project</span>
+    <span class="l3">Block 3 · Team project</span>
+    <span class="l4">Presentations</span>
+    <span class="lt">Theory class</span>
+  </div>
+</section>
+
+<!-- 5 · Evaluation -->
+<section class="slide">
+  <div class="kicker">Evaluation</div>
+  <h2>Two moments. Nothing else.</h2>
+  <div class="grid g2" style="margin-top:.6em">
+    <div class="card"><div class="n">Weeks 11–12 · Group</div><h3>Team project presentation <span class="accent">40%</span></h3><p>Live demo at a URL, then a code walkthrough where every member explains code they didn't write. One grade per group, adjusted per person from the walkthrough.</p></div>
+    <div class="card"><div class="n">Exam period · Individual</div><h3>Exam <span class="accent">60%</span></h3><p><b>30%</b> — questions about <i>your</i> Block 2 solo project: what you built, why, where things live, what would break.<br><b>30%</b> — general: read AI-generated code and judge it. Find the bug, predict the output, spot the missing case.</p></div>
+  </div>
+  <p class="muted" style="margin-top:1.4em">Your solo project is never submitted — it's examined. Build it well enough that you can answer for it with no laptop in front of you.</p>
+</section>
+
+<!-- 5b · Why this grading -->
+<section class="slide">
+  <div class="kicker">Evaluation · why</div>
+  <h2>You can't outsource the exam.</h2>
+  <div class="grid g3" style="margin-top:.6em">
+    <div class="card"><div class="n">No uploads</div><p>Nothing goes to Moodle. Your work lives on GitHub. Nobody chases deadlines, nobody emails about extensions.</p></div>
+    <div class="card"><div class="n">No proxies</div><p>We don't grade the solo project's code. We ask you about it. If the AI wrote it and you understood it, you'll be fine. If not, you won't.</p></div>
+    <div class="card"><div class="n">No surprises</div><p>The exam questions about your project follow a public template. You'll see it in week 5, the day you pick your case.</p></div>
+  </div>
+</section>
+
+<!-- 14 · Tools -->
+<section class="slide">
+    <div class="kicker">Tools</div>
+  <h2>The stack grows with you.</h2>
+  <div class="grid g3" style="margin-top:.6em">
+    <div class="card"><div class="n">Weeks 1–4</div><h3>Streamlit + CSV</h3><p>One Python file becomes a web app. The database is CSV files you can open and read. Simple on purpose — you can see everything.</p></div>
+    <div class="card"><div class="n">Later</div><h3>Supabase</h3><p>A real cloud database. Your app's data stops living in files on your laptop and starts living where production apps keep it.</p></div>
+    <div class="card"><div class="n">Later</div><h3>React</h3><p>A real frontend. What most of the apps you use every day are built with — and what your AI tools are best at writing.</p></div>
+  </div>
+  <div class="stack">
+    <span>Python 3.12</span><span>VS Code</span><span>GitHub Copilot <span class="muted">(free for students)</span></span><span>Cursor / Claude Code <span class="muted">(welcome)</span></span><span>GitHub</span><span>pytest</span>
+  </div>
+  <p class="muted" style="margin-top:1.2em;max-width:52ch">Git only through the VS Code UI. No terminal required — ever, unless you want it.</p>
+</section>
+
+<!-- 15 · House rules -->
+<section class="slide">
+  <div class="kicker">How we work</div>
+  <h2>Few rules. Kept.</h2>
+  <ul class="clean">
+    <li>Everything lives on Moodle: links, materials, announcements. No email threads.</li>
+    <li>Every practical ends with a TA seeing it run. Nothing is uploaded.</li>
+    <li>Use any AI you like. Paste nothing you can't explain.</li>
+    <li>Groups of 3–4, formed next week, in the room. Think about who you want.</li>
+    <li>Two moments matter: demo day, and the exam — half of which is about your own project.</li>
+  </ul>
+</section>
+
+<!-- ============ CLASS 1 · W1 · THEORY (Ricardo) ============ -->
+<section class="slide section b1">
+  <div class="num">W1</div>
+  <div class="kicker b1">Block 1 · Class 1 · Theory</div>
+  <h2>You just got hired.</h2>
+  <p class="sub">The rest of today: meet the product, learn to ask a codebase questions, and watch a feature get built and saved with git.</p>
+  <aside class="notes">Timing: intro 10 · product 10 · engineer questions 20 · git concepts 15 · live feature demo 25 · wrap 10. Keep the intro short; the product demo is the hook.</aside>
+</section>
+
+
+
+<section class="slide">
+  <div class="kicker b1">Class 1 · The products</div>
+  <h2>Two apps. Your group picks one.</h2>
+  <div class="grid g2" style="margin-top:.4em">
+    <div class="card"><div class="n">SplitIt</div><h3>Who owes whom</h3><p>A Splitwise clone. Groups, members, expenses, balances. Everyone has lived this at a dinner table.</p><p style="margin-top:.6em"><b>Data:</b> groups · members · expenses. <b>Half-built:</b> settle up.</p></div>
+    <div class="card"><div class="n">Tiny CRM</div><h3>Leads to deals</h3><p>Leads move through stages, with notes and follow-up dates. What a sales team actually runs on.</p><p style="margin-top:.6em"><b>Data:</b> leads · notes · activities. <b>Half-built:</b> move a lead between stages.</p></div>
+  </div>
+  <p class="muted" style="margin-top:1.2em">Same skeleton, same folders, same rules. Both have bugs that real users reported — you'll fix them.</p>
+  <aside class="notes">Demo both as a user, 3 min each. Say which one you'll use for the live demos (SplitIt) — CRM groups follow the same steps in their own repo.</aside>
+</section>
+
+<section class="slide">
+  <div class="kicker b1">Class 1 · The product</div>
+  <h2>Open the folder.</h2>
+  <div class="grid g3" style="margin-top:.4em">
+    <div class="card"><div class="n">As a user</div><p>Click through it. Every screen, every button. What does it do, who is it for, what's broken?</p></div>
+    <div class="card"><div class="n">As an engineer</div><p>Same app, now open the folder. Three questions: where does data live, where do screens live, where does logic live?</p></div>
+    <div class="card"><div class="n">Vocabulary</div><p>Repo · file · function · variable · database · UI · entry point · run. That's the whole dictionary for today.</p></div>
+  </div>
+  <aside class="notes">Live: run the app, use it for 3 minutes as a user. Then open VS Code and show the tree. Point at app.py / db.py / tests/. Name each folder's job in one sentence. Don't explain syntax.</aside>
+</section>
+
+<section class="slide">
+  <div class="kicker b1">Class 1 · Answering questions like an engineer</div>
+  <h2>"Where does X happen?"</h2>
+  <p class="muted" style="max-width:52ch">Every engineer joining a team spends week one asking this. Three ways to get the answer, from slowest to fastest — you'll use all three.</p>
+  <div class="grid g3" style="margin-top:1em">
+    <div class="card"><div class="n">1 · Follow the click</div><p>Find the button's text in the code. Read what it calls. Read what that calls. Stop when you hit the database.</p></div>
+    <div class="card"><div class="n">2 · Search</div><p>Search the whole project for a word from the screen. Cmd/Ctrl+Shift+F. Ugly, fast, always works.</p></div>
+    <div class="card"><div class="n">3 · Ask the AI</div><p>"Where is a user saved?" "What happens when I click Save?" Then <b>verify</b>: go to the line it names and check it's true.</p></div>
+  </div>
+  <aside class="notes">Demo all three live on the same question. Make the AI answer once slightly wrong (or ask a question where it guesses) so students see why step 3 ends with "verify".</aside>
+</section>
+
+<section class="slide">
+  <div class="kicker b1">Class 1 · Git, the concept</div>
+  <h2>Git is save points for code.</h2>
+  <div class="grid g4" style="margin-top:.4em">
+    <div class="card"><div class="n">Repo</div><h3>The project</h3><p>A folder git watches. Lives on your machine and on GitHub.</p></div>
+    <div class="card"><div class="n">Commit</div><h3>A save point</h3><p>A snapshot with a message. You can always go back to it.</p></div>
+    <div class="card"><div class="n">Branch</div><h3>A parallel copy</h3><p>Try something without touching the version that works. Merge it back when it does.</p></div>
+    <div class="card"><div class="n">Push / Pull</div><h3>Sync</h3><p>Push sends your save points to GitHub. Pull gets everyone else's.</p></div>
+  </div>
+  <p class="muted" style="margin-top:1.2em">You'll do all of this from the VS Code sidebar. No terminal, unless you want one.</p>
+</section>
+
+<section class="slide">
+  <div class="kicker b1">Class 1 · Live demo</div>
+  <h2>Build a feature. Test it. Save it.</h2>
+  <table style="margin-top:.4em">
+    <tr><td class="w">1</td><td>Make a branch: <code>feature/…</code></td><td class="muted">"Try it somewhere safe."</td></tr>
+    <tr><td class="w">2</td><td>Tell the AI what we want. Read what it wrote.</td><td class="muted">Spec first, code second.</td></tr>
+    <tr><td class="w">3</td><td>Run the app. Click it. Does it work?</td><td class="muted">The UI is the first test.</td></tr>
+    <tr><td class="w">4</td><td>Open <code>issues/</code>. Reproduce a reported bug. Find the line. Fix it.</td><td class="muted">Errors are information.</td></tr>
+    <tr><td class="w">5</td><td>Commit with a message. Push.</td><td class="muted">Save point, synced.</td></tr>
+    <tr><td class="w">6</td><td>Merge into <code>main</code>.</td><td class="muted">Now it's part of the product.</td></tr>
+  </table>
+  <aside class="notes">Pick a tiny feature (a filter, a counter, a new column) and fix issue #0 (the warm-up bug) live. Must fit in 25 min. Narrate the AI prompt out loud. Show the diff before committing.</aside>
+</section>
+
+<section class="slide">
+  <div class="kicker b1">Class 1 · Before next week</div>
+  <h2>Clone it. Run it. Click around.</h2>
+  <ul class="clean">
+    <li>Install Python, VS Code and the extensions — the setup guide is on Moodle.</li>
+    <li>Pick your app. The two repo links are on Moodle — clone yours from the VS Code welcome screen.</li>
+    <li>Run it. If it doesn't run, post the error on the Moodle forum <b>with a screenshot</b>.</li>
+    <li>Next week your group answers a question sheet about it. Come having used the app.</li>
+  </ul>
+</section>
+
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter"></div>
+<div class="help">← → navigate · N notes · F fullscreen</div>
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=Math.max(0,Math.min(slides.length-1,(parseInt(location.hash.slice(1),10)||1)-1));
+  const progress=document.getElementById('progress'),counter=document.getElementById('counter');
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    progress.style.width=((i+1)/slides.length*100)+'%';
+    counter.textContent=(i+1)+' / '+slides.length;
+    history.replaceState(null,'','#'+(i+1));
+  }
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}
+    else if(e.key==='Home')show(0); else if(e.key==='End')show(slides.length-1);
+    else if(e.key.toLowerCase()==='n'){document.body.classList.toggle('show-notes')}
+    else if(e.key.toLowerCase()==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+  });
+  document.querySelector('.deck').addEventListener('click',e=>{ if(e.clientX>innerWidth*0.5)show(i+1); else show(i-1); });
+  let tx=null;
+  document.addEventListener('touchstart',e=>tx=e.touches[0].clientX);
+  document.addEventListener('touchend',e=>{ if(tx===null)return; const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>50)show(dx<0?i+1:i-1); tx=null; });
+  window.addEventListener('hashchange',()=>show((parseInt(location.hash.slice(1),10)||1)-1));
+  show(i);
+})();
+</script>
+</body>
+</html>

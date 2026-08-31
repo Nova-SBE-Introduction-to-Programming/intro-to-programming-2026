@@ -83,7 +83,7 @@ def weeks_index():
                      f'<span class="meta">{date}{badge}</span></li>')
     if not items:
         return ""
-    return '<section class="weeks"><h2>Weeks</h2><ul>' + "".join(items) + "</ul></section>"
+    return '<section class="weeks"><h2>Classes</h2><ul>' + "".join(items) + "</ul></section>"
 
 
 def write_page(out_path, title, content_html):
