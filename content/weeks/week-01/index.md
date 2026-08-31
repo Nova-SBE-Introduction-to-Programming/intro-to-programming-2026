@@ -10,9 +10,11 @@ Block 1 · Theory · 2026-09-01
 
 ## In class
 
-You joined a small company that already has software. We looked at what this course is (turning an idea into working software, with AI doing most of the typing), how the semester is graded, and how a developer's first day actually goes: you read code before you write any.
+You joined a small company that already has software. After a short tour of the course (what it is, how it's graded), we went straight to its core skill: **designing a workflow**. Most people who fail at building software don't fail at code — they fail at describing the process.
 
-Then we opened the two starter codebases — **SplitIt** (expense splitting) and **Tiny CRM** (contacts and deals) — and walked through how a Streamlit app is put together: `app.py` for the screens, `logic.py` for the rules, `db.py` for the data.
+The exercise: four friends on a weekend trip, paying for things at different times and in different amounts — design the workflow that ends with everyone square. Trigger, steps, decisions, and the data each step needs.
+
+Then the reveal: **SplitIt** is that workflow, built. Your nouns became the data (`db.py`), your steps became the screens (`app.py`), your decisions became the rules (`logic.py`). The second starter app, **Tiny CRM**, follows the same skeleton.
 
 ## Homework — before the practical
 

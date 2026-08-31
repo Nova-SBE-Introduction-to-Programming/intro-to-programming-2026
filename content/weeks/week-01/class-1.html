@@ -144,52 +144,52 @@
   <p class="muted" style="margin-top:1.4em">Your solo project is never submitted — it's examined. Build it well enough that you can answer for it with no laptop in front of you.</p>
 </section>
 
-<!-- 5b · Why this grading -->
-<section class="slide">
-  <div class="kicker">Evaluation · why</div>
-  <h2>You can't outsource the exam.</h2>
-  <div class="grid g3" style="margin-top:.6em">
-    <div class="card"><div class="n">No uploads</div><p>Nothing goes to Moodle. Your work lives on GitHub. Nobody chases deadlines, nobody emails about extensions.</p></div>
-    <div class="card"><div class="n">No proxies</div><p>We don't grade the solo project's code. We ask you about it. If the AI wrote it and you understood it, you'll be fine. If not, you won't.</p></div>
-    <div class="card"><div class="n">No surprises</div><p>The exam questions about your project follow a public template. You'll see it in week 5, the day you pick your case.</p></div>
-  </div>
-</section>
-
-<!-- 14 · Tools -->
-<section class="slide">
-    <div class="kicker">Tools</div>
-  <h2>The stack grows with you.</h2>
-  <div class="grid g3" style="margin-top:.6em">
-    <div class="card"><div class="n">Weeks 1–4</div><h3>Streamlit + CSV</h3><p>One Python file becomes a web app. The database is CSV files you can open and read. Simple on purpose — you can see everything.</p></div>
-    <div class="card"><div class="n">Later</div><h3>Supabase</h3><p>A real cloud database. Your app's data stops living in files on your laptop and starts living where production apps keep it.</p></div>
-    <div class="card"><div class="n">Later</div><h3>React</h3><p>A real frontend. What most of the apps you use every day are built with — and what your AI tools are best at writing.</p></div>
-  </div>
-  <div class="stack">
-    <span>Python 3.12</span><span>VS Code</span><span>GitHub Copilot <span class="muted">(free for students)</span></span><span>Cursor / Claude Code <span class="muted">(welcome)</span></span><span>GitHub</span><span>pytest</span>
-  </div>
-  <p class="muted" style="margin-top:1.2em;max-width:52ch">Git only through the VS Code UI. No terminal required — ever, unless you want it.</p>
-</section>
-
-<!-- 15 · House rules -->
-<section class="slide">
-  <div class="kicker">How we work</div>
-  <h2>Few rules. Kept.</h2>
-  <ul class="clean">
-    <li>Everything lives on Moodle: links, materials, announcements. No email threads.</li>
-    <li>Every practical ends with a TA seeing it run. Nothing is uploaded.</li>
-    <li>Use any AI you like. Paste nothing you can't explain.</li>
-    <li>Groups of 3–4, formed next week, in the room. Think about who you want.</li>
-    <li>Two moments matter: demo day, and the exam — half of which is about your own project.</li>
-  </ul>
-</section>
-
 <!-- ============ CLASS 1 · W1 · THEORY (Ricardo) ============ -->
 <section class="slide section b1">
   <div class="num">W1</div>
   <div class="kicker b1">Block 1 · Class 1 · Theory</div>
   <h2>You just got hired.</h2>
-  <p class="sub">The rest of today: meet the product, learn to ask a codebase questions, and watch a feature get built and saved with git.</p>
-  <aside class="notes">Timing: intro 10 · product 10 · engineer questions 20 · git concepts 15 · live feature demo 25 · wrap 10. Keep the intro short; the product demo is the hook.</aside>
+  <p class="sub">The rest of today: learn what a workflow is, design one yourselves, then meet the product that was built from one.</p>
+  <aside class="notes">Timing: course intro 15 · workflow concept 10 · exercise 25 · debrief 15 · product tour 15 · homework + wrap 10 = 90. The exercise is the heart of the class — protect its time.</aside>
+</section>
+
+<!-- Workflow · the concept -->
+<section class="slide">
+  <div class="kicker b1">Class 1 · The skill nobody teaches</div>
+  <h2>Every app is a workflow,<br><span class="accent">drawn precisely.</span></h2>
+  <p class="muted" style="max-width:52ch;margin-top:.6em">Most people who fail at building software don't fail at code — they fail at describing the process. AI can write the code. It cannot decide your workflow.</p>
+  <div class="grid g4" style="margin-top:1.2em">
+    <div class="card"><div class="n">Trigger</div><p>What starts it? Someone pays. A lead calls. A form arrives.</p></div>
+    <div class="card"><div class="n">Steps</div><p>What happens, in what order? One box, one action.</p></div>
+    <div class="card"><div class="n">Decisions</div><p>Where does it branch? Every branch needs an answer for both sides.</p></div>
+    <div class="card"><div class="n">Data</div><p>What does each step need to know — and where does that come from?</p></div>
+  </div>
+  <aside class="notes">Land the claim hard: this is the course's core skill. Walk one everyday example on the board first (ordering pizza: trigger → choose → pay → track → deliver, and the data each step needs) so the exercise prompt isn't the first workflow they ever see.</aside>
+</section>
+
+<!-- Workflow · the exercise -->
+<section class="slide">
+  <div class="kicker b1">Class 1 · Exercise · 20 minutes</div>
+  <h2>Design the workflow.</h2>
+  <p style="max-width:56ch;margin-top:.2em">Four friends go on a weekend trip. They pay for things at different times, in different amounts — and some things are only for some of them. <b class="accent">Design the workflow that ends with everyone square.</b></p>
+  <div class="grid g2" style="margin-top:1em">
+    <div class="card"><div class="n">Do</div><p>Groups of 3–4, paper or whiteboard. Boxes for steps, diamonds for decisions, arrows for order. For every step, write the information it needs — and where that information comes from.</p></div>
+    <div class="card"><div class="n">Rules</div><p>No code, no app names. One clear trigger, one clear end state ("everyone is square"). Every decision has both branches drawn. If a step needs data nobody wrote down earlier, your workflow has a hole.</p></div>
+  </div>
+  <aside class="notes">Walk the room. Push on the holes: What if the payer is also in the split? Who records the expense, and when? What if two people remember different amounts? Pick 2–3 groups with different shapes to present in the debrief. Common gap: they draw the happy path and skip decisions entirely.</aside>
+</section>
+
+<!-- Workflow · the debrief -->
+<section class="slide">
+  <div class="kicker b1">Class 1 · Debrief</div>
+  <h2>What you drew <span class="accent">is</span> the software.</h2>
+  <div class="grid g3" style="margin-top:.6em">
+    <div class="card"><div class="n">Your nouns</div><h3>→ data</h3><p>Trip, person, expense, share. The things your steps talk about become the tables — <code>db.py</code>.</p></div>
+    <div class="card"><div class="n">Your steps</div><h3>→ screens</h3><p>"Add an expense", "see who owes whom". Where a person acts, the app needs a screen — <code>app.py</code>.</p></div>
+    <div class="card"><div class="n">Your decisions</div><h3>→ logic</h3><p>Who's in this split? How much each? The branches and calculations become the rules — <code>logic.py</code>.</p></div>
+  </div>
+  <p class="muted" style="margin-top:1.2em;max-width:52ch">A bad workflow makes a bad app, no matter how good the AI. A precise one is already half the prompt.</p>
+  <aside class="notes">Have 2–3 groups show their drawing, 1 min each. Then point at a box in their drawing and at the matching thing in SplitIt on screen. That jump — paper to running app — is the moment of the class.</aside>
 </section>
 
 
@@ -201,68 +201,20 @@
     <div class="card"><div class="n">SplitIt</div><h3>Who owes whom</h3><p>A Splitwise clone. Groups, members, expenses, balances. Everyone has lived this at a dinner table.</p><p style="margin-top:.6em"><b>Data:</b> groups · members · expenses. <b>Half-built:</b> settle up.</p></div>
     <div class="card"><div class="n">Tiny CRM</div><h3>Leads to deals</h3><p>Leads move through stages, with notes and follow-up dates. What a sales team actually runs on.</p><p style="margin-top:.6em"><b>Data:</b> leads · notes · activities. <b>Half-built:</b> move a lead between stages.</p></div>
   </div>
-  <p class="muted" style="margin-top:1.2em">Same skeleton, same folders, same rules. Both have bugs that real users reported — you'll fix them.</p>
-  <aside class="notes">Demo both as a user, 3 min each. Say which one you'll use for the live demos (SplitIt) — CRM groups follow the same steps in their own repo.</aside>
-</section>
-
-<section class="slide">
-  <div class="kicker b1">Class 1 · The product</div>
-  <h2>Open the folder.</h2>
-  <div class="grid g3" style="margin-top:.4em">
-    <div class="card"><div class="n">As a user</div><p>Click through it. Every screen, every button. What does it do, who is it for, what's broken?</p></div>
-    <div class="card"><div class="n">As an engineer</div><p>Same app, now open the folder. Three questions: where does data live, where do screens live, where does logic live?</p></div>
-    <div class="card"><div class="n">Vocabulary</div><p>Repo · file · function · variable · database · UI · entry point · run. That's the whole dictionary for today.</p></div>
-  </div>
-  <aside class="notes">Live: run the app, use it for 3 minutes as a user. Then open VS Code and show the tree. Point at app.py / db.py / tests/. Name each folder's job in one sentence. Don't explain syntax.</aside>
-</section>
-
-<section class="slide">
-  <div class="kicker b1">Class 1 · Answering questions like an engineer</div>
-  <h2>"Where does X happen?"</h2>
-  <p class="muted" style="max-width:52ch">Every engineer joining a team spends week one asking this. Three ways to get the answer, from slowest to fastest — you'll use all three.</p>
-  <div class="grid g3" style="margin-top:1em">
-    <div class="card"><div class="n">1 · Follow the click</div><p>Find the button's text in the code. Read what it calls. Read what that calls. Stop when you hit the database.</p></div>
-    <div class="card"><div class="n">2 · Search</div><p>Search the whole project for a word from the screen. Cmd/Ctrl+Shift+F. Ugly, fast, always works.</p></div>
-    <div class="card"><div class="n">3 · Ask the AI</div><p>"Where is a user saved?" "What happens when I click Save?" Then <b>verify</b>: go to the line it names and check it's true.</p></div>
-  </div>
-  <aside class="notes">Demo all three live on the same question. Make the AI answer once slightly wrong (or ask a question where it guesses) so students see why step 3 ends with "verify".</aside>
-</section>
-
-<section class="slide">
-  <div class="kicker b1">Class 1 · Git, the concept</div>
-  <h2>Git is save points for code.</h2>
-  <div class="grid g4" style="margin-top:.4em">
-    <div class="card"><div class="n">Repo</div><h3>The project</h3><p>A folder git watches. Lives on your machine and on GitHub.</p></div>
-    <div class="card"><div class="n">Commit</div><h3>A save point</h3><p>A snapshot with a message. You can always go back to it.</p></div>
-    <div class="card"><div class="n">Branch</div><h3>A parallel copy</h3><p>Try something without touching the version that works. Merge it back when it does.</p></div>
-    <div class="card"><div class="n">Push / Pull</div><h3>Sync</h3><p>Push sends your save points to GitHub. Pull gets everyone else's.</p></div>
-  </div>
-  <p class="muted" style="margin-top:1.2em">You'll do all of this from the VS Code sidebar. No terminal, unless you want one.</p>
-</section>
-
-<section class="slide">
-  <div class="kicker b1">Class 1 · Live demo</div>
-  <h2>Build a feature. Test it. Save it.</h2>
-  <table style="margin-top:.4em">
-    <tr><td class="w">1</td><td>Make a branch: <code>feature/…</code></td><td class="muted">"Try it somewhere safe."</td></tr>
-    <tr><td class="w">2</td><td>Tell the AI what we want. Read what it wrote.</td><td class="muted">Spec first, code second.</td></tr>
-    <tr><td class="w">3</td><td>Run the app. Click it. Does it work?</td><td class="muted">The UI is the first test.</td></tr>
-    <tr><td class="w">4</td><td>Open <code>issues/</code>. Reproduce a reported bug. Find the line. Fix it.</td><td class="muted">Errors are information.</td></tr>
-    <tr><td class="w">5</td><td>Commit with a message. Push.</td><td class="muted">Save point, synced.</td></tr>
-    <tr><td class="w">6</td><td>Merge into <code>main</code>.</td><td class="muted">Now it's part of the product.</td></tr>
-  </table>
-  <aside class="notes">Pick a tiny feature (a filter, a counter, a new column) and fix issue #0 (the warm-up bug) live. Must fit in 25 min. Narrate the AI prompt out loud. Show the diff before committing.</aside>
+  <p class="muted" style="margin-top:1.2em">SplitIt is the workflow you just designed — built. Same skeleton, same folders, same rules in both. Both have bugs that real users reported — you'll fix them.</p>
+  <aside class="notes">Demo both as a user, 3 min each, connecting SplitIt screens back to the boxes the groups drew. Say which one the live demos will use (SplitIt) — CRM groups follow the same steps in their own repo.</aside>
 </section>
 
 <section class="slide">
   <div class="kicker b1">Class 1 · Before next week</div>
-  <h2>Clone it. Run it. Click around.</h2>
+  <h2>Get it running on your machine.</h2>
   <ul class="clean">
-    <li>Install Python, VS Code and the extensions — the setup guide is on Moodle.</li>
-    <li>Pick your app. The two repo links are on Moodle — clone yours from the VS Code welcome screen.</li>
-    <li>Run it. If it doesn't run, post the error on the Moodle forum <b>with a screenshot</b>.</li>
-    <li>Next week your group answers a question sheet about it. Come having used the app.</li>
+    <li><b>Download Cursor</b> — or any IDE you prefer. The setup guide on the course site covers Python, the editor and GitHub.</li>
+    <li><b>Get one of the repositories on your computer.</b> Pick your app with your group and clone it through your IDE — links on Moodle.</li>
+    <li><b>Make sure you can interact with the codebase.</b> Run it, click around, ask the AI a question about the code.</li>
+    <li>If it doesn't run, post the error on the Moodle forum <b>with a screenshot</b>. Next week your group answers a question sheet about it.</li>
   </ul>
+  <p class="muted" style="margin-top:1.2em">Groups of 3–4 form next week, in the room. Think about who you want.</p>
 </section>
 
 
