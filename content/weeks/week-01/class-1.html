@@ -111,26 +111,38 @@
   <div class="kicker">The semester at a glance</div>
   <h2>Three blocks, then you present.</h2>
   <div class="tl">
-    <div class="w b1 t">W1<small>Tour + git</small></div>
-    <div class="w b1">W2<small>Ask the code</small></div>
-    <div class="w b1 t">W3<small>Read a feature</small></div>
-    <div class="w b1">W4<small>Build it</small></div>
-    <div class="w b2 t">W5<small>Solo brief</small></div>
-    <div class="w b2">W6<small>Build</small></div>
-    <div class="w b2">W7<small>Build</small></div>
-    <div class="w b3 t">W8<small>Team brief</small></div>
-    <div class="w b3">W9<small>Sprint 1</small></div>
-    <div class="w b3">W10<small>Sprint 2</small></div>
-    <div class="w pres">W11<small>Demos</small></div>
-    <div class="w pres">W12<small>Demos</small></div>
+    <div class="w b1">W1</div>
+    <div class="w b1">W2</div>
+    <div class="w b1">W3</div>
+    <div class="w b1">W4</div>
+    <div class="w b2">W5</div>
+    <div class="w b2">W6</div>
+    <div class="w b2">W7</div>
+    <div class="w b3">W8</div>
+    <div class="w b3">W9</div>
+    <div class="w b3">W10</div>
+    <div class="w pres">W11</div>
+    <div class="w pres">W12</div>
   </div>
   <div class="legend">
     <span class="l1">Block 1 · Join the company</span>
     <span class="l2">Block 2 · Solo project</span>
     <span class="l3">Block 3 · Team project</span>
     <span class="l4">Presentations</span>
-    <span class="lt">Theory class</span>
   </div>
+  <p class="muted" style="margin-top:1.6em;max-width:52ch">Block 2: build one of three cases, alone. Block 3: your team extends the best of your solo projects. Details when we get there.</p>
+</section>
+
+<!-- Block 1 · the four classes -->
+<section class="slide">
+  <div class="kicker b1">Block 1 · The next four weeks</div>
+  <h2>Four classes. Theory, then practice.</h2>
+  <table style="margin-top:.4em">
+    <tr><td class="w">1</td><td><span class="pill t">THEORY</span></td><td><b>Introduction and workflow design</b> <span class="muted">— today.</span></td></tr>
+    <tr><td class="w">2</td><td><span class="pill p">PRACTICAL</span></td><td><b>Going through the apps + asking questions</b> <span class="muted">— open the codebase, interrogate it.</span></td></tr>
+    <tr><td class="w">3</td><td><span class="pill t">THEORY</span></td><td><b>How to build a feature, and git</b> <span class="muted">— watch one get built and saved.</span></td></tr>
+    <tr><td class="w">4</td><td><span class="pill p">PRACTICAL</span></td><td><b>Build it yourself, and git</b> <span class="muted">— your turn.</span></td></tr>
+  </table>
 </section>
 
 <!-- 5 · Evaluation -->
@@ -149,8 +161,8 @@
   <div class="num">W1</div>
   <div class="kicker b1">Block 1 · Class 1 · Theory</div>
   <h2>You just got hired.</h2>
-  <p class="sub">The rest of today: learn what a workflow is, design one yourselves, then meet the product that was built from one.</p>
-  <aside class="notes">Timing: course intro 15 · workflow concept 10 · exercise 25 · debrief 15 · product tour 15 · homework + wrap 10 = 90. The exercise is the heart of the class — protect its time.</aside>
+  <p class="sub">The rest of today: learn what a workflow is, then design one yourselves. The apps come next week — in the first practical.</p>
+  <aside class="notes">Timing: course intro 20 · workflow concept 10 · exercise 30 · debrief 20 · homework + wrap 10 = 90. No product tour today — that's Class 2. The exercise is the heart of the class; protect its time.</aside>
 </section>
 
 <!-- Workflow · the concept -->
@@ -188,31 +200,20 @@
     <div class="card"><div class="n">Your steps</div><h3>→ screens</h3><p>"Add an expense", "see who owes whom". Where a person acts, the app needs a screen — <code>app.py</code>.</p></div>
     <div class="card"><div class="n">Your decisions</div><h3>→ logic</h3><p>Who's in this split? How much each? The branches and calculations become the rules — <code>logic.py</code>.</p></div>
   </div>
-  <p class="muted" style="margin-top:1.2em;max-width:52ch">A bad workflow makes a bad app, no matter how good the AI. A precise one is already half the prompt.</p>
-  <aside class="notes">Have 2–3 groups show their drawing, 1 min each. Then point at a box in their drawing and at the matching thing in SplitIt on screen. That jump — paper to running app — is the moment of the class.</aside>
+  <p class="muted" style="margin-top:1.2em;max-width:52ch">A bad workflow makes a bad app, no matter how good the AI. A precise one is already half the prompt. Next class, you'll open an app that was built from exactly this workflow.</p>
+  <aside class="notes">Have 2–3 groups show their drawing, 1 min each. Compare shapes: where did they branch, what data did they name. Don't open the app — the paper-to-running-app reveal belongs to Class 2. End on the teaser.</aside>
 </section>
 
 
-
-<section class="slide">
-  <div class="kicker b1">Class 1 · The products</div>
-  <h2>Two apps. Your group picks one.</h2>
-  <div class="grid g2" style="margin-top:.4em">
-    <div class="card"><div class="n">SplitIt</div><h3>Who owes whom</h3><p>A Splitwise clone. Groups, members, expenses, balances. Everyone has lived this at a dinner table.</p><p style="margin-top:.6em"><b>Data:</b> groups · members · expenses. <b>Half-built:</b> settle up.</p></div>
-    <div class="card"><div class="n">Tiny CRM</div><h3>Leads to deals</h3><p>Leads move through stages, with notes and follow-up dates. What a sales team actually runs on.</p><p style="margin-top:.6em"><b>Data:</b> leads · notes · activities. <b>Half-built:</b> move a lead between stages.</p></div>
-  </div>
-  <p class="muted" style="margin-top:1.2em">SplitIt is the workflow you just designed — built. Same skeleton, same folders, same rules in both. Both have bugs that real users reported — you'll fix them.</p>
-  <aside class="notes">Demo both as a user, 3 min each, connecting SplitIt screens back to the boxes the groups drew. Say which one the live demos will use (SplitIt) — CRM groups follow the same steps in their own repo.</aside>
-</section>
 
 <section class="slide">
   <div class="kicker b1">Class 1 · Before next week</div>
   <h2>Get it running on your machine.</h2>
   <ul class="clean">
     <li><b>Download Cursor</b> — or any IDE you prefer. The setup guide on the course site covers Python, the editor and GitHub.</li>
-    <li><b>Get one of the repositories on your computer.</b> Pick your app with your group and clone it through your IDE — links on Moodle.</li>
+    <li><b>Get one of the repositories on your computer</b> — SplitIt (who owes whom) or Tiny CRM (leads to deals). Links on Moodle; clone through your IDE.</li>
     <li><b>Make sure you can interact with the codebase.</b> Run it, click around, ask the AI a question about the code.</li>
-    <li>If it doesn't run, post the error on the Moodle forum <b>with a screenshot</b>. Next week your group answers a question sheet about it.</li>
+    <li>If it doesn't run, post the error on the Moodle forum <b>with a screenshot</b>. We go through the apps together next class.</li>
   </ul>
   <p class="muted" style="margin-top:1.2em">Groups of 3–4 form next week, in the room. Think about who you want.</p>
 </section>

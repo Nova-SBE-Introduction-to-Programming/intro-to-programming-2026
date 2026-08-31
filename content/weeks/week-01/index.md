@@ -14,7 +14,7 @@ You joined a small company that already has software. After a short tour of the 
 
 The exercise: four friends on a weekend trip, paying for things at different times and in different amounts — design the workflow that ends with everyone square. Trigger, steps, decisions, and the data each step needs.
 
-Then the reveal: **SplitIt** is that workflow, built. Your nouns became the data (`db.py`), your steps became the screens (`app.py`), your decisions became the rules (`logic.py`). The second starter app, **Tiny CRM**, follows the same skeleton.
+The debrief: what you drew *is* the software. Your nouns become the data, your steps become the screens, your decisions become the rules. Next class — the first practical — we go through the two starter apps together and you'll see your workflow running: **SplitIt** (who owes whom) or **Tiny CRM** (leads to deals).
 
 ## Homework — before the practical
 

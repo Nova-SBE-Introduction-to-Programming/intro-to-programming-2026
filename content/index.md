@@ -14,10 +14,19 @@ The semester runs like a developer onboarding: read a codebase first, build alon
 
 | Block | Weeks | What happens |
 |---|---|---|
-| **1 · Join the company** | 1–4 | You get hired into a small company with an existing codebase (SplitIt or Tiny CRM). You read it, find the planted bugs, ship features from PM specs, and deploy. |
-| **2 · Solo project** | 5–7 | You pick one of three cases and build it alone on the same skeleton. Never submitted — examined. |
-| **3 · Team project** | 8–10 | Open scope. Groups pick the strongest solo project among their members and extend it together. |
+| **1 · Join the company** | 1–4 | You get hired into a small company with an existing codebase (SplitIt or Tiny CRM). You learn to design workflows, read the code, and ship a feature. |
+| **2 · Solo project** | 5–7 | You build a small app alone on the same skeleton. Never submitted — examined. Details in week 5. |
+| **3 · Team project** | 8–10 | Open scope: your team extends the best of your solo projects. Details in week 8. |
 | **Presentations** | 11–12 | Live demo at a deployed URL + code walkthrough. Half the groups each week. |
+
+### Block 1 — the four classes
+
+| # | Type | Class |
+|---|---|---|
+| 1 | Theory | Introduction and workflow design |
+| 2 | Practical | Going through the apps + asking questions |
+| 3 | Theory | How to build a feature, and git |
+| 4 | Practical | Build it yourself, and git |
 
 ## Before you start
 
