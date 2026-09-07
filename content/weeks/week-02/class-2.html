@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intro to Programming · Class 2</title>
+<style>
+  :root{
+    --bg:#0f1115; --bg2:#161a22; --fg:#f2f3f5; --muted:#9aa3b2; --line:#2a3040;
+    --accent:#ff6a3d; --accent2:#5ad1b3; --accent3:#f5c542;
+    --b1:#5ad1b3; --b2:#f5c542; --b3:#ff6a3d; --pres:#b28dff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+  .slide{position:absolute;inset:0;padding:6vh 8vw;display:none;flex-direction:column;justify-content:center;
+    opacity:0;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease}
+  .slide.active{display:flex;opacity:1;transform:none}
+  h1{font-size:clamp(40px,6.5vw,88px);line-height:1.02;margin:0 0 .3em;letter-spacing:-.02em;font-weight:800}
+  h2{font-size:clamp(30px,4.2vw,58px);line-height:1.08;margin:0 0 .5em;letter-spacing:-.02em;font-weight:800}
+  h3{font-size:clamp(18px,1.8vw,26px);margin:0 0 .4em;font-weight:700}
+  p,li{font-size:clamp(17px,1.6vw,24px);line-height:1.45;margin:0}
+  p+p{margin-top:.6em}
+  .muted{color:var(--muted)}
+  .kicker{font-size:clamp(13px,1.1vw,16px);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:1.2em}
+  .kicker.b1{color:var(--b1)} .kicker.b2{color:var(--b2)} .kicker.b3{color:var(--b3)} .kicker.pres{color:var(--pres)}
+  .big{font-size:clamp(26px,3vw,42px);line-height:1.25;font-weight:600;max-width:22ch}
+  .accent{color:var(--accent)}
+  .grid{display:grid;gap:clamp(12px,1.6vw,24px)}
+  .g2{grid-template-columns:1fr 1fr} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:clamp(14px,1.8vw,26px)}
+  .card h3{margin-bottom:.35em}
+  .card p{font-size:clamp(15px,1.25vw,19px);color:#c9d0db}
+  .card .n{font-size:clamp(11px,.95vw,13px);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.6em;font-weight:700}
+  .tbd{border:1px dashed var(--accent3);color:var(--accent3);border-radius:8px;padding:.15em .5em;font-size:.85em;font-weight:700;white-space:nowrap}
+  .tbd-card{border-style:dashed;border-color:var(--accent3)}
+  /* timeline */
+  .tl{display:grid;grid-template-columns:repeat(12,1fr);gap:8px;margin-top:2vh}
+  .tl .w{height:clamp(64px,9vh,96px);border-radius:12px;display:flex;flex-direction:column;justify-content:space-between;padding:10px 10px;font-size:clamp(12px,1vw,15px);font-weight:700;color:#0f1115}
+  .tl .w small{font-weight:600;opacity:.8;font-size:.85em}
+  .w.b1{background:var(--b1)} .w.b2{background:var(--b2)} .w.b3{background:var(--b3)} .w.pres{background:var(--pres)}
+  .w.t{outline:3px solid rgba(255,255,255,.55);outline-offset:-3px}
+  .legend{display:flex;gap:2.2em;margin-top:2.2vh;font-size:clamp(13px,1.15vw,17px);color:var(--muted)}
+  .legend span::before{content:"";display:inline-block;width:.9em;height:.9em;border-radius:4px;margin-right:.5em;vertical-align:-1px}
+  .legend .l1::before{background:var(--b1)} .legend .l2::before{background:var(--b2)} .legend .l3::before{background:var(--b3)} .legend .l4::before{background:var(--pres)}
+  .legend .lt::before{background:transparent;outline:3px solid rgba(255,255,255,.55);outline-offset:-3px}
+  /* tables */
+  table{border-collapse:collapse;width:100%;font-size:clamp(15px,1.35vw,21px)}
+  th,td{text-align:left;padding:.55em .8em;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:700;font-size:.8em;letter-spacing:.12em;text-transform:uppercase}
+  td.w{width:3.5em;color:var(--muted);font-weight:700}
+  .pill{display:inline-block;padding:.1em .55em;border-radius:999px;font-size:.75em;font-weight:800;letter-spacing:.06em;color:#0f1115}
+  .pill.t{background:#fff} .pill.p{background:var(--muted)}
+  /* section slides */
+  .section{justify-content:flex-end}
+  .section .num{font-size:clamp(90px,16vw,220px);font-weight:900;line-height:.9;letter-spacing:-.05em;opacity:.18}
+  .section.b1 .num{color:var(--b1)} .section.b2 .num{color:var(--b2)} .section.b3 .num{color:var(--b3)} .section.pres .num{color:var(--pres)}
+  .section h2{max-width:16ch}
+  .section .sub{font-size:clamp(18px,1.8vw,26px);color:var(--muted);max-width:40ch}
+  /* misc */
+  .rule{display:grid;grid-template-columns:auto 1fr;gap:1.2em;align-items:baseline;margin-top:.9em}
+  .rule b{color:var(--accent);font-size:1.3em}
+  ul.clean{list-style:none;padding:0;margin:.4em 0 0}
+  ul.clean li{padding:.35em 0 .35em 1.4em;position:relative}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--accent)}
+  .stack{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em}
+  .stack span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.35em .9em;font-size:clamp(14px,1.2vw,18px);font-weight:600}
+  .foot{position:absolute;left:8vw;right:8vw;bottom:3.5vh;display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+  .progress{position:fixed;left:0;bottom:0;height:3px;background:var(--accent);width:0;transition:width .3s}
+  .counter{position:fixed;right:18px;bottom:12px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .help{position:fixed;left:18px;bottom:12px;font-size:12px;color:var(--muted)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--bg2);border:1px solid var(--line);padding:.1em .4em;border-radius:6px;font-size:.9em}
+  @media (max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}.tl{grid-template-columns:repeat(6,1fr)}.slide{padding:5vh 6vw;justify-content:flex-start;overflow:auto}}
+  @media print{.slide{display:flex!important;opacity:1!important;transform:none!important;position:relative;height:100vh;page-break-after:always}.progress,.counter,.help{display:none}}
+  .notes{display:none;position:absolute;left:8vw;right:8vw;bottom:9vh;background:#1d2230;border-left:4px solid var(--accent3);padding:.8em 1em;font-size:15px;line-height:1.45;color:#dfe4ec;border-radius:8px}
+  body.show-notes .slide.active .notes{display:block}
+</style>
+</head>
+<body>
+<div class="deck">
+<!-- 1 · Title -->
+<section class="slide section b1">
+  <div class="num">W2</div>
+  <div class="kicker b1">Block 1 · Class 2 · Practical</div>
+  <h2>Meet the code.</h2>
+  <p class="sub">Last week you drew a workflow on paper. Today you open the app built from it.</p>
+  <aside class="notes">TA-run, informal. Timing: get it running 15 · product tour + folder + concepts 20 · one question answered live 10 · question sheet in groups 40 · wrap 5 = 90. Everything is local today — no git, no GitHub, no forms. Students sit in groups of 3–4 of their own choosing.</aside>
+</section>
+
+<!-- 2 · Today -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · Today</div>
+  <h2>What we'll do.</h2>
+  <table style="margin-top:.4em">
+    <tr><td class="w">1</td><td><b>Product tour</b> <span class="muted">— the app as a user, then the folder behind it.</span></td></tr>
+    <tr><td class="w">2</td><td><b>Get the repo</b> <span class="muted">— ZIP → Cursor → running in your browser.</span></td></tr>
+    <tr><td class="w">3</td><td><b>Concepts to explore</b> <span class="muted">— six words you need to read the code.</span></td></tr>
+    <tr><td class="w">4</td><td><b>The question sheet</b> <span class="muted">— ten questions. One live, nine in your group.</span></td></tr>
+  </table>
+  <p class="muted" style="margin-top:1.2em">Groups of 3–4, one screen per group.</p>
+</section>
+
+<!-- 3 · Get it running -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · Get it running</div>
+  <h2>Four steps. Local only.</h2>
+  <table style="margin-top:.2em">
+    <tr><td class="w">1</td><td><b>Go to the course site → Week 2.</b> <span class="muted">Same links are on Moodle.</span></td></tr>
+    <tr><td class="w">2</td><td><b>Download your app's ZIP</b> (<code>splitit.zip</code> or <code>tiny-crm.zip</code>) and unzip it into a folder you'll find again.</td></tr>
+    <tr><td class="w">3</td><td><b>Open the folder in Cursor.</b> <code>File → Open Folder…</code> You should see <code>app.py</code> in the sidebar.</td></tr>
+    <tr><td class="w">4</td><td><b>Run it.</b> <code>Terminal → New Terminal</code>, then <code>pip install -r requirements.txt</code> and <code>streamlit run app.py</code>.</td></tr>
+  </table>
+  <p class="muted" style="margin-top:1.2em;max-width:56ch">Cloned it last week? That works too. Everything stays on your laptop today.</p>
+  <aside class="notes">Give this 15 min. Walk the room; the triage table is in the TA guide. macOS: python3 / pip3. Windows: if `python` opens the Store, Python was installed without PATH. "streamlit not recognised": open a new terminal, or `python -m streamlit run app.py`. Anyone still stuck pairs with a working laptop and fixes it during group time.</aside>
+</section>
+
+<!-- 4 · Product tour: the reveal -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · Product tour</div>
+  <h2>Your drawing, <span class="accent">running.</span></h2>
+  <p style="max-width:56ch;margin-top:.2em">Last week's trip workflow, as software. Same steps, same decisions, same data.</p>
+  <div class="grid g3" style="margin-top:1em">
+    <div class="card"><div class="n">Your nouns</div><h3>→ <code>data/</code></h3><p>Group, member, expense. Three CSV files. That's the whole database.</p></div>
+    <div class="card"><div class="n">Your steps</div><h3>→ <code>app.py</code></h3><p>One function per screen. Where a person acts, there's a button.</p></div>
+    <div class="card"><div class="n">Your decisions</div><h3>→ <code>logic.py</code></h3><p>Who's in the split, how much each, who owes whom. The rules, as functions.</p></div>
+  </div>
+  <aside class="notes">SplitIt as a user, 3 min: open Casa da Lapa, add an expense, then show data/expenses.csv in Cursor — a new line appeared. That's the "aha". Tiny CRM 2 min: pipeline, open a lead, move it to the next stage, show leads.csv. Same skeleton, same folders. Point at what's visibly broken (title says "Group 2"; balances are raw numbers next to ids) without fixing anything.</aside>
+</section>
+
+<!-- 5 · Two apps -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · Product tour</div>
+  <h2>Two apps. Same skeleton.</h2>
+  <div class="grid g2" style="margin-top:.6em">
+    <div class="card"><div class="n">SplitIt</div><h3>Who owes whom</h3><p>Groups have members, members pay for things, the app works out balances. Tables: <code>groups</code> · <code>members</code> · <code>expenses</code>. Half-built: settle up.</p></div>
+    <div class="card"><div class="n">Tiny CRM</div><h3>Leads to deals</h3><p>Leads move through stages, with notes, activities and follow-up dates. Tables: <code>leads</code> · <code>notes</code> · <code>activities</code>. Half-built: move a lead to any stage.</p></div>
+  </div>
+  <p class="muted" style="margin-top:1.4em;max-width:56ch">Both have user-reported bugs in <code>issues/</code> and the same question sheet, <code>ONBOARDING.md</code>. Demos use SplitIt; CRM groups follow along in their own folder.</p>
+</section>
+
+<!-- 6 · The folder -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · The folder</div>
+  <h2>Eight things.</h2>
+  <table style="margin-top:.2em;font-size:clamp(14px,1.25vw,19px)">
+    <tr><td class="w"><code>app.py</code></td><td>The screens. What <code>streamlit run app.py</code> starts.</td></tr>
+    <tr><td class="w"><code>logic.py</code></td><td>The rules. Balances, stages, searches, validation.</td></tr>
+    <tr><td class="w"><code>db.py</code></td><td>Reads and writes the CSV files. Nothing else touches them.</td></tr>
+    <tr><td class="w"><code>data/</code></td><td>The live database. <code>seed/</code> is the pristine copy; <code>python seed.py</code> restores it.</td></tr>
+    <tr><td class="w"><code>tests/</code></td><td>Small programs that check the app. Next week.</td></tr>
+    <tr><td class="w"><code>issues/</code></td><td>Four bug reports from users. You fix #1 today.</td></tr>
+    <tr><td class="w"><code>specs/</code></td><td>Feature requests from the product manager. Next week.</td></tr>
+    <tr><td class="w"><code>ONBOARDING.md</code></td><td>Your question sheet. Answer inside the file.</td></tr>
+  </table>
+  <aside class="notes">Show the tree in the Cursor sidebar, one sentence per item, no syntax. Open db.py and point at COLUMNS: "these are the tables". Don't run pytest today — tests are Class 3.</aside>
+</section>
+
+<!-- 7 · Concepts -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · Concepts to explore today</div>
+  <h2>Six words.</h2>
+  <div class="grid g3" style="margin-top:.6em">
+    <div class="card"><div class="n">File</div><p>One <code>.py</code> file, one job. <code>app.py</code> screens, <code>logic.py</code> rules, <code>db.py</code> storage.</p></div>
+    <div class="card"><div class="n">Function</div><p>A named block that does one thing: <code>def add_expense(...)</code>. Read the name and the docstring first.</p></div>
+    <div class="card"><div class="n">Call</div><p>One function using another: <code>logic.add_expense(...)</code> inside <code>app.py</code>.</p></div>
+    <div class="card"><div class="n">Table</div><p>A CSV file: the first line is the columns, each other line a row.</p></div>
+    <div class="card"><div class="n">Entry point</div><p>The file that runs first. Here, <code>app.py</code>.</p></div>
+    <div class="card"><div class="n">Validation</div><p>A check before saving: <code>is_valid_name</code>. Without it, bad data gets in.</p></div>
+  </div>
+  <aside class="notes">Point at one real example of each in the code, 20 seconds each. No definitions beyond this. "Variable" and "loop" come up naturally when they read compute_balances — name them when they ask.</aside>
+</section>
+
+<!-- 8 · Where does X happen -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · The question every new engineer asks</div>
+  <h2>"Where does X happen?"</h2>
+  <p class="muted" style="max-width:52ch;margin-top:.2em">Three ways to find out.</p>
+  <div class="grid g3" style="margin-top:1em">
+    <div class="card"><div class="n">1 · Follow the click</div><p>Find the button's text in <code>app.py</code>. Read what it calls. Read what <i>that</i> calls. Stop when you reach <code>db.py</code>.</p></div>
+    <div class="card"><div class="n">2 · Search</div><p>Search the project for a word you see on screen. <code>Cmd/Ctrl + Shift + F</code>.</p></div>
+    <div class="card"><div class="n">3 · Ask the AI</div><p>Ask Cursor's chat, then <b class="accent">verify</b>: open the line it names.</p></div>
+  </div>
+</section>
+
+<!-- 9 · The sheet -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · The question sheet</div>
+  <h2><code>ONBOARDING.md</code> — in your folder.</h2>
+  <div class="grid g2" style="margin-top:.6em">
+    <div class="card"><div class="n">Ask the code · Q1–6</div><p>1 · what the app does &nbsp;·&nbsp; 2 · which file runs first &nbsp;·&nbsp; 3 · where the data lives &nbsp;·&nbsp; 4 · which function a button runs &nbsp;·&nbsp; 5 · a function used twice &nbsp;·&nbsp; 6 · what happens with bad input.</p></div>
+    <div class="card"><div class="n">Verify the AI · Q7–10</div><p>7 · ask the AI what happens when you do X, then do X &nbsp;·&nbsp; 8 · make it explain a function, catch what it glossed over &nbsp;·&nbsp; 9 · <b>bug #1</b>: reproduce, find the line, fix it &nbsp;·&nbsp; 10 · three questions for the developer who left.</p></div>
+  </div>
+  <p class="muted" style="margin-top:1.2em;max-width:56ch">Answer inside the file. Every answer says <b>where you checked</b>: a file and line, or what you clicked.</p>
+  <aside class="notes">Open ONBOARDING.md on screen and scroll through it once. It's the same shape for both apps; the specifics (function names, the bug) differ.</aside>
+</section>
+
+<!-- 10 · One question live -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · Live · Question 4</div>
+  <h2>"Click Add expense. Which function runs?<br>Which function does <i>that</i> call to save it?"</h2>
+  <table style="margin-top:.4em">
+    <tr><td class="w">1</td><td><b>Follow the click.</b> Search <code>app.py</code> for "Add expense". It's inside <code>show_expenses</code>. The line under the button calls <code>logic.add_expense(...)</code>.</td></tr>
+    <tr><td class="w">2</td><td><b>Follow the call.</b> Open <code>logic.py</code>, find <code>def add_expense</code>. It builds a row and calls <code>db.append_row("expenses", ...)</code>.</td></tr>
+    <tr><td class="w">3</td><td><b>Stop at the database.</b> <code>db.py</code>, <code>append_row</code>: opens <code>data/expenses.csv</code> and writes one line. Done.</td></tr>
+    <tr><td class="w">4</td><td><b>Now ask the AI</b> the same question. Did it name the same three functions?</td></tr>
+  </table>
+  <p class="muted" style="margin-top:1em">A good answer: <i>"show_expenses (app.py, line 80) → logic.add_expense (logic.py, line 54) → db.append_row (db.py, line 42). Verified by reading the three lines."</i></p>
+  <aside class="notes">Do it exactly in this order, on SplitIt, with the files open side by side. Then type the answer into ONBOARDING.md on screen so they see what "answer with a location" looks like. CRM equivalent: "Move to next stage" → show_stage_buttons (app.py 111) → logic.move_to_next_stage (logic.py 106) → save_lead → db.save_table.</aside>
+</section>
+
+<!-- 11 · Examples: ask the code -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · What a good answer looks like · Ask the code</div>
+  <h2>Say where you looked.</h2>
+  <table style="margin-top:.2em;font-size:clamp(14px,1.25vw,19px)">
+    <tr><td class="w">Q2</td><td><b>Which file runs first?</b> <span class="muted">Weak: "app.py".</span> Good: "app.py — it's what <code>streamlit run app.py</code> starts, and the last line of the file calls <code>main()</code>, which picks the screen."</td></tr>
+    <tr><td class="w">Q5</td><td><b>A function used in more than one place.</b> <span class="muted">Weak: "get_group_members, it's reused".</span> Good: "called at app.py 35, 46, 70 and logic.py 87, 105. Fix it once, it's right everywhere."</td></tr>
+    <tr><td class="w">Q6</td><td><b>Bad input.</b> <span class="muted">Weak: "it gives an error".</span> Good: "I added an expense of 0 and one of −20: both saved, no message. <code>add_expense</code> in logic.py has no check — compare with <code>is_valid_name</code>, which members do have."</td></tr>
+  </table>
+  <aside class="notes">Go through these three quickly (2 min). The pattern to land: a claim + where you saw it + what you did. CRM versions of each are in the TA guide answer key.</aside>
+</section>
+
+<!-- 12 · Examples: verify the AI -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · What a good answer looks like · Verify the AI</div>
+  <h2>Ask. Then do it. Then compare.</h2>
+  <table style="margin-top:.2em;font-size:clamp(14px,1.25vw,19px)">
+    <tr><td class="w">Q7</td><td><b>"What happens to the balances when I delete a member who paid?"</b> Paste the AI's answer. Then remove João from Jantar de Curso and write what actually happened. Was the AI right?</td></tr>
+    <tr><td class="w">Q8</td><td><b>"Explain compute_balances."</b> Compare the comment inside the function with what the code does. Where did the AI just repeat the comment?</td></tr>
+    <tr><td class="w">Q9</td><td><b>Bug #1, <code>issues/001.md</code>.</b> See the wrong number on screen. Find the line, fix it, see the right number. Show the TA before and after.</td></tr>
+  </table>
+  <aside class="notes">Q7 is the moment of the class: the AI answers confidently, the app crashes. Let them discover it; `python seed.py` brings the data back. Q9 fixes are in the TA guide. If a group asks "how do we save this for good?", the answer is "next week — that's what git is for; don't delete the folder".</aside>
+</section>
+
+<!-- 13 · Your turn -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · 40 minutes · Your turn</div>
+  <h2>One screen. Everyone steers.</h2>
+  <ul class="clean">
+    <li><b>Rotate who types.</b> Everyone should be able to run the app by the end.</li>
+    <li><b>Guess first, then ask the AI.</b> Compare.</li>
+    <li><b>Write where you checked.</b> <code>logic.py</code> line 39, or "clicked Add expense with amount 0".</li>
+    <li><b>Reproduce the bug before you fix it.</b></li>
+  </ul>
+  <p class="muted" style="margin-top:1.2em">Broke the data? <code>python seed.py</code> puts it back.</p>
+  <aside class="notes">Roam. Never answer a sheet question — reply "what did the AI say, and did you check?" Fast groups: issues/002.md (reproduce and locate, no need to fix), or find the half-built function in logic.py (docstring + TODO) and write what it's meant to do.</aside>
+</section>
+
+<!-- 14 · Stuck -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · When you're stuck</div>
+  <h2>In this order.</h2>
+  <table style="margin-top:.2em">
+    <tr><td class="w">1</td><td><b>Read the error.</b> The last line says what went wrong; the line above it says where.</td></tr>
+    <tr><td class="w">2</td><td><b>Paste it to the AI</b> and ask it to <i>explain</i> before it fixes anything.</td></tr>
+    <tr><td class="w">3</td><td><b>Ask the group next to you.</b></td></tr>
+    <tr><td class="w">4</td><td><b>Ask the TA</b>, with the error on screen.</td></tr>
+  </table>
+</section>
+
+<!-- 15 · Before next week -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · Before next week</div>
+  <h2>Keep the folder. Next week it becomes a repo.</h2>
+  <ul class="clean">
+    <li><b>Finish the sheet</b> in <code>ONBOARDING.md</code>.</li>
+    <li><b>Don't delete or rename the folder.</b> It becomes your first commit next week.</li>
+    <li><b>Get the app running on your laptop.</b> Stuck? Moodle forum, with a screenshot.</li>
+    <li><b>Read <code>specs/feature-1</code>.</b> That's what we build in Class 3.</li>
+  </ul>
+</section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter"></div>
+<div class="help">← → navigate · N notes · F fullscreen</div>
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=Math.max(0,Math.min(slides.length-1,(parseInt(location.hash.slice(1),10)||1)-1));
+  const progress=document.getElementById('progress'),counter=document.getElementById('counter');
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    progress.style.width=((i+1)/slides.length*100)+'%';
+    counter.textContent=(i+1)+' / '+slides.length;
+    history.replaceState(null,'','#'+(i+1));
+  }
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}
+    else if(e.key==='Home')show(0); else if(e.key==='End')show(slides.length-1);
+    else if(e.key.toLowerCase()==='n'){document.body.classList.toggle('show-notes')}
+    else if(e.key.toLowerCase()==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+  });
+  document.querySelector('.deck').addEventListener('click',e=>{ if(e.clientX>innerWidth*0.5)show(i+1); else show(i-1); });
+  let tx=null;
+  document.addEventListener('touchstart',e=>tx=e.touches[0].clientX);
+  document.addEventListener('touchend',e=>{ if(tx===null)return; const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>50)show(dx<0?i+1:i-1); tx=null; });
+  window.addEventListener('hashchange',()=>show((parseInt(location.hash.slice(1),10)||1)-1));
+  show(i);
+})();
+</script>
+</body>
+</html>

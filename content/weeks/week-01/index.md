@@ -22,4 +22,4 @@ The debrief: what you drew *is* the software. Your nouns become the data, your s
 2. **Get one of the repositories on your computer.** Pick your app with your group — SplitIt or Tiny CRM, both the same size — and clone it through your IDE (the repository links are in Moodle).
 3. **Make sure you can interact with the codebase.** Open the folder in your IDE, run the app (`pip install -r requirements.txt`, then `streamlit run app.py`), click around for ten minutes as if you were a user, and try asking the AI a question about the code. Note two things that surprised you and one thing you would change — bring the notes to the practical.
 
-The slides from class are in the materials below. The deck (`class-1.html`) will be dropped into this folder when it is final.
+The slides from class are in the materials below.
