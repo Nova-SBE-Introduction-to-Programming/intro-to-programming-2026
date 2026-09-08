@@ -27,7 +27,7 @@ Cloned the repo last week instead? That works too.
 
 The product tour: the workflow you drew last week, running. Your nouns became `data/`, your steps became `app.py`, your decisions became `logic.py`. Then the folder behind the screens, the six words you need to read it (file, function, call, table, entry point, validation), and the three ways every new engineer answers "where does X happen?": follow the click, search the project for the exact words, ask the AI and verify. In Codex all three go through the chat — the difference is what you ask for: *show me*, *find the text*, *explain*.
 
-Then the question sheet, `ONBOARDING.md`, inside your folder. Ten questions: six about the code, four about checking the AI. The TA answers one live; your group answers the rest, in the file, with a location for every answer. Question 9 is **bug #1** (`issues/001.md`): reproduce it, find the line, fix it, show the TA before and after.
+Then the question sheet, `ONBOARDING.md`, inside your folder. Ten questions: six about the code, four about checking the AI. The TA answers one live; your group answers the rest, in the file, with a location for every answer. Question 9 is **bug #1** (the `001` file in `issues/`): reproduce it, find the line, fix it, show the TA before and after.
 
 ## Homework — before Class 3
 

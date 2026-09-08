@@ -17,7 +17,7 @@ Answer in this file, inside your project folder. Use the AI as much as you like 
 
 7. Ask the AI: *"What happens to the balances when I delete a member who paid for an expense?"* Then do it. Was the AI right? Paste its answer and what actually happened.
 8. Ask the AI to explain `compute_balances`. Find one thing it glossed over or got wrong.
-9. **Bug #1** — `issues/001.md`: *"Balances are off by one share whenever the person who paid is also in the split."* Reproduce it with a 3-person group and a €30 dinner. Name the line. Fix it. Save the file and check the app shows the right result now.
+9. **Bug #1** — `issues/001-wrong-balance.md`: *"Balances are off by one share whenever the person who paid is also in the split."* Reproduce it with a 3-person group and a €30 dinner. Name the line. Fix it. Save the file and check the app shows the right result now.
 10. Three questions you'd ask the developer who left.
 
 ## Done when
