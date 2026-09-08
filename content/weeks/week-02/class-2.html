@@ -235,8 +235,8 @@
     <tr><td class="w">3</td><td><b>Stop at the database.</b> <code>db.py</code>, <code>append_row</code>: opens <code>data/expenses.csv</code> and writes one line. Done.</td></tr>
     <tr><td class="w">4</td><td><b>Now ask the AI</b> the same question. Did it name the same three functions?</td></tr>
   </table>
-  <p class="muted" style="margin-top:1em">A good answer: <i>"show_expenses (app.py, line 80) → logic.add_expense (logic.py, line 54) → db.append_row (db.py, line 42). Verified by reading the three lines."</i></p>
-  <aside class="notes">Do it exactly in this order, on SplitIt, with the files open side by side. Then type the answer into ONBOARDING.md on screen so they see what "answer with a location" looks like. CRM equivalent: "Move to next stage" → show_stage_buttons (app.py 111) → logic.move_to_next_stage (logic.py 106) → save_lead → db.save_table.</aside>
+  <p class="muted" style="margin-top:1em">A good answer: <i>"show_expenses (app.py, line 81) → logic.add_expense (logic.py, line 54) → db.append_row (db.py, line 42). Verified by reading the three lines."</i></p>
+  <aside class="notes">Do it exactly in this order, on SplitIt: ask Codex to show each function in turn ("show me show_expenses in app.py", then add_expense, then append_row) so the chain is on screen one link at a time. Then dictate the answer to Codex under Q4 in ONBOARDING.md, read the diff, accept — so they see what "answer with a location" looks like. CRM equivalent: "Move to next stage" → show_stage_buttons (app.py 111) → logic.move_to_next_stage (logic.py 106) → save_lead → db.save_table.</aside>
 </section>
 
 <!-- 11 · Examples: ask the code -->
@@ -244,7 +244,7 @@
   <div class="kicker b1">Class 2 · What a good answer looks like · Ask the code</div>
   <h2>Say where you looked.</h2>
   <table style="margin-top:.2em;font-size:clamp(14px,1.25vw,19px)">
-    <tr><td class="w">Q2</td><td><b>Which file runs first?</b> <span class="muted">Weak: "app.py".</span> Good: "app.py — it's what <code>streamlit run app.py</code> starts, and the last line of the file calls <code>main()</code>, which picks the screen."</td></tr>
+    <tr><td class="w">Q2</td><td><b>Which file runs first?</b> <span class="muted">Weak: "app.py".</span> Good: "app.py — it's what <code>uv run streamlit run app.py</code> starts, and the last line of the file calls <code>main()</code>, which picks the screen."</td></tr>
     <tr><td class="w">Q5</td><td><b>A function used in more than one place.</b> <span class="muted">Weak: "get_group_members, it's reused".</span> Good: "called at app.py 35, 46, 70 and logic.py 87, 105. Fix it once, it's right everywhere."</td></tr>
     <tr><td class="w">Q6</td><td><b>Bad input.</b> <span class="muted">Weak: "it gives an error".</span> Good: "I added an expense of 0 and one of −20: both saved, no message. <code>add_expense</code> in logic.py has no check — compare with <code>is_valid_name</code>, which members do have."</td></tr>
   </table>
@@ -258,7 +258,7 @@
   <table style="margin-top:.2em;font-size:clamp(14px,1.25vw,19px)">
     <tr><td class="w">Q7</td><td><b>"What happens to the balances when I delete a member who paid?"</b> Paste the AI's answer. Then remove João from Jantar de Curso and write what actually happened. Was the AI right?</td></tr>
     <tr><td class="w">Q8</td><td><b>"Explain compute_balances."</b> Compare the comment inside the function with what the code does. Where did the AI just repeat the comment?</td></tr>
-    <tr><td class="w">Q9</td><td><b>Bug #1, <code>issues/001.md</code>.</b> See the wrong number on screen. Find the line, fix it, see the right number. Show the TA before and after.</td></tr>
+    <tr><td class="w">Q9</td><td><b>Bug #1, the <code>001</code> file in <code>issues/</code>.</b> See the wrong number on screen. Find the line, fix it, see the right number. Show the TA before and after.</td></tr>
   </table>
   <aside class="notes">Q7 is the moment of the class: the AI answers confidently, the app crashes. Let them discover it; `uv run python seed.py` brings the data back. Q9 fixes are in the TA guide. If a group asks "how do we save this for good?", the answer is "next week — that's what git is for; don't delete the folder".</aside>
 </section>
@@ -274,7 +274,7 @@
     <li><b>Reproduce the bug before you fix it.</b></li>
   </ul>
   <p class="muted" style="margin-top:1.2em">Broke the data? <code>uv run python seed.py</code> puts it back.</p>
-  <aside class="notes">Roam. Never answer a sheet question — reply "what did the AI say, and did you check?" Fast groups: issues/002.md (reproduce and locate, no need to fix), or find the half-built function in logic.py (docstring + TODO) and write what it's meant to do.</aside>
+  <aside class="notes">Roam. Never answer a sheet question — reply "what did the AI say, and did you check?" Fast groups: the 002 issue (reproduce and locate, no need to fix), or find the half-built function in logic.py (docstring + TODO) and write what it's meant to do.</aside>
 </section>
 
 <!-- 14 · Stuck -->
