@@ -19,7 +19,7 @@ Everything today is local — no git, no GitHub. That comes in Class 3.
 
 Cloned the repo last week instead? That works too.
 
-**Folder, project, repository.** Three words, one thing on your disk. A *folder* is what you unzipped. A *project* is that folder opened in Codex, plus the memory of what you asked about it. A *repository* is a folder whose history git tracks — yours becomes one in Class 3. One app, one folder, one project; don't rename or move it. The long version is in [Setup](../../setup.html#4-folder-project-repository-three-words-for-one-thing).
+**Folder, project, repository.** Three words, one thing on your disk. A *folder* is what you unzipped. A *project* is that folder opened in Codex, plus the memory of what you asked about it. A *repository* is a folder whose history git tracks — yours becomes one in Class 3. One app, one folder, one project; don't rename or move it. The long version is in [Setup](../../setup.html#3-folder-project-repository-three-words-for-one-thing).
 
 ## In class
 

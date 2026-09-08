@@ -6,7 +6,7 @@ title: Setup
 
 Everything you need installed before Class 2. Budget about 20 minutes. If something does not work, bring your laptop to class — we fix setups there.
 
-You will install two things: **Python** (the language) and the **ChatGPT desktop app**, which contains **Codex** (the AI that reads and writes code with you). You also create a **GitHub account** (where your code will live from Class 3). Then you run one app to prove it all works.
+You will install two things: **Python** (the language) and the **ChatGPT desktop app**, which contains **Codex** (the AI that reads and writes code with you). Then you run one app to prove it all works. (GitHub, where your code will live, comes in Class 3 — nothing to do about it now.)
 
 ## 1. Install Python 3.12
 
@@ -46,11 +46,7 @@ Codex is the coding side of ChatGPT. It lives inside the **ChatGPT desktop app**
 
 You do **not** need ChatGPT Plus. The free plan includes Codex, with a cap on how much you can ask in any five-hour window — enough for a class, not enough to let it run unattended. If you hit the cap, it resets on its own; go for a coffee.
 
-## 3. Create a GitHub account
-
-GitHub is where code lives and where your work will be from Class 3 on. If you do not have an account, create one at [github.com](https://github.com/) with your **university email**. That is all for now.
-
-## 4. Folder, project, repository — three words for one thing
+## 3. Folder, project, repository — three words for one thing
 
 You will hear three words for what is, most of the time, the same thing on your disk. Get them straight now and half of the confusion in this course disappears.
 
@@ -64,14 +60,14 @@ Two ways to get a repository from GitHub onto your computer: **download a ZIP** 
 
 The rule that keeps everything working: **one app, one folder, one project, one repository.** Do not rename it, move it, or put it inside another project. `Documents/nova/splitit` is a good address. `Desktop/New folder (3)/splitit copy` is not.
 
-## 5. Get a project onto your computer
+## 4. Get a project onto your computer
 
 1. Go to [Week 2](weeks/week-02/index.html) and download the ZIP for your group's app: `splitit.zip` or `tiny-crm.zip`.
 2. Unzip it into a `nova` folder in your Documents. **Windows:** right-click the ZIP → *Extract All…* **macOS:** double-click it. You get a folder called `splitit` (or `tiny-crm`) with `app.py` inside it.
 3. In Codex, choose **Open folder** (or *+* → *Open local folder*) and pick that folder — the one that contains `app.py`, not the folder above it. Codex now calls it a project.
 4. Ask Codex your first question: *"What does this app do? Answer in one sentence and name the file you read."* It should answer and name `app.py` or `README.md`. If it does, everything is wired up.
 
-## 6. Run the app
+## 5. Run the app
 
 Every project in this course is a small web app built with **Streamlit**. To run it you type two commands in a *terminal* that is standing inside the project folder.
 
@@ -95,7 +91,7 @@ If `streamlit` is "not recognised" or "not found", close the terminal, open a ne
 
 **The other way:** ask Codex — *"Install the requirements and run the app."* It will ask permission to run the same two commands; read them, approve them. Nice when it works, but the terminal is the way that always works, and you will need it anyway.
 
-## 7. Working with Codex — three habits
+## 6. Working with Codex — three habits
 
 - **Ask in plain language, name files when you can.** *"In `logic.py`, what does `add_expense` check before saving?"* beats *"is there validation?"*
 - **Read before you approve.** Codex asks before it runs a command or edits a file. That prompt is not a formality: if you cannot say what the command does, click *No* and ask it to explain first.
@@ -110,6 +106,5 @@ One more: a **thread** is one conversation. Start a new thread for a new task �
 - `python --version` says 3.12
 - The ChatGPT app opens on **Codex**, your project folder is open in it, and it answers a question about the code
 - The Streamlit app runs in your browser from that folder
-- You have a GitHub account
 
 Anything stuck? Bring it to class. Nobody is behind on day one.

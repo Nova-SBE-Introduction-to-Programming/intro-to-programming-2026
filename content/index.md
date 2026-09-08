@@ -30,7 +30,7 @@ The semester runs like a developer onboarding: read a codebase first, build alon
 
 ## Before you start
 
-- [Setup](setup.html) — install Python and Codex (the ChatGPT desktop app), create a GitHub account, run your first app. Do this before Class 2.
+- [Setup](setup.html) — install Python and Codex (the ChatGPT desktop app), run your first app. Do this before Class 2.
 - [Evaluation](evaluation.html) — how the grade is built: one team presentation (40%) and one exam (60%).
 
 Nothing is submitted on Moodle. Your work lives on GitHub; Moodle only carries links and announcements.
