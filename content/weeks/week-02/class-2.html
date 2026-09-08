@@ -95,7 +95,7 @@
   <h2>What we'll do.</h2>
   <table style="margin-top:.4em">
     <tr><td class="w">1</td><td><b>Product tour</b> <span class="muted">— the app as a user, then the folder behind it.</span></td></tr>
-    <tr><td class="w">2</td><td><b>Get the repo</b> <span class="muted">— ZIP → Cursor → running in your browser.</span></td></tr>
+    <tr><td class="w">2</td><td><b>Get the repo</b> <span class="muted">— ZIP → Codex → running in your browser.</span></td></tr>
     <tr><td class="w">3</td><td><b>Concepts to explore</b> <span class="muted">— six words you need to read the code.</span></td></tr>
     <tr><td class="w">4</td><td><b>The question sheet</b> <span class="muted">— ten questions. One live, nine in your group.</span></td></tr>
   </table>
@@ -109,11 +109,11 @@
   <table style="margin-top:.2em">
     <tr><td class="w">1</td><td><b>Go to the course site → Week 2.</b> <span class="muted">Same links are on Moodle.</span></td></tr>
     <tr><td class="w">2</td><td><b>Download your app's ZIP</b> (<code>splitit.zip</code> or <code>tiny-crm.zip</code>) and unzip it into a folder you'll find again.</td></tr>
-    <tr><td class="w">3</td><td><b>Open the folder in Cursor.</b> <code>File → Open Folder…</code> You should see <code>app.py</code> in the sidebar.</td></tr>
-    <tr><td class="w">4</td><td><b>Run it.</b> <code>Terminal → New Terminal</code>, then <code>pip install -r requirements.txt</code> and <code>streamlit run app.py</code>.</td></tr>
+    <tr><td class="w">3</td><td><b>Open the folder in Codex.</b> <code>Open folder</code> → the one that contains <code>app.py</code>. Codex calls it a <i>project</i>.</td></tr>
+    <tr><td class="w">4</td><td><b>Run it.</b> A terminal <i>in the folder</i>, then <code>pip install -r requirements.txt</code> and <code>streamlit run app.py</code>. Or ask Codex and approve the two commands.</td></tr>
   </table>
   <p class="muted" style="margin-top:1.2em;max-width:56ch">Cloned it last week? That works too. Everything stays on your laptop today.</p>
-  <aside class="notes">Give this 15 min. Walk the room; the triage table is in the TA guide. macOS: python3 / pip3. Windows: if `python` opens the Store, Python was installed without PATH. "streamlit not recognised": open a new terminal, or `python -m streamlit run app.py`. Anyone still stuck pairs with a working laptop and fixes it during group time.</aside>
+  <aside class="notes">Give this 15 min. Walk the room; the triage table is in the TA guide. Terminal in the folder: Windows right-click → Open in Terminal; macOS `cd ` + drag the folder. If they ask Codex to run it, make sure they read the two commands before approving. macOS: python3 / pip3. Windows: if `python` opens the Store, Python was installed without PATH. "streamlit not recognised": open a new terminal, or `python -m streamlit run app.py`. Anyone still stuck pairs with a working laptop and fixes it during group time.</aside>
 </section>
 
 <!-- 4 · Product tour: the reveal -->
@@ -126,7 +126,7 @@
     <div class="card"><div class="n">Your steps</div><h3>→ <code>app.py</code></h3><p>One function per screen. Where a person acts, there's a button.</p></div>
     <div class="card"><div class="n">Your decisions</div><h3>→ <code>logic.py</code></h3><p>Who's in the split, how much each, who owes whom. The rules, as functions.</p></div>
   </div>
-  <aside class="notes">SplitIt as a user, 3 min: open Casa da Lapa, add an expense, then show data/expenses.csv in Cursor — a new line appeared. That's the "aha". Tiny CRM 2 min: pipeline, open a lead, move it to the next stage, show leads.csv. Same skeleton, same folders. Point at what's visibly broken (title says "Group 2"; balances are raw numbers next to ids) without fixing anything.</aside>
+  <aside class="notes">SplitIt as a user, 3 min: open Casa da Lapa, add an expense, then ask Codex to show the last line of data/expenses.csv — a new line appeared. That's the "aha". Tiny CRM 2 min: pipeline, open a lead, move it to the next stage, show leads.csv. Same skeleton, same folders. Point at what's visibly broken (title says "Group 2"; balances are raw numbers next to ids) without fixing anything.</aside>
 </section>
 
 <!-- 5 · Two apps -->
@@ -138,6 +138,20 @@
     <div class="card"><div class="n">Tiny CRM</div><h3>Leads to deals</h3><p>Leads move through stages, with notes, activities and follow-up dates. Tables: <code>leads</code> · <code>notes</code> · <code>activities</code>. Half-built: move a lead to any stage.</p></div>
   </div>
   <p class="muted" style="margin-top:1.4em;max-width:56ch">Both have user-reported bugs in <code>issues/</code> and the same question sheet, <code>ONBOARDING.md</code>. Demos use SplitIt; CRM groups follow along in their own folder.</p>
+</section>
+
+<!-- 6a · Folder, project, repository -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · Three words</div>
+  <h2>Folder, project, repository.</h2>
+  <p class="muted" style="max-width:56ch;margin-top:.2em">Three tools, three words, one thing on your disk.</p>
+  <div class="grid g3" style="margin-top:1em">
+    <div class="card"><div class="n">Your computer says</div><h3>Folder</h3><p>Files in a directory. What you unzipped. Finder and File Explorer only know this word.</p></div>
+    <div class="card"><div class="n">Codex says</div><h3>Project</h3><p>A folder Codex has opened. Same files, plus the memory of your threads about them.</p></div>
+    <div class="card"><div class="n">Git and GitHub say</div><h3>Repository</h3><p>A folder whose <b class="accent">history</b> is tracked. Every change recorded, undoable, copyable to GitHub. Yours becomes one next week.</p></div>
+  </div>
+  <p class="muted" style="margin-top:1.2em">One app · one folder · one project · one repository. Don't rename it, don't move it, don't nest it.</p>
+  <aside class="notes">One minute. Land the equivalence: it's the same folder seen by three tools. ZIP = a copy with no history; clone = a copy that stays connected — that's next week. The "don't rename or move" rule is not fussiness: Codex threads and next week's git both point at the folder's address.</aside>
 </section>
 
 <!-- 6 · The folder -->
@@ -154,7 +168,7 @@
     <tr><td class="w"><code>specs/</code></td><td>Feature requests from the product manager. Next week.</td></tr>
     <tr><td class="w"><code>ONBOARDING.md</code></td><td>Your question sheet. Answer inside the file.</td></tr>
   </table>
-  <aside class="notes">Show the tree in the Cursor sidebar, one sentence per item, no syntax. Open db.py and point at COLUMNS: "these are the tables". Don't run pytest today — tests are Class 3.</aside>
+  <aside class="notes">Ask Codex to list the folder, one sentence per item, no syntax. Ask it to show COLUMNS in db.py and point: "these are the tables". Don't run pytest today — tests are Class 3.</aside>
 </section>
 
 <!-- 7 · Concepts -->
@@ -179,8 +193,8 @@
   <p class="muted" style="max-width:52ch;margin-top:.2em">Three ways to find out.</p>
   <div class="grid g3" style="margin-top:1em">
     <div class="card"><div class="n">1 · Follow the click</div><p>Find the button's text in <code>app.py</code>. Read what it calls. Read what <i>that</i> calls. Stop when you reach <code>db.py</code>.</p></div>
-    <div class="card"><div class="n">2 · Search</div><p>Search the project for a word you see on screen. <code>Cmd/Ctrl + Shift + F</code>.</p></div>
-    <div class="card"><div class="n">3 · Ask the AI</div><p>Ask Cursor's chat, then <b class="accent">verify</b>: open the line it names.</p></div>
+    <div class="card"><div class="n">2 · Search</div><p>Search the project for the exact words you see on screen. <i>"Find the text 'Add expense' in this project — file and line only."</i> A match, not an opinion.</p></div>
+    <div class="card"><div class="n">3 · Ask the AI</div><p>Ask Codex to explain, then <b class="accent">verify</b>: make it show the line it names, and read it.</p></div>
   </div>
 </section>
 
@@ -193,7 +207,7 @@
     <div class="card"><div class="n">Verify the AI · Q7–10</div><p>7 · ask the AI what happens when you do X, then do X &nbsp;·&nbsp; 8 · make it explain a function, catch what it glossed over &nbsp;·&nbsp; 9 · <b>bug #1</b>: reproduce, find the line, fix it &nbsp;·&nbsp; 10 · three questions for the developer who left.</p></div>
   </div>
   <p class="muted" style="margin-top:1.2em;max-width:56ch">Answer inside the file. Every answer says <b>where you checked</b>: a file and line, or what you clicked.</p>
-  <aside class="notes">Open ONBOARDING.md on screen and scroll through it once. It's the same shape for both apps; the specifics (function names, the bug) differ.</aside>
+  <aside class="notes">Ask Codex to show ONBOARDING.md on screen and scroll through it once. Show how an answer gets in: tell Codex what to write under Q4, read the diff, accept. It's the same shape for both apps; the specifics (function names, the bug) differ.</aside>
 </section>
 
 <!-- 10 · One question live -->

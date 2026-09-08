@@ -4,9 +4,9 @@ title: Setup
 
 # Setup
 
-Everything you need installed before Class 1. Budget about 30 minutes. If something does not work, bring your laptop to the first class — we fix setups there.
+Everything you need installed before Class 2. Budget about 20 minutes. If something does not work, bring your laptop to class — we fix setups there.
 
-You will install four things: **Python** (the language), **VS Code** (the editor), **GitHub Copilot** (the AI that writes with you) and a **GitHub account** (where your code lives). Then you run one app to prove it all works.
+You will install two things: **Python** (the language) and the **ChatGPT desktop app**, which contains **Codex** (the AI that reads and writes code with you). You also create a **GitHub account** (where your code will live from Class 3). Then you run one app to prove it all works.
 
 ## 1. Install Python 3.12
 
@@ -21,7 +21,7 @@ Go to [python.org/downloads](https://www.python.org/downloads/) and download **P
 python --version
 ```
 
-You should see `Python 3.12.x`.
+You should see `Python 3.12.x`. If it opens the Microsoft Store instead, Python was installed without PATH — run the installer again and tick the box.
 
 **macOS**
 
@@ -32,70 +32,84 @@ You should see `Python 3.12.x`.
 python3 --version
 ```
 
-You should see `Python 3.12.x`. On macOS the command is `python3`, not `python`. Everywhere this guide says `python`, type `python3`.
+You should see `Python 3.12.x`. On macOS the command is `python3`, not `python`. Everywhere this guide says `python`, type `python3`; everywhere it says `pip`, type `pip3`.
 
-## 2. Install VS Code
+## 2. Install the ChatGPT desktop app (Codex)
 
-Download from [code.visualstudio.com](https://code.visualstudio.com/) and install it like any app.
+Codex is the coding side of ChatGPT. It lives inside the **ChatGPT desktop app** — the app you install, not the website. It is free.
 
-**Windows:** in the installer, tick *"Add 'Open with Code' action"* and *"Add to PATH"* — both are handy.
+1. Download the app from [openai.com/chatgpt/download](https://openai.com/chatgpt/download/) for macOS or Windows.
+    - **macOS:** open the `.dmg` and drag *ChatGPT* into Applications. The first time you open it, macOS asks if you are sure — you are.
+    - **Windows:** run the installer (or install *ChatGPT* from the Microsoft Store — same thing).
+2. Open it and **sign in**. No account? Click *Sign up* and create a free one, with your university email.
+3. In the **top-left corner**, open the menu and choose **Codex**. *Chat* is for talking; *Codex* is for code. You will spend the course in Codex.
 
-**macOS:** drag *Visual Studio Code* into your Applications folder. The first time you open it, macOS asks if you are sure — you are.
+You do **not** need ChatGPT Plus. The free plan includes Codex, with a cap on how much you can ask in any five-hour window — enough for a class, not enough to let it run unattended. If you hit the cap, it resets on its own; go for a coffee.
 
-## 3. Install the extensions
+## 3. Create a GitHub account
 
-Open VS Code. On the left edge there is a column of icons; click the one that looks like four squares (**Extensions**), or press `Ctrl+Shift+X` (Windows) / `Cmd+Shift+X` (macOS). Search and install:
+GitHub is where code lives and where your work will be from Class 3 on. If you do not have an account, create one at [github.com](https://github.com/) with your **university email**. That is all for now.
 
-- **Python** (by Microsoft) — lets VS Code understand and run Python.
-- **GitHub Copilot** (by GitHub) — the AI pair programmer. It will ask you to sign in; do that in the next step.
+## 4. Folder, project, repository — three words for one thing
 
-You do **not** need Jupyter or any notebook extension for this course.
+You will hear three words for what is, most of the time, the same thing on your disk. Get them straight now and half of the confusion in this course disappears.
 
-## 4. Sign in to GitHub
+| Word | Whose word | What it means |
+|---|---|---|
+| **Folder** | Your computer (Finder, File Explorer) | A directory with files in it. What you get when you unzip a download. |
+| **Project** | Codex | A folder that Codex has opened. Codex remembers your conversations (*threads*) per project. Same folder, plus memory of what you asked. |
+| **Repository** (*repo*) | Git and GitHub | A folder whose **history** is tracked: every change is recorded and can be undone, and the folder can be copied to and from GitHub. A folder with a memory. Yours becomes one in Class 3. |
 
-1. If you do not have a GitHub account, create one at [github.com](https://github.com/) using your **university email**.
-2. Get **Copilot for free** as a student: go to [education.github.com/pack](https://education.github.com/pack), click *Sign up for Student Developer Pack*, and verify with your student email or card. Approval takes a few minutes to a few days. Until it is approved, the free Copilot tier still works for the first weeks.
-3. Back in VS Code, click the **Accounts** icon (a person silhouette, bottom-left corner) → **Sign in with GitHub**. Your browser opens; authorise it. Copilot switches on automatically once you are signed in.
+Two ways to get a repository from GitHub onto your computer: **download a ZIP** (a plain copy — a folder, no history) or **clone** it (a copy that stays connected to GitHub — a repository). Today you download; from Class 3 you clone.
 
-## 5. Clone your first repository
+The rule that keeps everything working: **one app, one folder, one project, one repository.** Do not rename it, move it, or put it inside another project. `Documents/nova/splitit` is a good address. `Desktop/New folder (3)/splitit copy` is not.
 
-"Cloning" means downloading a copy of a project from GitHub to your computer, in a way that stays connected to the original. You will do this a lot. In this course you never type Git commands — VS Code does it through buttons.
+## 5. Get a project onto your computer
 
-1. Open VS Code. If you see the **Welcome** screen, click **Clone Git Repository…**. (If you do not see it: *File → New Window*, or press `Ctrl+Shift+P` / `Cmd+Shift+P`, type `Git: Clone` and press Enter.)
-2. Paste the repository URL you were given in class (it looks like `https://github.com/.../splitit`) and press Enter.
-3. Pick a folder on your computer for course work — for example a `nova` folder in your Documents. VS Code downloads the project there.
-4. When asked *"Would you like to open the cloned repository?"*, click **Open**. If a "Do you trust the authors?" box appears, click **Yes**.
+1. Go to [Week 2](weeks/week-02/index.html) and download the ZIP for your group's app: `splitit.zip` or `tiny-crm.zip`.
+2. Unzip it into a `nova` folder in your Documents. **Windows:** right-click the ZIP → *Extract All…* **macOS:** double-click it. You get a folder called `splitit` (or `tiny-crm`) with `app.py` inside it.
+3. In Codex, choose **Open folder** (or *+* → *Open local folder*) and pick that folder — the one that contains `app.py`, not the folder above it. Codex now calls it a project.
+4. Ask Codex your first question: *"What does this app do? Answer in one sentence and name the file you read."* It should answer and name `app.py` or `README.md`. If it does, everything is wired up.
 
-**Windows note:** if VS Code says Git is not installed, download it from [git-scm.com](https://git-scm.com/download/win), install with all the defaults, then restart VS Code. macOS usually has Git already; if it asks to install *Command Line Developer Tools*, say yes and wait.
+## 6. Run the app
 
-## 6. Run a Streamlit app
+Every project in this course is a small web app built with **Streamlit**. To run it you type two commands in a *terminal* that is standing inside the project folder.
 
-Every project in this course is a small web app built with **Streamlit**. Here is how you run one.
+**Open a terminal in the folder**
 
-1. In VS Code, open a terminal inside the project: menu **Terminal → New Terminal**. A panel opens at the bottom, already sitting in the project folder.
-2. Install the project's dependencies (the libraries it needs). Type and press Enter:
+- **Windows:** open the project folder in File Explorer, right-click on empty space, choose **Open in Terminal**.
+- **macOS:** open *Terminal*, type `cd ` (with a space after it), drag the project folder from Finder into the Terminal window, press Enter.
+
+**Then type, one at a time:**
 
 ```
 pip install -r requirements.txt
-```
-
-On macOS use `pip3` if `pip` is not found. This downloads for a minute the first time; a wall of text is normal.
-
-3. Start the app:
-
-```
 streamlit run app.py
 ```
 
-4. Your browser opens at `http://localhost:8501` with the app running. Click around. That is your company's software, running on your machine.
-5. To stop the app, click in the terminal and press `Ctrl+C` (also `Ctrl+C` on macOS, not Cmd).
+The first downloads the libraries the app needs — a minute of scrolling text the first time is normal. The second starts the app; your browser opens at `http://localhost:8501`. Click around. That is your company's software, running on your machine.
 
-If `streamlit` is "not recognised" or "not found", close the terminal, open a new one, and try again — the installation was fine, the terminal just needs a fresh start. If it still fails, try `python -m streamlit run app.py` (`python3` on macOS).
+To stop the app, click in the terminal and press `Ctrl+C` (also `Ctrl+C` on macOS, not Cmd).
+
+If `streamlit` is "not recognised" or "not found", close the terminal, open a new one and try again — the install was fine, the terminal just needs a fresh start. If it still fails, try `python -m streamlit run app.py`.
+
+**The other way:** ask Codex — *"Install the requirements and run the app."* It will ask permission to run the same two commands; read them, approve them. Nice when it works, but the terminal is the way that always works, and you will need it anyway.
+
+## 7. Working with Codex — three habits
+
+- **Ask in plain language, name files when you can.** *"In `logic.py`, what does `add_expense` check before saving?"* beats *"is there validation?"*
+- **Read before you approve.** Codex asks before it runs a command or edits a file. That prompt is not a formality: if you cannot say what the command does, click *No* and ask it to explain first.
+- **Verify.** Whatever Codex claims, open the file and line it names and look. The one rule of the course: *AI is allowed everywhere; you cannot ship what you cannot explain.*
+
+**Writing in a file** works the same way: tell Codex what to write and where — *"Under question 4 in `ONBOARDING.md`, write: …"* — then read the change it shows you before you accept it. That is how you answer the question sheet.
+
+One more: a **thread** is one conversation. Start a new thread for a new task — long threads make Codex slower and vaguer.
 
 ## You are done when…
 
 - `python --version` says 3.12
-- VS Code opens with the Python and Copilot extensions installed and you are signed in to GitHub
-- A Streamlit app runs in your browser from a project you cloned
+- The ChatGPT app opens on **Codex**, your project folder is open in it, and it answers a question about the code
+- The Streamlit app runs in your browser from that folder
+- You have a GitHub account
 
-Anything stuck? Bring it to Class 1. Nobody is behind on day one.
+Anything stuck? Bring it to class. Nobody is behind on day one.

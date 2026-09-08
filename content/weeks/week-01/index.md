@@ -18,8 +18,8 @@ The debrief: what you drew *is* the software. Your nouns become the data, your s
 
 ## Homework — before the practical
 
-1. **Download [Cursor](https://www.cursor.com/)** (or any other IDE you prefer — VS Code + Copilot works too). The [Setup](../../setup.html) guide covers Python 3.12, the editor, and GitHub sign-in.
-2. **Get one of the repositories on your computer.** Pick your app with your group — SplitIt or Tiny CRM, both the same size — and clone it through your IDE (the repository links are in Moodle).
-3. **Make sure you can interact with the codebase.** Open the folder in your IDE, run the app (`pip install -r requirements.txt`, then `streamlit run app.py`), click around for ten minutes as if you were a user, and try asking the AI a question about the code. Note two things that surprised you and one thing you would change — bring the notes to the practical.
+1. **Install Codex** — the [ChatGPT desktop app](https://openai.com/chatgpt/download/), free plan. The [Setup](../../setup.html) guide covers Python 3.12, the app, and your GitHub account. (Already set up Cursor or VS Code? Keep it; Codex is what we use in class.)
+2. **Get one of the apps on your computer.** Pick with your group — SplitIt or Tiny CRM, both the same size — download the ZIP from [Week 2](../week-02/index.html) and unzip it into a `nova` folder in Documents.
+3. **Make sure you can interact with the codebase.** Open the folder in Codex, run the app (`pip install -r requirements.txt`, then `streamlit run app.py`), click around for ten minutes as if you were a user, and try asking the AI a question about the code. Note two things that surprised you and one thing you would change — bring the notes to the practical.
 
 The slides from class are in the materials below.
