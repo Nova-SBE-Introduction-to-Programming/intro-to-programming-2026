@@ -86,7 +86,7 @@
   <div class="kicker b1">Block 1 · Class 2 · Practical</div>
   <h2>Meet the code.</h2>
   <p class="sub">Last week you drew a workflow on paper. Today you open the app built from it.</p>
-  <aside class="notes">TA-run, informal. Timing: get it running 15 · product tour + folder + concepts 20 · one question answered live 10 · question sheet in groups 40 · wrap 5 = 90. Everything is local today — no git, no GitHub, no forms. Students sit in groups of 3–4 of their own choosing.</aside>
+  <aside class="notes">TA-run, informal. Timing (90): tool change 1 · get it running 25 (installs today) · product tour + three words + folder + concepts 20 · one question answered live 9 · question sheet in groups 30 · wrap 5. If the room is installed by minute 15, give the 10 back to the groups. Everything is local today — no git, no GitHub, no forms. Students sit in groups of 3–4 of their own choosing.</aside>
 </section>
 
 <!-- 2 · Today -->
@@ -102,18 +102,33 @@
   <p class="muted" style="margin-top:1.2em">Groups of 3–4, one screen per group.</p>
 </section>
 
+<!-- 2a · One change -->
+<section class="slide">
+  <div class="kicker b1">Class 2 · One change since last week</div>
+  <h2>We use <span class="accent">Codex</span>, not Cursor.</h2>
+  <p style="max-width:56ch;margin-top:.2em">Codex is the coding side of ChatGPT. It lives in the <b>ChatGPT desktop app</b>, on the free plan.</p>
+  <div class="grid g3" style="margin-top:1em">
+    <div class="card"><div class="n">Why</div><p>Free, no student verification, identical on Mac and Windows. Install, sign in, done.</p></div>
+    <div class="card"><div class="n">What it does</div><p>Reads your project, answers questions, edits files and runs commands — after asking you first.</p></div>
+    <div class="card"><div class="n">Already on Cursor?</div><p>Keep it today. Everything on the sheet works in either. Switch when you're ready.</p></div>
+  </div>
+  <p class="muted" style="margin-top:1.2em">Setup guide on the course site: uv + the ChatGPT app. About 15 minutes.</p>
+  <aside class="notes">Thirty seconds. Don't apologise for the switch — say why and move on. Anyone who installed Cursor last week keeps it today; don't spend class time migrating them.</aside>
+</section>
+
 <!-- 3 · Get it running -->
 <section class="slide">
   <div class="kicker b1">Class 2 · Get it running</div>
-  <h2>Four steps. Local only.</h2>
+  <h2>Five steps. Local only.</h2>
   <table style="margin-top:.2em">
+    <tr><td class="w">0</td><td><b>Not installed yet?</b> Course site → <b>Setup</b>: one line installs <b>uv</b>, then the ChatGPT app → sign in → <b>Codex</b>. <span class="muted">Done already? Skip.</span></td></tr>
     <tr><td class="w">1</td><td><b>Go to the course site → Week 2.</b> <span class="muted">Same links are on Moodle.</span></td></tr>
     <tr><td class="w">2</td><td><b>Download your app's ZIP</b> (<code>splitit.zip</code> or <code>tiny-crm.zip</code>) and unzip it into a folder you'll find again.</td></tr>
     <tr><td class="w">3</td><td><b>Open the folder in Codex.</b> <code>Open folder</code> → the one that contains <code>app.py</code>. Codex calls it a <i>project</i>.</td></tr>
-    <tr><td class="w">4</td><td><b>Run it.</b> A terminal <i>in the folder</i>, then <code>pip install -r requirements.txt</code> and <code>streamlit run app.py</code>. Or ask Codex and approve the two commands.</td></tr>
+    <tr><td class="w">4</td><td><b>Run it.</b> A terminal <i>in the folder</i>, then <code>uv run streamlit run app.py</code>. First time: a minute of downloads. Or ask Codex <i>"Run the app"</i> and approve the command.</td></tr>
   </table>
   <p class="muted" style="margin-top:1.2em;max-width:56ch">Cloned it last week? That works too. Everything stays on your laptop today.</p>
-  <aside class="notes">Give this 15 min. Walk the room; the triage table is in the TA guide. Terminal in the folder: Windows right-click → Open in Terminal; macOS `cd ` + drag the folder. If they ask Codex to run it, make sure they read the two commands before approving. macOS: python3 / pip3. Windows: if `python` opens the Store, Python was installed without PATH. "streamlit not recognised": open a new terminal, or `python -m streamlit run app.py`. Anyone still stuck pairs with a working laptop and fixes it during group time.</aside>
+  <aside class="notes">Give this 25 min — expect most of the room to be installing, since Class 1 said Cursor. Both installs are quick: the ChatGPT app and the uv one-liner. The slow part is the first `uv run` (downloads Python + Streamlit, about a minute) — get everyone to start it, then look up. Walk the room; the triage table is in the TA guide. Terminal in the folder: Windows right-click → Open in Terminal; macOS `cd ` + drag the folder. `uv` not recognised: new terminal. Anyone typing `python` or `pip` skipped uv — no Python on the machine is the point. If they ask Codex to run it, make sure they read the command before approving. Anyone still stuck pairs with a working laptop and fixes it during group time.</aside>
 </section>
 
 <!-- 4 · Product tour: the reveal -->
@@ -159,10 +174,10 @@
   <div class="kicker b1">Class 2 · The folder</div>
   <h2>Eight things.</h2>
   <table style="margin-top:.2em;font-size:clamp(14px,1.25vw,19px)">
-    <tr><td class="w"><code>app.py</code></td><td>The screens. What <code>streamlit run app.py</code> starts.</td></tr>
+    <tr><td class="w"><code>app.py</code></td><td>The screens. What <code>uv run streamlit run app.py</code> starts.</td></tr>
     <tr><td class="w"><code>logic.py</code></td><td>The rules. Balances, stages, searches, validation.</td></tr>
     <tr><td class="w"><code>db.py</code></td><td>Reads and writes the CSV files. Nothing else touches them.</td></tr>
-    <tr><td class="w"><code>data/</code></td><td>The live database. <code>seed/</code> is the pristine copy; <code>python seed.py</code> restores it.</td></tr>
+    <tr><td class="w"><code>data/</code></td><td>The live database. <code>seed/</code> is the pristine copy; <code>uv run python seed.py</code> restores it.</td></tr>
     <tr><td class="w"><code>tests/</code></td><td>Small programs that check the app. Next week.</td></tr>
     <tr><td class="w"><code>issues/</code></td><td>Four bug reports from users. You fix #1 today.</td></tr>
     <tr><td class="w"><code>specs/</code></td><td>Feature requests from the product manager. Next week.</td></tr>
@@ -245,12 +260,12 @@
     <tr><td class="w">Q8</td><td><b>"Explain compute_balances."</b> Compare the comment inside the function with what the code does. Where did the AI just repeat the comment?</td></tr>
     <tr><td class="w">Q9</td><td><b>Bug #1, <code>issues/001.md</code>.</b> See the wrong number on screen. Find the line, fix it, see the right number. Show the TA before and after.</td></tr>
   </table>
-  <aside class="notes">Q7 is the moment of the class: the AI answers confidently, the app crashes. Let them discover it; `python seed.py` brings the data back. Q9 fixes are in the TA guide. If a group asks "how do we save this for good?", the answer is "next week — that's what git is for; don't delete the folder".</aside>
+  <aside class="notes">Q7 is the moment of the class: the AI answers confidently, the app crashes. Let them discover it; `uv run python seed.py` brings the data back. Q9 fixes are in the TA guide. If a group asks "how do we save this for good?", the answer is "next week — that's what git is for; don't delete the folder".</aside>
 </section>
 
 <!-- 13 · Your turn -->
 <section class="slide">
-  <div class="kicker b1">Class 2 · 40 minutes · Your turn</div>
+  <div class="kicker b1">Class 2 · 30 minutes · Your turn</div>
   <h2>One screen. Everyone steers.</h2>
   <ul class="clean">
     <li><b>Rotate who types.</b> Everyone should be able to run the app by the end.</li>
@@ -258,7 +273,7 @@
     <li><b>Write where you checked.</b> <code>logic.py</code> line 39, or "clicked Add expense with amount 0".</li>
     <li><b>Reproduce the bug before you fix it.</b></li>
   </ul>
-  <p class="muted" style="margin-top:1.2em">Broke the data? <code>python seed.py</code> puts it back.</p>
+  <p class="muted" style="margin-top:1.2em">Broke the data? <code>uv run python seed.py</code> puts it back.</p>
   <aside class="notes">Roam. Never answer a sheet question — reply "what did the AI say, and did you check?" Fast groups: issues/002.md (reproduce and locate, no need to fix), or find the half-built function in logic.py (docstring + TODO) and write what it's meant to do.</aside>
 </section>
 

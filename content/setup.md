@@ -6,33 +6,31 @@ title: Setup
 
 Everything you need installed before Class 2. Budget about 20 minutes. If something does not work, bring your laptop to class — we fix setups there.
 
-You will install two things: **Python** (the language) and the **ChatGPT desktop app**, which contains **Codex** (the AI that reads and writes code with you). Then you run one app to prove it all works. (GitHub, where your code will live, comes in Class 3 — nothing to do about it now.)
+You will install two things: **uv** (a small tool that takes care of Python for you) and the **ChatGPT desktop app**, which contains **Codex** (the AI that reads and writes code with you). Then you run one app to prove it all works. (GitHub, where your code will live, comes in Class 3 — nothing to do about it now.)
 
-## 1. Install Python 3.12
+## 1. Install uv
 
-Go to [python.org/downloads](https://www.python.org/downloads/) and download **Python 3.12** for your system. Any 3.12.x is fine.
+`uv` is a small tool that installs Python and runs Python programs for you. You install it once; from then on it takes care of Python — no Python installer, no version to pick, nothing to add to PATH.
 
-**Windows**
-
-- Run the installer. On the very first screen, **tick "Add python.exe to PATH"** before clicking *Install Now*. This is the step people miss.
-- When it finishes, open *Terminal* (search for it in the Start menu) and type:
+**macOS** — open *Terminal* (Cmd + Space, type "Terminal"), paste this line, press Enter:
 
 ```
-python --version
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-You should see `Python 3.12.x`. If it opens the Microsoft Store instead, Python was installed without PATH — run the installer again and tick the box.
-
-**macOS**
-
-- Run the `.pkg` installer and click through.
-- Open *Terminal* (Cmd + Space, type "Terminal") and type:
+**Windows** — open *Terminal* (search for it in the Start menu), paste this line, press Enter:
 
 ```
-python3 --version
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-You should see `Python 3.12.x`. On macOS the command is `python3`, not `python`. Everywhere this guide says `python`, type `python3`; everywhere it says `pip`, type `pip3`.
+Then **close the terminal and open a new one** — a new command is only visible to terminals opened after it was installed — and type:
+
+```
+uv --version
+```
+
+You should see `uv 0.x.y`. That is all. Python itself arrives by itself the first time you run an app.
 
 ## 2. Install the ChatGPT desktop app (Codex)
 
@@ -69,27 +67,26 @@ The rule that keeps everything working: **one app, one folder, one project, one 
 
 ## 5. Run the app
 
-Every project in this course is a small web app built with **Streamlit**. To run it you type two commands in a *terminal* that is standing inside the project folder.
+Every project in this course is a small web app built with **Streamlit**. To run it you type one command in a *terminal* that is standing inside the project folder.
 
 **Open a terminal in the folder**
 
 - **Windows:** open the project folder in File Explorer, right-click on empty space, choose **Open in Terminal**.
 - **macOS:** open *Terminal*, type `cd ` (with a space after it), drag the project folder from Finder into the Terminal window, press Enter.
 
-**Then type, one at a time:**
+**Then type:**
 
 ```
-pip install -r requirements.txt
-streamlit run app.py
+uv run streamlit run app.py
 ```
 
-The first downloads the libraries the app needs — a minute of scrolling text the first time is normal. The second starts the app; your browser opens at `http://localhost:8501`. Click around. That is your company's software, running on your machine.
+The first time, uv downloads Python and the two libraries the app needs — a minute of scrolling text is normal. Then the app starts and your browser opens at `http://localhost:8501`. Click around. That is your company's software, running on your machine. The second time it starts in a second.
 
 To stop the app, click in the terminal and press `Ctrl+C` (also `Ctrl+C` on macOS, not Cmd).
 
-If `streamlit` is "not recognised" or "not found", close the terminal, open a new one and try again — the install was fine, the terminal just needs a fresh start. If it still fails, try `python -m streamlit run app.py`.
+If `uv` is "not recognised" or "not found", close the terminal, open a new one and try again — the install was fine, the terminal just needs a fresh start.
 
-**The other way:** ask Codex — *"Install the requirements and run the app."* It will ask permission to run the same two commands; read them, approve them. Nice when it works, but the terminal is the way that always works, and you will need it anyway.
+**The other way:** ask Codex — *"Run the app."* It knows how (the project's `AGENTS.md` tells it) and will ask permission to run the same command; read it, approve it. If uv is missing, Codex can install that too — it needs no password — but read what it proposes before you approve.
 
 ## 6. Working with Codex — three habits
 
@@ -103,7 +100,7 @@ One more: a **thread** is one conversation. Start a new thread for a new task �
 
 ## You are done when…
 
-- `python --version` says 3.12
+- `uv --version` prints a version
 - The ChatGPT app opens on **Codex**, your project folder is open in it, and it answers a question about the code
 - The Streamlit app runs in your browser from that folder
 

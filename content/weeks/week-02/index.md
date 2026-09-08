@@ -12,10 +12,12 @@ Block 1 · Practical · 2026-09-08
 
 Everything today is local — no git, no GitHub. That comes in Class 3.
 
+**One change since last week:** we use **Codex** (the ChatGPT desktop app, free plan), not Cursor. Not installed yet? [Setup](../../setup.html) — uv and the app, about 15 minutes. Already on Cursor? Keep it today; everything on the sheet works in either.
+
 1. Download the ZIP for your group's app from the materials below: **splitit.zip** or **tiny-crm.zip**.
 2. Unzip it somewhere you'll find again — a `nova` folder in Documents.
 3. Open that folder in Codex: **Open folder** → pick the folder that contains `app.py`. Codex now calls it a *project*.
-4. Open a terminal *in that folder* (Windows: right-click in the folder → *Open in Terminal*; macOS: type `cd `, drag the folder into Terminal, Enter), then `pip install -r requirements.txt` and `streamlit run app.py`. Your browser opens on the app. (macOS: `pip3` and `python3`.) Or ask Codex to do it and approve the two commands.
+4. Open a terminal *in that folder* (Windows: right-click in the folder → *Open in Terminal*; macOS: type `cd `, drag the folder into Terminal, Enter), then `uv run streamlit run app.py`. The first time it downloads Python and the libraries (a minute); then your browser opens on the app. Or ask Codex *"Run the app"* and approve the command.
 
 Cloned the repo last week instead? That works too.
 
