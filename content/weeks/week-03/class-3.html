@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intro to Programming · Class 3</title>
+<style>
+  :root{
+    --bg:#0f1115; --bg2:#161a22; --fg:#f2f3f5; --muted:#9aa3b2; --line:#2a3040;
+    --accent:#ff6a3d; --accent2:#5ad1b3; --accent3:#f5c542;
+    --b1:#5ad1b3; --b2:#f5c542; --b3:#ff6a3d; --pres:#b28dff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+  .slide{position:absolute;inset:0;padding:6vh 8vw;display:none;flex-direction:column;justify-content:center;
+    opacity:0;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease}
+  .slide.active{display:flex;opacity:1;transform:none}
+  h1{font-size:clamp(40px,6.5vw,88px);line-height:1.02;margin:0 0 .3em;letter-spacing:-.02em;font-weight:800}
+  h2{font-size:clamp(30px,4.2vw,58px);line-height:1.08;margin:0 0 .5em;letter-spacing:-.02em;font-weight:800}
+  h3{font-size:clamp(18px,1.8vw,26px);margin:0 0 .4em;font-weight:700}
+  p,li{font-size:clamp(17px,1.6vw,24px);line-height:1.45;margin:0}
+  p+p{margin-top:.6em}
+  .muted{color:var(--muted)}
+  .kicker{font-size:clamp(13px,1.1vw,16px);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:1.2em}
+  .kicker.b1{color:var(--b1)} .kicker.b2{color:var(--b2)} .kicker.b3{color:var(--b3)} .kicker.pres{color:var(--pres)}
+  .big{font-size:clamp(26px,3vw,42px);line-height:1.25;font-weight:600;max-width:22ch}
+  .accent{color:var(--accent)}
+  .grid{display:grid;gap:clamp(12px,1.6vw,24px)}
+  .g2{grid-template-columns:1fr 1fr} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:clamp(14px,1.8vw,26px)}
+  .card h3{margin-bottom:.35em}
+  .card p{font-size:clamp(15px,1.25vw,19px);color:#c9d0db}
+  .card .n{font-size:clamp(11px,.95vw,13px);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.6em;font-weight:700}
+  .tbd{border:1px dashed var(--accent3);color:var(--accent3);border-radius:8px;padding:.15em .5em;font-size:.85em;font-weight:700;white-space:nowrap}
+  .tbd-card{border-style:dashed;border-color:var(--accent3)}
+  /* timeline */
+  .tl{display:grid;grid-template-columns:repeat(12,1fr);gap:8px;margin-top:2vh}
+  .tl .w{height:clamp(64px,9vh,96px);border-radius:12px;display:flex;flex-direction:column;justify-content:space-between;padding:10px 10px;font-size:clamp(12px,1vw,15px);font-weight:700;color:#0f1115}
+  .tl .w small{font-weight:600;opacity:.8;font-size:.85em}
+  .w.b1{background:var(--b1)} .w.b2{background:var(--b2)} .w.b3{background:var(--b3)} .w.pres{background:var(--pres)}
+  .w.t{outline:3px solid rgba(255,255,255,.55);outline-offset:-3px}
+  .legend{display:flex;gap:2.2em;margin-top:2.2vh;font-size:clamp(13px,1.15vw,17px);color:var(--muted)}
+  .legend span::before{content:"";display:inline-block;width:.9em;height:.9em;border-radius:4px;margin-right:.5em;vertical-align:-1px}
+  .legend .l1::before{background:var(--b1)} .legend .l2::before{background:var(--b2)} .legend .l3::before{background:var(--b3)} .legend .l4::before{background:var(--pres)}
+  .legend .lt::before{background:transparent;outline:3px solid rgba(255,255,255,.55);outline-offset:-3px}
+  /* tables */
+  table{border-collapse:collapse;width:100%;font-size:clamp(15px,1.35vw,21px)}
+  th,td{text-align:left;padding:.55em .8em;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:700;font-size:.8em;letter-spacing:.12em;text-transform:uppercase}
+  td.w{width:3.5em;color:var(--muted);font-weight:700}
+  .pill{display:inline-block;padding:.1em .55em;border-radius:999px;font-size:.75em;font-weight:800;letter-spacing:.06em;color:#0f1115}
+  .pill.t{background:#fff} .pill.p{background:var(--muted)}
+  /* section slides */
+  .section{justify-content:flex-end}
+  .section .num{font-size:clamp(90px,16vw,220px);font-weight:900;line-height:.9;letter-spacing:-.05em;opacity:.18}
+  .section.b1 .num{color:var(--b1)} .section.b2 .num{color:var(--b2)} .section.b3 .num{color:var(--b3)} .section.pres .num{color:var(--pres)}
+  .section h2{max-width:16ch}
+  .section .sub{font-size:clamp(18px,1.8vw,26px);color:var(--muted);max-width:40ch}
+  /* misc */
+  .rule{display:grid;grid-template-columns:auto 1fr;gap:1.2em;align-items:baseline;margin-top:.9em}
+  .rule b{color:var(--accent);font-size:1.3em}
+  ul.clean{list-style:none;padding:0;margin:.4em 0 0}
+  ul.clean li{padding:.35em 0 .35em 1.4em;position:relative}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--accent)}
+  .stack{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em}
+  .stack span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.35em .9em;font-size:clamp(14px,1.2vw,18px);font-weight:600}
+  .foot{position:absolute;left:8vw;right:8vw;bottom:3.5vh;display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+  .progress{position:fixed;left:0;bottom:0;height:3px;background:var(--accent);width:0;transition:width .3s}
+  .counter{position:fixed;right:18px;bottom:12px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .help{position:fixed;left:18px;bottom:12px;font-size:12px;color:var(--muted)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--bg2);border:1px solid var(--line);padding:.1em .4em;border-radius:6px;font-size:.9em}
+  @media (max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}.tl{grid-template-columns:repeat(6,1fr)}.slide{padding:5vh 6vw;justify-content:flex-start;overflow:auto}}
+  @media print{.slide{display:flex!important;opacity:1!important;transform:none!important;position:relative;height:100vh;page-break-after:always}.progress,.counter,.help{display:none}}
+  .notes{display:none;position:absolute;left:8vw;right:8vw;bottom:9vh;background:#1d2230;border-left:4px solid var(--accent3);padding:.8em 1em;font-size:15px;line-height:1.45;color:#dfe4ec;border-radius:8px}
+  body.show-notes .slide.active .notes{display:block}
+</style>
+</head>
+<body>
+<div class="deck">
+<!-- 1 · Title -->
+<section class="slide section b1">
+  <div class="num">W3</div>
+  <div class="kicker b1">Block 1 · Class 3 · Theory</div>
+  <h2>Save points.</h2>
+  <p class="sub">Last week you fixed a bug in a folder. Today the folder becomes a repo, and you build a feature the way a team does.</p>
+  <aside class="notes">Timing: today 3 · git concepts 10 · publish your repo 20 · bug 000 live 7 · bug 000 yours 7 · the spec + tests 10 · feature 1 live 15 · your turn 15 · wrap 3 = 90. One tool today: git, through GitHub Desktop. Codex stays what it was last week, the AI you prompt. No deploy today — that's Block 3. Have SplitIt open, clean, with last week's bug 001 fix applied, GitHub Desktop installed and signed in to a spare GitHub account on the presenting laptop. Repos are private: students will paste a key into a file one day.</aside>
+</section>
+
+<!-- 2 · Today -->
+<section class="slide">
+  <div class="kicker b1">Class 3 · Today</div>
+  <h2>What we'll do.</h2>
+  <table style="margin-top:.4em">
+    <tr><td class="w">1</td><td><b>Git, the idea</b> <span class="muted">— four words.</span></td></tr>
+    <tr><td class="w">2</td><td><b>Your folder becomes a repo</b> <span class="muted">— last week's fix is your first commit.</span></td></tr>
+    <tr><td class="w">3</td><td><b>One line, one commit</b> <span class="muted">— bug #0, me first, then you.</span></td></tr>
+    <tr><td class="w">4</td><td><b>A spec from the PM</b> <span class="muted">— and the tests that say when it's done.</span></td></tr>
+    <tr><td class="w">5</td><td><b>Feature 1, live</b> <span class="muted">— branch → build → green → merge. Then you start yours.</span></td></tr>
+  </table>
+  <p class="muted" style="margin-top:1.2em">Same groups as last week. Today every laptop gets its own private repo.</p>
+</section>
+
+<!-- 3 · Git concept -->
+<section class="slide">
+  <div class="kicker b1">Class 3 · Git, the idea</div>
+  <h2>Git is save points for code.</h2>
+  <div class="grid g4" style="margin-top:.4em">
+    <div class="card"><div class="n">Repo</div><h3>The project</h3><p>A folder git watches. Yours is on your laptop; a copy lives on GitHub.</p></div>
+    <div class="card"><div class="n">Commit</div><h3>A save point</h3><p>A snapshot of the folder with a message. You can always go back to it.</p></div>
+    <div class="card"><div class="n">Branch</div><h3>A parallel copy</h3><p>Build on the side. <code>main</code> keeps working while you try.</p></div>
+    <div class="card"><div class="n">Push</div><h3>Upload</h3><p>Send your commits to GitHub. Until you push, they're only on your laptop.</p></div>
+  </div>
+  <p class="muted" style="margin-top:1.2em">All of it from GitHub Desktop. Buttons, no terminal.</p>
+  <aside class="notes">Analogy that lands: commit = save in a game, branch = a second save slot, push = cloud save. Skip pull, merge conflicts, staging vocabulary. GitHub Desktop ticks every changed file by default — "everything ticked goes in the save".</aside>
+</section>
+
+<!-- 4 · Two places -->
+<section class="slide">
+  <div class="kicker b1">Class 3 · Git, the idea</div>
+  <h2>Two copies. You keep them in sync.</h2>
+  <div class="grid g2" style="margin-top:.4em">
+    <div class="card"><div class="n">Your laptop</div><h3>Where you work</h3><p>Edit files, run the app, run the tests. <b>Commit</b> when something works.</p></div>
+    <div class="card"><div class="n">GitHub</div><h3>Where the team looks</h3><p>The history, the branches, the pull requests. <b>Push</b> to get your commits here.</p></div>
+  </div>
+  <div class="rule"><b>1</b><p>Commit small. One bug, one feature, one commit.</p></div>
+  <div class="rule"><b>2</b><p>The message says what changed: <i>"Fix group title showing the id"</i>.</p></div>
+  <div class="rule"><b>3</b><p>Push before you close the laptop.</p></div>
+</section>
+
+<!-- 5 · Publish -->
+<section class="slide">
+  <div class="kicker b1">Class 3 · Your folder becomes a repo · 20 min</div>
+  <h2>Publish to GitHub.</h2>
+  <table style="margin-top:.2em">
+    <tr><td class="w">1</td><td><b>Install GitHub Desktop</b> from <code>desktop.github.com</code>. Sign in with your GitHub account.</td></tr>
+    <tr><td class="w">2</td><td><b>File → Add local repository</b> → choose last week's folder. It says "not a repository" → <b>Create a repository here</b>.</td></tr>
+    <tr><td class="w">3</td><td><b>Publish repository.</b> Name it <code>splitit</code> or <code>tiny-crm</code>. Leave <b>Keep this code private</b> ticked.</td></tr>
+    <tr><td class="w">4</td><td><b>Repository → View on GitHub.</b> Your files, your fix, online. That was your first commit.</td></tr>
+  </table>
+  <p class="muted" style="margin-top:1.2em;max-width:56ch">One repo per person. Same folder, same fix, your own copy. Private: only you see it.</p>
+  <aside class="notes">Do it on stage first, slowly, then let them go. Two round-trips to the browser (sign in, then View on GitHub) are where people get lost — say out loud "come back to GitHub Desktop". "Create a repository" makes the first commit by itself, with every file in the folder; the `.gitignore` in the ZIP keeps `.venv` and caches out, `data/` goes in, that's fine. If a laptop cloned the org repo in W1 instead of the ZIP, Add local repository finds a remote already: easiest is a fresh ZIP, copy their edits over, then the steps above. No GitHub account: create one now with the university email, two minutes. Windows: GitHub Desktop installs git itself, nothing else needed.</aside>
+</section>
+
+<!-- 6 · Bug 000 live -->
+<section class="slide">
+  <div class="kicker b1">Class 3 · Live · Bug #0</div>
+  <h2>One line. One commit.</h2>
+  <table style="margin-top:.2em">
+    <tr><td class="w">1</td><td><b>Read the report.</b> <code>issues/000-group-title.md</code>: the group page says "Group 2" instead of the name.</td></tr>
+    <tr><td class="w">2</td><td><b>Run the test.</b> <code>uv run pytest tests/test_bugs.py</code>. The bug has a test, and it's red.</td></tr>
+    <tr><td class="w">3</td><td><b>Follow the click.</b> <code>st.title(logic.group_title(group))</code> → <code>group_title</code> returns <code>"Group " + group["id"]</code>.</td></tr>
+    <tr><td class="w">4</td><td><b>Fix.</b> <code>return group["name"]</code>. Run the test: green. Refresh the app: "Surf Trip Ericeira".</td></tr>
+    <tr><td class="w">5</td><td><b>Commit.</b> GitHub Desktop shows <code>logic.py</code> changed → summary → <b>Commit to main</b> → <b>Push origin</b>. Refresh GitHub.</td></tr>
+  </table>
+  <aside class="notes">This is the whole loop in miniature: report → red → find → fix → green → commit → push. Narrate GitHub Desktop: the file appears in the left list, the diff on the right in red and green, the summary box, Commit to main, then the Push origin button at the top (that's push). Show the commit on GitHub, click it, show the diff: one red line, one green line. Tests run with `uv run pytest`, same uv as last week; pytest is in the project already.</aside>
+</section>
+
+<!-- 7 · Bug 000 yours -->
+<section class="slide">
+  <div class="kicker b1">Class 3 · Your turn · 8 min</div>
+  <h2>Bug #0 in your repo.</h2>
+  <ul class="clean">
+    <li><b>SplitIt:</b> <code>issues/000-group-title.md</code>. The title shows the id.</li>
+    <li><b>Tiny CRM:</b> <code>issues/000-lead-count.md</code>. Every stage count is one too many.</li>
+    <li><b>Red test first.</b> <code>uv run pytest tests/test_bugs.py</code>.</li>
+    <li><b>Fix, green, commit, push.</b> Show the commit on GitHub to the person next to you.</li>
+  </ul>
+  <p class="muted" style="margin-top:1.2em">Done early? Read <code>specs/feature-1</code>. It's next.</p>
+  <aside class="notes">CRM fix: `count_by_stage` in logic.py loops `range(len(matching) + 1)`; the comment above it is wrong on purpose. Either `range(len(matching))` or simply `return len(matching)`. Walk the room looking at GitHub pages, not at code: the goal of these 8 minutes is one commit pushed by every laptop.</aside>
+</section>
+
+<!-- 8 · The spec -->
+<section class="slide">
+  <div class="kicker b1">Class 3 · A spec from the PM</div>
+  <h2>What a product manager sends you.</h2>
+  <div class="grid g2" style="margin-top:.2em">
+    <div class="card"><div class="n"><code>specs/feature-1-balances.md</code></div>
+      <p><b>Why</b> — as a member, I want balances in words I can read out loud.<br>
+      <b>What</b> — a checklist. <code>balance_lines(group_id)</code>, one sentence per member, <i>"João is owed €20.00"</i>.<br>
+      <b>Out of scope</b> — settle up, rounding, storage.<br>
+      <b>Done when</b> — tests green · visible on the page · on a branch, pushed.</p></div>
+    <div class="card"><div class="n">Read it as an engineer</div>
+      <p>Which file changes? <span class="muted">logic.py and app.py.</span><br>
+      What do I reuse? <span class="muted">compute_balances, get_group_members.</span><br>
+      What's ambiguous? <span class="muted">Ask, or read the test.</span></p>
+      <p style="margin-top:.8em">The spec is also your prompt. Paste it to Codex as is.</p></div>
+  </div>
+  <aside class="notes">Open the real file on screen and read the What checklist aloud. Point at "Blocked by issue 001" at the top: they fixed that last week, so they're unblocked. CRM feature 1 is blocked by their bug 002 (dates compared as text), which they have not fixed. Say so: CRM groups fix 002 first, and their feature will spill into next week. That's fine.</aside>
+</section>
+
+<!-- 9 · Tests -->
+<section class="slide">
+  <div class="kicker b1">Class 3 · Tests</div>
+  <h2>Tests are the spec, in code.</h2>
+  <div class="grid g3" style="margin-top:.4em">
+    <div class="card"><div class="n">What a test is</div><p>A tiny program that calls your function and checks the answer. Green = matches. Red = doesn't.</p></div>
+    <div class="card"><div class="n">Why you care</div><p>You didn't write most of your code. Tests tell you whether the AI did what you asked.</p></div>
+    <div class="card"><div class="n">The loop</div><p>Red → build → run → still red? Read the failure. → green. Then click through the app anyway.</p></div>
+  </div>
+  <p style="margin-top:1.2em"><code>uv run pytest tests/test_feature_1.py</code> — four tests, one per line of the spec's checklist.</p>
+  <aside class="notes">Run it before building: 4 red, "balance_lines does not exist". Open the test file and match each test to a checklist line: one line per member / is owed / owes / settled up. Read one assertion aloud: "the test expects the string João is owed €20.00 to be in the list".</aside>
+</section>
+
+<!-- 10 · Feature 1 live -->
+<section class="slide">
+  <div class="kicker b1">Class 3 · Live · Feature 1</div>
+  <h2>Branch → build → green → merge.</h2>
+  <table style="margin-top:.2em">
+    <tr><td class="w">1</td><td><b>Branch.</b> GitHub Desktop → <b>Current branch</b> → New branch → <code>feature-1-balances</code>.</td></tr>
+    <tr><td class="w">2</td><td><b>Red.</b> <code>uv run pytest tests/test_feature_1.py</code>. Four failures. That's the to-do list.</td></tr>
+    <tr><td class="w">3</td><td><b>Prompt.</b> Paste the spec and the test file into Codex. Ask for <code>balance_lines</code> in <code>logic.py</code>.</td></tr>
+    <tr><td class="w">4</td><td><b>Read the diff</b> in GitHub Desktop. Does it reuse <code>compute_balances</code>? Two decimals? No minus sign?</td></tr>
+    <tr><td class="w">5</td><td><b>Green.</b> Run the tests. Then <code>show_balances</code> in <code>app.py</code> prints the lines. Refresh, look.</td></tr>
+    <tr><td class="w">6</td><td><b>Commit, push, Create Pull Request, merge.</b> One button each. Then switch back to <code>main</code> and <b>Pull origin</b>.</td></tr>
+  </table>
+  <aside class="notes">Narrate every decision; this is what they copy. Let Codex get one thing wrong and show it in the tests (a common miss: "€8.2" instead of "€8.20", or the minus sign kept). Fix by hand or re-prompt, run again. After push, GitHub Desktop offers Create Pull Request; it opens GitHub, show the diff, merge there. Back in GitHub Desktop: Current branch → main, Pull origin, the feature is there. If time is short, skip the PR and merge on GitHub straight from the branch page.</aside>
+</section>
+
+<!-- 11 · Your turn -->
+<section class="slide">
+  <div class="kicker b1">Class 3 · Your turn · 15 min, finish at home</div>
+  <h2>Feature 1 in your repo.</h2>
+  <ul class="clean">
+    <li><b>Branch</b> <code>feature-1-balances</code> or <code>feature-1-overdue</code>.</li>
+    <li><b>Run the red tests</b> before you build anything.</li>
+    <li><b>Prompt with the spec.</b> Read the diff before you accept it.</li>
+    <li><b>Green, then click it</b> in the app.</li>
+    <li><b>Commit and push the branch.</b> Merge when it's green.</li>
+  </ul>
+  <p class="muted" style="margin-top:1.2em">Tiny CRM: fix <code>issues/002</code> first, it says so at the top of the spec.</p>
+  <aside class="notes">Roam. Look for two things: did they run the tests before prompting, and did they read the diff. Groups that paste the spec and accept everything will have a red test on decimals; let the test tell them. Nobody has to finish today. Finished and merged: feature 2 spec is there, or issue 002.</aside>
+</section>
+
+<!-- 12 · Stuck -->
+<section class="slide">
+  <div class="kicker b1">Class 3 · When git is confusing</div>
+  <h2>You can't lose a commit.</h2>
+  <table style="margin-top:.2em">
+    <tr><td class="w">1</td><td><b>Wrong branch?</b> Current branch → switch. GitHub Desktop asks to bring your changes along. Say yes.</td></tr>
+    <tr><td class="w">2</td><td><b>Broke a file?</b> GitHub Desktop → right-click the file → <b>Discard changes</b>. Back to the last commit.</td></tr>
+    <tr><td class="w">3</td><td><b>Broke the data?</b> <code>uv run python seed.py</code>, same as last week.</td></tr>
+    <tr><td class="w">4</td><td><b>An error you don't understand?</b> Screenshot it, ask Codex to explain it, then ask us.</td></tr>
+  </table>
+</section>
+
+<!-- 13 · Before next week -->
+<section class="slide">
+  <div class="kicker b1">Class 3 · Before next week</div>
+  <h2>Next week: a spec you build alone.</h2>
+  <ul class="clean">
+    <li><b>Finish feature 1</b> on its branch. Green tests, merged, pushed.</li>
+    <li><b>Your repo is the one that counts now.</b> Not the ZIP, not the folder.</li>
+    <li><b>Push before you close the laptop.</b> Every time.</li>
+    <li><b>Read <code>specs/feature-2</code></b> and <code>issues/002</code>. That's Class 4.</li>
+  </ul>
+  <aside class="notes">Collect nothing. Repos are private, so next week the check-in is on their laptop: the TA asks for the GitHub page and looks for the feature-1 branch and a merged commit.</aside>
+</section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter"></div>
+<div class="help">← → navigate · N notes · F fullscreen</div>
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=Math.max(0,Math.min(slides.length-1,(parseInt(location.hash.slice(1),10)||1)-1));
+  const progress=document.getElementById('progress'),counter=document.getElementById('counter');
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    progress.style.width=((i+1)/slides.length*100)+'%';
+    counter.textContent=(i+1)+' / '+slides.length;
+    history.replaceState(null,'','#'+(i+1));
+  }
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}
+    else if(e.key==='Home')show(0); else if(e.key==='End')show(slides.length-1);
+    else if(e.key.toLowerCase()==='n'){document.body.classList.toggle('show-notes')}
+    else if(e.key.toLowerCase()==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+  });
+  document.querySelector('.deck').addEventListener('click',e=>{ if(e.clientX>innerWidth*0.5)show(i+1); else show(i-1); });
+  let tx=null;
+  document.addEventListener('touchstart',e=>tx=e.touches[0].clientX);
+  document.addEventListener('touchend',e=>{ if(tx===null)return; const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>50)show(dx<0?i+1:i-1); tx=null; });
+  window.addEventListener('hashchange',()=>show((parseInt(location.hash.slice(1),10)||1)-1));
+  show(i);
+})();
+</script>
+</body>
+</html>
