@@ -22,6 +22,8 @@ Last week you watched a feature get built. Today you build one alone, the way ag
 
 The loop has a name: **ReAct** ([Yao et al., 2022](https://arxiv.org/abs/2210.03629)) — *reason* (a short thought: "two tests still fail on CATEGORIES"), *act* (one tool call), *observe* (the result comes back), repeat until done. The model can only *write* a tool call; the software that runs it, asks your permission, feeds the output back, keeps the history, loads `AGENTS.md` and stops the loop is the **harness**. Codex is a harness; Claude Code, Cursor and Copilot's agent are others. They all run the same loop and differ only in tools, permissions and how they manage the conversation — which is why the three standards below apply to every one of them.
 
+**How we got here, in one line per year.** 2018 GPT-1 continues text · 2019 GPT-2 writes coherent paragraphs · 2020–21 GPT-3 learns from examples in the prompt, Codex/Copilot autocomplete code · 2022 ChatGPT follows instructions and converses, ReAct is published · 2023 GPT-4 and tool calling: the model can request an action and read the result · 2024 reasoning models think before acting, computer use · 2025 coding harnesses (Claude Code, Codex CLI, Cursor's agent) build features in your repo, `AGENTS.md` becomes a convention · 2026 long-running agents work for hours with a judge. The model got better every year; the two jumps that changed the job were *instructions* (2022) and *tools + a loop* (2023–25). The standards exist because a model that can act for hours needs rules and a judge.
+
 Then three standards, and you will use all three before you leave:
 
 1. **The rulebook — `AGENTS.md`.** The file Codex reads before it reads anything else. What goes in, what stays out, and why it lives in git like any other code. You add three lines to yours and commit them.
@@ -30,7 +32,7 @@ Then three standards, and you will use all three before you leave:
 
 Live on SplitIt: the three lines go into `AGENTS.md`, feature 2 starts on a branch, the loop prompt goes in, we watch it loop, then we read the diff before we trust it.
 
-## Your turn · 34 min
+## Your turn · 32 min
 
 Same order as last week: one bug, then the feature, on a branch. Tests first, every time.
 

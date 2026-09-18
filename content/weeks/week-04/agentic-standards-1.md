@@ -18,6 +18,20 @@ Three things every team that ships with AI agents does. They fit on one page and
 
 **The harness.** The model can only *write* a tool call. The software around it runs the call, shows you the approval prompt, puts the output back, keeps the history, loads `AGENTS.md` at the start, and stops the loop. That software is the harness. Codex is one; Claude Code, Cursor, Copilot's agent are others. Same loop everywhere — they differ in the tools offered, what needs permission, and how the conversation is managed. Learn the loop once; the tools are interchangeable. The three standards below are you configuring the harness: the rulebook it loads, the judge it runs, the stop condition of its loop.
 
+**How we got here.** Same direction for eight years, four kinds of capability added in order:
+
+| When | What arrived | What it meant for your code |
+|---|---|---|
+| 2018–19 | GPT-1, GPT-2: continue text, then write coherent paragraphs | Plausible snippets, often wrong |
+| 2020–21 | GPT-3: learns from examples in the prompt; Codex → Copilot | Autocomplete: finishes the line you started |
+| 2022 | ChatGPT: follows instructions, holds a conversation; ReAct published | Answers you paste in and out |
+| 2023 | GPT-4; tool calling: the model emits a request and reads the result | It can run your tests, if a harness runs them |
+| 2024 | Reasoning models; computer use | Multi-step tasks stop falling apart |
+| 2025 | Coding harnesses (Claude Code, Codex CLI, Cursor agent); `AGENTS.md` | Builds the feature in your repo while you watch |
+| 2026 | Long-running agents: desktop apps, loops with a judge | Works for hours while you're away — if you wrote the rules and the judge |
+
+The two jumps that changed the job: *instructions* (2022) and *tools + a loop* (2023–25). Everything since is plumbing and stamina — and the reason the standards exist.
+
 **Why it matters here.** An agent can *run* the tests — but it can still *say* they passed without showing you. Tools give it hands; they don't make it honest. Hence the standards: a rulebook it reads before it acts, a judge whose output it cannot argue with, and a loop that knows when to stop.
 
 ## 1 · The rulebook — `AGENTS.md`

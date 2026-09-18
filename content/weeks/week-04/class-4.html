@@ -86,7 +86,7 @@
   <div class="kicker b1">Block 1 · Class 4 · Practical</div>
   <h2>Rules, judge, loop.</h2>
   <p class="sub">Last week you watched a feature get built. Today you build one alone — with the three standards every team that ships with agents uses.</p>
-  <aside class="notes">Timing: check-in 5 · what an agent is + tool calls + ReAct/harness 8 · rulebook + live AGENTS.md 10 · judge 5 · loop 5 · feature 2 kick-off live 13 · your turn 34 · retro 7 · wrap 3 = 90. TA-run. Presenting laptop: SplitIt repo with bugs 000/001 fixed and feature 1 merged, on main, clean; Codex open on it; GitHub Desktop signed in. Reset data before class. Nothing new to install today — that's the point of the week.</aside>
+  <aside class="notes">Timing: check-in 5 · what an agent is + tool calls + ReAct/harness + chronology 10 · rulebook + live AGENTS.md 10 · judge 5 · loop 5 · feature 2 kick-off live 13 · your turn 32 · retro 7 · wrap 3 = 90. TA-run. Presenting laptop: SplitIt repo with bugs 000/001 fixed and feature 1 merged, on main, clean; Codex open on it; GitHub Desktop signed in. Reset data before class. Nothing new to install today — that's the point of the week.</aside>
 </section>
 
 <!-- 2 · Today -->
@@ -95,10 +95,10 @@
   <h2>What we'll do.</h2>
   <table style="margin-top:.4em">
     <tr><td class="w">1</td><td><b>Check-in</b> <span class="muted">— your GitHub page: feature 1 merged.</span></td></tr>
-    <tr><td class="w">2</td><td><b>What an agent is</b> <span class="muted">— a chat model vs an agent, tool calls, the ReAct loop, and the harness that runs it.</span></td></tr>
+    <tr><td class="w">2</td><td><b>What an agent is</b> <span class="muted">— a chat model vs an agent, tool calls, the ReAct loop, the harness that runs it, and how we got here.</span></td></tr>
     <tr><td class="w">3</td><td><b>Three standards</b> <span class="muted">— the rulebook, the judge, the loop. Ten minutes each, then you use them.</span></td></tr>
     <tr><td class="w">4</td><td><b>Feature 2 kick-off, live</b> <span class="muted">— branch → red → the loop prompt → watch it loop → read the diff.</span></td></tr>
-    <tr><td class="w">5</td><td><b>Your turn</b> <span class="muted">— one bug, then feature 2. Thirty-four minutes.</span></td></tr>
+    <tr><td class="w">5</td><td><b>Your turn</b> <span class="muted">— one bug, then feature 2. Thirty-two minutes.</span></td></tr>
     <tr><td class="w">6</td><td><b>Retro</b> <span class="muted">— the rule you add to <code>AGENTS.md</code> from what went wrong.</span></td></tr>
   </table>
   <p class="muted" style="margin-top:1.2em">Same groups, but every laptop builds in its own repo today.</p>
@@ -158,6 +158,24 @@
   </div>
   <p class="muted" style="margin-top:1em;font-size:clamp(12px,1vw,15px)">Yao, Zhao, Yu, Du, Shafran, Narasimhan &amp; Cao (2022). <i>ReAct: Synergizing Reasoning and Acting in Language Models.</i> ICLR 2023 · arxiv.org/abs/2210.03629</p>
   <aside class="notes">ReAct = "Reasoning and Acting", a 2022 paper (Yao et al., ICLR 2023, arXiv:2210.03629) that showed a model does far better when it alternates a thought with an action and reads the observation, instead of answering in one go. Every harness since is that loop with better plumbing. The word to land: harness — model + tools + loop + rules + permissions. When students say "Codex did X", the harness ran the loop; the model chose the actions. Standards 1–3 are you configuring the harness: the rulebook it loads, the judge it runs, the stop condition of its loop.</aside>
+</section>
+
+<!-- 3d · Chronology -->
+<section class="slide">
+  <div class="kicker pres">Before the standards · How we got here</div>
+  <h2>Eight years, one direction: from <span class="muted">completing text</span> to <span class="accent">doing the work</span>.</h2>
+  <table style="margin-top:.2em;font-size:clamp(13px,1.2vw,18px)">
+    <tr><td class="w">2018</td><td><b>GPT-1</b> — a model that continues text. Party trick. <span class="muted">For your code: nothing.</span></td></tr>
+    <tr><td class="w">2019</td><td><b>GPT-2</b> — coherent paragraphs. <span class="muted">Plausible-looking snippets, often wrong.</span></td></tr>
+    <tr><td class="w">2020–21</td><td><b>GPT-3 · Codex · Copilot</b> — learns from examples <i>in the prompt</i>; code autocomplete in the editor. <span class="muted">Finishes the line you started.</span></td></tr>
+    <tr><td class="w">2022</td><td><b>ChatGPT</b> — trained to follow instructions and hold a conversation. <b>ReAct</b> is published. <span class="muted">Answers you paste in and out.</span></td></tr>
+    <tr><td class="w">2023</td><td><b>GPT-4 · tool calling</b> — the model can emit a structured request and read the result. <span class="muted">It can run your tests — if something runs them for it.</span></td></tr>
+    <tr><td class="w">2024</td><td><b>Reasoning models · computer use</b> — thinks before it acts; clicks and types on a screen. <span class="muted">Multi-step tasks stop falling apart.</span></td></tr>
+    <tr><td class="w">2025</td><td><b>Coding harnesses</b> — Claude Code, Codex CLI, Cursor agent; <code>AGENTS.md</code> becomes a convention. <span class="muted">Builds the feature in your repo while you watch.</span></td></tr>
+    <tr><td class="w">2026</td><td><b>Long-running agents</b> — desktop apps, loops with a judge, hours unattended. <span class="muted">Works while you're away — if you wrote the rules and the judge.</span></td></tr>
+  </table>
+  <p class="muted" style="margin-top:.8em;max-width:64ch">The model got better every year. The jump that matters for you happened twice: <b>instructions</b> (2022) and <b>tools + a loop</b> (2023–25). Everything after is plumbing and stamina.</p>
+  <aside class="notes">Two minutes, one sweep, don't stop on any row. The point is the shape: every step down the table is the same model family gaining a new *kind* of capability — completing, conversing, acting, persisting — not just getting smarter. Land the last line: what changed the job was instructions plus tools plus a loop; the standards exist because a model that can act for hours needs rules and a judge. Sources if asked: GPT-1 Radford et al. 2018; GPT-2 2019; GPT-3 Brown et al. 2020 ("Language Models are Few-Shot Learners"); Codex Chen et al. 2021; InstructGPT Ouyang et al. 2022 → ChatGPT Nov 2022; ReAct Yao et al. 2022; GPT-4 Mar 2023 and function calling Jun 2023; o1 Sep 2024 and Claude computer use Oct 2024; Claude Code Feb 2025, Codex CLI Apr 2025, agents.md Aug 2025; Codex app Feb 2026. Dates are release months, approximate on purpose.</aside>
 </section>
 
 <!-- 4 · Standard 1: the rulebook -->
@@ -245,7 +263,7 @@
 
 <!-- 10 · Your turn -->
 <section class="slide">
-  <div class="kicker b1">Class 4 · Your turn · 34 min</div>
+  <div class="kicker b1">Class 4 · Your turn · 32 min</div>
   <h2>One bug, then feature 2.</h2>
   <div class="grid g2" style="margin-top:.6em">
     <div class="card"><div class="n">SplitIt</div><h3>issues/002 → feature-2-categories</h3><p>Removing a member crashes the page. Test: <code>test_bug_002</code>. Then categories, on its branch.</p></div>

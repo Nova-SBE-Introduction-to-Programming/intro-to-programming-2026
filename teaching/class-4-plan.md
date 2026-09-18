@@ -1,6 +1,6 @@
 # Class 4 — Rules, judge, loop · TA plan and answer key
 
-90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.html` (16 slides, N for notes) · page `weeks/week-04` · handout `agentic-standards-1.md`.
+90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.html` (17 slides, N for notes) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 
 ## Why the class is shaped this way
 
@@ -16,14 +16,14 @@
 | Min | Slide | What | Checkpoint |
 |---|---|---|---|
 | 0–5 | 3 | Check-in: GitHub page shows feature-1 branch + merged PR. Pull main, run feature-1 tests. | TA has the list of who isn't done |
-| 5–13 | 4–6 | What an agent is (chat model vs agent: same model + tools + loop), what a tool call is (request → executed after approval → output back → next call), the ReAct loop (reason · act · observe; Yao et al. 2022, *ReAct: Synergizing Reasoning and Acting in Language Models*, ICLR 2023, arXiv:2210.03629) and the harness (the software that runs the loop: executes calls, asks permission, keeps history, loads AGENTS.md, stops). Land: every agentic tool runs the same loop; the standards configure the harness. | — |
-| 13–23 | 7–8 | Standard 1, the rulebook. Live: ask Codex *"What does AGENTS.md tell you to do?"* (proof it reads it). Add the three lines via Codex, read the diff, commit, push. Everyone does the same. | Every laptop: `AGENTS.md` commit pushed |
-| 23–28 | 9 | Standard 2, the judge. Run `uv run pytest tests/test_feature_2.py` → 4 red; match tests to the spec checklist. | — |
-| 28–33 | 10–11 | Standard 3, the loop + the loop prompt (task · boundary · judge · evidence). | — |
-| 33–46 | 12 | Feature 2 kick-off live on SplitIt: branch → red → **new thread** → paste prompt → watch it loop → green → read the diff → click the app → commit/push/PR/merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
-| 46–80 | 13–14 | Your turn: bug (on main) then feature 2 (on branch). Roam: "did you ask for the output?", "did you read the diff?". | Bug test green + pushed; feature 2 green on branch |
-| 80–87 | 15 | Retro: worst thing the agent did → one rule → commit to `AGENTS.md` with the reason. Three read out. | Every laptop: second `AGENTS.md` commit |
-| 87–90 | 16 | Wrap: finish feature 2, rule committed, push. Block 2 next. | — |
+| 5–15 | 4–7 | What an agent is (chat model vs agent: same model + tools + loop), what a tool call is (request → executed after approval → output back → next call), the ReAct loop (reason · act · observe; Yao et al. 2022, *ReAct: Synergizing Reasoning and Acting in Language Models*, ICLR 2023, arXiv:2210.03629) and the harness (the software that runs the loop: executes calls, asks permission, keeps history, loads AGENTS.md, stops). Then the chronology in one sweep (2 min): GPT-1 → GPT-2 → GPT-3/Codex/Copilot → ChatGPT (instructions) → GPT-4 + tool calling → reasoning/computer use → coding harnesses + AGENTS.md → long-running agents. Land: every agentic tool runs the same loop; the standards configure the harness. | — |
+| 15–25 | 8–9 | Standard 1, the rulebook. Live: ask Codex *"What does AGENTS.md tell you to do?"* (proof it reads it). Add the three lines via Codex, read the diff, commit, push. Everyone does the same. | Every laptop: `AGENTS.md` commit pushed |
+| 25–30 | 10 | Standard 2, the judge. Run `uv run pytest tests/test_feature_2.py` → 4 red; match tests to the spec checklist. | — |
+| 30–35 | 11–12 | Standard 3, the loop + the loop prompt (task · boundary · judge · evidence). | — |
+| 35–48 | 13 | Feature 2 kick-off live on SplitIt: branch → red → **new thread** → paste prompt → watch it loop → green → read the diff → click the app → commit/push/PR/merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
+| 48–80 | 14–15 | Your turn: bug (on main) then feature 2 (on branch). Roam: "did you ask for the output?", "did you read the diff?". | Bug test green + pushed; feature 2 green on branch |
+| 80–87 | 16 | Retro: worst thing the agent did → one rule → commit to `AGENTS.md` with the reason. Three read out. | Every laptop: second `AGENTS.md` commit |
+| 87–90 | 17 | Wrap: finish feature 2, rule committed, push. Block 2 next. | — |
 
 ## Exact prompts for the live part
 
