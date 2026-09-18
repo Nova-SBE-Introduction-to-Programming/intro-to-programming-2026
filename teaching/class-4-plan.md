@@ -16,7 +16,7 @@
 | Min | Slide | What | Checkpoint |
 |---|---|---|---|
 | 0–5 | 3 | Check-in: GitHub page shows feature-1 branch + merged PR. Pull main, run feature-1 tests. | TA has the list of who isn't done |
-| 5–13 | 4–6 | What an agent is (chat model vs agent: same model + tools + loop), what a tool call is (request → executed after approval → output back → next call), the ReAct loop (reason · act · observe, Yao et al. 2022) and the harness (the software that runs the loop: executes calls, asks permission, keeps history, loads AGENTS.md, stops). Land: every agentic tool runs the same loop; the standards configure the harness. | — |
+| 5–13 | 4–6 | What an agent is (chat model vs agent: same model + tools + loop), what a tool call is (request → executed after approval → output back → next call), the ReAct loop (reason · act · observe; Yao et al. 2022, *ReAct: Synergizing Reasoning and Acting in Language Models*, ICLR 2023, arXiv:2210.03629) and the harness (the software that runs the loop: executes calls, asks permission, keeps history, loads AGENTS.md, stops). Land: every agentic tool runs the same loop; the standards configure the harness. | — |
 | 13–23 | 7–8 | Standard 1, the rulebook. Live: ask Codex *"What does AGENTS.md tell you to do?"* (proof it reads it). Add the three lines via Codex, read the diff, commit, push. Everyone does the same. | Every laptop: `AGENTS.md` commit pushed |
 | 23–28 | 9 | Standard 2, the judge. Run `uv run pytest tests/test_feature_2.py` → 4 red; match tests to the spec checklist. | — |
 | 28–33 | 10–11 | Standard 3, the loop + the loop prompt (task · boundary · judge · evidence). | — |

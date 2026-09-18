@@ -14,7 +14,7 @@ Three things every team that ships with AI agents does. They fit on one page and
 
 **A tool call** is how it acts. Instead of prose, the model emits a request — `run: uv run pytest tests/test_feature_2.py`. The software around the model (Codex) executes it on your machine, after the approval prompt, and puts the output back into the conversation: `2 failed, 2 passed… AttributeError: no attribute CATEGORIES`. The model reads that like any other message and chooses the next call: `edit: logic.py`, then `run` again. When you watched Codex "run the tests, read the failure, edit again", you were watching tool calls, one after another.
 
-**The loop has a name: ReAct.** *Reason* — the model writes a short thought ("two tests still fail on CATEGORIES"). *Act* — it emits one tool call. *Observe* — the result comes back into the conversation. Repeat until the task is done or it needs you. A 2022 paper showed models do far better alternating thought and action than answering in one go; every agentic coding tool since is that loop with better plumbing.
+**The loop has a name: ReAct.** *Reason* — the model writes a short thought ("two tests still fail on CATEGORIES"). *Act* — it emits one tool call. *Observe* — the result comes back into the conversation. Repeat until the task is done or it needs you. The original paper showed models do far better alternating thought and action than answering in one go; every agentic coding tool since is that loop with better plumbing.¹
 
 **The harness.** The model can only *write* a tool call. The software around it runs the call, shows you the approval prompt, puts the output back, keeps the history, loads `AGENTS.md` at the start, and stops the loop. That software is the harness. Codex is one; Claude Code, Cursor, Copilot's agent are others. Same loop everywhere — they differ in the tools offered, what needs permission, and how the conversation is managed. Learn the loop once; the tools are interchangeable. The three standards below are you configuring the harness: the rulebook it loads, the judge it runs, the stop condition of its loop.
 
@@ -62,3 +62,7 @@ red  →  build  →  run the tests  →  read the failure  →  fix  →  run a
 > Build `specs/<spec>.md`. Work only on the branch `<branch>`. After every change, run `uv run pytest tests/<test file>` and keep going until all tests pass. Do not edit anything in `tests/`. When they pass, paste the final test output and list every file you changed.
 
 **Where the loop lives.** Today, inside one Codex turn — you watch it. The same idea, one level up, is a script that feeds the same prompt to the agent again and again until the judge says pass (the "Ralph loop": `while true; run agent with PROMPT.md; done`), or a tool feature that keeps the agent working until a goal you wrote is met. Same three parts every time: a rulebook, a judge, a loop. Part II, later in the course, is when you walk away from the laptop.
+
+---
+
+¹ Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K. & Cao, Y. (2022). *ReAct: Synergizing Reasoning and Acting in Language Models.* ICLR 2023. [arXiv:2210.03629](https://arxiv.org/abs/2210.03629)
