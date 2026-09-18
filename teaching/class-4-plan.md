@@ -1,6 +1,6 @@
 # Class 4 — Rules, judge, loop · TA plan and answer key
 
-90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.html` (13 slides, N for notes) · page `weeks/week-04` · handout `agentic-standards-1.md`.
+90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.html` (15 slides, N for notes) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 
 ## Why the class is shaped this way
 
@@ -8,6 +8,7 @@
 - **Tests as the feedback channel.** The "Prompt Problems" line of CS-education research (Denny, Leinonen, Prather et al.; 726-student study, arXiv 2410.03063) shows novices — especially those who find syntax hard — learn well when the task is *write the prompt, let the tests judge, iterate*, averaging 3–4 attempts. That is exactly the loop, so the class makes the loop explicit instead of leaving it implicit.
 - **PRIMM mapped onto agentic work.** Predict (read the spec + tests: which files change?) → Run (the red tests) → Investigate (read the diff) → Modify (fix what the judge reports) → Make (the feature). The deck's live kick-off follows that order.
 - **Industry standards, not tool features.** The three things every agentic team has — a rulebook (`AGENTS.md`, agents.md convention; Anthropic's CLAUDE.md guidance says the same: short, only what can't be inferred, in git), a judge (Anthropic: *"give the agent a way to verify its work… the loop closes on its own"*; Huntley: *check against something that can't lie*), and a loop (Ralph: one task per loop, a stop condition, "no placeholder implementations"). Tool-specific forms (Claude Code `/goal`, Stop hooks, `ralph-loop`) are mentioned once as "the same idea one level up" and left for Part II.
+- **Name the thing before the rules.** Two slides define *agent* by contrast (a chat model writes; an agent = the same model + tools + a loop, acts) and *tool call* concretely (request → executed after approval → output back in the conversation → next call), anchored in what students already saw Codex do. Without this, "the loop" is a metaphor; with it, it's a description of the tool-call chain they watch on stage.
 - **Rules come from failures.** The retro converts today's worst agent behaviour into one `AGENTS.md` line with the reason in the commit message. That's the meta-skill: the rulebook grows from observation, not from longer prompts.
 
 ## Run of show
@@ -15,13 +16,14 @@
 | Min | Slide | What | Checkpoint |
 |---|---|---|---|
 | 0–5 | 3 | Check-in: GitHub page shows feature-1 branch + merged PR. Pull main, run feature-1 tests. | TA has the list of who isn't done |
-| 5–17 | 4–5 | Standard 1, the rulebook. Live: ask Codex *"What does AGENTS.md tell you to do?"* (proof it reads it). Add the three lines via Codex, read the diff, commit, push. Everyone does the same. | Every laptop: `AGENTS.md` commit pushed |
-| 17–22 | 6 | Standard 2, the judge. Run `uv run pytest tests/test_feature_2.py` → 4 red; match tests to the spec checklist. | — |
-| 22–27 | 7–8 | Standard 3, the loop + the loop prompt (task · boundary · judge · evidence). | — |
-| 27–40 | 9 | Feature 2 kick-off live on SplitIt: branch → red → **new thread** → paste prompt → watch it loop → green → read the diff → click the app → commit/push/PR/merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
-| 40–80 | 10–11 | Your turn: bug (on main) then feature 2 (on branch). Roam: "did you ask for the output?", "did you read the diff?". | Bug test green + pushed; feature 2 green on branch |
-| 80–87 | 12 | Retro: worst thing the agent did → one rule → commit to `AGENTS.md` with the reason. Three read out. | Every laptop: second `AGENTS.md` commit |
-| 87–90 | 13 | Wrap: finish feature 2, rule committed, push. Block 2 next. | — |
+| 5–11 | 4–5 | What an agent is (chat model vs agent: same model + tools + loop) and what a tool call is (request → executed after approval → output back into the conversation → next call). Tie to Class 2 ("show me the last line of expenses.csv") and to what they'll see in the kick-off. | — |
+| 11–21 | 6–7 | Standard 1, the rulebook. Live: ask Codex *"What does AGENTS.md tell you to do?"* (proof it reads it). Add the three lines via Codex, read the diff, commit, push. Everyone does the same. | Every laptop: `AGENTS.md` commit pushed |
+| 21–26 | 8 | Standard 2, the judge. Run `uv run pytest tests/test_feature_2.py` → 4 red; match tests to the spec checklist. | — |
+| 26–31 | 9–10 | Standard 3, the loop + the loop prompt (task · boundary · judge · evidence). | — |
+| 31–44 | 11 | Feature 2 kick-off live on SplitIt: branch → red → **new thread** → paste prompt → watch it loop → green → read the diff → click the app → commit/push/PR/merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
+| 44–80 | 12–13 | Your turn: bug (on main) then feature 2 (on branch). Roam: "did you ask for the output?", "did you read the diff?". | Bug test green + pushed; feature 2 green on branch |
+| 80–87 | 14 | Retro: worst thing the agent did → one rule → commit to `AGENTS.md` with the reason. Three read out. | Every laptop: second `AGENTS.md` commit |
+| 87–90 | 15 | Wrap: finish feature 2, rule committed, push. Block 2 next. | — |
 
 ## Exact prompts for the live part
 

@@ -16,7 +16,11 @@ Block 1 · Practical · 2026-09-22
 
 ## In class
 
-Last week you watched a feature get built. Today you build one alone, the way agentic teams do it. Three standards, and you will use all three before you leave:
+Last week you watched a feature get built. Today you build one alone, the way agentic teams do it.
+
+**First, what an agent is.** ChatGPT in a browser is a plain language model: text in, text out. It has never seen your folder and cannot run anything — you paste code in, you paste it out, you find out whether it works. Codex on your repo is the same kind of model **plus tools, in a loop**: it can *read* a file, *edit* a file and *run* a command, and it sees the result of each action before choosing the next. Each of those actions is a **tool call** — the model writes a request like `run: uv run pytest tests/test_feature_2.py` instead of prose, Codex executes it (after asking you), and the output goes back into the conversation for the model to read. Run → read the failure → edit → run again: that chain of tool calls *is* the loop, and the approval prompt is where you sit inside it.
+
+Then three standards, and you will use all three before you leave:
 
 1. **The rulebook — `AGENTS.md`.** The file Codex reads before it reads anything else. What goes in, what stays out, and why it lives in git like any other code. You add three lines to yours and commit them.
 2. **The judge.** Define *done* before you build. The spec's *Done when* and the tests in `tests/test_feature_2.py` are the judge: four red tests are your to-do list, and you never edit them to make them pass. After green, the human check: read the diff, click the app.
@@ -24,7 +28,7 @@ Last week you watched a feature get built. Today you build one alone, the way ag
 
 Live on SplitIt: the three lines go into `AGENTS.md`, feature 2 starts on a branch, the loop prompt goes in, we watch it loop, then we read the diff before we trust it.
 
-## Your turn
+## Your turn · 36 min
 
 Same order as last week: one bug, then the feature, on a branch. Tests first, every time.
 

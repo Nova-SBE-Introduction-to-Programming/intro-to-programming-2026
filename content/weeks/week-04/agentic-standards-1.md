@@ -4,7 +4,17 @@ title: Agentic coding standards · Part I — rules, judge, loop
 
 # Agentic coding standards · Part I
 
-Three things every team that ships with AI agents does. They fit on one page and you will use all three today.
+Three things every team that ships with AI agents does. They fit on one page and you will use all three today. First, one paragraph on what an agent is — because the standards are about controlling one.
+
+## 0 · What an agent is
+
+**A plain LLM writes.** ChatGPT in a browser predicts the next words of an answer. It has never seen your folder; it cannot open a file, run a test or check anything. You copy code in, you paste it out, you find out whether it works. When it says "the tests pass", that is a sentence that sounds right — nothing more.
+
+**An agent acts.** Codex on your repo is the same kind of model **plus tools, in a loop**. The tools are few: *read* a file, *edit* a file, *run* a command. The loop is: act, see the result, decide the next action, until the job is done or it needs you.
+
+**A tool call** is how it acts. Instead of prose, the model emits a request — `run: uv run pytest tests/test_feature_2.py`. The software around the model (Codex) executes it on your machine, after the approval prompt, and puts the output back into the conversation: `2 failed, 2 passed… AttributeError: no attribute CATEGORIES`. The model reads that like any other message and chooses the next call: `edit: logic.py`, then `run` again. When you watched Codex "run the tests, read the failure, edit again", you were watching tool calls, one after another.
+
+**Why it matters here.** An agent can *run* the tests — but it can still *say* they passed without showing you. Tools give it hands; they don't make it honest. Hence the standards: a rulebook it reads before it acts, a judge whose output it cannot argue with, and a loop that knows when to stop.
 
 ## 1 · The rulebook — `AGENTS.md`
 
