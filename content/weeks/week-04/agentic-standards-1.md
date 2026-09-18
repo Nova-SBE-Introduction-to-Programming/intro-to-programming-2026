@@ -26,7 +26,7 @@ Three things every team that ships with AI agents does. They fit on one page and
 | 2020–21 | GPT-3: learns from examples in the prompt; Codex → Copilot | Autocomplete: finishes the line you started |
 | 2022 | ChatGPT: follows instructions, holds a conversation; ReAct published | Answers you paste in and out |
 | 2023 | GPT-4; tool calling: the model emits a request and reads the result | It can run your tests, if a harness runs them |
-| 2024 | Reasoning models; computer use | Multi-step tasks stop falling apart |
+| 2024 | Reasoning models (OpenAI o1, then DeepSeek-R1, Claude's extended thinking): the model works through the problem step by step before answering. Computer use (Claude, OpenAI Operator): it looks at a screen, clicks and types | Multi-step tasks stop falling apart. Asked *why do the balances sum to +10?*, it traces the arithmetic — payer credited 30, two members debited 15, payer never debited — to line 95, instead of guessing a plausible edit. It plans across files before editing and stops earlier when stuck |
 | 2025 | Coding harnesses (Claude Code, Codex CLI, Cursor agent); `AGENTS.md` | Builds the feature in your repo while you watch |
 | 2026 | Long-running agents: desktop apps, loops with a judge | Works for hours while you're away — if you wrote the rules and the judge |
 
