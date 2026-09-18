@@ -86,7 +86,7 @@
   <div class="kicker b1">Block 1 · Class 4 · Practical</div>
   <h2>Rules, judge, loop.</h2>
   <p class="sub">Last week you watched a feature get built. Today you build one alone — with the three standards every team that ships with agents uses.</p>
-  <aside class="notes">Timing: check-in 5 · what an agent is + tool calls 6 · rulebook + live AGENTS.md 10 · judge 5 · loop 5 · feature 2 kick-off live 13 · your turn 36 · retro 7 · wrap 3 = 90. TA-run. Presenting laptop: SplitIt repo with bugs 000/001 fixed and feature 1 merged, on main, clean; Codex open on it; GitHub Desktop signed in. Reset data before class. Nothing new to install today — that's the point of the week.</aside>
+  <aside class="notes">Timing: check-in 5 · what an agent is + tool calls + ReAct/harness 8 · rulebook + live AGENTS.md 10 · judge 5 · loop 5 · feature 2 kick-off live 13 · your turn 34 · retro 7 · wrap 3 = 90. TA-run. Presenting laptop: SplitIt repo with bugs 000/001 fixed and feature 1 merged, on main, clean; Codex open on it; GitHub Desktop signed in. Reset data before class. Nothing new to install today — that's the point of the week.</aside>
 </section>
 
 <!-- 2 · Today -->
@@ -95,10 +95,10 @@
   <h2>What we'll do.</h2>
   <table style="margin-top:.4em">
     <tr><td class="w">1</td><td><b>Check-in</b> <span class="muted">— your GitHub page: feature 1 merged.</span></td></tr>
-    <tr><td class="w">2</td><td><b>What an agent is</b> <span class="muted">— a chat model vs an agent, and what a tool call is.</span></td></tr>
+    <tr><td class="w">2</td><td><b>What an agent is</b> <span class="muted">— a chat model vs an agent, tool calls, the ReAct loop, and the harness that runs it.</span></td></tr>
     <tr><td class="w">3</td><td><b>Three standards</b> <span class="muted">— the rulebook, the judge, the loop. Ten minutes each, then you use them.</span></td></tr>
     <tr><td class="w">4</td><td><b>Feature 2 kick-off, live</b> <span class="muted">— branch → red → the loop prompt → watch it loop → read the diff.</span></td></tr>
-    <tr><td class="w">5</td><td><b>Your turn</b> <span class="muted">— one bug, then feature 2. Thirty-six minutes.</span></td></tr>
+    <tr><td class="w">5</td><td><b>Your turn</b> <span class="muted">— one bug, then feature 2. Thirty-four minutes.</span></td></tr>
     <tr><td class="w">6</td><td><b>Retro</b> <span class="muted">— the rule you add to <code>AGENTS.md</code> from what went wrong.</span></td></tr>
   </table>
   <p class="muted" style="margin-top:1.2em">Same groups, but every laptop builds in its own repo today.</p>
@@ -141,6 +141,22 @@
   </table>
   <p class="muted" style="margin-top:1em;max-width:62ch">Three tools cover almost everything: <b>read</b> a file, <b>edit</b> a file, <b>run</b> a command. When you watched Codex "run the tests, read the failure, edit again" last week — those were tool calls, one after another. That chain <i>is</i> the loop.</p>
   <aside class="notes">Tie it to what they'll see in ten minutes: on stage, narrate the kick-off as tool calls ("that's a run — that's a read — that's an edit"). Point out the approval prompt is where the human sits inside the loop. And the sting: an agent can run the tests, but it can still *say* they passed without showing you — which is why standard 2 asks for the output, not the sentence. If asked "is this the same model as ChatGPT?" — same family; the difference is tools + loop + your repo, not intelligence.</aside>
+</section>
+
+<!-- 3c · ReAct and the harness -->
+<section class="slide">
+  <div class="kicker pres">Before the standards · The loop has a name</div>
+  <h2>ReAct: <span class="accent">reason</span>, <span class="accent">act</span>, observe. Repeat.</h2>
+  <div class="grid g3" style="margin-top:.6em">
+    <div class="card"><div class="n">1 · Reason</div><h3>"Two tests still fail on CATEGORIES."</h3><p>The model writes a short thought about where it is and what to do next.</p></div>
+    <div class="card"><div class="n">2 · Act</div><h3><code>edit: logic.py</code></h3><p>It emits one tool call. Read, edit, or run.</p></div>
+    <div class="card"><div class="n">3 · Observe</div><h3><code>4 passed</code></h3><p>The result comes back into the conversation. Back to 1 — until the task is done, or it needs you.</p></div>
+  </div>
+  <div class="grid g2" style="margin-top:1em">
+    <div class="card"><div class="n">The harness</div><p>The model can only <i>write</i> the tool call. Something has to run it, show you the approval prompt, put the output back, keep the history, read <code>AGENTS.md</code> at the start, and stop the loop. That software is the <b>harness</b>. Codex is one. Claude Code, Cursor, Copilot's agent are others.</p></div>
+    <div class="card"><div class="n">Why it matters</div><p>Every agentic coding tool runs this same loop. They differ in the tools they offer, what they ask permission for, and how they manage the conversation — not in the loop. Learn the loop once and the tools are interchangeable.</p></div>
+  </div>
+  <aside class="notes">ReAct = "Reasoning and Acting", a 2022 paper (Yao et al.) that showed a model does far better when it alternates a thought with an action and reads the observation, instead of answering in one go. Every harness since is that loop with better plumbing. The word to land: harness — model + tools + loop + rules + permissions. When students say "Codex did X", the harness ran the loop; the model chose the actions. Standards 1–3 are you configuring the harness: the rulebook it loads, the judge it runs, the stop condition of its loop.</aside>
 </section>
 
 <!-- 4 · Standard 1: the rulebook -->
@@ -228,7 +244,7 @@
 
 <!-- 10 · Your turn -->
 <section class="slide">
-  <div class="kicker b1">Class 4 · Your turn · 36 min</div>
+  <div class="kicker b1">Class 4 · Your turn · 34 min</div>
   <h2>One bug, then feature 2.</h2>
   <div class="grid g2" style="margin-top:.6em">
     <div class="card"><div class="n">SplitIt</div><h3>issues/002 → feature-2-categories</h3><p>Removing a member crashes the page. Test: <code>test_bug_002</code>. Then categories, on its branch.</p></div>

@@ -14,6 +14,10 @@ Three things every team that ships with AI agents does. They fit on one page and
 
 **A tool call** is how it acts. Instead of prose, the model emits a request — `run: uv run pytest tests/test_feature_2.py`. The software around the model (Codex) executes it on your machine, after the approval prompt, and puts the output back into the conversation: `2 failed, 2 passed… AttributeError: no attribute CATEGORIES`. The model reads that like any other message and chooses the next call: `edit: logic.py`, then `run` again. When you watched Codex "run the tests, read the failure, edit again", you were watching tool calls, one after another.
 
+**The loop has a name: ReAct.** *Reason* — the model writes a short thought ("two tests still fail on CATEGORIES"). *Act* — it emits one tool call. *Observe* — the result comes back into the conversation. Repeat until the task is done or it needs you. A 2022 paper showed models do far better alternating thought and action than answering in one go; every agentic coding tool since is that loop with better plumbing.
+
+**The harness.** The model can only *write* a tool call. The software around it runs the call, shows you the approval prompt, puts the output back, keeps the history, loads `AGENTS.md` at the start, and stops the loop. That software is the harness. Codex is one; Claude Code, Cursor, Copilot's agent are others. Same loop everywhere — they differ in the tools offered, what needs permission, and how the conversation is managed. Learn the loop once; the tools are interchangeable. The three standards below are you configuring the harness: the rulebook it loads, the judge it runs, the stop condition of its loop.
+
 **Why it matters here.** An agent can *run* the tests — but it can still *say* they passed without showing you. Tools give it hands; they don't make it honest. Hence the standards: a rulebook it reads before it acts, a judge whose output it cannot argue with, and a loop that knows when to stop.
 
 ## 1 · The rulebook — `AGENTS.md`
