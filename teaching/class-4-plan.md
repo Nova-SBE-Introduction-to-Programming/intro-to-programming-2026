@@ -1,6 +1,6 @@
 # Class 4 — Rules, judge, loop · TA plan and answer key
 
-90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (22 slides in four acts; LaTeX source in
+90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (23 slides in four acts; LaTeX source in
 `decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
 open it on the second screen in any PDF presenter) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 `decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
@@ -34,13 +34,13 @@ Four acts, each opened by its kicker colour: **teal** logistics · **violet** wh
 | 0–6 | 1–3 | Open, agenda, check-in: GitHub page shows the feature-1 branch and a merged PR. | TA has the list of who is behind |
 | 6–15 | 4–7 | **Act 1 — what an agent is.** Chat model vs agent; tool calls; the ReAct loop and the harness; eight years in one picture. | — |
 | 15–16 | 8 | Divider: **three standards**. | — |
-| 16–31 | 9–13 | **Act 2 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · loop · the four parts of an ask. | Every laptop: an `AGENTS.md` commit pushed |
-| 31–32 | 14 | Divider: **git**. | — |
-| 32–39 | 15–17 | **Act 3 — git standards.** `main` always works · one job, one branch · the laptop↔GitHub round trip. | — |
-| 39–50 | 18 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
-| 50–80 | 19–20 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
-| 80–87 | 21 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
-| 87–90 | 22 | Wrap. | — |
+| 16–31 | 9–14 | **Act 2 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · loop · the four parts of an ask · **Ralph**, 30 s: the same loop with nobody watching, which is what standards 1 and 2 buy you. | Every laptop: an `AGENTS.md` commit pushed |
+| 31–32 | 15 | Divider: **git**. | — |
+| 32–39 | 16–18 | **Act 3 — git standards.** `main` always works · one job, one branch · the laptop↔GitHub round trip. | — |
+| 39–50 | 19 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
+| 50–80 | 20–21 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
+| 80–87 | 22 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
+| 87–90 | 23 | Wrap. | — |
 
 ## Exact prompts for the live part
 

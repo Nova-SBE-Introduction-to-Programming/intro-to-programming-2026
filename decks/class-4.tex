@@ -228,6 +228,42 @@ idea one level up is a script that re-feeds the prompt until the judge passes �
 before you paste it. New thread before pasting — the AGENTS.md rules from five minutes ago are only
 read at the start of a thread.}
 
+% ── 14 · Ralph: the loop with nobody watching
+\hue{NovaAccent}
+\begin{frame}{Meet \textcolor{NovaAccent}{Ralph}.}
+\framesubtitle{Standard 3 · The loop with nobody watching}
+\vspace*{\fill}
+% figures/ralph.png is optional: drop a still in and it appears beside the loop
+\IfFileExists{figures/ralph.png}{%
+  \begin{columns}[c]
+    \begin{column}{0.17\linewidth}
+      \includegraphics[width=\linewidth]{figures/ralph.png}
+    \end{column}
+    \begin{column}{0.79\linewidth}
+      \includegraphics[width=\linewidth]{figures/ralph-loop.pdf}
+    \end{column}
+  \end{columns}
+}{%
+  \begin{center}\includegraphics[width=0.90\linewidth]{figures/ralph-loop.pdf}\end{center}
+}
+\vskip6mm
+\begin{tcbitemize}[cardsS, raster columns=2]
+  \carditemplain{What it is}{The same prompt, handed to a fresh agent again and again, until the
+    judge says green.}
+  \carditemplain{Why it needs today}{Nobody is watching. The rulebook keeps it in bounds; the judge
+    is all that can stop it.}
+\end{tcbitemize}
+\vfill
+\end{frame}
+\tanote{Thirty seconds, as a teaser — you are not demoing this today. It is named after Ralph
+Wiggum: cheerfully, relentlessly wrong, and it gets there anyway. Geoffrey Huntley's original was
+literally `while :; do cat PROMPT.md | agent; done`, and his line for why it works is
+"deterministically bad in an undeterministic world" — bounded, repeatable failure plus a check that
+cannot lie. The point to land, and the reason it closes this act: the agent has no memory between
+runs, so the PROMPT and the repo carry all the state. That is exactly why a rulebook and a judge
+are not housekeeping — they are the only things between you and an agent confidently going the
+wrong way for an hour. Part II, with the team project.}
+
 % ═════════════════════════════════════════════ ACT 3 · git standards
 \sectionslide[NovaBlue]{git}{How a team stays sane}{Three habits.}%
 {main always works · one job, one branch · push before you close the laptop.}

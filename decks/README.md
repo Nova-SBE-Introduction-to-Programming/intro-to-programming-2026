@@ -47,6 +47,15 @@ page) and `teaching/class-4-notes.pdf` (speaker notes, not published).
   Tectonic stamp a creation date. The rendering is identical; `git checkout` the artifacts
   if a rebuild leaves noise in `git status`.
 
+## The optional Ralph image
+
+The "Meet Ralph" slide draws an image from `figures/ralph.png` if one is there, and lays itself out
+without it if not — so the deck builds either way. Drop a still in at roughly 4:3 and rebuild.
+
+Two things to know. A PDF cannot animate a GIF, so use a single frame (`magick ralph.gif[0]
+figures/ralph.png` picks the first one). And the obvious source is copyrighted, so choose an image
+you are comfortable using in a lecture — that call is not the build script's to make.
+
 ## Writing slides
 
 `\hue{NovaTeal}` before a frame sets the kicker colour; `\framesubtitle` is the kicker.

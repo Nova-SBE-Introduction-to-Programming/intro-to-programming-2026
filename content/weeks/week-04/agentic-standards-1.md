@@ -83,7 +83,28 @@ red  →  build  →  run the tests  →  read the failure  →  fix  →  run a
 
 > Build `specs/<spec>.md`. Work only on the branch `<branch>`. After every change, run `uv run pytest tests/<test file>` and keep going until all tests pass. Do not edit anything in `tests/`. When they pass, paste the final test output and list every file you changed.
 
-**Where the loop lives.** Today, inside one Codex turn — you watch it. The same idea, one level up, is a script that feeds the same prompt to the agent again and again until the judge says pass (the "Ralph loop": `while true; run agent with PROMPT.md; done`), or a tool feature that keeps the agent working until a goal you wrote is met. Same three parts every time: a rulebook, a judge, a loop. Part II, later in the course, is when you walk away from the laptop.
+**Where the loop lives.** Today it runs inside one Codex turn and you watch it. One level up, a
+*script* runs it — you go and do something else.
+
+**The Ralph loop.** The best-known version is barely a program:
+
+```
+while true; do  cat PROMPT.md | agent  ; done
+```
+
+The same prompt, fed to a **fresh** agent, over and over. Each run starts with no memory of the last
+one, so the agent cannot talk itself into a story about what it already did — the only state is
+`PROMPT.md`, your `AGENTS.md`, and the repo as it now stands. Each run it picks the most important
+undone thing, does it, and the tests say whether it worked. It keeps going until they pass.
+
+It is named after a cartoon character who is cheerfully, relentlessly wrong and gets there anyway,
+and that is the honest description: it fails a lot, but it fails in bounded, repeatable ways, and
+something that cannot lie catches each failure.
+
+**Why it needs the first two standards.** Nobody is watching. The rulebook is the only thing keeping
+it inside the lines, and the judge is the only thing that can tell it to stop. Get either wrong and
+it will spend an hour going confidently in the wrong direction. That is why the rulebook and the
+judge come first in this course — they are what makes walking away possible. Part II, in Block 3.
 
 ---
 
