@@ -7,7 +7,7 @@ prints the SVG straight to a vector PDF. That keeps mermaid's HTML labels
 the rest of the deck. Chromium always prints white paper, so the deck background is
 baked into the page: the slide uses the same flat colour, so the seam is invisible.
 
-    uv run --with playwright python render-diagrams.py
+    uv run --with playwright --with pypdf --with pillow python render-diagrams.py
 """
 import pathlib, sys
 from playwright.sync_api import sync_playwright
@@ -103,6 +103,59 @@ def main():
                      prefer_css_page_size=False)
             print(f"{src.name:22} -> {pdf.name:22} {size['w']}x{size['h']} px, {pdf.stat().st_size // 1024} KB")
         browser.close()
+    pad_group(OUT, "git-story-")
+
+
+def pad_group(out, prefix):
+    """Give every diagram in a group the same page size, anchored top-left.
+
+    The git story is the same graph drawn four times, one step further each time. Chromium sizes
+    each page to its own content, so without this the graph would jump and rescale between slides.
+    """
+    from pypdf import PdfReader, PdfWriter
+    files = sorted(out.glob(f"{prefix}*.pdf"))
+    if not files:
+        return
+    boxes = {f: PdfReader(str(f)).pages[0].mediabox for f in files}
+    w = max(float(b.width) for b in boxes.values())
+    h = max(float(b.height) for b in boxes.values())
+    # The first frame has no branch label, so its graph starts one gutter further left. Align every
+    # frame on the main branch badge (TEAL) so the graph holds still and only grows.
+    gutter = _main_badge_offsets(files)
+    for f in files:
+        reader = PdfReader(str(f))
+        page = reader.pages[0]
+        top, left = float(page.mediabox.top), float(page.mediabox.left)
+        shift = gutter.get(f, 0.0)          # window moves left => content sits further right
+        page.mediabox.lower_left = (left - shift, top - h)
+        page.mediabox.upper_right = (left - shift + w, top)
+        writer = PdfWriter()
+        writer.add_page(page)
+        with open(f, "wb") as fh:
+            writer.write(fh)
+    print(f"{prefix}*: {len(files)} pages padded to {w:.0f}x{h:.0f} pt, aligned on the main badge")
+
+
+def _main_badge_offsets(files, dpi=110):
+    """How far each page must move right so every main badge lands at the same x, in pt."""
+    import subprocess, tempfile
+    from PIL import Image
+    teal = (18, 137, 122)
+    lefts = {}
+    with tempfile.TemporaryDirectory() as tmp:
+        for f in files:
+            stem = f"{tmp}/{f.stem}"
+            subprocess.run(["pdftoppm", "-png", "-r", str(dpi), "-singlefile", str(f), stem], check=True)
+            im = Image.open(stem + ".png").convert("RGB")
+            hit = next((x for x in range(im.width)
+                        for y in range(0, im.height, 2)
+                        if all(abs(a - b) < 18 for a, b in zip(im.getpixel((x, y)), teal))), None)
+            if hit is not None:
+                lefts[f] = hit
+    if not lefts:
+        return {}
+    target = max(lefts.values())
+    return {f: (target - x) * 72.0 / dpi for f, x in lefts.items()}
 
 
 if __name__ == "__main__":

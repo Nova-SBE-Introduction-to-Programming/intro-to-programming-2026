@@ -30,7 +30,8 @@ page) and `teaching/class-4-notes.pdf` (speaker notes, not published).
 - **Tectonic** — a self-contained LaTeX engine; it downloads the packages it needs on first
   run and caches them. `pacman -S tectonic`, `brew install tectonic`.
 - **uv** — runs `render-diagrams.py` with Playwright, and Playwright's Chromium
-  (`uv run --with playwright python -m playwright install chromium`) for the Mermaid step.
+  (`uv run --with playwright python -m playwright install chromium`; the render script also uses
+  `pypdf` and `pillow`, which `uv` fetches for you) for the Mermaid step.
   Not needed if you build with `--no-diagrams`.
 - Fonts **Inter** and **JetBrains Mono** installed system-wide.
 

@@ -12,7 +12,7 @@ cd "$(dirname "$0")"
 
 if [[ "${1:-}" != "--no-diagrams" ]]; then
   echo "→ rendering Mermaid diagrams"
-  uv run --quiet --with playwright python render-diagrams.py
+  uv run --quiet --with playwright --with pypdf --with pillow python render-diagrams.py
 fi
 
 mkdir -p out

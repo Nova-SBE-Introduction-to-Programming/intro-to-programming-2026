@@ -37,7 +37,7 @@ laptop: SplitIt with feature 1 merged, clean main, Codex open, GitHub Desktop si
   \item Check-in
   \item What an agent actually is
   \item Three standards
-  \item Git standards
+  \item Git: one change, start to finish
   \item Build one, live — then you build one
   \item Retro: one new rule
 \end{steps}
@@ -342,50 +342,87 @@ runs, so the PROMPT and the repo carry all the state. That is exactly why a rule
 are not housekeeping — they are the only things between you and an agent confidently going the
 wrong way for an hour. Part II, with the team project.}
 
-% ═════════════════════════════════════════════ ACT 3 · git standards
-\sectionslide[NovaBlue]{git}{How a team stays sane}{Three habits.}%
-{main always works · one job, one branch · push before you close the laptop.}
-\tanote{Seven minutes for the three git slides. They learned repo/commit/branch/push last week;
-this is the etiquette on top. Every diagram is the same shape they will see in GitHub Desktop.}
+% ═════════════════════════════════════════════ ACT 3 · git, as one story
+\sectionslide[NovaBlue]{git}{How a team stays sane}{One change, start to finish.}%
+{\code{main} is the version everyone trusts. Here is how a change gets into it.}
+\tanote{Seven minutes for the whole story — the graph grows by one move per slide, so each takes
+about forty seconds. They met repo, commit, branch and push last week as words; this is the same
+four words as a single narrative, in the shape they will actually see in GitHub Desktop. Frame it
+the way they already think: a draft, checkpoints, a review, a sign-off.}
 
-% ── 15 · git 1
+% ── git 1 · main
 \hue{NovaBlue}
-\begin{frame}{\code{main} always works.}
-\framesubtitle{Git standard 1 · Protect the trunk}
-\diagram[0.82\linewidth]{figures/git-main.pdf}
-\vskip2mm
-\muted{Risky work happens on a branch. \code{main} only ever receives finished, green work.}
+\begin{frame}{This is \code{main}.}
+\framesubtitle{Git · the version everyone trusts}
+\vspace*{\fill}
+\gitstory[0.318]{figures/git-story-1.pdf}
+\vskip6mm
+\muted{One version, one history, one truth — no folder full of
+\emph{model\_v3\_FINAL\_jm}. Everybody's copy starts from here.}
 \vfill
 \end{frame}
-\tanote{Why it matters to them: next week a teammate clones main. If main is broken, they are
-blocked. This is the habit that makes the team project survivable. Point out the merge dot: the
-branch comes home, it does not live forever.}
 
-% ── 16 · git 2
+% ── git 2 · branch
 \hue{NovaBlue}
-\begin{frame}{One job, one branch.}
-\framesubtitle{Git standard 2 · Small and named}
-\diagram[0.86\linewidth]{figures/git-onejob.pdf}
-\vskip2mm
-\muted{Name the branch after the task. Small commits — each one a step you could explain out loud.}
+\begin{frame}{You never edit the original.}
+\framesubtitle{Git · a branch is your draft}
+\vspace*{\fill}
+\gitstory{figures/git-story-2.pdf}
+\vskip6mm
+\muted{A \textbf{branch} is your own copy to work in, named after the job. Everyone else carries on
+from \code{main}, undisturbed.}
 \vfill
 \end{frame}
-\tanote{Two branches here, two jobs: a feature and a bug fix. The names say what they are without
-opening them. Bad commit messages to call out if you see them today: "update", "fix", "changes".
-Good: "Fix group title showing the id".}
 
-% ── 17 · git 3
+% ── git 3 · commit
 \hue{NovaBlue}
-\begin{frame}{Your laptop and GitHub, in a circle.}
-\framesubtitle{Git standard 3 · The round trip}
+\begin{frame}{Every save point is a commit.}
+\framesubtitle{Git · checkpoints you can explain}
+\vspace*{\fill}
+\gitstory{figures/git-story-3.pdf}
+\vskip6mm
+\muted{A \textbf{commit} is a checkpoint with a note saying what changed. Small ones. You can go
+back to any of them.}
+\vfill
+\end{frame}
+
+% ── git 4 · main has not moved
+\hue{NovaBlue}
+\begin{frame}{\code{main} has not moved.}
+\framesubtitle{Git · why this is safe}
+\vspace*{\fill}
+\gitstory{figures/git-story-4.pdf}
+\vskip6mm
+\muted{Three commits deep, half of it broken, the agent having a bad day — the version everyone
+else is using is exactly as you left it.}
+\vfill
+\end{frame}
+
+% ── git 5 · push and review
+\hue{NovaBlue}
+\begin{frame}{Until you push, it is only on your laptop.}
+\framesubtitle{Git · sending it for review}
 \diagram[1.0\linewidth]{figures/git-roundtrip.pdf}
-\vskip2mm
-\muted{Push before you close the laptop. Pull before you start the next thing.}
+\vskip1mm
+\muted{\textbf{Push} puts your draft where the team can see it. A \textbf{pull request} is you
+asking someone to read the diff before it counts — today, that someone is you, reviewing the agent.}
+\end{frame}
+
+% ── git 6 · merge
+\hue{NovaBlue}
+\begin{frame}{Approved. Now it is the official version.}
+\framesubtitle{Git · the sign-off}
+\vspace*{\fill}
+\gitstory{figures/git-story-5.pdf}
+\vskip6mm
+\muted{\textbf{Merge} is the sign-off. \code{main} now includes your work — and the next person's
+copy starts from here.}
 \vfill
 \end{frame}
-\tanote{The pull request is where a human reads the diff — today that human is you, reviewing the
-agent. That is the whole reason the PR step exists in this course. "Pull before you start" prevents
-next week's most common team failure: two people editing an old copy.}
+\tanote{Land the cycle: they are now back at slide one, with a bigger main. That is the whole
+habit. Two rules fall out of the story rather than being announced — name the branch after the job
+(slide 2), and keep commits small enough to explain (slide 3). If someone asks what happens to the
+branch: it is finished, GitHub offers to delete it, say yes.}
 
 % ═════════════════════════════════════════════ ACT 4 · do it
 \hue{NovaTeal}

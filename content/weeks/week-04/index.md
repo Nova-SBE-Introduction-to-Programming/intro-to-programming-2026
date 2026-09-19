@@ -36,19 +36,25 @@ Live on SplitIt: the three lines go into `AGENTS.md`, feature 2 starts on a bran
 
 ## Git standards
 
-Last week you learned the four words: repo, commit, branch, push. These are the habits on top —
-the ones that make a codebase survivable once more than one person touches it. From Block 3 that
-person is your team; for now it is you and the agent.
+Last week you learned four words: repo, commit, branch, push. Here they are as one story — the
+journey a single change makes, from your idea to the version everyone uses. It is the workflow you
+already know from anything that gets reviewed before it counts.
 
-1. **`main` always works.** Risky work happens on a branch; `main` only ever receives finished,
-   green work. If `main` is broken, everyone who clones it is blocked.
-2. **One job, one branch, named after the job.** `feature-2-categories`, not `my-changes`. The name
-   should say what is inside without opening it. Keep commits small — each one a step you could
-   explain out loud, with a message that says what changed (*"Fix group title showing the id"*, not
-   *"update"*).
-3. **Push before you close the laptop. Pull before you start the next thing.** Your laptop and
-   GitHub are two copies; the round trip is commit → push → pull request → merge → pull. The pull
-   request is where a human reads the diff — today, that human is you, reviewing the agent.
+1. **`main` is the version everyone trusts.** One file, one history, one truth — not a folder of
+   files all called *FINAL*. Everybody's copy starts from here.
+2. **You never edit the original.** A **branch** is your own copy to work in, named after the job
+   (`feature-2-categories`, not `my-changes`). Everyone else carries on from `main`, undisturbed.
+3. **Every save point is a commit.** A **commit** is a checkpoint with a note saying what changed
+   — *"Fix group title showing the id"*, not *"update"*. Keep them small: each one a step you could
+   explain out loud. You can go back to any of them.
+4. **`main` has not moved.** Three commits deep, half of it broken, the agent having a bad day —
+   the version everyone else is using is exactly as you left it. That is the whole point of
+   working on a branch.
+5. **Until you push, it only exists on your laptop.** **Push** puts your draft where the team can
+   see it. A **pull request** is you asking someone to read the diff before it counts — and today
+   that someone is you, reviewing the agent.
+6. **Merge is the sign-off.** Once it is green and reviewed, it comes home: `main` now includes
+   your work, and the next person's copy starts from there. Then the cycle begins again.
 
 ### The three rules you add to `AGENTS.md`
 

@@ -195,6 +195,14 @@
 % same, but capped by height for tall diagrams
 \newcommand{\diagramh}[2][0.70\textheight]{%
   \vfill\begin{center}\includegraphics[height=#1]{#2}\end{center}\vfill}
+% The git story is one graph drawn five times. render-diagrams.py pads the five PDFs to a shared
+% canvas and aligns them on the main-branch badge, so placing them identically makes the graph
+% hold still and only grow.
+\newlength{\gitw}
+\setlength{\gitw}{0.70\linewidth}
+\newcommand{\gitstory}[2][0]{%
+  \par\vspace{1mm}\begin{center}\includegraphics[width=\gitw]{#2}\end{center}\vspace{1mm}}
+
 % no \vfill: use when the frame carries other content, which the glue would push off the page
 \newcommand{\diagramtight}[2][0.95\linewidth]{%
   \begin{center}\includegraphics[width=#1]{#2}\end{center}}

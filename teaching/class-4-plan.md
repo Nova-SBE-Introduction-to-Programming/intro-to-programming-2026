@@ -1,6 +1,6 @@
 # Class 4 — Rules, judge, loop · TA plan and answer key
 
-90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (26 slides in four acts; LaTeX source in
+90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (29 slides in four acts; LaTeX source in
 `decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
 open it on the second screen in any PDF presenter) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 `decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
@@ -27,10 +27,14 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   a browser chat — the model advised, they were the hands, and they were the only one who found out it was wrong.
   Reasoning is shown on their own SplitIt balances bug: answer at once and you get a plausible guess; work it out
   and you get line 95. ReAct then lands in one breath, because it is just those two in a loop.
-- **Git gets its own act, taught in pictures.** Class 3 gave them the four words (repo, commit, branch, push);
-  Class 4 is the first time they branch, review a diff and merge for real, so the etiquette is worth naming.
-  All three standards are Mermaid `gitGraph`/flowchart diagrams — the same shape they see in GitHub Desktop —
-  because a branch is a spatial idea and a sentence about it is not.
+- **Git is one continuous story, not three rules.** The same `gitGraph` is drawn five times, each slide one move
+  further on, and the frames are aligned on the `main` badge so the graph holds still and only grows — it reads as a
+  build, not as five diagrams. A branch is a spatial idea; a sentence about it is not.
+- **It is framed the way this audience already thinks.** `main` is the approved version, a branch is your draft,
+  commits are checkpoints, a pull request is sending it for review, a merge is the sign-off. Nothing about git is
+  new to someone who has ever had a model reviewed before it went out — only the vocabulary is. The two habits that
+  usually get announced as rules (name the branch after the job; keep commits small) fall out of slides 2 and 3
+  instead.
 - **Rules come from failures.** The retro converts today's worst agent behaviour into one `AGENTS.md` line with the reason in the commit message. That's the meta-skill: the rulebook grows from observation, not from longer prompts.
 
 ## Run of show
@@ -41,17 +45,17 @@ Four acts, each opened by its kicker colour: **teal** logistics · **violet** wh
 | Min | Slides | What | Checkpoint |
 |---|---|---|---|
 | 0–5 | 1–3 | Open, agenda, check-in: GitHub page shows the feature-1 branch and a merged PR. | TA has the list of who is behind |
-| 5–20 | 4–10 | **Act 1 — what an agent is.** Chat model vs agent · what a tool is · the tool-call choreography · **one exchange in full** (the transcript slide — go slowly, it demystifies everything) · what reasoning is · ReAct and the harness · eight years in one picture. | — |
+| 5–20 | 4–10 | **Act 1 — what an agent is.** Chat model vs agent · what a tool is · the tool-call choreography · **one exchange in full** (go slowly — it demystifies everything) · what reasoning is · ReAct and the harness · eight years in one picture. | — |
 | 20–21 | 11 | Divider: **three standards**. | — |
 | 21–34 | 12–17 | **Act 2 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · loop · the four parts of an ask · Ralph, 30 s. | Every laptop: an `AGENTS.md` commit pushed |
 | 34–35 | 18 | Divider: **git**. | — |
-| 35–42 | 19–21 | **Act 3 — git standards.** `main` always works · one job, one branch · the laptop↔GitHub round trip. | — |
-| 42–52 | 22 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
-| 52–82 | 23–24 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
-| 82–88 | 25 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
-| 88–90 | 26 | Wrap. | — |
+| 35–42 | 19–24 | **Act 3 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → push and pull request → merge, approved. About forty seconds each. | — |
+| 42–52 | 25 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
+| 52–82 | 26–27 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
+| 82–88 | 28 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
+| 88–90 | 29 | Wrap. | — |
 
-Act 1 is the flex. If the room moves quickly through it, the minutes belong to *your turn*, not to you.
+Act 1 and Act 3 are the flex. If the room moves quickly, the minutes belong to *your turn*, not to you.
 
 ## Exact prompts for the live part
 
