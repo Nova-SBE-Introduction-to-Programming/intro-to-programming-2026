@@ -1,10 +1,10 @@
 sequenceDiagram
+  participant Y as You
   participant M as Model
   participant H as Harness (Codex)
-  participant Y as You
-  M->>H: run the tests
+  Y->>M: what was the last expense?
+  M->>H: read expenses.csv
   H->>Y: may I?
   Y-->>H: yes
-  H->>H: runs it on your laptop
-  H-->>M: 2 of 4 still fail
-  M->>H: change this line
+  H-->>M: Jantar no Zé dos Cornos, 30.00
+  M->>Y: €30 — dinner at Zé dos Cornos
