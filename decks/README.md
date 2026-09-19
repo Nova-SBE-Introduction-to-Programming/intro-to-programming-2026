@@ -43,6 +43,9 @@ page) and `teaching/class-4-notes.pdf` (speaker notes, not published).
   page is painted `#0F1115`. The slides use the same flat colour, so the seam is invisible.
 - **Diagram PDFs are committed.** The deck then rebuilds anywhere Tectonic runs, with no
   Node/Chromium. Only re-run the Mermaid step when a `.mmd` changes.
+- **Rebuilt PDFs differ byte-for-byte** even when nothing changed, because Chromium and
+  Tectonic stamp a creation date. The rendering is identical; `git checkout` the artifacts
+  if a rebuild leaves noise in `git status`.
 
 ## Writing slides
 
