@@ -22,349 +22,321 @@
 
 % ───────────────────────────────────────────────────────────── 1 · title
 \sectionslide[NovaTeal]{W4}{Block 1 · Class 4 · Practical}{Rules, judge, loop.}%
-{Last week you watched a feature get built. Today you build one alone — with the
- three standards every team that ships with agents uses.}
+{Last week you watched a feature get built. Today you build one alone.}
 \tanote{Timing: check-in 5 · what an agent is + tool calls + ReAct/harness + chronology 10 ·
 rulebook + live AGENTS.md 10 · judge 5 · loop 5 · feature 2 kick-off live 13 · your turn 32 ·
-retro 7 · wrap 3 = 90. TA-run. Presenting laptop: SplitIt repo with bugs 000/001 fixed and
-feature 1 merged, on main, clean; Codex open on it; GitHub Desktop signed in. Reset the data
-before class. Nothing new to install today — that is the point of the week.}
+retro 7 · wrap 3 = 90. TA-run. The slides carry the ideas; every command they need is on the
+Week 4 page, open on their laptops. Presenting laptop: SplitIt repo with bugs 000/001 fixed and
+feature 1 merged, on main, clean; Codex open on it; GitHub Desktop signed in; data reset.}
 
 % ───────────────────────────────────────────────────────────── 2 · today
 \hue{NovaTeal}
 \begin{frame}{What we'll do.}
 \framesubtitle{Class 4 · Today}
+\vskip1mm
 \begin{steps}
-  \item \textbf{Check-in} \muted{— your GitHub page: feature 1 merged.}
-  \item \textbf{What an agent is} \muted{— a chat model vs an agent, tool calls, the ReAct loop, the harness, and how we got here.}
-  \item \textbf{Three standards} \muted{— the rulebook, the judge, the loop. Then you use them.}
-  \item \textbf{Feature 2 kick-off, live} \muted{— branch \arr red \arr the loop prompt \arr watch it loop \arr read the diff.}
-  \item \textbf{Your turn} \muted{— one bug, then feature 2. Thirty-two minutes.}
-  \item \textbf{Retro} \muted{— the rule you add to \code{AGENTS.md} from what went wrong.}
+  \item \textbf{Check-in} \muted{— feature 1, merged.}
+  \item \textbf{What an agent actually is} \muted{— and how it got that way.}
+  \item \textbf{Three standards} \muted{— a rulebook, a judge, a loop.}
+  \item \textbf{Feature 2, live} \muted{— we watch it build, then we check its work.}
+  \item \textbf{Your turn} \muted{— one bug, one feature. Thirty-two minutes.}
+  \item \textbf{Retro} \muted{— turn today's worst moment into one rule.}
 \end{steps}
-\vskip2mm
-\muted{\small Same groups, but every laptop builds in its own repo today.}
 \end{frame}
 
 % ───────────────────────────────────────────────────────────── 3 · check-in
 \hue{NovaTeal}
-\begin{frame}{Show your GitHub page.}
+\begin{frame}{Show me your GitHub page.}
 \framesubtitle{Class 4 · Check-in · 5 min}
+\vskip1mm
 \begin{itemize}
-  \item Repository \arr branches: \code{feature-1-balances} or \code{feature-1-overdue} exists.
-  \item A merged pull request, or the feature commit on \code{main}.
-  \item Not there yet? Finish it during your turn, before feature 2. The TA notes who.
+  \item A branch for feature 1.
+  \item A merged pull request.
+  \item Not there yet? Do it first today. Everything else still works.
 \end{itemize}
-\vskip4mm
-\muted{While the TA walks: pull \code{main} in GitHub Desktop, run
-\code{uv run pytest tests/test\_feature\_1.py}. Green? You're ready.}
 \end{frame}
-\tanote{Walk the room looking at browsers, not code. Two minutes per row. Anyone without
-feature 1 merged does it first in the 32 minutes; they still get bug + feature 2 as homework.
-Don't debug git at the front — send them to the "when git is confusing" slide from last week.}
+\tanote{Walk the room looking at browsers, not code. Two minutes per row; note who is behind.
+While you walk they can pull main and run the feature-1 tests
+(\code{uv run pytest tests/test\_feature\_1.py}) — the command is on the Week 4 page.
+Don't debug git at the front; point at last week's "when git is confusing" slide.}
 
 % ───────────────────────────────────────────────────────────── 4 · what is an agent
 \hue{NovaPurple}
 \begin{frame}{A chat model \muted{writes}. An agent \textcolor{NovaAccent}{acts}.}
 \framesubtitle{Before the standards · What is an agent?}
+\vskip1mm
 \begin{tcbitemize}[cardsS, raster columns=2]
-  \carditem{A plain LLM — ChatGPT in a browser}{Text in, text out.}{%
-    It predicts the next words of an answer. It has never seen your folder — it cannot open a
-    file, run a test, or check anything. \emph{You} copy code in, \emph{you} paste it out,
-    \emph{you} find out whether it works. ``The tests pass'' is a sentence that sounds right.}
-  \carditem{An agent — Codex on your repo}{The same model, plus tools, in a loop.}{%
-    It can \textbf{read} your files, \textbf{run} commands, \textbf{edit} code — and it sees the
-    result of each action before choosing the next. It keeps going until the job is done or it
-    needs you. That is why it asks permission first.}
+  \carditem{A chat model}{Text in, text out.}{%
+    It has never seen your folder and cannot run anything. \emph{You} copy code in, \emph{you}
+    paste it out, \emph{you} find out whether it worked.}
+  \carditem{An agent}{The same model, with hands.}{%
+    It reads your files, runs commands, edits code — and sees the result of each action before
+    choosing the next. It stops when the job is done, or to ask you.}
+
 \end{tcbitemize}
 \vskip3mm
-{\color{NovaFg}\textbf{Agent = LLM + tools + a loop.}} \muted{Everything today is about what
-the tools may do, and how the loop knows when to stop.}
+{\large\color{NovaFg}\textbf{Agent \;=\; model \;+\; tools \;+\; a loop.}}
 \end{frame}
-\tanote{One minute on the contrast, in their own experience: in Class 2 they asked Codex
-"show me the last line of data/expenses.csv" and it showed the real line — ChatGPT in a browser
-could not have. Same model family, different powers. The word "agentic" just means
-"can act, not only answer".}
+\tanote{One minute, on their own experience: in Class 2 they asked Codex to show them a line of
+a data file and it showed the real line — a browser chat could not have. Same model family,
+different powers. "Agentic" just means: can act, not only answer.}
 
 % ───────────────────────────────────────────────────────────── 5 · tool calls
 \hue{NovaPurple}
-\begin{frame}{How an agent acts: it asks for a tool.}
+\begin{frame}{The model asks. The harness does.}
 \framesubtitle{Before the standards · Tool calls}
+\diagram[0.54\linewidth]{figures/tool-call.pdf}
 \vskip-1mm
-\diagram[0.76\linewidth]{figures/tool-call.pdf}
-\vskip-1mm
-\muted{\footnotesize The model writes a \textbf{request}, not prose; the harness runs it after the
-approval prompt and puts the output back. Three tools cover almost everything: \textbf{read} a
-file, \textbf{edit} a file, \textbf{run} a command.}
+\muted{Each arrow from the model is a \textbf{tool call} — read a file, edit a file, run a command.
+That is the whole vocabulary.}
 \end{frame}
-\tanote{Tie it to what they will see in ten minutes: on stage, narrate the kick-off as tool calls
-("that's a run — that's a read — that's an edit"). The approval prompt is where the human sits
-inside the loop. And the sting: an agent can run the tests, but it can still *say* they passed
-without showing you — which is why standard 2 asks for the output, not the sentence. If asked
-"is this the same model as ChatGPT?" — same family; the difference is tools + loop + your repo,
-not intelligence.}
+\tanote{Narrate the live kick-off later in exactly these words — "that's a run, that's a read,
+that's an edit" — so the diagram and the demo are the same thing. The approval prompt is where
+the human sits inside the loop. The sting that sets up standard 2: an agent can run the tests
+and still *say* they passed without showing you.}
 
 % ───────────────────────────────────────────────────────────── 6 · ReAct + harness
 \hue{NovaPurple}
-\begin{frame}{ReAct: \textcolor{NovaAccent}{reason}, \textcolor{NovaAccent}{act}, observe. Repeat.}
-\framesubtitle{Before the standards · The loop has a name}
-\vskip-2mm
+\begin{frame}{The loop has a name: \textcolor{NovaAccent}{ReAct}.}
+\framesubtitle{Before the standards · Reason, act, observe}
 \diagramtight[0.66\linewidth]{figures/react-loop.pdf}
-\vskip-1mm
+\vskip1mm
 \begin{tcbitemize}[cardsS, raster columns=2]
   \carditemplain{The harness}{%
-    The model can only \emph{write} the tool call. Something runs it, shows you the approval
-    prompt, puts the output back, keeps the history, reads \code{AGENTS.md}, and stops the loop.
-    That software is the \textbf{harness}: Codex, Claude Code, Cursor, Copilot's agent.}
-  \carditemplain{Why it matters}{%
-    Every agentic coding tool runs this same loop. They differ in the tools they offer and what
-    they ask permission for — not in the loop. Learn the loop once; the tools are interchangeable.}
+    The model can only \emph{ask}. The software that runs the tool, asks your permission, feeds the
+    result back and decides when to stop is the \textbf{harness} — Codex, Claude Code, Cursor.}
+  \carditemplain{Why you care}{%
+    Every one of them runs this same loop. Learn the loop once and the tools are interchangeable.}
 \end{tcbitemize}
 \vskip1mm
 {\tiny\color{NovaMuted}Yao, Zhao, Yu, Du, Shafran, Narasimhan \& Cao (2022).
 \emph{ReAct: Synergizing Reasoning and Acting in Language Models.} ICLR 2023 · arxiv.org/abs/2210.03629}
 \end{frame}
 \tanote{ReAct = "Reasoning and Acting", Yao et al. 2022 (ICLR 2023, arXiv:2210.03629): a model does
-far better when it alternates a thought with an action and reads the observation, instead of
-answering in one go. Every harness since is that loop with better plumbing. The word to land:
-harness — model + tools + loop + rules + permissions. When students say "Codex did X", the harness
-ran the loop; the model chose the actions. Standards 1-3 are you configuring the harness: the
-rulebook it loads, the judge it runs, the stop condition of its loop.}
+far better alternating a thought with an action and reading the result than answering in one go.
+Every harness since is that loop with better plumbing. The line to land: standards 1-3 are you
+configuring the harness — the rulebook it loads, the judge it runs, the stop condition of its loop.}
 
 % ───────────────────────────────────────────────────────────── 7 · chronology
 \hue{NovaPurple}
 \begin{frame}{Eight years, four kinds of capability.}
 \framesubtitle{Before the standards · How we got here}
-\vskip-1mm
 \diagram[1.0\linewidth]{figures/chronology.pdf}
 \vskip-1mm
-{\footnotesize\color{NovaBody}\textbf{\textcolor{NovaAccent}{The point.}} The model got better every year.
-The job changed twice: when it learned to take \textbf{instructions}, and when it got
-\textbf{tools and a loop}. Everything after is plumbing and stamina — and a model that can act for
-hours needs rules and a judge.}
+{\footnotesize\color{NovaBody}\textbf{\textcolor{NovaAccent}{The point.}} The job changed twice:
+when the model learned to take \textbf{instructions}, and when it got \textbf{tools and a loop}.
+A model that can act for hours is why the next three slides exist.}
 \end{frame}
 \tanote{Two minutes, one sweep left to right. Say the four band names as you go — completing,
-conversing, acting, persisting — that is the shape to remember, not the model names. Reasoning row
-example to say aloud: a 2023-style model asked why SplitIt's balances sum to +10 pattern-matches a
-plausible edit; a reasoning model writes out "payer credited 30, two others debited 15 each, payer
-never debited, so the divisor is 2 and should be 3" and lands on line 95 — what a good student does
-on paper. Sources if asked: GPT-1 Radford et al. 2018; GPT-2 2019; GPT-3 Brown et al. 2020; Codex
-Chen et al. 2021; InstructGPT Ouyang et al. 2022 then ChatGPT Nov 2022; ReAct Yao et al. 2022;
-GPT-4 Mar 2023, function calling Jun 2023; o1 Sep 2024, Claude computer use Oct 2024, DeepSeek-R1
-Jan 2025, Operator Jan 2025, Claude 3.7 extended thinking Feb 2025; Claude Code Feb 2025, Codex CLI
-Apr 2025, agents.md Aug 2025; Codex app Feb 2026. Dates are release months, approximate on purpose.}
+conversing, acting, persisting — that is the shape to remember, not the model names. Reasoning-row
+example if you want one: asked why SplitIt's balances were wrong, an older model guesses a
+plausible edit; a reasoning model works the arithmetic out and lands on the actual line — what a
+good student does on paper. Sources: GPT-1 2018, GPT-2 2019, GPT-3 2020, Codex 2021, ChatGPT Nov
+2022, ReAct 2022, GPT-4 and function calling 2023, o1 and computer use 2024, Claude Code and Codex
+CLI and agents.md 2025, Codex app 2026. Dates are approximate on purpose.}
 
 % ───────────────────────────────────────────────────────────── 8 · standard 1
 \hue{NovaYellow}
 \begin{frame}{\code{AGENTS.md} — the file it reads first.}
 \framesubtitle{Standard 1 · The rulebook}
+\vskip1mm
 \begin{tcbitemize}[cardsS]
   \carditem{What it is}{A README for agents}{%
-    Codex reads it at the start of every session, before anything else. So do twenty other tools.
+    Codex reads it at the start of every session, before anything else. So do the other tools.
     Your repo has had one since Class 2.}
-  \carditem{What goes in}{Only what it can't guess}{%
-    Commands (\code{uv run …}). Boundaries (\emph{never edit tests/}). Etiquette (\emph{branch named
-    after the spec}). How to report (\emph{paste the test output}).}
-  \carditem{What stays out}{Anything it can read}{%
-    Explanations of the code. Tutorials. ``Write clean code.'' Every extra line hides the important
-    ones.}
+  \carditem{What goes in}{What it cannot guess}{%
+    The commands. The boundaries. How you want it to report back.}
+  \carditem{What stays out}{What it can read}{%
+    Explanations of your own code. Tutorials. ``Write clean code.'' Every extra line hides the
+    ones that matter.}
 \end{tcbitemize}
-\vskip2.5mm
-\muted{\footnotesize It is code: in git, reviewed, pruned. When the agent misbehaves, the fix is
-usually one line here — not a longer prompt.}
+\vskip4mm
+\muted{It is code: it lives in git, it gets reviewed, it gets pruned. When the agent misbehaves,
+the fix is usually one line here — not a longer prompt.}
 \end{frame}
-\tanote{Ask Codex on stage: "What does AGENTS.md tell you to do?" — it recites the file. That is the
-proof it reads it. The test for every line: would removing it cause a mistake? If not, cut it.
+\tanote{Ask Codex on stage: "What does AGENTS.md tell you to do?" — it recites the file. That is
+the proof it reads it. The test for every line: would removing it cause a mistake? If not, cut it.
 Mention the 32 KB cap only if asked; the real cap is attention.}
 
-% ───────────────────────────────────────────────────────────── 9 · live: three lines
+% ───────────────────────────────────────────────────────────── 9 · live: three rules
 \hue{NovaYellow}
-\begin{frame}{Three lines. One commit.}
+\begin{frame}{Three rules. One commit.}
 \framesubtitle{Standard 1 · Live · 4 min}
-\muted{Open \code{AGENTS.md} in your repo. Under \textbf{How to answer}, add:}
-\vskip2.5mm
-\begin{callout}[NovaYellow]
-\small\monofont
-- Build each spec on a branch named after it, e.g.\ \texttt{feature-2-categories}. Never commit to main directly.\par\vskip1.2mm
-- After every change, run the tests for the task and paste the final output. The output is the proof, not a sentence.\par\vskip1.2mm
-- Never edit, delete or skip anything in \texttt{tests/}. If a test looks wrong, say so and stop.
-\end{callout}
-\vskip3mm
-GitHub Desktop \arr \code{AGENTS.md} changed \arr summary \emph{``AGENTS.md: rules for building
-features''} \arr Commit to main \arr Push.
+\vskip1mm
+\begin{tcbitemize}[cardsS]
+  \carditem{Boundary}{One branch per spec}{Never commit straight to \code{main}.}
+  \carditem{Evidence}{Show me the test output}{The output is the proof. Not a sentence saying so.}
+  \carditem{Sacred}{Never touch the tests}{If a test looks wrong, say so and stop.}
+\end{tcbitemize}
+\vskip4mm
+Add them to \code{AGENTS.md}, read the diff, commit, push.
+\muted{The exact wording is on the Week 4 page — copy it.}
 \end{frame}
-\tanote{Do it on stage first: ask Codex "Add these three lines under How to answer in AGENTS.md",
-read the diff, accept. Then commit in GitHub Desktop. Point out the last one already existed in
-spirit ("never edit tests") — now it is explicit and it is a rule the student enforces. Codex picks
-the new rules up on the next thread, not mid-thread: say "new thread" now.}
+\tanote{Do it on stage: ask Codex to add the three rules under "How to answer" in AGENTS.md, read
+the diff aloud, accept, then commit in GitHub Desktop. The third one already existed in spirit —
+now it is explicit, and it is a rule the student enforces. Codex only picks up new rules at the
+start of a thread, so say "new thread" now. Verbatim wording is on the Week 4 page.}
 
 % ───────────────────────────────────────────────────────────── 10 · standard 2
 \hue{NovaAccent}
-\begin{frame}{Define \textcolor{NovaAccent}{done} before you build.}
+\begin{frame}{Decide what \textcolor{NovaAccent}{done} means. First.}
 \framesubtitle{Standard 2 · The judge}
+\vskip1mm
 \begin{tcbitemize}[cardsS, raster columns=2]
-  \carditemplain{Something that can't lie}{%
-    The agent stops when the work \emph{looks} done. Give it a check that says pass or fail: the
-    spec's \textbf{Done when} and \code{tests/test\_feature\_2.py}. Four red tests are your to-do list.}
+  \carditemplain{Something that cannot lie}{%
+    An agent stops when the work \emph{looks} done. Give it a check that answers pass or fail —
+    the failing tests are your to-do list, and green is the finish line.}
   \carditemplain{Never move the goalposts}{%
-    An agent that edits a test to make it pass has cheated, not finished. The rule is in
-    \code{AGENTS.md}. You enforce it.}
+    An agent that edits a test to make it pass has cheated, not finished.}
   \carditemplain{Evidence, not claims}{%
     ``All tests pass'' is a sentence. The test output is evidence. Ask for it every time.}
   \carditemplain{Green is not the end}{%
-    The judge checks what it was told to check. After green: read the diff, click the app. App wrong,
-    tests green? Write down what the judge missed — that's a test that should exist.}
+    The judge only checks what it was told to check. Then you read the diff and click the app.
+    App wrong, tests green? You just found a test that should exist.}
 \end{tcbitemize}
 \end{frame}
-\tanote{Run the red tests on stage: uv run pytest tests/test\_feature\_2.py gives 4 failed, "logic has
-no attribute CATEGORIES". Open the test file and match each test to a checklist line in the spec,
-like last week. The "green is not the end" card matters today: feature 2's selectbox in the form is
-not tested at all — only clicking the app catches a missing one.}
+\tanote{Run the red tests on stage (the command is on the Week 4 page) and open the test file
+next to the spec: one test per checklist line. The "green is not the end" card is the one that
+pays off today — feature 2's form field is not tested at all, so only clicking the app catches a
+missing one.}
 
 % ───────────────────────────────────────────────────────────── 11 · standard 3
 \hue{NovaAccent}
 \begin{frame}{Red \arr build \arr run \arr fix \arr \textcolor{NovaTeal}{green}.}
 \framesubtitle{Standard 3 · The loop}
-\vskip-1mm
 \diagram[1.0\linewidth]{figures/loop.pdf}
 \vskip-1mm
 \begin{tcbitemize}[cardsS]
-  \carditemplain{One task per loop}{One bug, or one spec. Not ``fix everything you see''. The rule is
-    in the file; the prompt names one file.}
-  \carditemplain{Let it loop}{Tell it to run the tests after every change and keep going until green.
-    It reads the failure and fixes it. You read the result.}
-  \carditemplain{A stop condition}{Green — or a cap. Same failure twice: stop, read it yourself,
-    \textbf{new thread}, better prompt.}
+  \carditemplain{One task per loop}{One bug, or one spec. Not ``fix everything you see''.}
+  \carditemplain{Let it loop}{It runs the check, reads the failure, tries again. You read the
+    result — you are not the messenger.}
+  \carditemplain{Know when to stop}{Green, or twice round on the same failure. Then: new thread,
+    better prompt.}
 \end{tcbitemize}
 \end{frame}
-\tanote{The three parts are the whole lesson: a rulebook, a judge, a loop. Everything else in agentic
-coding is a variation. Today the loop runs inside one Codex turn and you watch; the same idea one
-level up is a script that re-feeds the prompt until the judge passes (the "Ralph loop"). Do not demo
-the bash loop today unless a laptop has Codex CLI and you have five spare minutes — it is a
-spectacle, not the lesson.}
+\tanote{The three parts are the whole lesson: a rulebook, a judge, a loop. Everything else in
+agentic coding is a variation. Today the loop runs inside one Codex turn and you watch it; the
+same idea one level up is a script that re-feeds the prompt until the judge passes — that is
+Part II, with the team project.}
 
 % ───────────────────────────────────────────────────────────── 12 · the loop prompt
 \hue{NovaAccent}
-\begin{frame}{The loop prompt.}
-\framesubtitle{Standard 3 · The prompt}
-\begin{callout}
-\normalsize
-Build \code{specs/feature-2-categories.md}. Work only on the branch
-\code{feature-2-categories}. After every change, run
-\code{uv run pytest tests/test\_feature\_2.py} and keep going until all four tests pass.
-Do not edit anything in \code{tests/}. When they pass, paste the final test output and list every
-file you changed.
-\end{callout}
-\vskip3mm
-\begin{tcbitemize}[cardsS, raster columns=4]
-  \carditemplain{The task}{One spec, by file name.}
-  \carditemplain{The boundary}{One branch. No \code{tests/}.}
-  \carditemplain{The judge}{The test command, every change.}
-  \carditemplain{The evidence}{Output + file list.}
+\begin{frame}{Every good prompt has four parts.}
+\framesubtitle{Standard 3 · The shape of the ask}
+\vskip2mm
+\begin{tcbitemize}[cardsS, raster columns=2]
+  \carditem{1 · The task}{One thing.}{Name the single spec or bug you want built. Nothing else.}
+  \carditem{2 · The boundary}{Where it may go.}{This branch. And never the tests.}
+  \carditem{3 · The judge}{How it knows it is done.}{Run the tests after every change, and keep
+    going until they pass.}
+  \carditem{4 · The evidence}{What to show you.}{The final test output, and every file it touched.}
 \end{tcbitemize}
+\vskip4mm
+\muted{The prompt written out in full is on the Week 4 page. Copy it and change two names.}
 \end{frame}
-\tanote{Four parts, in every loop prompt you ever write: the task, the boundary, the judge, the
-evidence. Students copy it from the Week 4 page and change two file names. New thread before
-pasting — the AGENTS.md lines from five minutes ago are only read at thread start.}
+\tanote{Four parts, in every loop prompt they will ever write. Get them to name the four parts
+back to you before you paste it. New thread before pasting — the AGENTS.md rules from five
+minutes ago are only read at the start of a thread.}
 
 % ───────────────────────────────────────────────────────────── 13 · live kick-off
 \hue{NovaTeal}
-\begin{frame}{Watch it loop. Then don't trust it.}
+\begin{frame}{Watch it work. Then check its work.}
 \framesubtitle{Class 4 · Live · Feature 2 · 13 min}
+\vskip1mm
 \begin{steps}
-  \item \textbf{Branch.} GitHub Desktop \arr New branch \arr \code{feature-2-categories}.
-  \item \textbf{Red.} \code{uv run pytest tests/test\_feature\_2.py} \arr 4 failed. The to-do list.
-  \item \textbf{New thread. Paste the loop prompt.} Watch: it edits, runs, reads a failure, edits
-        again. Don't touch anything.
-  \item \textbf{Green.} Read its output: four passed? Every file it lists?
-  \item \textbf{Read the diff.} Three places must change: \code{COLUMNS} in \code{db.py}, every line
-        of \code{seed/expenses.csv}, then \code{uv run python seed.py}. Did it run seed? Did it touch
-        \code{data/} by hand?
-  \item \textbf{Click the app.} Add expense \arr is there a category box? Group page \arr totals per
-        category? Not tested — only you catch it.
-  \item \textbf{Commit, push, PR, merge.} Like last week.
+  \item \textbf{Branch.} Name it after the spec.
+  \item \textbf{Red first.} See exactly what is missing before anything is written.
+  \item \textbf{New thread. Paste the prompt.} Then sit on your hands.
+  \item \textbf{Watch it loop.} Edit, run, read the failure, edit again.
+  \item \textbf{Green. Now don't trust it.} Read the diff: did it change only what the task needed?
+  \item \textbf{Click the app.} The part no test covers is the part only you can catch.
+  \item \textbf{Commit, push, pull request, merge.}
 \end{steps}
 \end{frame}
-\tanote{Let it loop for real; it usually takes 2-4 rounds. Narrate what you see: "it ran the tests —
-two still red — it is reading the failure — it edited seed/expenses.csv". The two things it commonly
-misses: forgetting to run seed.py (data/ still has no category column, so the app crashes on load
-while the tests stay green, because tests use fresh\_data from seed/) and no selectbox in the form
-(nothing tests app.py). Both are the "green is not the end" lesson — do not fix them silently, show
-them. If it edits a test: stop, discard, point at the rule, re-prompt.}
+\tanote{Let it loop for real; 2-4 rounds is normal. Narrate it as tool calls: "that's a run —
+two still red — it's reading the failure — that's an edit". Commands and file names are on the
+Week 4 page if you need them on screen. The two things it commonly misses on this feature:
+it forgets to refresh the data files from the seed (so the tests stay green while the app crashes
+on load) and it never adds the form field (nothing tests that screen). Both are the "green is not
+the end" lesson — do not fix them silently, show them. If it edits a test: stop, discard, point
+at the rule, re-prompt.}
 
 % ───────────────────────────────────────────────────────────── 14 · your turn
 \hue{NovaTeal}
-\begin{frame}{One bug, then feature 2.}
+\begin{frame}{One bug on \code{main}. One feature on a branch.}
 \framesubtitle{Class 4 · Your turn · 32 min}
+\vskip1mm
 \begin{tcbitemize}[cardsS, raster columns=2]
-  \carditem{SplitIt}{issues/002 \arr feature-2-categories}{%
-    Removing a member crashes the page. Test \code{test\_bug\_002}, then categories on its branch.}
-  \carditem{Tiny CRM}{issues/003 \arr feature-2-conversion}{%
-    ``Won this month'' is always 0. Test \code{test\_003}, then conversion by source on its branch.}
+  \carditem{SplitIt}{Bug 2, then feature 2}{Removing a member crashes the page. Then expense
+    categories.}
+  \carditem{Tiny CRM}{Bug 3, then feature 2}{``Won this month'' is always zero. Then conversion
+    by source.}
 \end{tcbitemize}
-\vskip0.5mm
-\muted{\scriptsize Bug on \code{main}. Feature on its own branch, merged by pull request:}
-\vskip-0.5mm
-\diagramtight[0.60\linewidth]{figures/gitgraph.pdf}
+\vskip2mm
+\diagramtight[0.52\linewidth]{figures/gitgraph.pdf}
+\vskip-1mm
+\muted{\scriptsize Files, test names and the prompt: Week 4 page.}
 \end{frame}
-\tanote{Roam for two things: did they ask for the output, and did they read the diff before accepting.
-Never answer a test failure — "what does the last line say?". CRM 003 has a twist: stamping
-closed\_on is not enough; won\_this\_month returns 0 for the whole list when any won lead has no date,
-and the seed has five. The test tells them; the fix is `continue`, not `return 0`. SplitIt 002: the
-test demands a helper called remove\_member\_expenses — read the assertion message. Anyone still on
-feature 1: that first, then the bug; feature 2 is homework.}
+\tanote{Roam for two things: did they ask for the test output, and did they read the diff before
+accepting. Never answer a failing test — "what does the last line say?". SplitIt bug 002: the test
+demands a helper that also removes the member's expenses — the assertion message says so. Tiny CRM
+bug 003 has a twist: stamping the close date is not enough, the month counter gives up on the whole
+list when any won lead has no date, and the seed has five of those; the fix is to skip them, not to
+return zero. Anyone still on feature 1: that first, then the bug; feature 2 becomes homework.}
 
 % ───────────────────────────────────────────────────────────── 15 · when it goes wrong
 \hue{NovaAccent}
-\begin{frame}{Five things you'll see.}
+\begin{frame}{Five things you will see.}
 \framesubtitle{Class 4 · When the loop goes wrong}
+\vskip1mm
 \begin{steps}
-  \item \textbf{It edited a test.} Discard that file in GitHub Desktop. ``Never edit \code{tests/}.'' Run again.
-  \item \textbf{It says done, tests are red.} ``Paste the test output.'' The output is the judge, not the sentence.
-  \item \textbf{Same failure three times.} Stop. Read it: last line says what, the line above says where. New thread, better prompt.
-  \item \textbf{It fixed three other things too.} Discard them. One task per loop. Ask again for the one thing.
-  \item \textbf{Green, but the app is wrong.} The judge missed it. Write down what. Re-prompt with the symptom, or fix by hand.
+  \item \textbf{It edited a test.} Discard it. Say the rule out loud. Run again.
+  \item \textbf{``Done'' — but the tests are red.} Ask for the output. The output is the judge.
+  \item \textbf{The same failure, three times.} Stop. Read it yourself. New thread.
+  \item \textbf{It fixed three other things too.} Discard them. One task per loop.
+  \item \textbf{Green, but the app is wrong.} The judge missed something. Write down what.
 \end{steps}
-\vskip3mm
-\muted{Every row is a line for your \code{AGENTS.md}. Keep the list.}
+\vskip4mm
+\muted{Every line here is a candidate rule for your \code{AGENTS.md}. Keep the list.}
 \end{frame}
 
 % ───────────────────────────────────────────────────────────── 16 · retro
 \hue{NovaYellow}
 \begin{frame}{What did it get wrong? Write the rule.}
 \framesubtitle{Class 4 · Retro · 7 min}
+\vskip1mm
 \begin{itemize}
-  \item In your group: the worst thing the agent did today. One sentence each.
-  \item Turn it into a rule. Short, specific, testable. \emph{``Run \code{uv run python seed.py} after
-        changing anything in \code{seed/}.''}
-  \item Add it to \code{AGENTS.md}. Commit: \emph{``AGENTS.md: \textless the rule\textgreater, because
-        \textless what happened\textgreater''}. Push.
+  \item The worst thing the agent did today. One sentence each.
+  \item Turn it into a rule: short, specific, and you could tell whether it was followed.
+  \item Add it to \code{AGENTS.md}. Say \emph{why} in the commit message. Push.
   \item Three groups read theirs out.
 \end{itemize}
-\vskip4mm
-\muted{That is how the rulebook grows: from what went wrong, one line at a time. Not from a longer
+\vskip5mm
+\muted{That is how a rulebook grows — from what went wrong, one line at a time. Not from a longer
 prompt.}
 \end{frame}
 \tanote{Collect the rules on the board; the good ones become the course's AGENTS.md for Block 2.
-Expect: "run seed.py after seed changes", "don't touch data/", "show me the diff before you commit",
-"one file at a time". Reject vague ones ("be careful") — ask "how would you know it followed this?".}
+Expect: "refresh the data after changing the seed files", "don't edit the live data by hand",
+"show me the diff before committing", "one file at a time". Reject vague ones ("be careful") —
+ask "how would you know it followed this?".}
 
 % ───────────────────────────────────────────────────────────── 17 · wrap
 \hue{NovaTeal}
-\begin{frame}{Block 2 starts: a spec you build alone.}
+\begin{frame}{Next week you build alone.}
 \framesubtitle{Class 4 · Before next week}
+\vskip1mm
 \begin{itemize}
-  \item \textbf{Finish feature 2.} Green, merged, pushed.
-  \item \textbf{Your rule is in \code{AGENTS.md}}, committed, with the reason in the message.
-  \item \textbf{Push before you close the laptop.} Next week you build on this repo.
+  \item Finish feature 2. Green, merged, pushed.
+  \item Your rule is in \code{AGENTS.md}, with the reason in the commit message.
+  \item Push before you close the laptop.
 \end{itemize}
-\vskip6mm
+\vskip7mm
 {\displayfont\Large\bfseries\color{NovaFg}Rulebook \textcolor{NovaMuted}{·} judge
 \textcolor{NovaMuted}{·} loop.}\par\vskip1.5mm
-\muted{Everything in Block 2 is those three, on your own spec.}
+\muted{Block 2 is those three, on a spec of your own.}
 \end{frame}
-\tanote{Nothing to hand in. Next week's check-in: feature 2 merged and a commit on AGENTS.md.
-Part II of the standards (walking away: scripted loops, goals, review by a second agent) comes with
-the team project in Block 3.}
+\tanote{Nothing to hand in. Next week's check-in: feature 2 merged, and a commit on AGENTS.md.
+Part II of the standards — walking away: scripted loops, goals, a second agent reviewing — comes
+with the team project in Block 3.}
 
 \end{document}

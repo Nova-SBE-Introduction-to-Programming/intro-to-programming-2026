@@ -6,6 +6,11 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
 
 ## Why the class is shaped this way
 
+- **The slides carry concepts; the page carries commands.** Nothing on a slide is meant to be typed: a
+  projected command is unreadable from the back row, and copying it is not the skill. Every literal — the
+  loop prompt, the three `AGENTS.md` rules, file and test names, the `uv` invocations — lives on the Week 4
+  page and in the handout, which students have open. The speaker notes carry them for you.
+
 - **Worked example → faded scaffolding.** Class 3 was the fully worked example (feature 1 built live, every decision narrated). Class 4 removes the narration and leaves a scaffold: a prompt template with four named parts, a checklist, a failure table. Students do the whole loop themselves; the TA only asks questions.
 - **Tests as the feedback channel.** The "Prompt Problems" line of CS-education research (Denny, Leinonen, Prather et al.; 726-student study, arXiv 2410.03063) shows novices — especially those who find syntax hard — learn well when the task is *write the prompt, let the tests judge, iterate*, averaging 3–4 attempts. That is exactly the loop, so the class makes the loop explicit instead of leaving it implicit.
 - **PRIMM mapped onto agentic work.** Predict (read the spec + tests: which files change?) → Run (the red tests) → Investigate (read the diff) → Modify (fix what the judge reports) → Make (the feature). The deck's live kick-off follows that order.
@@ -30,7 +35,7 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
 ## Exact prompts for the live part
 
 - Proof of the rulebook: *"What does AGENTS.md tell you to do?"*
-- Adding the lines: *"Under 'How to answer' in AGENTS.md, add these three lines: …"* (from slide 5). Read the diff. Accept.
+- Adding the rules: *"Under 'How to answer' in AGENTS.md, add these three lines: …"* — the verbatim wording is on the Week 4 page and in the handout (slide 9 shows only the three concepts: boundary, evidence, off-limits). Read the diff. Accept.
 - The loop prompt (new thread): *"Build `specs/feature-2-categories.md`. Work only on the branch `feature-2-categories`. After every change, run `uv run pytest tests/test_feature_2.py` and keep going until all four tests pass. Do not edit anything in `tests/`. When they pass, paste the final test output and list every file you changed."*
 - After green: *"Show me the diff of every file you changed."* Then, in the browser: Add expense → category box? Group page → totals?
 

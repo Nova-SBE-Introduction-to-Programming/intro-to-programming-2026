@@ -47,6 +47,14 @@ The two jumps that changed the job: *instructions* (2022) and *tools + a loop* (
 
 **What stays out.** Anything it can read in the code. Long explanations. "Write clean code." Every extra line makes the important lines easier to miss — if the agent keeps ignoring a rule, the file is probably too long.
 
+**The three rules you add today.** A boundary, an evidence rule, and one thing that is off-limits:
+
+```
+- Build each spec on a branch named after it, e.g. feature-2-categories. Never commit to main directly.
+- After every change, run the tests for the task and paste the final output. The output is the proof, not a sentence.
+- Never edit, delete or skip anything in tests/. If a test looks wrong, say so and stop.
+```
+
 **It is code.** It lives in git, it gets reviewed, it gets pruned. When the agent does something wrong, the fix is often a line here, not a longer prompt. *Would removing this line cause a mistake? If not, cut it.*
 
 ## 2 · The judge — define done before you build

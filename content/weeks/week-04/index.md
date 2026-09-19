@@ -26,11 +26,23 @@ The loop has a name: **ReAct** ([Yao et al., 2022](https://arxiv.org/abs/2210.03
 
 Then three standards, and you will use all three before you leave:
 
-1. **The rulebook — `AGENTS.md`.** The file Codex reads before it reads anything else. What goes in, what stays out, and why it lives in git like any other code. You add three lines to yours and commit them.
+1. **The rulebook — `AGENTS.md`.** The file Codex reads before it reads anything else. What goes in, what stays out, and why it lives in git like any other code. In class you add three rules to yours and commit them: a boundary, an evidence rule, and one thing that is off-limits (written out below).
 2. **The judge.** Define *done* before you build. The spec's *Done when* and the tests in `tests/test_feature_2.py` are the judge: four red tests are your to-do list, and you never edit them to make them pass. After green, the human check: read the diff, click the app.
 3. **The loop.** Red → build → run the tests → read the failure → fix → run again → green → stop. One task per loop. When it goes wrong twice, stop the thread and start a new one with a better prompt.
 
 Live on SplitIt: the three lines go into `AGENTS.md`, feature 2 starts on a branch, the loop prompt goes in, we watch it loop, then we read the diff before we trust it.
+
+### The three rules you add to `AGENTS.md`
+
+Copy these under **How to answer** in your own `AGENTS.md`, read the diff, then commit and push.
+
+```
+- Build each spec on a branch named after it, e.g. feature-2-categories. Never commit to main directly.
+- After every change, run the tests for the task and paste the final output. The output is the proof, not a sentence.
+- Never edit, delete or skip anything in tests/. If a test looks wrong, say so and stop.
+```
+
+Codex only reads `AGENTS.md` at the *start* of a thread, so open a new thread after you commit them.
 
 ## Your turn · 32 min
 
