@@ -23,8 +23,8 @@
 % ═════════════════════════════════════════════ ACT 0 · open
 \sectionslide[NovaTeal]{W4}{Block 1 · Class 4 · Practical}{Rules, judge, loop.}%
 {Last week you watched a feature get built. Today you build one.}
-\tanote{Timing: open + check-in 5 · what an agent is 13 · three standards 13 · git standards 7 ·
-live kick-off 10 · your turn 30 · retro + wrap 10 = 88, plus slack. TA-run. Slides carry ideas
+\tanote{Timing: open + check-in 5 · what an agent is 15 · three standards 13 · git standards 7 ·
+live kick-off 10 · your turn 30 · retro 6 · wrap 2 = 88, plus the two dividers. TA-run. Slides carry ideas
 only: every command is on the Week 4 page, open on their laptops, and in these notes. Presenting
 laptop: SplitIt with feature 1 merged, clean main, Codex open, GitHub Desktop signed in, data reset.}
 
@@ -116,26 +116,60 @@ The model never saw the file — it had to ask. And the approval prompt is where
 loop; that is the only place a human is required. Later, narrate the live kick-off in the same
 words — "that's a read, that's an edit, that's a run" — so the diagram and the demo are one thing.}
 
+% ── 6b · one tool call in full
+\hue{NovaPurple}
+\begin{frame}{What actually goes back and forth.}
+\framesubtitle{Tool calls · one exchange, in full}
+\vspace*{\fill}
+\begin{tabular}{@{}r@{\hskip 5mm}l@{}}
+  \eyebrow{you type}          & what was the last expense?                                         \\[3.4mm]
+  \eyebrow{the model emits}   & \code{\{"tool": "read\_file", "path": "data/expenses.csv"\}}        \\[3.4mm]
+  \eyebrow{codex asks}        & \emph{Codex wants to read} \code{data/expenses.csv}\emph{. Allow?} \\[3.4mm]
+  \eyebrow{codex pastes back} & \code{29,3,8,Jantar no Zé dos Cornos,30.00,2026-08-25}             \\[3.4mm]
+  \eyebrow{the model answers} & €30 — dinner at Zé dos Cornos, on 25 August.                       \\
+\end{tabular}
+\vskip6mm
+\muted{It never saw the file. It asked; you allowed it; the file's own line was pasted into the
+conversation. That line is the only reason it can answer.}
+\vfill
+\end{frame}
+\tanote{Read it top to bottom, slowly — this is the slide that demystifies the whole thing. Three
+things to point at. (1) The model's output is not prose: it is a small structured request naming a
+tool and what to use it on. It cannot open anything; it can only ask. (2) Codex — the harness — is
+what actually touches the disk, and it stops to ask you first; that prompt is the same one they
+click through all lesson. (3) The file's real line is pasted into the conversation as ordinary
+text, and from there the model reads it like any other message. Ask the room: "if we had said no,
+what could it have answered?" Nothing — it would have to guess. The JSON is illustrative; each
+harness has its own wire format, and they never type it themselves.}
+
 % ── 7 · what reasoning is
 \hue{NovaPurple}
 \begin{frame}{Answer at once — or \textcolor{NovaAccent}{work it out}.}
 \framesubtitle{What is an agent? · Reasoning}
 \vspace*{\fill}
-\diagramtight[0.84\linewidth]{figures/reasoning.pdf}
-\vskip3mm
-\begin{tcbitemize}[cardsS, raster columns=2]
-  \carditemplain{What reasoning is}{It works the problem out in steps before answering — the way
-    you would on paper.}
-  \carditemplain{Why it matters}{An agent takes many steps. A guess at step one is still wrong at
-    step ten.}
+\diagramtight[0.60\linewidth]{figures/reasoning.pdf}
+\vskip1mm
+\begin{tcbitemize}[cardsS, raster row skip=2mm]
+  \carditemplain{What it is}{Work it out in steps, \emph{then} decide — as you would on paper.}
+  \carditemplain{The problem it solves}{A model answers in one pass — the same effort for
+    \emph{2 + 2} as for your bug. The steps it writes \textbf{are} the extra thinking.}
+  \carditemplain{Why it matters here}{A guess at step one is still wrong at step ten.}
 \end{tcbitemize}
+\vskip1mm
+{\tiny\color{NovaMuted}Nye et al.\ (2021) scratchpads · Wei et al.\ (2022) chain-of-thought,
+NeurIPS · first model \emph{trained} to do it: OpenAI o1 (2024)}
 \vfill
 \end{frame}
-\tanote{Use their own bug: this is SplitIt's balances from Class 2. An older model pattern-matches a
-plausible edit; a reasoning model writes the arithmetic out and lands on the line. Say the honest
-part too — a guess and a worked answer look equally confident on screen, which is exactly why you
-still read the diff. Models that do this by default arrived in 2024 (o1, DeepSeek-R1, Claude's
-extended thinking); it is on the timeline two slides from now.}
+\tanote{Use their own bug: this is SplitIt's balances from Class 2. The deep reason, if anyone
+asks: a transformer spends a fixed amount of computation per token, so answering straight away
+means committing with one fixed budget however hard the question is. Writing intermediate steps
+buys more computation and gives the model a scratchpad it can read back — which is why "think step
+by step" is not a politeness trick. Lineage: Nye et al. 2021 called it a scratchpad; Wei et al.
+2022 named it chain-of-thought and showed it emerges in large models; Kojima et al. 2022 found
+"let's think step by step" alone does much of it; OpenAI's o1 (Sept 2024) was the first model
+trained by reinforcement learning to do it unprompted, followed by DeepSeek-R1 and Claude's
+extended thinking. Say the honest part too — a guess and a worked answer look equally confident on
+screen, which is exactly why you still read the diff.}
 
 % ── 6 · ReAct
 \hue{NovaPurple}
@@ -417,7 +451,7 @@ Anyone still on feature 1 does that first; feature 2 becomes homework.}
 % ── 21 · retro
 \hue{NovaYellow}
 \begin{frame}{What did it get wrong? Write the rule.}
-\framesubtitle{Retro · 7 min}
+\framesubtitle{Retro · 6 min}
 \vspace*{\fill}
 \begin{itemize}
   \item The worst thing it did today — one sentence.

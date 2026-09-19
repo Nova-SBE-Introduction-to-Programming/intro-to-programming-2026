@@ -12,7 +12,25 @@ Three things every team that ships with AI agents does. They fit on one page and
 
 **An agent acts.** Codex on your repo is the same kind of model **plus tools, in a loop**. The tools are few: *read* a file, *edit* a file, *run* a command. The loop is: act, see the result, decide the next action, until the job is done or it needs you.
 
-**A tool call** is how it acts. Ask *what was the last expense?* and the model — which has never seen your files — cannot answer. Instead of prose it emits a request: *read expenses.csv*. Codex asks your permission, reads the file, and puts the line back into the conversation: *Jantar no Zé dos Cornos, 30.00*. Now the model can answer: €30, dinner. A request, your approval, a result coming back — that is the whole mechanism, and every edit and every command the agent runs is the same three steps.
+**A tool call** is how it acts. Ask *what was the last expense?* and the model — which has never
+seen your files — cannot answer. Here is the whole exchange:
+
+| | |
+|---|---|
+| you type | what was the last expense? |
+| the model emits | `{"tool": "read_file", "path": "data/expenses.csv"}` |
+| Codex asks | *Codex wants to read `data/expenses.csv`. Allow?* |
+| Codex pastes back | `29,3,8,Jantar no Zé dos Cornos,30.00,2026-08-25` |
+| the model answers | €30 — dinner at Zé dos Cornos, on 25 August. |
+
+Three things are worth noticing. The model's output is **not prose** — it is a small structured
+request naming a tool and what to use it on; it cannot open anything, it can only ask. **Codex** is
+what actually touches your disk, and it stops to ask you first — that is the approval prompt you
+click through all lesson. And the file's real line is **pasted into the conversation** as ordinary
+text, which the model then reads like any other message. Say no, and it has nothing to answer with.
+
+Every edit and every command is the same three steps: a request, your approval, a result coming
+back. (The exact wire format differs between tools; you never type it yourself.)
 
 **The loop has a name: ReAct.** *Reason* — the model writes a short thought ("two tests still fail on CATEGORIES"). *Act* — it emits one tool call. *Observe* — the result comes back into the conversation. Repeat until the task is done or it needs you. The original paper showed models do far better alternating thought and action than answering in one go; every agentic coding tool since is that loop with better plumbing.¹
 

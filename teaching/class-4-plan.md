@@ -1,6 +1,6 @@
 # Class 4 — Rules, judge, loop · TA plan and answer key
 
-90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (25 slides in four acts; LaTeX source in
+90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (26 slides in four acts; LaTeX source in
 `decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
 open it on the second screen in any PDF presenter) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 `decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
@@ -18,6 +18,10 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
 - **PRIMM mapped onto agentic work.** Predict (read the spec + tests: which files change?) → Run (the red tests) → Investigate (read the diff) → Modify (fix what the judge reports) → Make (the feature). The deck's live kick-off follows that order.
 - **Industry standards, not tool features.** The three things every agentic team has — a rulebook (`AGENTS.md`, agents.md convention; Anthropic's CLAUDE.md guidance says the same: short, only what can't be inferred, in git), a judge (Anthropic: *"give the agent a way to verify its work… the loop closes on its own"*; Huntley: *check against something that can't lie*), and a loop (Ralph: one task per loop, a stop condition, "no placeholder implementations"). Tool-specific forms (Claude Code `/goal`, Stop hooks, `ralph-loop`) are mentioned once as "the same idea one level up" and left for Part II.
 - **Name the thing before the rules.** Two slides define *agent* by contrast (a chat model writes; an agent = the same model + tools + a loop, acts) and *tool call* concretely (request → executed after approval → output back in the conversation → next call), anchored in what students already saw Codex do. Without this, "the loop" is a metaphor; with it, it's a description of the tool-call chain they watch on stage.
+- **One tool call is shown in full, as a transcript.** The sequence diagram gives the choreography; the slide after
+  it gives the payloads — the structured request the model emits, the approval prompt, the file's own line pasted
+  back, the answer. It is the slide that turns "the AI reads your files" from magic into mechanism, and it sets up
+  standard 2: a thing that can only ask, and can only see what is handed back, is a thing you can verify.
 - **Tools and reasoning get a slide each, before the loop that combines them.** "Agent = model + tools + a loop"
   is a slogan until they see what a tool buys: the top lane of the diagram is exactly what they did in Class 2 with
   a browser chat — the model advised, they were the hands, and they were the only one who found out it was wrong.
@@ -37,15 +41,17 @@ Four acts, each opened by its kicker colour: **teal** logistics · **violet** wh
 | Min | Slides | What | Checkpoint |
 |---|---|---|---|
 | 0–5 | 1–3 | Open, agenda, check-in: GitHub page shows the feature-1 branch and a merged PR. | TA has the list of who is behind |
-| 5–18 | 4–9 | **Act 1 — what an agent is.** Chat model vs agent · **what a tool is** (without tools you are the hands) · the tool-call protocol · **what reasoning is** (guess vs work it out, on their own SplitIt bug) · ReAct and the harness · eight years in one picture. | — |
-| 18–19 | 10 | Divider: **three standards**. | — |
-| 19–32 | 11–16 | **Act 2 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · loop · the four parts of an ask · Ralph, 30 s. | Every laptop: an `AGENTS.md` commit pushed |
-| 32–33 | 17 | Divider: **git**. | — |
-| 33–40 | 18–20 | **Act 3 — git standards.** `main` always works · one job, one branch · the laptop↔GitHub round trip. | — |
-| 40–50 | 21 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
-| 50–80 | 22–23 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
-| 80–87 | 24 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
-| 87–90 | 25 | Wrap. | — |
+| 5–20 | 4–10 | **Act 1 — what an agent is.** Chat model vs agent · what a tool is · the tool-call choreography · **one exchange in full** (the transcript slide — go slowly, it demystifies everything) · what reasoning is · ReAct and the harness · eight years in one picture. | — |
+| 20–21 | 11 | Divider: **three standards**. | — |
+| 21–34 | 12–17 | **Act 2 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · loop · the four parts of an ask · Ralph, 30 s. | Every laptop: an `AGENTS.md` commit pushed |
+| 34–35 | 18 | Divider: **git**. | — |
+| 35–42 | 19–21 | **Act 3 — git standards.** `main` always works · one job, one branch · the laptop↔GitHub round trip. | — |
+| 42–52 | 22 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
+| 52–82 | 23–24 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
+| 82–88 | 25 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
+| 88–90 | 26 | Wrap. | — |
+
+Act 1 is the flex. If the room moves quickly through it, the minutes belong to *your turn*, not to you.
 
 ## Exact prompts for the live part
 
