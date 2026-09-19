@@ -1,6 +1,8 @@
 # Class 4 — Rules, judge, loop · TA plan and answer key
 
-90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (17 slides; LaTeX source in
+90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (22 slides in four acts; LaTeX source in
+`decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
+open it on the second screen in any PDF presenter) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 `decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
 open it on the second screen in any PDF presenter) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 
@@ -16,21 +18,29 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
 - **PRIMM mapped onto agentic work.** Predict (read the spec + tests: which files change?) → Run (the red tests) → Investigate (read the diff) → Modify (fix what the judge reports) → Make (the feature). The deck's live kick-off follows that order.
 - **Industry standards, not tool features.** The three things every agentic team has — a rulebook (`AGENTS.md`, agents.md convention; Anthropic's CLAUDE.md guidance says the same: short, only what can't be inferred, in git), a judge (Anthropic: *"give the agent a way to verify its work… the loop closes on its own"*; Huntley: *check against something that can't lie*), and a loop (Ralph: one task per loop, a stop condition, "no placeholder implementations"). Tool-specific forms (Claude Code `/goal`, Stop hooks, `ralph-loop`) are mentioned once as "the same idea one level up" and left for Part II.
 - **Name the thing before the rules.** Two slides define *agent* by contrast (a chat model writes; an agent = the same model + tools + a loop, acts) and *tool call* concretely (request → executed after approval → output back in the conversation → next call), anchored in what students already saw Codex do. Without this, "the loop" is a metaphor; with it, it's a description of the tool-call chain they watch on stage.
+- **Git gets its own act, taught in pictures.** Class 3 gave them the four words (repo, commit, branch, push);
+  Class 4 is the first time they branch, review a diff and merge for real, so the etiquette is worth naming.
+  All three standards are Mermaid `gitGraph`/flowchart diagrams — the same shape they see in GitHub Desktop —
+  because a branch is a spatial idea and a sentence about it is not.
 - **Rules come from failures.** The retro converts today's worst agent behaviour into one `AGENTS.md` line with the reason in the commit message. That's the meta-skill: the rulebook grows from observation, not from longer prompts.
 
 ## Run of show
 
-| Min | Slide | What | Checkpoint |
+Four acts, each opened by its kicker colour: **teal** logistics · **violet** what an agent is ·
+**amber/coral** the three standards · **blue** git. Two divider slides (`3` and `git`) mark the turns.
+
+| Min | Slides | What | Checkpoint |
 |---|---|---|---|
-| 0–5 | 3 | Check-in: GitHub page shows feature-1 branch + merged PR. Pull main, run feature-1 tests. | TA has the list of who isn't done |
-| 5–15 | 4–7 | What an agent is (chat model vs agent: same model + tools + loop), what a tool call is (request → executed after approval → output back → next call), the ReAct loop (reason · act · observe; Yao et al. 2022, *ReAct: Synergizing Reasoning and Acting in Language Models*, ICLR 2023, arXiv:2210.03629) and the harness (the software that runs the loop: executes calls, asks permission, keeps history, loads AGENTS.md, stops). Then the chronology in one sweep (2 min): GPT-1 → GPT-2 → GPT-3/Codex/Copilot → ChatGPT (instructions) → GPT-4 + tool calling → reasoning/computer use → coding harnesses + AGENTS.md → long-running agents. Land: every agentic tool runs the same loop; the standards configure the harness. | — |
-| 15–25 | 8–9 | Standard 1, the rulebook. Live: ask Codex *"What does AGENTS.md tell you to do?"* (proof it reads it). Add the three lines via Codex, read the diff, commit, push. Everyone does the same. | Every laptop: `AGENTS.md` commit pushed |
-| 25–30 | 10 | Standard 2, the judge. Run `uv run pytest tests/test_feature_2.py` → 4 red; match tests to the spec checklist. | — |
-| 30–35 | 11–12 | Standard 3, the loop + the loop prompt (task · boundary · judge · evidence). | — |
-| 35–48 | 13 | Feature 2 kick-off live on SplitIt: branch → red → **new thread** → paste prompt → watch it loop → green → read the diff → click the app → commit/push/PR/merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
-| 48–80 | 14–15 | Your turn: bug (on main) then feature 2 (on branch). Roam: "did you ask for the output?", "did you read the diff?". | Bug test green + pushed; feature 2 green on branch |
-| 80–87 | 16 | Retro: worst thing the agent did → one rule → commit to `AGENTS.md` with the reason. Three read out. | Every laptop: second `AGENTS.md` commit |
-| 87–90 | 17 | Wrap: finish feature 2, rule committed, push. Block 2 next. | — |
+| 0–6 | 1–3 | Open, agenda, check-in: GitHub page shows the feature-1 branch and a merged PR. | TA has the list of who is behind |
+| 6–15 | 4–7 | **Act 1 — what an agent is.** Chat model vs agent; tool calls; the ReAct loop and the harness; eight years in one picture. | — |
+| 15–16 | 8 | Divider: **three standards**. | — |
+| 16–31 | 9–13 | **Act 2 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · loop · the four parts of an ask. | Every laptop: an `AGENTS.md` commit pushed |
+| 31–32 | 14 | Divider: **git**. | — |
+| 32–39 | 15–17 | **Act 3 — git standards.** `main` always works · one job, one branch · the laptop↔GitHub round trip. | — |
+| 39–50 | 18 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
+| 50–80 | 19–20 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
+| 80–87 | 21 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
+| 87–90 | 22 | Wrap. | — |
 
 ## Exact prompts for the live part
 

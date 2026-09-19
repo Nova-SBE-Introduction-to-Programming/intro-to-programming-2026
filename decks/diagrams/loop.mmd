@@ -1,14 +1,8 @@
+%%{init: {"themeVariables": {"fontSize": "20px"}}}%%
 flowchart LR
-  RED["RED<br/>the tests say what is missing"]
-  B["BUILD<br/>one task, one branch"]
-  RUN["RUN THE TESTS"]
-  Q{"green?"}
-  STOP["STOP<br/>read the diff · click the app"]
-  READ["READ THE FAILURE<br/>what, and where"]
-  NEW["NEW THREAD<br/>better prompt"]
-  RED --> B --> RUN --> Q
-  Q -->|"yes"| STOP
-  Q -->|"no"| READ
+  RED["RED"] --> B["BUILD"] --> RUN["RUN THE TESTS"] --> Q{"green?"}
+  Q -->|"yes"| STOP["STOP<br/>read the diff · click the app"]
+  Q -->|"no"| READ["READ THE FAILURE"]
   READ --> B
-  READ -.->|"same failure twice"| NEW
+  READ -.->|"twice"| NEW["NEW THREAD"]
   NEW -.-> B

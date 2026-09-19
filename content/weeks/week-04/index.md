@@ -32,6 +32,22 @@ Then three standards, and you will use all three before you leave:
 
 Live on SplitIt: the three lines go into `AGENTS.md`, feature 2 starts on a branch, the loop prompt goes in, we watch it loop, then we read the diff before we trust it.
 
+## Git standards
+
+Last week you learned the four words: repo, commit, branch, push. These are the habits on top —
+the ones that make a codebase survivable once more than one person touches it. From Block 3 that
+person is your team; for now it is you and the agent.
+
+1. **`main` always works.** Risky work happens on a branch; `main` only ever receives finished,
+   green work. If `main` is broken, everyone who clones it is blocked.
+2. **One job, one branch, named after the job.** `feature-2-categories`, not `my-changes`. The name
+   should say what is inside without opening it. Keep commits small — each one a step you could
+   explain out loud, with a message that says what changed (*"Fix group title showing the id"*, not
+   *"update"*).
+3. **Push before you close the laptop. Pull before you start the next thing.** Your laptop and
+   GitHub are two copies; the round trip is commit → push → pull request → merge → pull. The pull
+   request is where a human reads the diff — today, that human is you, reviewing the agent.
+
 ### The three rules you add to `AGENTS.md`
 
 Copy these under **How to answer** in your own `AGENTS.md`, read the diff, then commit and push.
@@ -44,7 +60,7 @@ Copy these under **How to answer** in your own `AGENTS.md`, read the diff, then 
 
 Codex only reads `AGENTS.md` at the *start* of a thread, so open a new thread after you commit them.
 
-## Your turn · 32 min
+## Your turn · 30 min
 
 Same order as last week: one bug, then the feature, on a branch. Tests first, every time.
 

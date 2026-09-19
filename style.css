@@ -97,7 +97,9 @@ pre {
   overflow-x: auto;
   line-height: 1.5;
 }
-pre code { background: none; padding: 0; }
+pre code { background: none; border: 0; padding: 0; }
+/* these blocks hold prose-like rules and long commands: wrap rather than clip */
+pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 
 /* ---- tables ---- */
 table {
