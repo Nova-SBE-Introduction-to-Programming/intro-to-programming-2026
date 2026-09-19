@@ -1,6 +1,8 @@
 # Class 4 — Rules, judge, loop · TA plan and answer key
 
-90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.html` (17 slides, N for notes) · page `weeks/week-04` · handout `agentic-standards-1.md`.
+90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (17 slides; LaTeX source in
+`decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
+open it on the second screen in any PDF presenter) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 
 ## Why the class is shaped this way
 

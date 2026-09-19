@@ -51,13 +51,18 @@ def read_page(md_path):
 
 def materials_list(week_dir):
     """HTML listing every file in a week folder except index.md."""
-    order = {".html": 0, ".md": 1}                    # decks first, then pages, then downloads
+    def is_deck(f):
+        """A deck is a self-contained .html slide file, or a class-N.pdf built from LaTeX."""
+        return f.suffix == ".html" or (f.suffix == ".pdf" and f.stem.startswith("class-"))
+
     files = [f for f in week_dir.iterdir() if f.name != "index.md" and not f.name.startswith(".")]
     items = []
-    for f in sorted(files, key=lambda f: (order.get(f.suffix, 2), f.name)):
-        if f.suffix == ".html":
+    # decks first, then pages, then downloads
+    for f in sorted(files, key=lambda f: (0 if is_deck(f) else (1 if f.suffix == ".md" else 2), f.name)):
+        if is_deck(f):
+            size = f' <span class="size">{human_size(f.stat().st_size)}</span>' if f.suffix == ".pdf" else ""
             items.append(f'<li class="deck"><span>{f.stem}</span>'
-                         f'<a href="{f.name}">Open presentation →</a></li>')
+                         f'<a href="{f.name}">Open presentation →</a>{size}</li>')
         elif f.suffix == ".md":
             title = read_page(f)[0]["title"]
             items.append(f'<li class="page"><a href="{f.stem}.html">{title}</a></li>')

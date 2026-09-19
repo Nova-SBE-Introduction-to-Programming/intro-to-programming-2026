@@ -1,0 +1,14 @@
+flowchart LR
+  RED["RED<br/>failing tests = the to-do list"]
+  B["BUILD<br/>one task, one branch"]
+  RUN["RUN<br/>uv run pytest"]
+  Q{"green?"}
+  STOP["STOP<br/>read the diff · click the app"]
+  READ["READ THE FAILURE<br/>last line: what · line above: where"]
+  NEW["NEW THREAD<br/>better prompt"]
+  RED --> B --> RUN --> Q
+  Q -->|"yes"| STOP
+  Q -->|"no"| READ
+  READ --> B
+  READ -.->|"same failure twice"| NEW
+  NEW -.-> B

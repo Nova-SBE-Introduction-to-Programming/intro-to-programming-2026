@@ -2,3 +2,7 @@ _site/
 __pycache__/
 .venv/
 .DS_Store
+
+# LaTeX deck build: sources and rendered figures are tracked, output is not
+decks/out/
+decks/vendor/

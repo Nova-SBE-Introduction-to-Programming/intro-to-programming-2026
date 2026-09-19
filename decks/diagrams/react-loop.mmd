@@ -1,0 +1,8 @@
+flowchart LR
+  R["REASON<br/>“two tests still fail<br/>on CATEGORIES”"]
+  A["ACT<br/>edit: logic.py"]
+  O["OBSERVE<br/>4 passed"]
+  S(["stop — or ask you"])
+  R --> A --> O
+  O -->|"not done"| R
+  O -->|"done"| S

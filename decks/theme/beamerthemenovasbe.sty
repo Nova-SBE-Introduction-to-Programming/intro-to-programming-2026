@@ -1,0 +1,208 @@
+% Nova SBE · Introduction to Programming — a dark, modern beamer theme.
+% Engine: XeLaTeX (Tectonic). Fonts: Inter + JetBrains Mono (system-installed).
+% Palette is the course palette, shared with the HTML decks and the Mermaid diagrams.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemenovasbe}[2026/09/19 Nova SBE course theme]
+
+\RequirePackage{fontspec}
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+\RequirePackage[most]{tcolorbox}
+\tcbuselibrary{raster,skins}
+\RequirePackage{enumitem}
+\RequirePackage{microtype}      % protrusion only; letterspacing is a fontspec feature under XeTeX
+\RequirePackage{graphicx}
+\RequirePackage{etoolbox}
+\usetikzlibrary{calc}
+
+% slides are ragged right: justification on short measures opens rivers
+\AtBeginEnvironment{frame}{\raggedright}
+\setlength{\parindent}{0pt}
+
+% tracked uppercase: microtype's \textls is pdfTeX-only, so use the OpenType feature
+\newcommand{\lsp}[2][14]{{\addfontfeature{LetterSpace=#1}#2}}
+
+% ─────────────────────────────────────────────────────────── palette
+\definecolor{NovaBg}{HTML}{0F1115}
+\definecolor{NovaCard}{HTML}{161A22}
+\definecolor{NovaCard2}{HTML}{1D2230}
+\definecolor{NovaFg}{HTML}{F2F3F5}
+\definecolor{NovaBody}{HTML}{C9D0DB}
+\definecolor{NovaMuted}{HTML}{9AA3B2}
+\definecolor{NovaLine}{HTML}{2A3040}
+\definecolor{NovaAccent}{HTML}{FF6A3D}
+\definecolor{NovaTeal}{HTML}{5AD1B3}
+\definecolor{NovaYellow}{HTML}{F5C542}
+\definecolor{NovaPurple}{HTML}{B28DFF}
+
+% ─────────────────────────────────────────────────────────── fonts
+\setsansfont{Inter}[Ligatures=TeX, Numbers=Lining]
+\setmainfont{Inter}[Ligatures=TeX, Numbers=Lining]
+\setmonofont{JetBrains Mono}[Scale=0.86, Ligatures=NoCommon]
+\newfontfamily\displayfont{Inter Display}[Ligatures=TeX, Numbers=Lining]
+\newfontfamily\monofont{JetBrains Mono}[Scale=0.86, Ligatures=NoCommon]
+\renewcommand{\familydefault}{\sfdefault}
+
+% ─────────────────────────────────────────────────────────── chrome
+\usecolortheme{default}
+\setbeamercolor{background canvas}{bg=NovaBg}
+\setbeamercolor{normal text}{fg=NovaFg, bg=NovaBg}
+\setbeamercolor{structure}{fg=NovaAccent}
+\setbeamercolor{frametitle}{fg=NovaFg, bg=}
+\setbeamercolor{framesubtitle}{fg=NovaAccent, bg=}
+\setbeamercolor{itemize item}{fg=NovaAccent}
+\setbeamercolor{itemize subitem}{fg=NovaMuted}
+\setbeamercolor{footer}{fg=NovaMuted, bg=NovaBg}
+\setbeamercolor{alerted text}{fg=NovaAccent}
+\setbeamertemplate{navigation symbols}{}
+% the default headline still builds \insertnavigation (one mini-slide per frame),
+% which overfills an hbox on every frame; we draw our own chrome instead
+\setbeamertemplate{headline}{}
+\setbeamertemplate{sidebar left}{}
+\setbeamertemplate{sidebar right}{}
+\setbeamersize{text margin left=13mm, text margin right=13mm}
+% drawn, not $\bullet$: with fontspec and no math font set up the math bullet comes out blank
+\setbeamertemplate{itemize item}{%
+  \raisebox{0.30ex}{\tikz{\fill[NovaAccent] (0,0) circle (1.15pt);}}}
+\setbeamertemplate{itemize subitem}{%
+  \raisebox{0.30ex}{\tikz{\fill[NovaMuted] (0,0) circle (0.85pt);}}}
+
+\setbeamerfont{frametitle}{size=\LARGE, series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\scriptsize, series=\bfseries}
+\setbeamerfont{normal text}{size=\normalsize}
+
+% kicker colour, set per frame with \hue{...} before \begin{frame}
+\newcommand{\novakickercolor}{NovaAccent}
+\newcommand{\hue}[1]{\renewcommand{\novakickercolor}{#1}}
+
+\setbeamertemplate{frametitle}{%
+  \vskip0.72em%
+  \ifx\insertframesubtitle\@empty\else
+    {\usebeamerfont{framesubtitle}\color{\novakickercolor}%
+     \lsp[16]{\MakeUppercase{\insertframesubtitle}}\par\vskip0.42em}%
+  \fi
+  {\displayfont\usebeamerfont{frametitle}\color{NovaFg}%
+   \setlength{\baselineskip}{1.06\baselineskip}\insertframetitle\par}%
+  \vskip0.28em%
+}
+
+% footer: course line, slide number, and a progress bar flush to the bottom edge
+\newlength{\novaprogress}
+\newcommand{\footertext}{}
+\newcommand{\setfootertext}[1]{\renewcommand{\footertext}{#1}}
+\setbeamertemplate{footline}{%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.0ex,dp=1.0ex,leftskip=13mm,rightskip=13mm]{footer}%
+      {\scriptsize\color{NovaMuted}\footertext}\hfill
+      {\scriptsize\color{NovaMuted}\insertframenumber\,/\,\inserttotalframenumber}%
+    \end{beamercolorbox}%
+  }%
+  % plain dimen arithmetic: pgfmath here produced overfull boxes every frame.
+  % \inserttotalframenumber is 0 on the first pass, before the aux file exists.
+  \setlength{\novaprogress}{0pt}%
+  \ifnum\inserttotalframenumber>0\relax
+    \setlength{\novaprogress}{\paperwidth}%
+    \divide\novaprogress by \inserttotalframenumber\relax
+    \multiply\novaprogress by \insertframenumber\relax
+  \fi
+  % on the first pass the frame total is not known yet and the rule can come out
+  % wider than the page, which overfills the box; the clamp keeps every pass quiet
+  \ifdim\novaprogress>\paperwidth\setlength{\novaprogress}{\paperwidth}\fi
+  \hbox to \paperwidth{\color{NovaAccent}\rule[0pt]{\novaprogress}{1.6pt}\hfil}%
+}
+
+% ─────────────────────────────────────────────────────────── building blocks
+% inline code chip
+\newcommand{\code}[1]{%
+  \tcbox[on line, boxsep=0pt, left=1.1mm, right=1.1mm, top=0.5mm, bottom=0.5mm,
+         colback=NovaCard, colframe=NovaLine, boxrule=0.4pt, arc=0.9mm]%
+        {\monofont\small\color{NovaFg}#1}}
+
+% pill badge
+\newcommand{\pill}[2][NovaAccent]{%
+  \tikz[baseline=(p.base)]{\node[fill=#1, text=NovaBg, rounded corners=1.6mm,
+    inner xsep=2.2mm, inner ysep=1.0mm, font=\scriptsize\bfseries](p)
+    {\lsp[11]{\MakeUppercase{#2}}};}}
+
+% small tracked label, used above card headings
+\newcommand{\eyebrow}[2][NovaMuted]{{\scriptsize\bfseries\color{#1}\lsp[14]{\MakeUppercase{#2}}}}
+
+% cards: a raster of equal-height boxes
+\tcbset{novacard/.style={
+  enhanced, colback=NovaCard, colframe=NovaLine, boxrule=0.6pt, arc=3mm,
+  left=3.4mm, right=3.4mm, top=3.0mm, bottom=3.0mm,
+  fontupper=\small\raggedright\color{NovaBody}, valign=top,
+  before upper={\hyphenpenalty=10000\exhyphenpenalty=10000}}}
+% used as \begin{tcbitemize}[cards] ... \end{tcbitemize}; override with raster columns=2.
+% \tcbitem is bound by tcbitemize (not tcbraster), and separates items rather than
+% wrapping them — hence \carditem takes its content inline.
+\tcbset{cards/.style={raster columns=3, raster equal height=rows,
+  raster row skip=2.8mm, raster column skip=2.8mm, novacard}}
+% denser variant for four-up or text-heavy rows
+\tcbset{cardsS/.style={cards, fontupper=\footnotesize\raggedright\color{NovaBody},
+  left=2.9mm, right=2.9mm, top=2.5mm, bottom=2.5mm}}
+% \carditem{eyebrow}{heading}{body}
+\newcommand{\carditem}[3]{%
+  \tcbitem \eyebrow{#1}\par\vskip1.9mm
+  {\displayfont\normalsize\bfseries\color{NovaFg}#2}\par\vskip1.4mm #3}
+% a card with no heading
+\newcommand{\carditemplain}[2]{\tcbitem \eyebrow{#1}\par\vskip1.9mm #2}
+
+% numbered steps
+\newlist{steps}{enumerate}{1}
+\newcommand{\stepchip}[1]{%
+  \tikz[baseline=(c.base)]{\node[fill=NovaLine, text=NovaFg, rounded corners=1.1mm,
+    inner xsep=1.9mm, inner ysep=0.8mm, font=\footnotesize\bfseries](c){#1};}}
+\setlist[steps]{label=\protect\stepchip{\arabic*}, leftmargin=9mm, labelsep=3mm,
+                itemsep=1.7mm, topsep=1.6mm, parsep=0pt}
+% enumitem's \setlist wins over beamer's itemize template, so name the label here too
+\newcommand{\novabullet}{\raisebox{0.30ex}{\tikz{\fill[NovaAccent] (0,0) circle (1.15pt);}}}
+\newcommand{\novabulletsub}{\raisebox{0.30ex}{\tikz{\fill[NovaMuted] (0,0) circle (0.85pt);}}}
+\setlist[itemize,1]{label=\protect\novabullet, leftmargin=5mm, labelsep=2.6mm,
+                    itemsep=1.6mm, topsep=1.4mm, parsep=0pt}
+\setlist[itemize,2]{label=\protect\novabulletsub, leftmargin=4.4mm, labelsep=2.2mm,
+                    itemsep=1.0mm, topsep=1.0mm, parsep=0pt}
+
+% muted lead paragraph under a frame title
+\newcommand{\lead}[1]{{\color{NovaBody}#1\par}\vskip0.6em}
+\newcommand{\muted}[1]{{\color{NovaMuted}#1}}
+
+% a full-width quote/callout with an accent rule on the left
+\newtcolorbox{callout}[1][NovaAccent]{enhanced, colback=NovaCard, colframe=NovaLine,
+  boxrule=0.6pt, arc=3mm, left=5mm, right=4mm, top=3.2mm, bottom=3.2mm,
+  borderline west={2.6pt}{0pt}{#1}, fontupper=\raggedright\color{NovaFg}}
+
+% section divider frame: \sectionslide{W4}{kicker}{Title}{subtitle}
+\newcommand{\sectionslide}[5][NovaTeal]{%
+  \begingroup
+  \hue{#1}%
+  \begin{frame}[plain]
+    \vfill
+    {\displayfont\fontsize{58}{58}\selectfont\bfseries\color{#1}#2}\par\vskip1.1em
+    {\scriptsize\bfseries\color{#1}\lsp[16]{\MakeUppercase{#3}}}\par\vskip0.7em
+    {\displayfont\fontsize{40}{44}\selectfont\bfseries\color{NovaFg}#4}\par\vskip0.7em
+    {\color{NovaBody}\large #5}
+    \vfill
+  \end{frame}
+  \endgroup}
+
+% diagram helper: \diagram[width]{file}
+% fills the space under the title and centres the artwork in it
+\newcommand{\diagram}[2][0.95\linewidth]{%
+  \vfill\begin{center}\includegraphics[width=#1]{#2}\end{center}\vfill}
+% same, but capped by height for tall diagrams
+\newcommand{\diagramh}[2][0.70\textheight]{%
+  \vfill\begin{center}\includegraphics[height=#1]{#2}\end{center}\vfill}
+% no \vfill: use when the frame carries other content, which the glue would push off the page
+\newcommand{\diagramtight}[2][0.95\linewidth]{%
+  \begin{center}\includegraphics[width=#1]{#2}\end{center}}
+
+% Speaker notes. beamer lays \note{} out even when notes are hidden, which overfills a
+% box on every frame, so in the slides build the macro expands to nothing.
+\ifdefined\WITHNOTES
+  \newcommand{\tanote}[1]{\note{#1}}
+\else
+  \newcommand{\tanote}[1]{}
+\fi
+
+\endinput
