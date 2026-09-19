@@ -14,8 +14,8 @@ from playwright.sync_api import sync_playwright
 
 HERE = pathlib.Path(__file__).parent
 SRC, OUT = HERE / "diagrams", HERE / "figures"
-BG, FG, MUTED, LINE, CARD = "#0f1115", "#f2f3f5", "#9aa3b2", "#2a3040", "#161a22"
-ORANGE, TEAL, YELLOW, PURPLE = "#ff6a3d", "#5ad1b3", "#f5c542", "#b28dff"
+BG, FG, MUTED, LINE, CARD = "#FFFCF7", "#2E3A41", "#6E7D85", "#E6DCCC", "#F4EDE0"
+ORANGE, TEAL, YELLOW, PURPLE = "#D2552C", "#12897A", "#A9750B", "#6B5CA5"
 PAD = 6  # pt of breathing room around the artwork
 MERMAID_VERSION = "11.17.2"
 
@@ -39,7 +39,7 @@ CONFIG = {
         "edgeLabelBackground": BG, "labelBoxBkgColor": CARD,
         "actorBkg": CARD, "actorBorder": TEAL, "actorTextColor": FG, "actorLineColor": LINE,
         "signalColor": FG, "signalTextColor": FG, "labelTextColor": FG,
-        "noteBkgColor": "#1d2230", "noteTextColor": MUTED, "noteBorderColor": LINE,
+        "noteBkgColor": "#F2EADD", "noteTextColor": MUTED, "noteBorderColor": LINE,
         "activationBkgColor": TEAL, "activationBorderColor": TEAL,
         "git0": TEAL, "git1": ORANGE, "git2": PURPLE, "git3": YELLOW,
         "gitBranchLabel0": BG, "gitBranchLabel1": BG, "gitBranchLabel2": BG, "gitBranchLabel3": BG,

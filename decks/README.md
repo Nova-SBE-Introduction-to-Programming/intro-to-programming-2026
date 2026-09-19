@@ -6,7 +6,7 @@ LaTeX (beamer) slides for the course, with diagrams authored in Mermaid.
 decks/
   class-4.tex                 the deck
   class-4-notes.tex           same deck, notes on a second screen
-  theme/beamerthemenovasbe.sty  dark theme: course palette, Inter + JetBrains Mono
+  theme/beamerthemenovasbe.sty  warm light theme: course palette, Inter + JetBrains Mono
   diagrams/*.mmd              Mermaid sources
   figures/*.pdf               rendered diagrams (committed; regenerate with the script)
   render-diagrams.py          Mermaid → PDF, via headless Chromium
@@ -40,7 +40,7 @@ page) and `teaching/class-4-notes.pdf` (speaker notes, not published).
   which `rsvg-convert` silently drops — boxes come out empty. Chromium prints the SVG straight
   to a vector PDF with the labels intact, and uses the same fonts as the slides.
 - **The diagram background is the deck background.** Chromium always prints white paper, so the
-  page is painted `#0F1115`. The slides use the same flat colour, so the seam is invisible.
+  page is painted `#FFFCF7`. The slides use the same flat colour, so the seam is invisible.
 - **Diagram PDFs are committed.** The deck then rebuilds anywhere Tectonic runs, with no
   Node/Chromium. Only re-run the Mermaid step when a `.mmd` changes.
 - **Rebuilt PDFs differ byte-for-byte** even when nothing changed, because Chromium and
