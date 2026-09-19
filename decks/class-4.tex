@@ -23,8 +23,8 @@
 % ═════════════════════════════════════════════ ACT 0 · open
 \sectionslide[NovaTeal]{W4}{Block 1 · Class 4 · Practical}{Rules, judge, loop.}%
 {Last week you watched a feature get built. Today you build one.}
-\tanote{Timing: open + check-in 6 · what an agent is 9 · three standards 15 · git standards 7 ·
-live kick-off 11 · your turn 30 · wrong/retro/wrap 9 = 87, plus slack. TA-run. Slides carry ideas
+\tanote{Timing: open + check-in 5 · what an agent is 13 · three standards 13 · git standards 7 ·
+live kick-off 10 · your turn 30 · retro + wrap 10 = 88, plus slack. TA-run. Slides carry ideas
 only: every command is on the Week 4 page, open on their laptops, and in these notes. Presenting
 laptop: SplitIt with feature 1 merged, clean main, Codex open, GitHub Desktop signed in, data reset.}
 
@@ -79,6 +79,27 @@ Don't debug git at the front: point at last week's "when git is confusing" slide
 file and it showed the real line — a browser chat could not have. Same model family, different
 powers. "Agentic" just means: can act, not only answer.}
 
+% ── 5 · what a tool is
+\hue{NovaPurple}
+\begin{frame}{Without tools it can only give \muted{advice}.}
+\framesubtitle{What is an agent? · Tools}
+\vspace*{\fill}
+\diagramtight[0.60\linewidth]{figures/tool-what.pdf}
+\vskip3mm
+\begin{tcbitemize}[cardsS, raster columns=2]
+  \carditemplain{What a tool is}{A named action the model is allowed to ask for.
+    Read a file · edit a file · run a command.}
+  \carditemplain{Why it changes everything}{The result comes back \emph{to the model}. Without
+    tools you are the hands — and the only one who finds out.}
+\end{tcbitemize}
+\vfill
+\end{frame}
+\tanote{The top lane is what they did all through Class 2 with a browser chat: the model advises,
+they carry it out, they report back. They were the tool. The bottom lane is Codex. Ask the room:
+"in the top lane, who finds out if the code was wrong?" — they do, eventually. In the bottom lane
+the model finds out immediately, which is the whole reason a loop is possible. Three tools cover
+almost everything; the next slide is the protocol.}
+
 % ── 5 · tool calls
 \hue{NovaPurple}
 \begin{frame}{The model asks. The harness does.}
@@ -92,6 +113,27 @@ powers. "Agentic" just means: can act, not only answer.}
 that's an edit" — so the diagram and the demo are the same thing. The approval prompt is where the
 human sits inside the loop. The sting that sets up standard 2: an agent can run the tests and still
 *say* they passed without showing you.}
+
+% ── 7 · what reasoning is
+\hue{NovaPurple}
+\begin{frame}{Answer at once — or \textcolor{NovaAccent}{work it out}.}
+\framesubtitle{What is an agent? · Reasoning}
+\vspace*{\fill}
+\diagramtight[0.84\linewidth]{figures/reasoning.pdf}
+\vskip3mm
+\begin{tcbitemize}[cardsS, raster columns=2]
+  \carditemplain{What reasoning is}{It works the problem out in steps before answering — the way
+    you would on paper.}
+  \carditemplain{Why it matters}{An agent takes many steps. A guess at step one is still wrong at
+    step ten.}
+\end{tcbitemize}
+\vfill
+\end{frame}
+\tanote{Use their own bug: this is SplitIt's balances from Class 2. An older model pattern-matches a
+plausible edit; a reasoning model writes the arithmetic out and lands on the line. Say the honest
+part too — a guess and a worked answer look equally confident on screen, which is exactly why you
+still read the diff. Models that do this by default arrived in 2024 (o1, DeepSeek-R1, Claude's
+extended thinking); it is on the timeline two slides from now.}
 
 % ── 6 · ReAct
 \hue{NovaPurple}
@@ -312,7 +354,7 @@ next week's most common team failure: two people editing an old copy.}
 % ═════════════════════════════════════════════ ACT 4 · do it
 \hue{NovaTeal}
 \begin{frame}{Watch it work. Then check its work.}
-\framesubtitle{Live · Feature 2 · 11 min}
+\framesubtitle{Live · Feature 2 · 10 min}
 \vspace*{\fill}
 \begin{steps}
   \item \textbf{Branch.} Named after the spec.
