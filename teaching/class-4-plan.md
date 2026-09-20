@@ -35,7 +35,7 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   appeared in 2022. The run-up (1958–2017) puts the ideas where they belong — the perceptron, the
   XOR critique and the winter, backpropagation, LSTM, the Transformer — and its caption names what
   was actually missing: cheap parallel arithmetic (CUDA 2007, AlexNet 2012) and a scraped web
-  (Common Crawl). The second slide is 2018 onwards, and its last line hands off: "the next four
+  (Common Crawl). The second slide is 2018 onwards, with a parameter row under the stops (117M → 1.5B → 175B, then "not published": the size story ends, the job story continues), and its last line hands off: "the next four
   slides are that second change." Two minutes buys a model that is engineering rather than magic —
   and therefore something you can set rules for. It also corrects an attribution students meet the
   wrong way round: Minsky and Papert wrote the critique that *motivated* multi-layer networks; they

@@ -255,10 +255,10 @@ comes up: Hinton shared the 2024 Nobel Prize in Physics with Hopfield for this l
 \hue{NovaPurple}
 \begin{frame}{2018 onwards.}
 \framesubtitle{How we got here · 2 of 2}
-\vskip3mm
+\vskip1.5mm
 \noindent%
 \begin{tikzpicture}
-  \useasboundingbox (0,-30mm) rectangle (\linewidth,11mm);
+  \useasboundingbox (0,-33mm) rectangle (\linewidth,11mm);
   \tlband{0.01}{0.23}{NovaMuted}{completing}
   \tlband{0.27}{0.61}{NovaYellow}{conversing}
   \tlband{0.65}{0.87}{NovaAccent}{acting}
@@ -272,16 +272,34 @@ comes up: Hinton shared the 2024 Nobel Prize in Physics with Hopfield for this l
   \tlstop[11mm]{0.71}{NovaAccent}{2024}{Reasoning}{thinks before it acts}{19mm}
   \tlstop{0.84}{NovaAccent}{2025}{Harnesses}{builds in your repo}{19mm}
   \tlstop[11mm]{0.93}{NovaPurple}{2026}{Long-running}{works while you are away}{18mm}
+  % parameters, one row under the stops: published for three years, then not
+  \node[tl param=NovaMuted]  at (0.06\linewidth, -30mm) {117M};
+  \node[tl param=NovaMuted]  at (0.19\linewidth, -30mm) {1.5B};
+  \node[tl param=NovaYellow] at (0.32\linewidth, -30mm) {175B};
+  \node[tl param=NovaMuted, font=\scriptsize] at (0.45\linewidth, -30mm) {not published};
+  \node[tl param=NovaAccent] at (0.58\linewidth, -30mm) {$\approx$1.8T\,{\normalfont\color{NovaMuted}(leak)}};
+  \node[tl param=NovaMuted, font=\scriptsize] at (0.71\linewidth, -30mm) {not published};
+  \node[tl param=NovaMuted, font=\scriptsize\itshape, anchor=north east] at (\linewidth, -30mm)
+    {$\leftarrow$ parameters};
 \end{tikzpicture}%
-\vskip6mm
+\vskip3mm
 \muted{The job changed twice: when it learned to take \textbf{instructions}, and when it got
 \textbf{tools and a loop}. The next four slides are that second change.}
+\vskip1mm
+{\tiny\color{NovaMuted}Parameters: Radford et al.\ (2018, 2019), Brown et al.\ (2020) · GPT-4: an
+unconfirmed 2023 report (SemiAnalysis) · none published since}
 \vfill
 \end{frame}
 \tanote{Two minutes, one sweep left to right. Say the four band names as you go (completing,
 conversing, acting, persisting). That is the shape to remember, not the model names. The last
 sentence on the slide is the hand-off: everything from 2023 on is "tools and a loop", and the next
-four slides build exactly that. Dates are approximate release months on purpose.}
+four slides build exactly that. Dates are approximate release months on purpose. The bottom row
+is the size story, and it ends: GPT-1 had 117 million parameters, GPT-2 1.5 billion, GPT-3 175
+billion, a thousandfold in two years, and then the numbers stop. OpenAI did not publish GPT-4's;
+the 1.8 trillion figure is a 2023 leak (a mixture of experts, so not all of it runs per token) and
+nobody has confirmed it. Nothing since has a public count. If someone asks why: size stopped being
+the whole story around 2022, and what changed after that is on the right of the timeline, not the
+bottom.}
 
 % ── history, one exhibit · what "coherent paragraphs" looked like in 2019
 % The most famous language-model output before ChatGPT, reproduced as published. It does two
