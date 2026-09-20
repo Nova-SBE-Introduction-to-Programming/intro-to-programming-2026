@@ -69,17 +69,17 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   at the `3` divider is that the ring has three places where you get a say: what it reads before
   the first thought (the rulebook), what it observes (the judge), and when the return arrow stops
   (the loop). The standards are the ring, configured.
-- **Context is a bar, and context rot is the slide that justifies two rules.** The context slide
+- **Context is a bar; context rot is two measurements, shown as measurements.** The context slide
   draws the window as a fixed-width bar filling up — the rulebook a thin sliver at the left, the
-  files and command output most of it — so "the oldest part goes first" is visible. Context rot is
-  the *same bar*, an hour in and full, with the middle washed out and a pin on "the error you
-  pasted forty minutes ago"; underneath it, the same bar after compaction: the middle folded into
-  one purple paragraph, the last few turns kept, room again. The wash is the published shape —
-  Liu et al. measured it (TACL 2024) and Chroma re-ran it across eighteen models in 2025, every
-  one degrading with input length well short of the limit — drawn on the object they already know
-  instead of as a graph. It explains why "start a new thread after twice round" is standard 3, and
-  why compaction is not the tool being lazy: it discards the part the model was using worst and
-  keeps the two parts it uses best. If you have the screen, run
+  files and command output most of it — so "the oldest part goes first" is visible. Context rot
+  then shows the evidence rather than a metaphor: Liu et al.'s Figure 1 as published (TACL 2024,
+  CC BY) — twenty documents, the answer moved through them, accuracy sagging in the middle to
+  *below* the closed-book line, i.e. worse than no documents at all — and Chroma's 2025 result on
+  four current models copying a list of words, redrawn from their figure because the PNG's fonts
+  vanish at slide size: every line falls from a few hundred tokens on. The kicker carries the
+  consequence ("so: new thread, or compact"). It explains why "start a new thread after twice
+  round" is standard 3, and why compaction is not the tool being lazy: it discards the part the
+  model was using worst and keeps the two parts it uses best. If you have the screen, run
   `/context` then `/compact` and let them watch the bar drop.
 - **Ralph gets two slides because the picture is the argument.** The first is the crowd of
   identical Ralphs and nothing else: there is no single agent getting better at the task, there is a

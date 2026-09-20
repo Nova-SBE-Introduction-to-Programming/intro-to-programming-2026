@@ -1,6 +1,6 @@
 # Decks
 
-LaTeX (beamer) slides for the course. Every figure is drawn in TikZ from macros in the theme.
+LaTeX (beamer) slides for the course. Every figure is drawn in TikZ from macros in the theme, except one published chart and one photo.
 
 ```
 decks/
@@ -8,7 +8,7 @@ decks/
   class-4-notes.tex             same deck, notes on a second screen
   theme/beamerthemenovasbe.sty  warm light theme: course palette, Inter + JetBrains Mono,
                                 and the figure macros (\gitgraph, \agentstack, \reactring, …)
-  figures/ralph.jpg             the one image
+  figures/                      ralph.jpg and Liu et al. (2024) fig. 1, the only imported artwork
   build.sh                      both PDFs, installed into the repo
   out/                          LaTeX output (gitignored)
 ```
