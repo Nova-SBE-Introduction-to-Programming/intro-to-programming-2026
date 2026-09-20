@@ -58,7 +58,7 @@ laptop: SplitIt with feature 1 merged, clean main, Codex open, GitHub Desktop si
 \vfill
 \end{frame}
 \tanote{Walk the room looking at browsers, not code. Two minutes per row; note who is behind.
-They can pull main and run the feature-1 tests while you walk — command on the Week 4 page.
+They can pull main and run the feature-1 tests while you walk; the command is on the Week 4 page.
 Don't debug git at the front: point at last week's "when git is confusing" slide.}
 
 % ═════════════════════════════════════════════ ACT 1 · what an agent is
@@ -76,7 +76,7 @@ Don't debug git at the front: point at last week's "when git is confusing" slide
 \vfill
 \end{frame}
 \tanote{One minute, from their own experience: in Class 2 they asked Codex to show a line of a data
-file and it showed the real line — a browser chat could not have. Same model family, different
+file and it showed the real line. A browser chat could not have. Same model family, different
 powers. "Agentic" just means: can act, not only answer.}
 
 % ── 5 · what a tool is
@@ -90,35 +90,35 @@ powers. "Agentic" just means: can act, not only answer.}
   \carditemplain{What a tool is}{A named action the model is allowed to ask for.
     Read a file · edit a file · run a command.}
   \carditemplain{Why it changes everything}{The result comes back \emph{to the model}. Without
-    tools you are the hands — and the only one who finds out.}
+    tools you are the hands, and the only one who finds out.}
 \end{tcbitemize}
 \vfill
 \end{frame}
 \tanote{The top lane is what they did all through Class 2 with a browser chat: the model advises,
 they carry it out, they report back. They were the tool. The bottom lane is Codex. Ask the room:
-"in the top lane, who finds out if the code was wrong?" — they do, eventually. In the bottom lane
+"in the top lane, who finds out if the code was wrong?" They do, eventually. In the bottom lane
 the model finds out immediately, which is the whole reason a loop is possible. Three tools cover
 almost everything; the next slide is the protocol.}
 
 % ── 5 · tool calls
 \hue{NovaPurple}
-\begin{frame}{The model asks. The harness does.}
+\begin{frame}{How it reaches your files.}
 \framesubtitle{Tool calls}
 \diagram[0.80\linewidth]{figures/tool-call.pdf}
 \vskip1mm
-\muted{Read · edit · run. That is the whole vocabulary.}
+\muted{Three tools cover nearly everything it does.}
 \vfill
 \end{frame}
-\tanote{This is the exact thing they did in Class 2 — they asked Codex about a line of their own
+\tanote{This is the exact thing they did in Class 2: they asked Codex about a line of their own
 expenses file and it came back with the real line. Walk it left to right: a plain question, a
 precise request, the permission gate, the file's own words, a plain answer. Two things to point at.
-The model never saw the file — it had to ask. And the approval prompt is where you sit inside the
+The model never saw the file, so it had to ask. And the approval prompt is where you sit inside the
 loop; that is the only place a human is required. Later, narrate the live kick-off in the same
 words — "that's a read, that's an edit, that's a run" — so the diagram and the demo are one thing.}
 
 % ── 6b · one tool call in full
 \hue{NovaPurple}
-\begin{frame}{What actually goes back and forth.}
+\begin{frame}{What goes back and forth.}
 \framesubtitle{Tool calls · one exchange, in full}
 \vspace*{\fill}
 \begin{tabular}{@{}r@{\hskip 5mm}l@{}}
@@ -129,17 +129,16 @@ words — "that's a read, that's an edit, that's a run" — so the diagram and t
   \eyebrow{the model answers} & €30 — dinner at Zé dos Cornos, on 25 August.                       \\
 \end{tabular}
 \vskip6mm
-\muted{It never saw the file. It asked; you allowed it; the file's own line was pasted into the
-conversation. That line is the only reason it can answer.}
+\muted{It never saw the file. It asked, you said yes, and the line came back.}
 \vfill
 \end{frame}
-\tanote{Read it top to bottom, slowly — this is the slide that demystifies the whole thing. Three
+\tanote{Read it top to bottom, slowly. This is the slide that demystifies the whole thing. Three
 things to point at. (1) The model's output is not prose: it is a small structured request naming a
 tool and what to use it on. It cannot open anything; it can only ask. (2) Codex — the harness — is
 what actually touches the disk, and it stops to ask you first; that prompt is the same one they
 click through all lesson. (3) The file's real line is pasted into the conversation as ordinary
 text, and from there the model reads it like any other message. Ask the room: "if we had said no,
-what could it have answered?" Nothing — it would have to guess. The JSON is illustrative; each
+what could it have answered?" Nothing. It would have to guess. The JSON is illustrative; each
 harness has its own wire format, and they never type it themselves.}
 
 % ── 7 · what reasoning is
@@ -163,13 +162,12 @@ NeurIPS · first model \emph{trained} to do it: OpenAI o1 (2024)}
 \tanote{Use their own bug: this is SplitIt's balances from Class 2. The deep reason, if anyone
 asks: a transformer spends a fixed amount of computation per token, so answering straight away
 means committing with one fixed budget however hard the question is. Writing intermediate steps
-buys more computation and gives the model a scratchpad it can read back — which is why "think step
-by step" is not a politeness trick. Lineage: Nye et al. 2021 called it a scratchpad; Wei et al.
+buys more computation and gives the model a scratchpad it can read back, which is why "think step by step" is not a politeness trick. Lineage: Nye et al. 2021 called it a scratchpad; Wei et al.
 2022 named it chain-of-thought and showed it emerges in large models; Kojima et al. 2022 found
 "let's think step by step" alone does much of it; OpenAI's o1 (Sept 2024) was the first model
 trained by reinforcement learning to do it unprompted, followed by DeepSeek-R1 and Claude's
-extended thinking. Say the honest part too — a guess and a worked answer look equally confident on
-screen, which is exactly why you still read the diff.}
+extended thinking. Say the honest part too: a guess and a worked answer look equally confident on
+screen, which is why you still read the diff.}
 
 % ── 6 · ReAct
 \hue{NovaPurple}
@@ -178,7 +176,7 @@ screen, which is exactly why you still read the diff.}
 \diagramtight[0.84\linewidth]{figures/react-loop.pdf}
 \vskip3mm
 \begin{tcbitemize}[cardsS, raster columns=2]
-  \carditemplain{The harness}{Runs the tool. Asks you. Feeds the result back. Decides when to stop.
+  \carditemplain{The harness}{It runs the tool, asks your permission and feeds the result back.
     Codex is one; so are Claude Code and Cursor.}
   \carditemplain{Why you care}{They all run this same loop. Learn it once, and the tools are
     interchangeable.}
@@ -190,30 +188,29 @@ screen, which is exactly why you still read the diff.}
 \end{frame}
 \tanote{ReAct = "Reasoning and Acting", Yao et al. 2022 (ICLR 2023, arXiv:2210.03629): a model does
 far better alternating a thought with an action and reading the result than answering in one go.
-Every harness since is that loop with better plumbing. The line to land: the three standards are
+Every harness since is that loop with better plumbing. Worth saying plainly: the three standards are
 you configuring the harness — the rulebook it loads, the judge it runs, the stop condition.}
 
 % ── 10 · the long run-up
 \hue{NovaPurple}
-\begin{frame}{The ideas came first. By decades.}
+\begin{frame}{The ideas are sixty years old.}
 \framesubtitle{How we got here · the long run-up}
 \diagramtight[0.82\linewidth]{figures/prehistory.pdf}
 \vskip4mm
-\muted{Sixty years of theory. \textbf{What was missing was never the idea.}}
+\muted{The ideas were all there. \textbf{Something else was missing.}}
 \vfill
 \end{frame}
 \tanote{Ninety seconds, left to right. The dates are on the slide; the names and the story are
 here. 1958,
 Rosenblatt's perceptron: a machine that adjusts its own weights from examples instead of being
 programmed rule by rule. That is still the whole idea. 1969, Minsky and Papert's book
-\emph{Perceptrons}: one layer can only separate what a straight line separates, so it cannot learn
-XOR — about as simple as a function gets. Funding collapsed; the first AI winter. Careful with the
+\emph{Perceptrons}: one layer can only separate what a straight line separates, so it cannot learn XOR, about as simple as a function gets. Funding collapsed; the first AI winter. Careful with the
 attribution: Minsky did not invent multi-layer networks. Everyone knew more layers would fix XOR;
-nobody could train them — his critique is what made that the open problem. 1986, Rumelhart, Hinton
+nobody could train them. His critique is what made that the open problem. 1986, Rumelhart, Hinton
 and Williams in Nature: backpropagation sends the error back through every layer, so many layers
 finally become trainable. The answer to 1969, seventeen years late. 1997, Hochreiter and
 Schmidhuber: LSTM carries memory across a sequence. 2017, Vaswani et al.: the Transformer drops
-recurrence for attention and trains in parallel — every model two slides from now is one of these.
+recurrence for attention and trains in parallel. Every model two slides from now is one of these.
 If it comes up: Hinton shared the 2024 Nobel Prize in Physics with John Hopfield for this line of
 work.}
 
@@ -223,10 +220,10 @@ work.}
 \framesubtitle{How we got here · why it happened now}
 \vspace*{\fill}
 \begin{tcbitemize}[cardsS, raster columns=2]
-  \carditem{Compute}{Arithmetic got cheap}{2007 — graphics cards became programmable.
-    2012 — a network trained on two of them won the image contest outright.}
-  \carditem{Data}{The web became a corpus}{From 2007 — a non-profit crawling the public web and
-    giving it away. Billions of pages of text, free.}
+  \carditem{Compute}{Arithmetic got cheap}{In 2007 graphics cards became programmable. In 2012
+    a network trained on two of them won the image contest.}
+  \carditem{Data}{The web became a corpus}{Since 2007 a non-profit has crawled the public web and
+    given it away. Billions of pages, free.}
 \end{tcbitemize}
 \vskip6mm
 \muted{Neural nets are not new. \textbf{Cheap parallel arithmetic and a scraped web are.}}
@@ -235,16 +232,15 @@ work.}
 Common Crawl (founded 2007, public crawls from 2011)}
 \vfill
 \end{frame}
-\tanote{This is the payoff of the previous slide, and the line to land: the ideas sat there for
+\tanote{This is the payoff of the previous slide. The ideas sat there for
 decades because the two things they needed had not arrived. \textbf{Compute} — NVIDIA's CUDA (2007)
 let ordinary programmers run their own maths on a graphics card, which is thousands of tiny
-arithmetic units built for game pixels and, as it turns out, exactly what a neural network needs.
+arithmetic units built for game pixels, which turned out to be what a neural network needs.
 In 2012 AlexNet — Krizhevsky, Sutskever and Hinton — trained on two consumer GPUs and won the
 ImageNet competition with roughly half the error of the runner-up; that is the moment it became
 obvious to everyone. \textbf{Data} — Common Crawl, a non-profit founded in 2007 publishing
 full-scale crawls from 2011: the web itself, free, as a training corpus. Neither one is an idea
-about intelligence. If someone asks why this happened now and not in 1990, that is the whole
-answer.}
+about intelligence. If someone asks why this happened now and not in 1990, that is the answer.}
 
 % ── 12 · chronology
 \hue{NovaPurple}
@@ -257,9 +253,7 @@ answer.}
 \vfill
 \end{frame}
 \tanote{Two minutes, one sweep left to right. Sixty years fitted onto the last two slides; these
-eight get their own because this is where the job changed, not just the size. Say the four band
-names as you go — completing,
-conversing, acting, persisting — that is the shape to remember, not the model names. If asked for
+eight get their own because this is where the job changed, not just the size. Say the four band names as you go (completing, conversing, acting, persisting). That is the shape to remember, not the model names. If asked for
 an example of reasoning: an older model asked why the balances were wrong guesses a plausible edit;
 a reasoning model works the arithmetic out and lands on the actual line. Dates are approximate
 release months on purpose.}
@@ -280,21 +274,21 @@ release months on purpose.}
     one.}
 \end{tcbitemize}
 \vskip6mm
-\muted{It lives in git. When the agent misbehaves, fix a line here — not the prompt.}
+\muted{It lives in git. When the agent misbehaves, the fix is usually a line here.}
 \vfill
 \end{frame}
-\tanote{Ask Codex on stage: "What does AGENTS.md tell you to do?" — it recites the file. That is the
+\tanote{Ask Codex on stage: "What does AGENTS.md tell you to do?" It recites the file. That is the
 proof it reads it. The test for every line: would removing it cause a mistake? If not, cut it.
 Mention the 32 KB cap only if asked; the real cap is attention.}
 
 % ── 10 · the three rules
 \hue{NovaYellow}
-\begin{frame}{Three rules. One commit.}
+\begin{frame}{Three rules to add today.}
 \framesubtitle{Standard 1 · Live · 4 min}
 \vspace*{\fill}
 \begin{tcbitemize}[cardsS]
   \carditem{Boundary}{One branch per spec.}{Never straight to \code{main}.}
-  \carditem{Evidence}{Show me the test output.}{Not a sentence saying it passed.}
+  \carditem{Evidence}{Show me the test output.}{The output itself, not a summary of it.}
   \carditem{Off-limits}{Never touch the tests.}{If one looks wrong, say so and stop.}
 \end{tcbitemize}
 \vskip6mm
@@ -302,27 +296,26 @@ Mention the 32 KB cap only if asked; the real cap is attention.}
 \vfill
 \end{frame}
 \tanote{Do it on stage: ask Codex to add the three rules under "How to answer" in AGENTS.md, read
-the diff aloud, accept, commit in GitHub Desktop. The third already existed in spirit — now it is
-explicit, and the student enforces it. Codex only reads AGENTS.md at the start of a thread, so say
+the diff aloud, accept, commit in GitHub Desktop. The third already existed in spirit; now it is explicit, and the student enforces it. Codex only reads AGENTS.md at the start of a thread, so say
 "new thread" now.}
 
 % ── 11 · standard 2
 \hue{NovaAccent}
-\begin{frame}{Decide what \textcolor{NovaAccent}{done} means. First.}
+\begin{frame}{Decide what \textcolor{NovaAccent}{done} means before you start.}
 \framesubtitle{Standard 2 · The judge}
 \vspace*{\fill}
 \begin{tcbitemize}[cardsS, raster columns=2]
   \carditem{It stops when it looks done}{So give it a check.}{Failing tests are the to-do list.
     Green is the finish line.}
-  \carditem{Never move the goalposts}{Editing a test is cheating.}{Not finishing.}
-  \carditem{Evidence, not claims}{Output, not adjectives.}{``All tests pass'' is a sentence.}
+  \carditem{Never move the goalposts}{Editing a test is cheating.}{It is not finishing.}
+  \carditem{Evidence, not claims}{Show me the output.}{Anyone can type ``all tests pass''.}
   \carditem{Green is not done}{Read the diff. Click the app.}{App wrong, tests green? You found a
     missing test.}
 \end{tcbitemize}
 \vfill
 \end{frame}
 \tanote{Run the red tests on stage (command on the Week 4 page) and open the test file next to the
-spec: one test per checklist line. "Green is not done" is the card that pays off today — feature 2's
+spec: one test per checklist line. "Green is not done" is the card that pays off today: feature 2's
 form field is not tested at all, so only clicking the app catches a missing one.}
 
 % ── 12 · standard 3
@@ -334,13 +327,13 @@ form field is not tested at all, so only clicking the app catches a missing one.
 \begin{tcbitemize}[cardsS]
   \carditemplain{One task per loop}{One bug, or one spec.}
   \carditemplain{Let it loop}{It reads its own failures. You read the result.}
-  \carditemplain{Know when to stop}{Green — or twice round on the same failure. Then a new thread.}
+  \carditemplain{Know when to stop}{Green. Or twice round on the same failure, and then a new thread.}
 \end{tcbitemize}
 \vfill
 \end{frame}
 \tanote{The three parts are the whole lesson: a rulebook, a judge, a loop. Everything else in
 agentic coding is a variation. Today the loop runs inside one Codex turn and you watch; the same
-idea one level up is a script that re-feeds the prompt until the judge passes — Part II, Block 3.}
+idea one level up is a script that re-feeds the prompt until the judge passes. Part II, Block 3.}
 
 % ── 13 · the four parts of an ask
 \hue{NovaAccent}
@@ -358,7 +351,7 @@ idea one level up is a script that re-feeds the prompt until the judge passes �
 \vfill
 \end{frame}
 \tanote{Four parts, in every loop prompt they will ever write. Make them name the four back to you
-before you paste it. New thread before pasting — the AGENTS.md rules from five minutes ago are only
+before you paste it. New thread before pasting: the AGENTS.md rules from five minutes ago are only
 read at the start of a thread.}
 
 % ── 14 · Ralph: the loop with nobody watching
@@ -388,19 +381,17 @@ read at the start of a thread.}
 \end{tcbitemize}
 \vfill
 \end{frame}
-\tanote{Thirty seconds, as a teaser — you are not demoing this today. It is named after Ralph
+\tanote{Thirty seconds, as a teaser. You are not demoing this today. It is named after Ralph
 Wiggum: cheerfully, relentlessly wrong, and it gets there anyway. Geoffrey Huntley's original was
 literally `while :; do cat PROMPT.md | agent; done`, and his line for why it works is
-"deterministically bad in an undeterministic world" — bounded, repeatable failure plus a check that
-cannot lie. The point to land, and the reason it closes this act: the agent has no memory between
-runs, so the PROMPT and the repo carry all the state. That is exactly why a rulebook and a judge
-are not housekeeping — they are the only things between you and an agent confidently going the
-wrong way for an hour. Part II, with the team project.}
+"deterministically bad in an undeterministic world". Bounded, repeatable failure plus a check that cannot lie. Why it closes this act: the agent has no memory between runs, so the PROMPT and the
+repo carry all the state. So a rulebook and a judge
+are not housekeeping. They are what stands between you and an agent confidently going the wrong way for an hour. Part II, with the team project.}
 
 % ═════════════════════════════════════════════ ACT 3 · git, as one story
 \sectionslide[NovaBlue]{git}{How a team stays sane}{One change, start to finish.}%
 {\code{main} is the version everyone trusts. Here is how a change gets into it.}
-\tanote{Seven minutes for the whole story — the graph grows by one move per slide, so each takes
+\tanote{Seven minutes for the whole story. The graph grows by one move per slide, so each takes
 about forty seconds. They met repo, commit, branch and push last week as words; this is the same
 four words as a single narrative, in the shape they will actually see in GitHub Desktop. Frame it
 the way they already think: a draft, checkpoints, a review, a sign-off.}
@@ -412,8 +403,8 @@ the way they already think: a draft, checkpoints, a review, a sign-off.}
 \vspace*{\fill}
 \gitstory[0.318]{figures/git-story-1.pdf}
 \vskip6mm
-\muted{One version, one history, one truth — no folder full of
-\emph{model\_v3\_FINAL\_jm}. Everybody's copy starts from here.}
+\muted{One version, one history, one truth. No folder full of
+\emph{model\_v3\_FINAL\_jm}.}
 \vfill
 \end{frame}
 
@@ -448,8 +439,7 @@ back to any of them.}
 \vspace*{\fill}
 \gitstory{figures/git-story-4.pdf}
 \vskip6mm
-\muted{Three commits deep, half of it broken, the agent having a bad day — the version everyone
-else is using is exactly as you left it.}
+\muted{Three commits in and half of it broken. Everyone else's copy is untouched.}
 \vfill
 \end{frame}
 
@@ -459,29 +449,29 @@ else is using is exactly as you left it.}
 \framesubtitle{Git · sending it for review}
 \diagram[1.0\linewidth]{figures/git-roundtrip.pdf}
 \vskip1mm
-\muted{\textbf{Push} puts your draft where the team can see it. A \textbf{pull request} is you
-asking someone to read the diff before it counts — today, that someone is you, reviewing the agent.}
+\muted{\textbf{Push} puts your draft where the team can see it. A \textbf{pull request} asks
+someone to read the diff first. Today that someone is you, reviewing the agent.}
 \end{frame}
 
 % ── git 6 · merge
 \hue{NovaBlue}
-\begin{frame}{Approved. Now it is the official version.}
+\begin{frame}{Once it is approved, it comes home.}
 \framesubtitle{Git · the sign-off}
 \vspace*{\fill}
 \gitstory{figures/git-story-5.pdf}
 \vskip6mm
-\muted{\textbf{Merge} is the sign-off. \code{main} now includes your work — and the next person's
-copy starts from here.}
+\muted{\textbf{Merge} is the sign-off. \code{main} now has your work, and the next person starts
+from there.}
 \vfill
 \end{frame}
-\tanote{Land the cycle: they are now back at slide one, with a bigger main. That is the whole
-habit. Two rules fall out of the story rather than being announced — name the branch after the job
+\tanote{Land the cycle: they are back at slide one, with a bigger main. That is the
+habit. Two rules fall out of the story rather than being announced: name the branch after the job
 (slide 2), and keep commits small enough to explain (slide 3). If someone asks what happens to the
 branch: it is finished, GitHub offers to delete it, say yes.}
 
 % ═════════════════════════════════════════════ ACT 4 · do it
 \hue{NovaTeal}
-\begin{frame}{Watch it work. Then check its work.}
+\begin{frame}{Build one, live.}
 \framesubtitle{Live · Feature 2 · 10 min}
 \vspace*{\fill}
 \begin{steps}
@@ -498,7 +488,7 @@ branch: it is finished, GitHub offers to delete it, say yes.}
 names are on the Week 4 page if you want them on screen. The two things it commonly misses on this
 feature: it forgets to refresh the data files from the seed (tests stay green while the app crashes
 on load) and it never adds the form field (nothing tests that screen). Both are the "green is not
-done" lesson — show them, do not fix them silently. If it edits a test: stop, discard, point at the
+done" lesson. Show them, do not fix them silently. If it edits a test: stop, discard, point at the
 rule, re-prompt.}
 
 % ── 19 · your turn
@@ -517,9 +507,9 @@ rule, re-prompt.}
 \vfill
 \end{frame}
 \tanote{Roam for two things: did they ask for the test output, and did they read the diff before
-accepting. Never answer a failing test — "what does the last line say?". SplitIt bug 002: the test
+accepting. Never answer a failing test. Ask "what does the last line say?". SplitIt bug 002: the test
 demands a helper that also removes the member's expenses; the assertion message says so. Tiny CRM
-bug 003 has a twist: stamping the close date is not enough — the month counter gives up on the whole
+bug 003 has a twist: stamping the close date is not enough. The month counter gives up on the whole
 list when any won lead has no date, and the seed has five; the fix is to skip them, not return zero.
 Anyone still on feature 1 does that first; feature 2 becomes homework.}
 
@@ -551,13 +541,12 @@ Anyone still on feature 1 does that first; feature 2 becomes homework.}
   \item Commit it to \code{AGENTS.md}, with the reason.
 \end{itemize}
 \vskip7mm
-\muted{That is how a rulebook grows: from what went wrong, one line at a time.}
+\muted{A rulebook grows one line at a time, from things that went wrong.}
 \vfill
 \end{frame}
 \tanote{Collect the rules on the board; the good ones become the course's AGENTS.md for Block 2.
 Expect: "refresh the data after changing the seed files", "don't edit live data by hand", "show me
-the diff before committing". Reject vague ones ("be careful") — ask "how would you know it followed
-this?".}
+the diff before committing". Reject vague ones ("be careful"). Ask "how would you know it followed this?".}
 
 % ── 22 · wrap
 \hue{NovaTeal}

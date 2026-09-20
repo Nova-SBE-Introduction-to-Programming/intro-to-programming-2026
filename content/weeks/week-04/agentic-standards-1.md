@@ -25,7 +25,7 @@ seen your files — cannot answer. Here is the whole exchange:
 
 Three things are worth noticing. The model's output is **not prose** — it is a small structured
 request naming a tool and what to use it on; it cannot open anything, it can only ask. **Codex** is
-what actually touches your disk, and it stops to ask you first — that is the approval prompt you
+what touches your disk, and it stops to ask you first. That is the approval prompt you
 click through all lesson. And the file's real line is **pasted into the conversation** as ordinary
 text, which the model then reads like any other message. Say no, and it has nothing to answer with.
 
@@ -77,7 +77,7 @@ The two jumps that changed the job: *instructions* (2022) and *tools + a loop* (
 
 ## 2 · The judge — define done before you build
 
-**Something that can't lie.** The agent stops when the work *looks* done. Without a check it can run, you are the check — and every mistake waits for you to notice it. Give it something that answers pass or fail: today, the spec's *Done when* and the tests. Four red tests are the to-do list; green is *done*.
+**Something that can't lie.** The agent stops when the work *looks* done. Without a check it can run, you are the check, and every mistake waits for you to notice it. Give it something that answers pass or fail: today, the spec's *Done when* and the tests. Four red tests are the to-do list; green is *done*.
 
 **Never move the goalposts.** The tests are the contract. An agent that edits a test to make it pass has cheated, not finished. The rule is in `AGENTS.md`; you enforce it.
 
@@ -111,18 +111,15 @@ while true; do  cat PROMPT.md | agent  ; done
 ```
 
 The same prompt, fed to a **fresh** agent, over and over. Each run starts with no memory of the last
-one, so the agent cannot talk itself into a story about what it already did — the only state is
+one, so the agent cannot talk itself into a story about what it already did. The only state is
 `PROMPT.md`, your `AGENTS.md`, and the repo as it now stands. Each run it picks the most important
 undone thing, does it, and the tests say whether it worked. It keeps going until they pass.
 
-It is named after a cartoon character who is cheerfully, relentlessly wrong and gets there anyway,
-and that is the honest description: it fails a lot, but it fails in bounded, repeatable ways, and
-something that cannot lie catches each failure.
+It is named after a cartoon character who is cheerfully, relentlessly wrong and gets there anyway. That is the honest description. It fails a lot, but in bounded, repeatable ways, and something that cannot lie catches each one.
 
-**Why it needs the first two standards.** Nobody is watching. The rulebook is the only thing keeping
-it inside the lines, and the judge is the only thing that can tell it to stop. Get either wrong and
+**Why it needs the first two standards.** Nobody is watching. The rulebook is what keeps it inside the lines, and the judge is what tells it to stop. Get either wrong and
 it will spend an hour going confidently in the wrong direction. That is why the rulebook and the
-judge come first in this course — they are what makes walking away possible. Part II, in Block 3.
+judge come first in this course: they are what makes walking away possible. Part II, in Block 3.
 
 ---
 
