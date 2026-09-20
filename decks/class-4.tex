@@ -639,60 +639,60 @@ observes, and when the "not yet" arrow stops. Point at the three cards and the t
 then at the stack from three slides ago: same thing, unrolled.}
 
 % ── context
-% The window drawn at four moments, top to bottom: it fills on its own with files and command
-% output, the rulebook stays a sliver at the left, and compaction keeps the ends and folds the
-% middle. Next slide draws why the middle is the right thing to fold.
+% The window at minute one, zoomed in until it is concrete: the tools' one-line descriptions,
+% the rulebook, your message, then a thought, a call and a result, appended in that order. The
+% callout answers the question the reasoning slide raised: it knows which tool to call because
+% the tool's line is in the window, above the thought.
 \hue{NovaPurple}
 \begin{frame}{Context.}
-\framesubtitle{What it can hold, and how it fills}
+\framesubtitle{What it literally sees}
 \vspace*{\fill}
-\ctxwindow
+\ctxinside
 \vskip2.5mm
-\muted{The rulebook is read once. Files and outputs arrive on their own, until nothing more fits.}
+\muted{Tools, rulebook, your message: there before the first thought. Everything after is
+appended, turn by turn.}
 \vfill
 \end{frame}
-\tanote{If you have the screen, type /context in Codex or Claude Code and it draws the same bar.
-Read the four rows top to bottom. Minute one: the rulebook, a thin sliver at the left, read once,
-and your message. Twenty minutes in: every file it opened and every command's output is still in
-there, and it put them there, not you. An hour in: full, and the next file does not fit. Then the
-tool compacts: it folds the middle of the conversation into a short summary and keeps the rulebook
-and the recent turns, so the rules survive and the files it read an hour ago become the purple
-paragraph. That is the reason behind the rule in standard 3 — after twice round on the same
-failure, start a new thread — and it is why a Ralph loop hands each run a fresh agent. If someone
-asks how big: a few hundred thousand words and growing, but the next slide is why the number is
-not the point.}
+\tanote{Slow down here; this is the slide that makes "context" concrete. Top row, put there before
+the model thinks at all: the tools, each a single line saying what it does, written by the
+harness; the rulebook, which is your AGENTS.md; and your message. Bottom row, appended as it works:
+a thought, a tool call, and the result, which is the whole file, now in the window. Then the
+dashed arrow, which answers the question someone asked two slides ago: how does it know which tool?
+Because the tool's own line is in the window, a few lines above the thought that reaches for it.
+It does not "have" tools the way you have hands; it reads a menu and writes an order, and the
+harness cooks. Everything on this slide is text, in one long sequence, and it gets longer with
+every turn. If you have the screen, /context in Codex or Claude Code shows the same thing as a
+bar; the next slide is that bar over an hour.}
 
 % ── context rot
-% Two measurements drawn as curves over the bar from the previous slide. Left, Liu et al.'s U:
-% with the answer in the middle the model scored below the dashed line, which is the same model
-% given no documents at all. Right, Chroma's 2025 re-run on four current models: a trivial task,
-% and every line falls as the input grows. One colour, no legend: the message is that they all
-% fall, not which falls first. The real charts are cited and described on the week page.
+% The same window at four moments: it fills on its own, the middle goes soft (the published
+% "lost in the middle" shape, drawn on the object they know rather than as a chart), and
+% compaction folds exactly that part. The two measurements are cited below and on the week page.
 \hue{NovaPurple}
 \begin{frame}{Context rot.}
-\framesubtitle{Why a long thread goes stale · so: start a new thread}
+\framesubtitle{It fills · the middle goes soft · compaction folds it}
 \vspace*{\fill}
-\ctxrot
-\vskip1.5mm
-\muted{So: start a new thread rather than arguing in a long one. Compaction folds the part it used least.}
-\vskip1.5mm
-{\tiny\color{NovaMuted}Redrawn from Liu et al.\ (2024), \emph{Lost in the Middle}, TACL 12, fig.\ 1
-(gpt-3.5, 20 documents) · Chroma (2025), \emph{Context Rot}, repeated words, 4 of 18 models}
+\ctxwindow
+\vskip2mm
+\muted{The middle goes soft long before it is full. Compaction folds exactly that part.}
+\vskip1mm
+{\tiny\color{NovaMuted}The soft middle is measured, not a metaphor: Liu et al.\ (2024), \emph{Lost in
+the Middle}, TACL 12 · Chroma (2025), \emph{Context Rot}. Both on the week page.}
 \vfill
 \end{frame}
-\tanote{Two real measurements, drawn over the bar they just saw, so read them with the room. Left,
-Liu et al.\ 2024: the same twenty documents and the same question; only the position of the one
-document with the answer changes, and that position is the x axis, the window itself. Accuracy is
-highest when it is first or last and sags in the middle, and the dashed line is the same model
-asked with no documents at all: in the middle, the documents made it worse than nothing. Right,
-Chroma 2025: four current models (Claude Sonnet 4, GPT-4.1, Gemini 2.5 Flash, Qwen3-32B) asked to
-copy a list of repeated words, the simplest task they could design, and every line falls before
-ten thousand tokens, a few percent of any current window; their full report does it across
-eighteen models. Windows went 8k, 32k, 128k, a million: the number on the box grew a hundredfold
-and neither curve moved. Two things follow, both rules in the next act. Start a new thread rather
-than arguing in a long one. And compaction is not the tool being lazy: it folds the soft middle
-into a paragraph and keeps the two parts the model uses best. If you have the screen, run /context
-and then /compact so they see the bar drop.}
+\tanote{Read the four rows top to bottom. Minute one is the previous slide as a bar: the rulebook,
+a thin sliver at the left, read once, and your message. Twenty minutes in: every file it opened and
+every command's output is still in there, and it put them there, not you. An hour in: full, and the
+middle has gone soft. That is a measured result, not a feeling: Liu et al.\ 2024 gave a model the
+same twenty documents and moved the one with the answer through them; with it in the middle the
+model did worse than with no documents at all. Chroma 2025 re-ran the idea on eighteen current
+models with the simplest task they could design, copying a list of words, and every one fell before
+ten thousand tokens, a few percent of any window. The number on the box grew a hundredfold and
+neither result moved. So compaction is not the tool being lazy: it folds the soft middle into a
+paragraph and keeps the rulebook and the last few turns, the two parts the model uses best. And
+the rule in standard 3 follows: after twice round on the same failure, start a new thread rather
+than arguing in a long one; it is also why a Ralph loop hands each run a fresh agent. If you have
+the screen, run /context and then /compact so they see the bar drop.}
 
 % ═════════════════════════════════════════════ ACT 3 · three standards
 \sectionslide[NovaAccent]{3}{The core of the class}{Three standards.}%
