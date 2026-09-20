@@ -193,11 +193,50 @@ far better alternating a thought with an action and reading the result than answ
 Every harness since is that loop with better plumbing. Worth saying plainly: the three standards are
 you configuring the harness — the rulebook it loads, the judge it runs, the stop condition.}
 
+% ── 10 · context
+\hue{NovaPurple}
+\begin{frame}{Context.}
+\framesubtitle{What is an agent? · what it can hold}
+\vspace*{\fill}
+\begin{center}\includegraphics[width=0.62\linewidth]{figures/context-usage.png}\end{center}
+\vskip4mm
+\begin{tcbitemize}[cardsS, raster columns=2]
+  \carditemplain{What it is}{Everything the model can see at once: your messages, every file it
+    read, every command's output. The window has a fixed size.}
+  \carditemplain{Why it matters}{As it fills, the earliest instructions get crowded out. A long
+    thread does not get wiser. It gets vaguer.}
+\end{tcbitemize}
+\vfill
+\end{frame}
+\tanote{Show them this on your own screen if you can: type /context in Codex or Claude Code and it
+draws the same picture. Two things to point at. The window holds the whole conversation, not just
+your last message, so every file it opened and every command it ran is still in there taking up
+room. And it is finite: when it runs out the tool starts dropping the oldest part, which is usually
+your original instructions. That is the reason behind the rule in standard 3 - after twice round on
+the same failure, start a new thread rather than arguing in the old one. It is also why a Ralph
+loop hands each run a fresh agent. If someone asks how big: a few hundred thousand words, and
+growing every year, but the habit matters more than the number.}
+
 % ── 10 · the long run-up
 \hue{NovaPurple}
 \begin{frame}{The long run-up.}
 \framesubtitle{How we got here}
-\diagramtight[0.82\linewidth]{figures/prehistory.pdf}
+\vskip3mm
+\noindent%
+\begin{tikzpicture}
+  \useasboundingbox (0,-21mm) rectangle (0.994\linewidth,12mm);
+  \tlband{0.01}{0.17}{NovaMuted}{the idea}
+  \tlband{0.21}{0.37}{NovaYellow}{the winter}
+  \tlband{0.41}{0.77}{NovaAccent}{the answers}
+  \tlband{0.81}{0.98}{NovaPurple}{the shape}
+  \draw[tl axis] (0,0) -- (\linewidth,0);
+  \tlstop{0.10}{NovaMuted}{1958}{Perceptron}{learns from examples}{17mm}
+  \tlstop{0.29}{NovaYellow}{1969}{\emph{Perceptrons}}{one layer cannot do XOR}{20mm}
+  \tlstop{0.49}{NovaAccent}{1986}{Backpropagation}{many layers, trainable at last}{20mm}
+  \tlstop{0.69}{NovaAccent}{1997}{LSTM}{memory across a sequence}{20mm}
+  \tlstop{0.89}{NovaPurple}{2017}{Transformer}{attention, and it scales}{20mm}
+\end{tikzpicture}%
+\vskip8mm
 \vskip4mm
 \muted{The ideas were all there. \textbf{Something else was missing.}}
 \vfill
@@ -248,7 +287,25 @@ about intelligence. If someone asks why this happened now and not in 1990, that 
 \hue{NovaPurple}
 \begin{frame}{2018 onwards.}
 \framesubtitle{How we got here}
-\diagram[1.0\linewidth]{figures/chronology.pdf}
+\vskip3mm
+\noindent%
+\begin{tikzpicture}
+  \useasboundingbox (0,-30mm) rectangle (\linewidth,11mm);
+  \tlband{0.01}{0.23}{NovaMuted}{completing}
+  \tlband{0.27}{0.61}{NovaYellow}{conversing}
+  \tlband{0.65}{0.87}{NovaAccent}{acting}
+  \tlband{0.88}{0.98}{NovaPurple}{persisting}
+  \draw[tl axis] (0,0) -- (\linewidth,0);
+  \tlstop{0.06}{NovaMuted}{2018}{GPT-1}{continues text}{19mm}
+  \tlstop[11mm]{0.19}{NovaMuted}{2019}{GPT-2}{coherent paragraphs}{19mm}
+  \tlstop{0.32}{NovaYellow}{2020}{GPT-3, Codex}{learns from the prompt}{19mm}
+  \tlstop[11mm]{0.45}{NovaYellow}{2022}{ChatGPT}{follows instructions}{19mm}
+  \tlstop{0.58}{NovaAccent}{2023}{GPT-4}{tool calling}{19mm}
+  \tlstop[11mm]{0.71}{NovaAccent}{2024}{Reasoning}{thinks before it acts}{19mm}
+  \tlstop{0.84}{NovaAccent}{2025}{Harnesses}{builds in your repo}{19mm}
+  \tlstop[11mm]{0.93}{NovaPurple}{2026}{Long-running}{works while you are away}{18mm}
+\end{tikzpicture}%
+\vskip5mm
 \vskip1mm
 \muted{The job changed twice: when it learned to take \textbf{instructions}, and when it got
 \textbf{tools and a loop}.}

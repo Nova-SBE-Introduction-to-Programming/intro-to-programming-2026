@@ -184,6 +184,37 @@
   borderline west={2.8pt}{0pt}{#1},
   fontupper=\raggedright\color{NovaFg}}
 
+% ─────────────────────────────────────────────────────────── editorial timeline
+% Mermaid's timeline renderer boxes everything, leaves dangling arrows and will not fill the
+% width, so the two history slides draw their own. \tlstop places one moment; \tlband labels a
+% span above the axis. x is a fraction of \linewidth.
+\tikzset{
+  tl axis/.style      ={draw=NovaLine, line width=0.9pt},
+  tl stem/.style      ={draw=NovaLine, line width=0.6pt, dash pattern=on 1pt off 1.6pt},
+  tl band/.style      ={line width=2.4pt, draw=#1, line cap=butt},
+  tl bandlabel/.style ={font=\scriptsize\bfseries, text=#1, anchor=west, inner sep=0pt},
+  tl year/.style      ={font=\scriptsize\bfseries, text=#1, anchor=south, inner sep=1.4pt},
+  tl dot/.style       ={circle, fill=#1, inner sep=0pt, minimum size=5.6pt},
+  tl title/.style     ={font=\scriptsize\bfseries, text=NovaFg, anchor=north, align=left,
+                        inner sep=0pt, execute at begin node={\hyphenpenalty=10000
+                        \exhyphenpenalty=10000\relax}},
+  tl gloss/.style     ={font=\scriptsize, text=NovaBody, anchor=north, align=left, inner sep=0pt},
+}
+% \tlstop{x}{colour}{year}{Title}{gloss}{card width}
+% Title and gloss live in one node: a node named after the x fraction would contain a dot,
+% which pgf parses as a shape reference.
+% optional first argument drops a stop to a second row, so a crowded timeline can stagger
+\newcommand{\tlstop}[7][0mm]{%
+  \node[tl year=#3] at (#2\linewidth, 1.6mm) {#4};
+  \node[tl dot=#3]  at (#2\linewidth, 0) {};
+  \draw[tl stem]    (#2\linewidth, -1.1mm) -- (#2\linewidth, {-3.4mm-#1});
+  \node[tl title, text width=#7] at (#2\linewidth, {-3.6mm-#1})
+    {#5\\[0.7mm]{\normalfont\scriptsize\color{NovaBody}#6}};}
+% \tlband{x from}{x to}{colour}{LABEL}
+\newcommand{\tlband}[4]{%
+  \draw[tl band=#3] (#1\linewidth, 7.4mm) -- (#2\linewidth, 7.4mm);
+  \node[tl bandlabel=#3] at (#1\linewidth, 9.6mm) {\lsp[13]{\MakeUppercase{#4}}};}
+
 % section divider frame: \sectionslide{W4}{kicker}{Title}{subtitle}
 \newcommand{\sectionslide}[5][NovaTeal]{%
   \begingroup
