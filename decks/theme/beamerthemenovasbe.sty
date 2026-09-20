@@ -752,111 +752,116 @@
 % ─────────────────────────────────────────────────────── the context window
 % A fixed-width bar filling up. Segments are proportional to what a real session looks like
 % after an hour: the rulebook is small, the files it read and the command output are not.
-\newcommand{\contextbar}{%
+% One window, drawn at four moments down the slide, so "it fills on its own" and "compaction
+% keeps the ends" are things the eye sees happen rather than sentences. Same colours throughout:
+% rulebook, your messages, files it read, command output; purple is the summary compaction writes.
+\newcommand{\ctxbar}[2]{% #1 = y of the bar's top edge, #2 = segments as x1/x2/colour
+  \path[rounded corners=1.6mm, fill=NovaCard] (30,#1) rectangle (134,{#1-5.5});
+  \begin{scope}
+    \clip[rounded corners=1.6mm] (30,#1) rectangle (134,{#1-5.5});
+    \foreach \xa/\xb/\cc in {#2} {\fill[\cc] (\xa,#1) rectangle (\xb,{#1-5.5});}
+  \end{scope}
+  \draw[NovaLine, line width=0.9pt, rounded corners=1.6mm] (30,#1) rectangle (134,{#1-5.5});}
+\tikzset{
+  cx row/.style  ={font=\scriptsize\bfseries, text=NovaMuted, anchor=west, inner sep=0pt},
+  cx lab/.style  ={font=\scriptsize\bfseries, text=#1, anchor=north, inner sep=0pt},
+}
+\newcommand{\ctxwindow}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-13) rectangle (134,7);
-    \node[gp eyebrow=NovaMuted] at (0,4.2) {\lsp[13]{EVERYTHING IT CAN SEE AT ONCE}};
-    \path[rounded corners=2mm, fill=NovaCard] (0,0) rectangle (134,-8);
-    \begin{scope}
-      \clip[rounded corners=2mm] (0,0) rectangle (134,-8);
-      \fill[NovaYellow]  (0,0)   rectangle (8,-8);
-      \fill[NovaBody]    (8,0)   rectangle (30,-8);
-      \fill[NovaBlue]    (30,0)  rectangle (70,-8);
-      \fill[NovaTeal]    (70,0)  rectangle (104,-8);
-    \end{scope}
-    \draw[NovaLine, line width=0.9pt, rounded corners=2mm] (0,0) rectangle (134,-8);
-    \node[as name, text=NovaYellow, font=\scriptsize\bfseries, anchor=north west] at (0,-9.4) {rulebook};
-    \node[as name, text=NovaBody,   font=\scriptsize\bfseries] at (21,-9.4)  {your messages};
-    \node[as name, text=NovaBlue,   font=\scriptsize\bfseries] at (50,-9.4)  {every file it read};
-    \node[as name, text=NovaTeal,   font=\scriptsize\bfseries] at (87,-9.4)  {every command's output};
-    \node[as name, text=NovaMuted,  font=\scriptsize\bfseries] at (119,-9.4) {what is left};
+    \useasboundingbox (0,-47) rectangle (134,5.5);
+    \node[gp eyebrow=NovaMuted] at (0,3.4) {\lsp[13]{ONE WINDOW · FIXED SIZE · EVERYTHING IT CAN SEE AT ONCE}};
+    % ── minute one
+    \node[cx row] at (0,-2.75) {\lsp[13]{MINUTE ONE}};
+    \ctxbar{0}{30/36/NovaYellow, 36/46/NovaBody}
+    \node[cx lab=NovaYellow, anchor=north west] at (30,-6.6) {rulebook};
+    \node[cx lab=NovaBody, anchor=north west] at (43,-6.6) {your message};
+    \node[cx lab=NovaMuted] at (95,-6.6) {room};
+    % ── twenty minutes in
+    \node[cx row] at (0,-14.75) {\lsp[13]{20 MINUTES IN}};
+    \ctxbar{-12}{30/36/NovaYellow, 36/46/NovaBody, 46/60/NovaBlue, 60/68/NovaTeal, 68/80/NovaBlue,
+                 80/83/NovaBody, 83/92/NovaTeal, 92/100/NovaBlue}
+    \node[cx lab=NovaBlue, anchor=north west] at (46,-18.6) {a file it read};
+    \node[cx lab=NovaTeal] at (87.5,-18.6) {a command's output};
+    \node[cx lab=NovaMuted] at (117,-18.6) {room};
+    % ── an hour in
+    \node[cx row] at (0,-26.75) {\lsp[13]{AN HOUR IN}};
+    \ctxbar{-24}{30/36/NovaYellow, 36/46/NovaBody, 46/58/NovaBlue, 58/66/NovaTeal, 66/78/NovaBlue,
+                 78/81/NovaBody, 81/92/NovaTeal, 92/104/NovaBlue, 104/110/NovaTeal, 110/121/NovaBlue,
+                 121/124/NovaBody, 124/134/NovaTeal}
+    \node[cx lab=NovaAccent] at (82,-30.6) {full: the next file does not fit};
+    \draw[as arrow=NovaPurple] (129,-30.6) -- (129,-36.4);
+    \node[as label=NovaPurple, anchor=east] at (127,-33.5) {compact};
+    % ── after compact
+    \node[cx row] at (0,-39.75) {\lsp[13]{AFTER COMPACT}};
+    \ctxbar{-37}{30/36/NovaYellow, 36/62/NovaPurple, 62/80/NovaTeal}
+    \node[cx lab=NovaPurple] at (49,-43.6) {the middle, in a paragraph};
+    \node[cx lab=NovaTeal]   at (79,-43.6) {the last few turns};
+    \node[cx lab=NovaMuted]  at (112,-43.6) {room again};
   \end{tikzpicture}%
 }
 
 % ───────────────────────────────────────────────────────────── context rot
-% The same bar as \contextbar, twice. First a thread that has filled the window, with a wash
-% over the middle: that is the published "lost in the middle" shape, shown on the object they
-% already know rather than as a graph. Then the same bar after compaction: the middle folded
-% into a summary, the ends kept, room again. pgf fadings rendered nothing here under XeTeX, so the
-% wash is 134 opaque strips mixed towards the page colour; wider strips band at projection size.
-\newcommand{\ctxseg}[3]{\fill[#3] (#1,0) rectangle (#2,-7);}
-% a segment drawn as opaque 1mm strips, each mixed towards the page colour by how far it sits
-% from the ends of the window (translucent strips over a flat fill left hairline seams)
-\newcommand{\ctxfade}[3]{%
+% Two published results, each drawn as a curve over the object the previous slide built. Left,
+% Liu et al. (2024) fig. 1: the same twenty documents, only the position of the one with the
+% answer changes; the x axis is the window itself, washed out in the middle. Right, Chroma
+% (2025): four models copying a list of words, input length on a log axis, drawn in one colour
+% because the message is that they all fall, not which falls first. pgf fadings rendered nothing
+% here under XeTeX, so the wash is opaque 1mm strips mixed towards the page colour.
+\newcommand{\ctxfade}[5]{% x1 x2 colour centre halfwidth
   \foreach \xa in {#1,...,\numexpr#2-1\relax} {
-    \pgfmathsetmacro{\pct}{100-88*max(0,1-((\xa+0.5-67)/57)^2)}
-    \fill[#3!\pct!NovaBg] (\xa,0) rectangle (\xa+1.04,-7);
+    \pgfmathsetmacro{\pct}{100-88*max(0,1-((\xa+0.5-#4)/#5)^2)}
+    \fill[#3!\pct!NovaBg] (\xa,0) rectangle (\xa+1.04,-6);
   }}
-\newcommand{\contextrot}{%
-  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-36) rectangle (134,5);
-    % ── a long thread
-    \node[gp eyebrow=NovaMuted] at (0,2.6) {\lsp[13]{AN HOUR IN · THE WINDOW IS FULL}};
-    \begin{scope}
-      \clip[rounded corners=2mm] (0,0) rectangle (134,-7);
-      \ctxfade{0}{8}{NovaYellow}
-      \ctxfade{8}{34}{NovaBody}
-      \ctxfade{34}{92}{NovaBlue}
-      \ctxfade{92}{134}{NovaTeal}
-    \end{scope}
-    \draw[NovaLine, line width=0.9pt, rounded corners=2mm] (0,0) rectangle (134,-7);
-    \node[as name, text=NovaFg, font=\scriptsize\bfseries, anchor=north west] at (0,-8.2) {sharp};
-    \node[as name, text=NovaMuted, font=\scriptsize\bfseries] at (67,-8.2) {soft};
-    \node[as name, text=NovaFg, font=\scriptsize\bfseries, anchor=north east] at (134,-8.2) {sharp};
-    \node[gg dot=NovaAccent] at (52,-3.5) {};
-    \draw[NovaAccent, line width=0.8pt] (52,-6.5) -- (52,-11.5);
-    \node[as label=NovaAccent, anchor=north] at (52,-11.6) {the error you pasted forty minutes ago};
-    % ── compact
-    \draw[as arrow=NovaPurple] (100,-9) -- (100,-19.5);
-    \node[as label=NovaPurple, anchor=west] at (102.5,-14.5) {compact};
-    % ── the same window, after
-    \node[gp eyebrow=NovaMuted] at (0,-21.2) {\lsp[13]{AFTER · A SUMMARY, AND WHAT JUST HAPPENED}};
-    \begin{scope}[shift={(0,-24.5)}]
-      \path[rounded corners=2mm, fill=NovaCard] (0,0) rectangle (134,-7);
-      \begin{scope}
-        \clip[rounded corners=2mm] (0,0) rectangle (134,-7);
-        \ctxseg{0}{8}{NovaYellow}
-        \ctxseg{8}{40}{NovaPurple}
-        \ctxseg{40}{64}{NovaTeal}
-      \end{scope}
-      \draw[NovaLine, line width=0.9pt, rounded corners=2mm] (0,0) rectangle (134,-7);
-      \node[as name, text=NovaPurple, font=\scriptsize\bfseries] at (24,-8.2) {the middle, in a paragraph};
-      \node[as name, text=NovaTeal,   font=\scriptsize\bfseries] at (52,-8.2) {the last few turns};
-      \node[as name, text=NovaMuted,  font=\scriptsize\bfseries] at (99,-8.2) {room again};
-    \end{scope}
-  \end{tikzpicture}%
+\tikzset{
+  cx axis/.style ={NovaLine, line width=0.9pt},
+  cx tick/.style ={font=\tiny, text=NovaMuted, anchor=north, inner sep=0pt},
+  cx note/.style ={font=\tiny, text=NovaMuted, inner sep=0pt},
+  cx line/.style ={draw=#1, line width=1.3pt, line join=round, line cap=round},
+  cx cap/.style  ={font=\scriptsize, text=NovaBody, anchor=north west, align=left,
+                   text width=57mm, inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}},
 }
-
-
-% ─────────────────────────────────────────────────────── Chroma, redrawn
-% Chroma's 2025 "repeated words" result — four current models asked to copy a list of words,
-% scored by edit distance, input length on a log axis. Their published PNG's fonts are unreadable
-% at slide size, so it is redrawn here from the values in that figure, in the deck's line style.
-% Perfect is 1.0; every model ends at 0.5, and the fall starts in the hundreds of tokens.
-\newcommand{\chromachart}{%
-  \begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (-9,-5) rectangle (74,40);
-    \draw[NovaLine, line width=0.9pt] (0,0) -- (0,38);
-    \draw[NovaLine, line width=0.9pt] (0,0) -- (72,0);
-    \foreach \v/\l in {0.5/0.5, 0.75/0.75, 1.0/1.0} {
-      \draw[NovaLine, line width=0.5pt, dash pattern=on 0.8mm off 0.8mm] (0,{38*(\v-0.45)/0.55}) -- (72,{38*(\v-0.45)/0.55});
-      \node[as name, text=NovaMuted, anchor=east] at (-1.2,{38*(\v-0.45)/0.55+1.6}) {\l};
-    }
-    \node[as name, text=NovaMuted] at (12.9,-1.2) {100}; \node[as name, text=NovaMuted] at (37.5,-1.2) {1{,}000}; \node[as name, text=NovaMuted] at (62.2,-1.2) {10{,}000};
-    \node[as name, text=NovaMuted, anchor=north] at (36,-4.2) {tokens in the input};
-    \node[as name, text=NovaMuted, anchor=south, rotate=90] at (-7.6,19) {score};
-    \draw[NovaAccent, line width=1.5pt, line join=round] (3.1,38.0) -- (12.3,37.9) -- (22.3,37.8) -- (31.3,34.9) -- (40.3,33.9) -- (50.3,10.2) -- (59.8,3.6) -- (69.6,3.5);
-    \foreach \p in {(3.1,38.0), (12.3,37.9), (22.3,37.8), (31.3,34.9), (40.3,33.9), (50.3,10.2), (59.8,3.6), (69.6,3.5)} {\node[gg dot=NovaAccent] at \p {};}
-    \draw[NovaPurple, line width=1.5pt, line join=round] (3.1,37.6) -- (12.3,36.5) -- (22.3,31.9) -- (31.3,20.1) -- (40.3,14.6) -- (50.3,7.3) -- (59.8,3.5) -- (69.6,3.5);
-    \foreach \p in {(3.1,37.6), (12.3,36.5), (22.3,31.9), (31.3,20.1), (40.3,14.6), (50.3,7.3), (59.8,3.5), (69.6,3.5)} {\node[gg dot=NovaPurple] at \p {};}
-    \draw[NovaTeal, line width=1.5pt, line join=round] (3.1,32.8) -- (12.3,15.3) -- (22.3,18.1) -- (31.3,9.5) -- (40.3,6.6) -- (50.3,3.5) -- (59.8,3.5) -- (69.6,3.5);
-    \foreach \p in {(3.1,32.8), (12.3,15.3), (22.3,18.1), (31.3,9.5), (40.3,6.6), (50.3,3.5), (59.8,3.5), (69.6,3.5)} {\node[gg dot=NovaTeal] at \p {};}
-    \draw[NovaBlue, line width=1.5pt, line join=round] (3.1,34.3) -- (12.3,15.8) -- (22.3,16.0) -- (31.3,6.4) -- (40.3,4.8) -- (50.3,4.0) -- (59.8,0.6) -- (69.6,3.5);
-    \foreach \p in {(3.1,34.3), (12.3,15.8), (22.3,16.0), (31.3,6.4), (40.3,4.8), (50.3,4.0), (59.8,0.6), (69.6,3.5)} {\node[gg dot=NovaBlue] at \p {};}
-    \node[as label=NovaAccent, anchor=west] at (44,36) {Claude Sonnet 4};
-    \node[as label=NovaPurple, anchor=west] at (44,32) {Qwen3-32B};
-    \node[as label=NovaTeal,   anchor=west] at (44,28) {GPT-4.1};
-    \node[as label=NovaBlue,   anchor=west] at (44,24) {Gemini 2.5 Flash};
+\newcommand{\ctxrot}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-22.5) rectangle (134,26);
+    % ── left · where the fact sits
+    \node[gp eyebrow=NovaMuted] at (0,24.4) {\lsp[13]{WHERE THE FACT SITS}};
+    \draw[cx axis] (6,0) -- (6,23);
+    \node[cx note, anchor=south, rotate=90] at (3.2,11.5) {found it};
+    \draw[cx axis, dash pattern=on 0.8mm off 0.8mm] (6,3.5) -- (62,3.5);
+    \node[cx note, anchor=south] at (46,4.1) {given no documents at all};
+    \draw[cx line=NovaAccent] (8,20.1) -- (18.9,4.7) -- (32.6,1.5) -- (46.3,2.9) -- (60,9.4);
+    \foreach \p in {(8,20.1), (18.9,4.7), (32.6,1.5), (46.3,2.9), (60,9.4)} {\node[gg dot=NovaAccent] at \p {};}
+    \begin{scope}[shift={(0,-1.5)}]
+      \clip[rounded corners=1.6mm] (6,0) rectangle (62,-6);
+      \ctxfade{6}{9}{NovaYellow}{34}{24}
+      \ctxfade{9}{16}{NovaBody}{34}{24}
+      \ctxfade{16}{40}{NovaBlue}{34}{24}
+      \ctxfade{40}{50}{NovaTeal}{34}{24}
+      \ctxfade{50}{62}{NovaBlue}{34}{24}
+    \end{scope}
+    \draw[NovaLine, line width=0.9pt, rounded corners=1.6mm] (6,-1.5) rectangle (62,-7.5);
+    \node[cx lab=NovaFg, anchor=north west] at (6,-8.6) {start};
+    \node[cx lab=NovaMuted] at (34,-8.6) {the middle};
+    \node[cx lab=NovaFg, anchor=north east] at (62,-8.6) {now};
+    \node[cx cap] at (0,-12.6) {The same twenty documents; only the one with the answer moves. In the
+      middle it is found \textbf{less often than with no documents at all}.};
+    % ── right · how much is in the thread
+    \node[gp eyebrow=NovaMuted] at (72,24.4) {\lsp[13]{HOW MUCH IS IN THE THREAD}};
+    \draw[cx axis] (78,0) -- (78,23);
+    \draw[cx axis] (78,0) -- (134,0);
+    \node[cx note, anchor=south, rotate=90] at (75.2,11.5) {copied it right};
+    \draw[cx axis, dash pattern=on 0.8mm off 0.8mm] (78,22) -- (134,22);
+    \node[cx note, anchor=north east] at (133.5,21.4) {perfect copy};
+    \foreach \x/\l in {88.0/100, 107.2/1{,}000, 126.4/10{,}000} {
+      \draw[cx axis] (\x,0) -- (\x,-1);
+      \node[cx tick] at (\x,-1.6) {\l};}
+    \node[cx tick] at (106,-4.6) {tokens in the thread};
+    \draw[cx line=NovaBlue] (80.4,22.0) -- (87.6,21.9) -- (95.3,21.9) -- (102.3,20.2) -- (109.4,19.6) -- (117.1,5.9) -- (124.5,2.1) -- (132.1,2.0);
+    \draw[cx line=NovaBlue] (80.4,21.8) -- (87.6,21.1) -- (95.3,18.5) -- (102.3,11.6) -- (109.4,8.5) -- (117.1,4.2) -- (124.5,2.0) -- (132.1,2.0);
+    \draw[cx line=NovaBlue] (80.4,19.0) -- (87.6,8.9) -- (95.3,10.5) -- (102.3,5.5) -- (109.4,3.8) -- (117.1,2.0) -- (124.5,2.0) -- (132.1,2.0);
+    \draw[cx line=NovaBlue] (80.4,19.9) -- (87.6,9.1) -- (95.3,9.3) -- (102.3,3.7) -- (109.4,2.8) -- (117.1,2.3) -- (124.5,0.3) -- (132.1,2.0);
+    \node[cx cap] at (72,-12.6) {Four 2025 models copying a list of words. All fall before ten
+      thousand tokens: \textbf{a few percent of the window}.};
   \end{tikzpicture}}
 
 % section divider frame: \sectionslide{W4}{kicker}{Title}{subtitle}

@@ -71,15 +71,18 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   at the `3` divider is that the loop has three places where you get a say: what it reads before
   the first thought (the rulebook), what it observes (the judge), and when the return arrow stops
   (the loop). The standards are the loop, configured.
-- **Context is a bar; context rot is two measurements, shown as measurements.** The context slide
-  draws the window as a fixed-width bar filling up — the rulebook a thin sliver at the left, the
-  files and command output most of it — so "the oldest part goes first" is visible. Context rot
-  then shows the evidence rather than a metaphor: Liu et al.'s Figure 1 as published (TACL 2024,
-  CC BY) — twenty documents, the answer moved through them, accuracy sagging in the middle to
-  *below* the closed-book line, i.e. worse than no documents at all — and Chroma's 2025 result on
-  four current models copying a list of words, redrawn from their figure because the PNG's fonts
-  vanish at slide size: every line falls from a few hundred tokens on. The kicker carries the
-  consequence ("so: new thread, or compact"). It explains why "start a new thread after twice
+- **Context is one bar, drawn at four moments; context rot is two curves over that bar.** The context
+  slide draws the window as a fixed-width bar at minute one, twenty minutes in, an hour in (full) and
+  after compaction — the rulebook a sliver at the left, files and command output most of it, the
+  summary a purple block — so "it fills on its own" and "compaction keeps the ends" are seen, not
+  said. Context rot then redraws the two published results as curves over the same object rather
+  than as the original charts (the Liu figure was illegible at slide size and the Chroma chart had
+  four model names and a legend): Liu et al. 2024 fig. 1 — twenty documents, the answer moved
+  through them, accuracy sagging in the middle to *below* the closed-book line, i.e. worse than no
+  documents at all, with the bar washed out in the middle as the x axis — and Chroma 2025's four
+  current models copying a list of words, drawn as four lines in one colour with no legend, because
+  the message is that they all fall before ten thousand tokens, not which falls first. The model
+  names and the axes are in the speaker notes and on the week page. It explains why "start a new thread after twice
   round" is standard 3, and why compaction is not the tool being lazy: it discards the part the
   model was using worst and keeps the two parts it uses best. If you have the screen, run
   `/context` then `/compact` and let them watch the bar drop.

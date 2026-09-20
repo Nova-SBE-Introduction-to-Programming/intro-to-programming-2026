@@ -639,66 +639,60 @@ observes, and when the "not yet" arrow stops. Point at the three cards and the t
 then at the stack from three slides ago: same thing, unrolled.}
 
 % ── context
+% The window drawn at four moments, top to bottom: it fills on its own with files and command
+% output, the rulebook stays a sliver at the left, and compaction keeps the ends and folds the
+% middle. Next slide draws why the middle is the right thing to fold.
 \hue{NovaPurple}
 \begin{frame}{Context.}
-\framesubtitle{What it can hold}
+\framesubtitle{What it can hold, and how it fills}
 \vspace*{\fill}
-\contextbar
-\vskip4mm
-\begin{tcbitemize}[cardsS, raster columns=2]
-  \carditemplain{What it is}{The whole conversation: every file it opened and every command it
-    ran is still in there, taking up room.}
-  \carditemplain{Why it matters}{Fixed size. When it fills, the tool folds the middle into a
-    summary — and the middle is where the files it read went.}
-\end{tcbitemize}
+\ctxwindow
+\vskip2.5mm
+\muted{The rulebook is read once. Files and outputs arrive on their own, until nothing more fits.}
 \vfill
 \end{frame}
 \tanote{If you have the screen, type /context in Codex or Claude Code and it draws the same bar.
-Two things to point at. The rulebook is the thin sliver at the left: small, and it is read once, at
-the start. The files and the command output are most of it, and they arrive on their own. When it
-runs out the tool compacts: it folds the middle of the conversation into a short summary and keeps
-the rulebook and the recent turns, so the rules survive and the files it read an hour ago become
-the blurred part. That is the reason behind the rule in standard 3 — after twice round on the same failure, start a new thread —
-and it is why a Ralph loop hands each run a fresh agent. If someone asks how big: a few hundred
-thousand words and growing, but the next slide is why the number is not the point.}
+Read the four rows top to bottom. Minute one: the rulebook, a thin sliver at the left, read once,
+and your message. Twenty minutes in: every file it opened and every command's output is still in
+there, and it put them there, not you. An hour in: full, and the next file does not fit. Then the
+tool compacts: it folds the middle of the conversation into a short summary and keeps the rulebook
+and the recent turns, so the rules survive and the files it read an hour ago become the purple
+paragraph. That is the reason behind the rule in standard 3 — after twice round on the same
+failure, start a new thread — and it is why a Ralph loop hands each run a fresh agent. If someone
+asks how big: a few hundred thousand words and growing, but the next slide is why the number is
+not the point.}
 
 % ── context rot
-% Two measurements. Left, as published: the U from Liu et al. — with the answer in the middle,
-% the model scored below the dashed line, which is the same model given no documents at all.
-% Right, Chroma's 2025 re-run on four current models, redrawn from their figure because their
-% PNG's fonts vanish at slide size: a trivial task, and every line falls as the input grows.
+% Two measurements drawn as curves over the bar from the previous slide. Left, Liu et al.'s U:
+% with the answer in the middle the model scored below the dashed line, which is the same model
+% given no documents at all. Right, Chroma's 2025 re-run on four current models: a trivial task,
+% and every line falls as the input grows. One colour, no legend: the message is that they all
+% fall, not which falls first. The real charts are cited and described on the week page.
 \hue{NovaPurple}
 \begin{frame}{Context rot.}
 \framesubtitle{Why a long thread goes stale · so: start a new thread}
 \vspace*{\fill}
-\noindent\begin{minipage}[t]{0.33\linewidth}
-  \eyebrow[NovaMuted]{Where the answer sits}\par\vskip1.6mm
-  \roundedpic[\linewidth]{figures/liu-2024-figure1.pdf}\par\vskip1.8mm
-  {\scriptsize\raggedright\color{NovaBody}Answer in the middle: \textbf{worse than the dashed
-  line}, which is no documents at all.\par}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.62\linewidth}
-  \eyebrow[NovaMuted]{How long the input is}\par\vskip1.6mm
-  \chromachart\par\vskip1.8mm
-  {\scriptsize\raggedright\color{NovaBody}Four 2025 models copying words. Three fall from a few
-  hundred tokens on; all flatten long before the window fills.\par}
-\end{minipage}
+\ctxrot
 \vskip1.5mm
-{\tiny\color{NovaMuted}Liu et al.\ (2024), \emph{Lost in the Middle}, TACL 12, fig.\ 1
-(CC BY 4.0) · right redrawn from Chroma (2025), \emph{Context Rot} (MIT); 18 models in full}
+\muted{So: start a new thread rather than arguing in a long one. Compaction folds the part it used least.}
+\vskip1.5mm
+{\tiny\color{NovaMuted}Redrawn from Liu et al.\ (2024), \emph{Lost in the Middle}, TACL 12, fig.\ 1
+(gpt-3.5, 20 documents) · Chroma (2025), \emph{Context Rot}, repeated words, 4 of 18 models}
 \vfill
 \end{frame}
-\tanote{Two real charts, so read them with the room. Left, Liu et al.\ 2024: the same
-twenty documents and the same question; only the position of the one document with the answer
-changes. Accuracy is highest when it is first or last and sags in the middle — and the dashed line
-is the same model asked with no documents at all. In the middle, the documents made it worse than
-nothing. Right, Chroma 2025: four current models asked to copy a list of repeated words, the
-simplest task they could design, and every line falls as the input grows, well short of any
-context limit; their full report does it across eighteen models. Windows went 8k, 32k, 128k, a
-million: the number on the box grew a hundredfold and neither curve moved. Two things follow, both
-rules in the next act. Start a new thread rather than arguing in a long one. And compaction is not
-the tool being lazy: it folds the soft middle into a paragraph and keeps the two parts the model
-uses best. If you have the screen, run /context and then /compact so they see the bar drop.}
+\tanote{Two real measurements, drawn over the bar they just saw, so read them with the room. Left,
+Liu et al.\ 2024: the same twenty documents and the same question; only the position of the one
+document with the answer changes, and that position is the x axis, the window itself. Accuracy is
+highest when it is first or last and sags in the middle, and the dashed line is the same model
+asked with no documents at all: in the middle, the documents made it worse than nothing. Right,
+Chroma 2025: four current models (Claude Sonnet 4, GPT-4.1, Gemini 2.5 Flash, Qwen3-32B) asked to
+copy a list of repeated words, the simplest task they could design, and every line falls before
+ten thousand tokens, a few percent of any current window; their full report does it across
+eighteen models. Windows went 8k, 32k, 128k, a million: the number on the box grew a hundredfold
+and neither curve moved. Two things follow, both rules in the next act. Start a new thread rather
+than arguing in a long one. And compaction is not the tool being lazy: it folds the soft middle
+into a paragraph and keeps the two parts the model uses best. If you have the screen, run /context
+and then /compact so they see the bar drop.}
 
 % ═════════════════════════════════════════════ ACT 3 · three standards
 \sectionslide[NovaAccent]{3}{The core of the class}{Three standards.}%
