@@ -1,6 +1,6 @@
 # Class 4 — Rules, judge, loop · TA plan and answer key
 
-90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (32 slides in four acts; LaTeX source in
+90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (33 slides in four acts; LaTeX source in
 `decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
 open it on the second screen in any PDF presenter) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 
@@ -47,6 +47,15 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   new to someone who has ever had a model reviewed before it went out — only the vocabulary is. The two habits that
   usually get announced as rules (name the branch after the job; keep commits small) fall out of slides 2 and 3
   instead.
+- **Ralph gets two slides because the picture is the argument.** The first is the crowd of
+  identical Ralphs and nothing else: there is no single agent getting better at the task, there is a
+  queue of beginners each starting from nothing, so the files are the only memory. The second breaks
+  the deck's own no-commands-on-slides rule once, on purpose — `while :; do cat PROMPT.md |
+  claude-code ; done` is not something to type, it is the punchline, and the point does not survive
+  paraphrase. Seeing that the famous technique is four words of shell is what makes the three
+  standards feel load-bearing rather than fussy. The provenance is on the slide for credibility with
+  this audience: Huntley published it in 2025, Anthropic shipped it as an official Claude Code
+  plugin in December 2025, and the person who built Claude Code has said he uses it.
 - **Rules come from failures.** The retro converts today's worst agent behaviour into one `AGENTS.md` line with the reason in the commit message. That's the meta-skill: the rulebook grows from observation, not from longer prompts.
 
 ## Run of show
@@ -59,18 +68,19 @@ Four acts, each opened by its kicker colour: **teal** logistics · **violet** wh
 | 0–5 | 1–3 | Open, agenda, check-in: GitHub page shows the feature-1 branch and a merged PR. | TA has the list of who is behind |
 | 5–22 | 4–13 | **Act 1 — what an agent is.** Chat model vs agent · what a tool is · the tool-call choreography · **one exchange in full** (go slowly — it demystifies everything) · what reasoning is · ReAct and the harness · context (45 s: show the screenshot, read one card, move on) · the long run-up, 1958–2017 · what actually changed: compute and text · eight years in one picture. | — |
 | 22–23 | 14 | Divider: **three standards**. | — |
-| 23–36 | 15–20 | **Act 2 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · loop · the four parts of an ask · Ralph, 30 s. | Every laptop: an `AGENTS.md` commit pushed |
-| 36–37 | 21 | Divider: **git**. | — |
-| 37–42 | 22–27 | **Act 3 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → local and remote → merge, approved. About fifty seconds each — it is a build, so do not narrate it twice. | — |
-| 42–52 | 28 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
-| 52–82 | 29–30 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
-| 82–88 | 31 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
-| 88–90 | 32 | Wrap. | — |
+| 23–36 | 15–21 | **Act 2 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · loop · the four parts of an ask · Ralph, two slides, 70 s total. | Every laptop: an `AGENTS.md` commit pushed |
+| 36–37 | 22 | Divider: **git**. | — |
+| 37–42 | 23–28 | **Act 3 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → local and remote → merge, approved. About fifty seconds each — it is a build, so do not narrate it twice. | — |
+| 42–52 | 29 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
+| 52–82 | 30–31 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
+| 82–88 | 32 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
+| 88–90 | 33 | Wrap. | — |
 
 Act 1 and Act 3 are the flex, and they trade: the three history slides and the context slide cost three minutes,
 and git gives them up — five stages of one growing graph run fast, because each is the previous picture plus one
-move. The 30 minutes of hands-on at the end do not move. If the room is quick, the minutes belong to *your turn*,
-not to you.
+move. Act 2 absorbs the second Ralph slide by cutting the loop-prompt slide short; the four parts are named on the
+slide and written out on the page, so do not read them aloud. The 30 minutes of hands-on at the end do not move.
+If the room is quick, the minutes belong to *your turn*, not to you.
 
 ## Exact prompts for the live part
 

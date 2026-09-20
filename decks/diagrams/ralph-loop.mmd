@@ -1,7 +1,0 @@
-%%{init: {"themeVariables": {"fontSize": "20px"}}}%%
-flowchart LR
-  S(["while true"]) --> P["the same prompt<br/><small>every single time</small>"]
-  P --> A["a fresh agent<br/><small>no memory of the last try</small>"]
-  A --> J{"judge:<br/>green?"}
-  J -->|"not yet"| S
-  J -->|"green"| D(["stop"])

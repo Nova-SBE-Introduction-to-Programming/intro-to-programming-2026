@@ -127,6 +127,26 @@
 % left these titles looking like a stray pill in an empty title bar
 \newcommand{\codetitle}[1]{{\monofont\color{NovaFg}#1}}
 
+% a photo, clipped to the card radius and lifted the same way, so artwork sits in the same
+% visual system as the cards rather than as a pasted rectangle
+\newsavebox{\novapicbox}
+\newcommand{\roundedpic}[2][0.5\linewidth]{%
+  \sbox{\novapicbox}{\includegraphics[width=#1]{#2}}%
+  \begin{tikzpicture}
+    \path[fill=NovaShadow, rounded corners=3mm]
+      (0.4mm,-0.45mm) rectangle ({\wd\novapicbox+0.4mm}, {\ht\novapicbox-0.45mm});
+    \begin{scope}
+      \clip[rounded corners=3mm] (0,0) rectangle (\wd\novapicbox, \ht\novapicbox);
+      \node[anchor=south west, inner sep=0pt] at (0,0) {\usebox{\novapicbox}};
+    \end{scope}
+  \end{tikzpicture}}
+
+% the \code chip, sized to carry a slide by itself: for the rare literal that IS the point
+\newcommand{\codeline}[1]{%
+  \tcbox[on line, boxsep=0pt, left=3.6mm, right=3.6mm, top=2.4mm, bottom=2.4mm,
+         colback=NovaChip, boxrule=0pt, arc=2.4mm]%
+        {\monofont\color{NovaFg}#1}}
+
 % pill badge
 \newcommand{\pill}[2][NovaAccent]{%
   \tikz[baseline=(p.base)]{\node[fill=#1, text=NovaBg, rounded corners=1.6mm,

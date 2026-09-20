@@ -421,34 +421,52 @@ read at the start of a thread.}
 \begin{frame}{Ralph.}
 \framesubtitle{Standard 3 · nobody watching}
 \vspace*{\fill}
-% figures/ralph.png is optional: drop a still in and it appears beside the loop
-\IfFileExists{figures/ralph.png}{%
-  \begin{columns}[c]
-    \begin{column}{0.17\linewidth}
-      \includegraphics[width=\linewidth]{figures/ralph.png}
-    \end{column}
-    \begin{column}{0.79\linewidth}
-      \includegraphics[width=\linewidth]{figures/ralph-loop.pdf}
-    \end{column}
-  \end{columns}
-}{%
-  \begin{center}\includegraphics[width=0.90\linewidth]{figures/ralph-loop.pdf}\end{center}
-}
-\vskip6mm
+\begin{center}\roundedpic[0.44\linewidth]{figures/ralph.jpg}\end{center}
+\vskip3mm
 \begin{tcbitemize}[cardsS, raster columns=2]
   \carditemplain{What it is}{The same prompt, handed to a fresh agent again and again, until the
     judge says green.}
-  \carditemplain{The catch}{Nobody is watching. The rulebook keeps it in bounds; the judge
-    is all that can stop it.}
+  \carditemplain{Why a crowd}{Every run is a new one, and none remembers the last. What they need
+    to know has to be written down.}
 \end{tcbitemize}
 \vfill
 \end{frame}
-\tanote{Thirty seconds, as a teaser. You are not demoing this today. It is named after Ralph
-Wiggum: cheerfully, relentlessly wrong, and it gets there anyway. Geoffrey Huntley's original was
-literally `while :; do cat PROMPT.md | agent; done`, and his line for why it works is
-"deterministically bad in an undeterministic world". Bounded, repeatable failure plus a check that cannot lie. Why it closes this act: the agent has no memory between runs, so the PROMPT and the
-repo carry all the state. So a rulebook and a judge
-are not housekeeping. They are what stands between you and an agent confidently going the wrong way for an hour. Part II, with the team project.}
+\tanote{Thirty seconds. You are not demoing this today. Named after Ralph Wiggum: cheerfully,
+relentlessly wrong, and he gets there anyway. The picture is the technical point, not the joke —
+there is no single agent getting better at the task. There is a queue of identical beginners, each
+starting from nothing. Ask the room what that implies, and let someone say it: the files are the
+only memory.}
+
+% ── 15 · Ralph, in full: where it comes from and what holds it
+\hue{NovaAccent}
+\begin{frame}{Nobody is watching.}
+\framesubtitle{Standard 3 · where Ralph comes from}
+\vspace*{\fill}
+\begin{center}\codeline{while :; do cat PROMPT.md | claude-code ; done}\end{center}
+\vskip2mm
+\begin{center}\muted{Published in 2025. That is the entire technique.}\end{center}
+\vskip6mm
+\begin{tcbitemize}[cardsS, raster columns=3]
+  \carditemplain{The prompt}{One file, read again from scratch every time. It is the only
+    instruction anyone gives.}
+  \carditemplain{The repo}{Nothing survives a run except what was written to disk. The rulebook and
+    the tests are the memory.}
+  \carditemplain{The catch}{Nobody reads anything until it stops. A weak judge buys you hours of
+    confident wrong.}
+\end{tcbitemize}
+\vskip2mm
+% \code{} here would set a \small chip inside a \tiny line and tower over it
+{\tiny\color{NovaMuted}Huntley, G. (2025). \emph{Ralph Wiggum as a ``software engineer''} ·
+ghuntley.com/ralph · an official Claude Code plugin since December 2025}
+\vfill
+\end{frame}
+\tanote{This is the slide that closes the act, so land it: rulebook, judge, loop are not three
+tips. They are the three things that make an unattended agent safe to run at all. Huntley's own
+line for why it works is "the technique is deterministically bad in an undeterministic world" —
+bounded, repeatable failure plus a check that cannot lie. Worth the credibility beat: Anthropic
+shipped it as an official Claude Code plugin in December 2025, and Boris Cherny, who built Claude
+Code, has said he reaches for it on long-running tasks. Nobody should run this today. They should
+recognise that the three standards are what make it possible.}
 
 % ═════════════════════════════════════════════ ACT 3 · git, as one story
 \sectionslide[NovaBlue]{git}{How a team stays sane}{One change, start to finish.}%

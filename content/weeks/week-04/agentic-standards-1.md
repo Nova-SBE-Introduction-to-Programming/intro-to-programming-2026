@@ -104,22 +104,31 @@ red  →  build  →  run the tests  →  read the failure  →  fix  →  run a
 **Where the loop lives.** Today it runs inside one Codex turn and you watch it. One level up, a
 *script* runs it — you go and do something else.
 
-**The Ralph loop.** The best-known version is barely a program:
+**The Ralph loop.** Geoffrey Huntley published it in 2025, and the whole technique is one line:
 
 ```
-while true; do  cat PROMPT.md | agent  ; done
+while :; do cat PROMPT.md | claude-code ; done
 ```
+
+Any agent goes in that pipe — the name in the original was just the one he happened to be using.
+Anthropic later shipped it as an official Claude Code plugin (`ralph-wiggum`, December 2025), so
+this is a practice you will meet at work, not a stunt.
 
 The same prompt, fed to a **fresh** agent, over and over. Each run starts with no memory of the last
 one, so the agent cannot talk itself into a story about what it already did. The only state is
 `PROMPT.md`, your `AGENTS.md`, and the repo as it now stands. Each run it picks the most important
 undone thing, does it, and the tests say whether it worked. It keeps going until they pass.
 
-It is named after a cartoon character who is cheerfully, relentlessly wrong and gets there anyway. That is the honest description. It fails a lot, but in bounded, repeatable ways, and something that cannot lie catches each one.
+It is named after a cartoon character who is cheerfully, relentlessly wrong and gets there anyway.
+That is the honest description, and Huntley's own defence of it is that the technique is
+"deterministically bad in an undeterministic world": it fails a lot, but in bounded, repeatable
+ways, and something that cannot lie catches each one.
 
 **Why it needs the first two standards.** Nobody is watching. The rulebook is what keeps it inside the lines, and the judge is what tells it to stop. Get either wrong and
 it will spend an hour going confidently in the wrong direction. That is why the rulebook and the
 judge come first in this course: they are what makes walking away possible. Part II, in Block 3.
+
+Source: Geoffrey Huntley, *Ralph Wiggum as a "software engineer"*, ghuntley.com/ralph (2025).
 
 ---
 
