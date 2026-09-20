@@ -43,12 +43,14 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
 - **Git is one continuous story, not three rules.** One TikZ macro draws the same commit graph five times, each
   slide one move further on. Because it is literally the same picture at five stages, nothing shifts or rescales
   between slides: it reads as a build, not as five diagrams. A branch is a spatial idea; a sentence about it is not.
-- **`local` and `remote` get their own picture.** Slide 9 is the one place the story leaves the graph: two cards,
-  your laptop and GitHub, with the same three-commit chain drawn at the same height in both. That is the whole
-  point — one history, kept in two places, with `push` and `pull` as the only things that move between them. The
-  team's other branches sit above yours in the GitHub card, greyed, so "shared" is visible rather than asserted.
-  Staging is deliberately absent: GitHub Desktop collapses it into the file checkboxes, and naming a fourth place
-  buys nothing today. If someone asks, that is what the checkbox column is.
+- **`local` and `remote` get their own picture, with three machines in it.** Slide 9 is the one place
+  the story leaves the graph: GitHub as a cloud across the top, your laptop and a teammate's laptop
+  under it, each screen showing the history it holds. Your branch is on your screen and in the
+  cloud; on the teammate's screen it is a dashed ghost labelled "not until they pull". That
+  asymmetry is what *remote* means — one shared copy, and every laptop has to push to it and pull
+  from it — and it is visible rather than asserted. Staging is deliberately absent: GitHub Desktop
+  collapses it into the file checkboxes, and naming a fourth place buys nothing today. If someone
+  asks, that is what the checkbox column is.
 - **It is framed the way this audience already thinks.** `main` is the approved version, a branch is your draft,
   commits are checkpoints, a pull request is sending it for review, a merge is the sign-off. Nothing about git is
   new to someone who has ever had a model reviewed before it went out — only the vocabulary is. The two habits that

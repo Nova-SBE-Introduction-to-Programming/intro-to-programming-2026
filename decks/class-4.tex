@@ -124,53 +124,65 @@ back to any of them.}
 \end{frame}
 
 % ── git 5 · local and remote
-% Two boxes, one history, two arrows. The chains sit at the same height in both cards on
-% purpose: the point of the slide is that it is the same history, kept in two places.
+% Three machines, one history. GitHub is a cloud in the middle; your laptop and a teammate's sit
+% under it, each showing what it holds. Your branch is on your screen and, once pushed, in the
+% cloud — and not on theirs until they pull. That asymmetry is what "remote" means.
 \hue{NovaBlue}
 \begin{frame}{Local, and remote.}
 \framesubtitle{Git · 5 of 6}
 \vspace*{\fill}
 \noindent%
 \begin{tikzpicture}[x=1mm, y=1mm]
-  \useasboundingbox (0,-41) rectangle (134,5);
+  \useasboundingbox (0,-52) rectangle (134,2);
+  % ── the moves, drawn first so the cloud covers their far ends
+  \draw[gp move=NovaBlue]  (19,-29) -- (19,-14);
+  \node[gp movelabel=NovaBlue, anchor=east, align=right] at (16.5,-23.5)
+    {push\\{\normalfont\scriptsize\color{NovaBody}your branch, up}};
+  \draw[gp move=NovaMuted] (31,-14) -- (31,-29);
+  \node[gp movelabel=NovaFg, anchor=west, align=left] at (33.5,-23.5)
+    {pull\\{\normalfont\scriptsize\color{NovaBody}their work, down}};
+  \draw[gp move=NovaMuted] (109,-14) -- (109,-29);
+  \node[gp movelabel=NovaFg, anchor=west, align=left] at (111.5,-23.5)
+    {pull\\{\normalfont\scriptsize\color{NovaBody}your work, down}};
+  % ── github
+  \node[cloud, cloud puffs=15, cloud ignores aspect, minimum width=104mm, minimum height=22mm,
+        fill=NovaBlueBg, draw=NovaBlue, line width=1.1pt] at (67,-8) {};
+  \node[gp eyebrow=NovaBlue, anchor=north] at (67,-2.4) {\lsp[13]{GITHUB · THE REMOTE · ONE COPY, SHARED}};
+  \draw[gg lane=NovaTeal] (47,-8.6) -- (87,-8.6);
+  \node[gg pill=NovaTeal, anchor=east, font=\tiny\bfseries, inner xsep=1.6mm, inner ysep=0.9mm] at (46,-8.6) {main};
+  \node[gg dot=NovaTeal] at (54,-8.6) {}; \node[gg dot=NovaTeal] at (67,-8.6) {}; \node[gg dot=NovaTeal] at (80,-8.6) {};
+  \draw[gg lane=NovaAccent] (60,-8.6) .. controls (65,-8.6) and (64,-14.4) .. (69,-14.4) -- (80,-14.4);
+  \node[gg dot=NovaAccent] at (72,-14.4) {}; \node[gg dot=NovaAccent] at (80,-14.4) {};
   % ── your laptop
-  \node[gp eyebrow=NovaMuted] at (0,1.4) {\lsp[13]{YOUR LAPTOP · LOCAL}};
-  \path[gp card=NovaCard] (0,-1) rectangle (62,-38.5);
-  \node[gp head] at (31,-4.4) {the folder you edit};
-  \node[gp file, anchor=west] (fa) at (12,-12.5) {app.py};
-  \node[gp file, anchor=west] (fb) at ($(fa.east)+(2.4mm,0)$) {tests/};
-  \node[gp file, anchor=west] (fc) at ($(fb.east)+(2.4mm,0)$) {AGENTS.md};
-  \draw[gp move=NovaMuted] (31,-17) -- (31,-23);
-  \node[gp movelabel=NovaFg, anchor=west] at (33,-20) {commit};
-  \gpchain{19}{43}{-28}{NovaTeal}
-  \node[gp body] at (31,-31.4) {your history};
-  % ── github: the same chain, at the same height, with the rest of the team above it
-  \node[gp eyebrow=NovaBlue] at (86,1.4) {\lsp[13]{GITHUB · THE REMOTE}};
-  \path[gp card=NovaBlueBg] (86,-1) rectangle (134,-38.5);
-  \node[gp head] at (110,-4.4) {one copy, shared};
-  \gpchain{98}{122}{-14}{NovaBlue!32}
-  \gpchain{98}{122}{-21}{NovaBlue!32}
-  \gpchain{98}{122}{-28}{NovaTeal}
-  \node[gp body] at (110,-31.4) {yours, and everyone else's};
-  % ── the two moves
-  \draw[gp move=NovaMuted] (64.5,-21) -- (83.5,-21);
-  \node[gp movelabel=NovaFg, anchor=south] at (74,-20.1) {push};
-  \node[gp body] at (74,-22.1) {your branch, up};
-  \draw[gp move=NovaMuted] (83.5,-33) -- (64.5,-33);
-  \node[gp movelabel=NovaFg, anchor=south] at (74,-32.1) {pull};
-  \node[gp body] at (74,-34.1) {their work, down};
+  \screen{2}{-29}
+  \draw[gg lane=NovaTeal] (9,-33.5) -- (43,-33.5);
+  \node[gg dot=NovaTeal] at (15,-33.5) {}; \node[gg dot=NovaTeal] at (26,-33.5) {}; \node[gg dot=NovaTeal] at (37,-33.5) {};
+  \draw[gg lane=NovaAccent] (20,-33.5) .. controls (24,-33.5) and (23,-40) .. (27,-40) -- (40,-40);
+  \node[gg dot=NovaAccent] at (32,-40) {}; \node[gg dot=NovaAccent] at (40,-40) {};
+  \node[gg tag=NovaAccent, anchor=north west, font=\tiny\bfseries] at (8,-38.6) {your branch};
+  \node[gp eyebrow=NovaMuted, anchor=north] at (25,-48.6) {\lsp[13]{YOU · LOCAL}};
+  % ── a teammate's laptop: main only, until they pull
+  \screen{86}{-29}
+  \draw[gg lane=NovaTeal] (93,-33.5) -- (127,-33.5);
+  \node[gg dot=NovaTeal] at (99,-33.5) {}; \node[gg dot=NovaTeal] at (110,-33.5) {}; \node[gg dot=NovaTeal] at (121,-33.5) {};
+  \draw[gg lane=NovaLine, dash pattern=on 1.2mm off 1mm] (104,-33.5) .. controls (108,-33.5) and (107,-40) .. (111,-40) -- (124,-40);
+  \node[gg note, anchor=north west, text=NovaMuted, font=\tiny] at (92,-38.6) {your branch: not until they pull};
+  \node[gp eyebrow=NovaMuted, anchor=north] at (109,-48.6) {\lsp[13]{A TEAMMATE · LOCAL}};
 \end{tikzpicture}%
-\vskip4mm
-\muted{\textbf{Push} sends your branch to the copy everyone shares, where a \textbf{pull request}
-asks someone to read the diff first. Today that someone is you, reviewing the agent.}
+\vskip1.2mm
+\muted{Until you \textbf{push}, your branch is only on your laptop. \textbf{Pull} brings their
+work down. A \textbf{pull request} asks someone to read the diff first — today, you.}
 \vfill
 \end{frame}
 \tanote{The only slide in the act that leaves the graph, and the one that fixes the vocabulary:
-\emph{local} is the copy on your laptop, \emph{remote} is the copy on GitHub. Point at the two
-chains drawn at the same height and say it plainly — it is one history, kept in two places, and
-push and pull are the only things that move between them. The grey chains above yours are the rest
-of the team. If someone asks where "add"/"staging" went: GitHub Desktop turned it into the
-checkboxes next to each changed file, so they have already used it without the name.}
+\emph{local} is the copy on a laptop — yours, or anyone's — and \emph{remote} is the one copy on
+GitHub that all of them talk to. Walk it: your branch is on your screen. Push, and it is in the
+cloud too. Look at the teammate's screen: not there — and it will not be until they pull. That is
+the whole meaning of "remote": one shared copy, and everything else is a laptop that has to ask.
+The three moves are the only things that cross the gap: push up, pull down, and a pull request,
+which is asking someone to read the diff before the cloud's main takes it. If someone asks where
+"add"/"staging" went: GitHub Desktop turned it into the checkboxes next to each changed file, so
+they have already used it without the name.}
 
 % ── git 6 · merge
 \hue{NovaBlue}
