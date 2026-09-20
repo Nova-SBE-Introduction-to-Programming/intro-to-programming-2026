@@ -133,26 +133,25 @@ back to any of them.}
 \vspace*{\fill}
 \noindent%
 \begin{tikzpicture}[x=1mm, y=1mm]
-  \useasboundingbox (0,-52) rectangle (134,2);
+  \useasboundingbox (0,-50.5) rectangle (134,3.5);
   % ── the moves, drawn first so the cloud covers their far ends
-  \draw[gp move=NovaBlue]  (19,-29) -- (19,-14);
-  \node[gp movelabel=NovaBlue, anchor=east, align=right] at (16.5,-23.5)
+  \draw[gp move=NovaBlue]  (25,-29) -- (25,-19.6);
+  \node[gp movelabel=NovaBlue, anchor=east, align=right] at (22.5,-23.5)
     {push\\{\normalfont\scriptsize\color{NovaBody}your branch, up}};
-  \draw[gp move=NovaMuted] (31,-14) -- (31,-29);
-  \node[gp movelabel=NovaFg, anchor=west, align=left] at (33.5,-23.5)
+  \draw[gp move=NovaMuted] (37,-19) -- (37,-29);
+  \node[gp movelabel=NovaFg, anchor=west, align=left] at (39.5,-23.5)
     {pull\\{\normalfont\scriptsize\color{NovaBody}their work, down}};
-  \draw[gp move=NovaMuted] (109,-14) -- (109,-29);
-  \node[gp movelabel=NovaFg, anchor=west, align=left] at (111.5,-23.5)
+  \draw[gp move=NovaMuted] (105,-19) -- (105,-29);
+  \node[gp movelabel=NovaFg, anchor=west, align=left] at (107.5,-23.5)
     {pull\\{\normalfont\scriptsize\color{NovaBody}your work, down}};
   % ── github
-  \node[cloud, cloud puffs=15, cloud ignores aspect, minimum width=104mm, minimum height=22mm,
-        fill=NovaBlueBg, draw=NovaBlue, line width=1.1pt] at (67,-8) {};
-  \node[gp eyebrow=NovaBlue, anchor=north] at (67,-2.4) {\lsp[13]{GITHUB · THE REMOTE · ONE COPY, SHARED}};
-  \draw[gg lane=NovaTeal] (47,-8.6) -- (87,-8.6);
-  \node[gg pill=NovaTeal, anchor=east, font=\tiny\bfseries, inner xsep=1.6mm, inner ysep=0.9mm] at (46,-8.6) {main};
-  \node[gg dot=NovaTeal] at (54,-8.6) {}; \node[gg dot=NovaTeal] at (67,-8.6) {}; \node[gg dot=NovaTeal] at (80,-8.6) {};
-  \draw[gg lane=NovaAccent] (60,-8.6) .. controls (65,-8.6) and (64,-14.4) .. (69,-14.4) -- (80,-14.4);
-  \node[gg dot=NovaAccent] at (72,-14.4) {}; \node[gg dot=NovaAccent] at (80,-14.4) {};
+  \cloud{67}{-12}
+  \draw[gg lane=NovaTeal] (47,-8) -- (87,-8);
+  \node[gg pill=NovaTeal, anchor=east, font=\tiny\bfseries, inner xsep=1.6mm, inner ysep=0.9mm] at (46,-8) {main};
+  \node[gg dot=NovaTeal] at (54,-8) {}; \node[gg dot=NovaTeal] at (67,-8) {}; \node[gg dot=NovaTeal] at (80,-8) {};
+  \draw[gg lane=NovaAccent] (60,-8) .. controls (65,-8) and (64,-13) .. (69,-13) -- (80,-13);
+  \node[gg dot=NovaAccent] at (72,-13) {}; \node[gg dot=NovaAccent] at (80,-13) {};
+  \node[gp eyebrow=NovaBlue, anchor=south] at (67,-18.2) {\lsp[13]{GITHUB · THE REMOTE · ONE COPY, SHARED}};
   % ── your laptop
   \screen{2}{-29}
   \draw[gg lane=NovaTeal] (9,-33.5) -- (43,-33.5);
@@ -160,16 +159,16 @@ back to any of them.}
   \draw[gg lane=NovaAccent] (20,-33.5) .. controls (24,-33.5) and (23,-40) .. (27,-40) -- (40,-40);
   \node[gg dot=NovaAccent] at (32,-40) {}; \node[gg dot=NovaAccent] at (40,-40) {};
   \node[gg tag=NovaAccent, anchor=north west, font=\tiny\bfseries] at (8,-38.6) {your branch};
-  \node[gp eyebrow=NovaMuted, anchor=north] at (25,-48.6) {\lsp[13]{YOU · LOCAL}};
+  \node[gp eyebrow=NovaMuted, anchor=north] at (25,-48.2) {\lsp[13]{YOU · LOCAL}};
   % ── a teammate's laptop: main only, until they pull
   \screen{86}{-29}
   \draw[gg lane=NovaTeal] (93,-33.5) -- (127,-33.5);
   \node[gg dot=NovaTeal] at (99,-33.5) {}; \node[gg dot=NovaTeal] at (110,-33.5) {}; \node[gg dot=NovaTeal] at (121,-33.5) {};
   \draw[gg lane=NovaLine, dash pattern=on 1.2mm off 1mm] (104,-33.5) .. controls (108,-33.5) and (107,-40) .. (111,-40) -- (124,-40);
   \node[gg note, anchor=north west, text=NovaMuted, font=\tiny] at (92,-38.6) {your branch: not until they pull};
-  \node[gp eyebrow=NovaMuted, anchor=north] at (109,-48.6) {\lsp[13]{A TEAMMATE · LOCAL}};
+  \node[gp eyebrow=NovaMuted, anchor=north] at (109,-48.2) {\lsp[13]{A TEAMMATE · LOCAL}};
 \end{tikzpicture}%
-\vskip1.2mm
+\vskip0.8mm
 \muted{Until you \textbf{push}, your branch is only on your laptop. \textbf{Pull} brings their
 work down. A \textbf{pull request} asks someone to read the diff first — today, you.}
 \vfill
