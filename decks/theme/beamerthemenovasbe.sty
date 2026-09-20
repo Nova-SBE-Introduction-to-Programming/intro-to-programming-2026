@@ -466,6 +466,88 @@
   \end{tikzpicture}%
 }
 
+% ───────────────────────────────────────────────────────────── the Ralph loop
+% Standard 3 with nobody watching, as one canvas grown three times: a single run (prompt →
+% fresh agent → repo → tests), then the loop (the red verdict sends the same prompt to a new
+% agent that remembers nothing; the repo is the only memory), then the four signs that make
+% it safe to walk away from. \ralphloop{1..3}. A page glyph for the prompt, drawn like the
+% other icons.
+\newcommand{\icdoc}[3][NovaBody]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \path[rounded corners=0.7mm, fill=NovaBg, draw=#1, line width=1.1pt]
+      (-4.2,-5.4) rectangle (4.2,5.4);
+    \foreach \yy/\ww in {2.4/2.6, 0/2.6, -2.4/1.2}
+      {\draw[#1, line width=0.9pt, line cap=round] (-2.6,\yy) -- (\ww,\yy);}
+  \end{scope}}
+\tikzset{
+  rl tag/.style   ={font=\scriptsize\bfseries, text=#1, anchor=north, inner sep=0pt},
+  rl chip/.style  ={rounded corners=1.2mm, fill=NovaBg, text=NovaBody, font=\tiny\bfseries,
+                    inner xsep=1.6mm, inner ysep=1.0mm},
+  rl sign/.style  ={rounded corners=1.8mm, fill=NovaBg, draw=NovaAccent, line width=0.9pt},
+}
+\newcommand{\ralphsign}[3]{%
+  \path[rl sign] (#1,-35) rectangle ({#1+31},-53);
+  \node[gp eyebrow=NovaAccent, anchor=north west] at ({#1+2.6},-37.4) {\lsp[13]{#2}};
+  \node[gp body, anchor=north west, align=left, text width=26mm] at ({#1+2.6},-42) {#3};}
+\newcommand{\ralphloop}[1]{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,\ifnum#1>2 -53\else -33\fi) rectangle (134,4);
+    % the prompt: one file
+    \icdoc{13}{-11}
+    \node[as name] at (13,-21) {the prompt};
+    % a fresh agent; from stage 2 on, the queue of identical ones behind it
+    \ifnum#1>1
+      \node[as ghost, minimum size=12mm] at (45.2,-3) {};
+      \node[as ghost, minimum size=12mm] at (43.6,-7) {};
+    \fi
+    \fill[NovaPurpleBg] (42,-11) circle (7.2);
+    \icmodel[NovaPurple]{42}{-11}
+    \node[as name] at (42,-21) {a fresh agent};
+    % the repo: the files it reads and writes
+    \path[gp card=NovaCard] (66,-3) rectangle (94,-19);
+    \node[gp eyebrow=NovaMuted, anchor=north west] at (68.6,-5.2) {\lsp[13]{THE REPO}};
+    \node[rl chip] at (73.6,-11.4) {rulebook};
+    \node[rl chip] at (86.4,-11.4) {spec};
+    \node[rl chip] at (73.6,-16) {tests};
+    \node[rl chip] at (86.4,-16) {code};
+    \node[as name] at (80,-21) {the repo};
+    % the judge: the tests run, red or green
+    \path[rounded corners=1.8mm, fill=NovaCard, draw=none] (102,-4.5) rectangle (114,-17.5);
+    \node[gg dot=NovaAccent] at (108,-8.2) {};
+    \node[gg open=NovaTeal]  at (108,-13.8) {};
+    \node[as name] at (108,-21) {the tests};
+    % the flow, left to right, and the way out
+    \draw[as arrow=NovaBody] (18.8,-11) -- (33.4,-11);
+    \draw[as arrow=NovaPurple] (50.4,-11) -- (65,-11);
+    \draw[as arrow=NovaBody] (95,-11) -- (101,-11);
+    \draw[as arrow=NovaTeal] (115,-11) -- (123.4,-11);
+    \node[gg open=NovaTeal] at (126.6,-11) {};
+    \node[as label=NovaTeal, anchor=north, align=center, text width=18mm] at (127,-13.6)
+      {green: stop};
+    % stage 2: red sends the same prompt to a new agent; only the repo carries over
+    \ifnum#1>1
+      \draw[as arrow=NovaAccent, rounded corners=2mm]
+        (114.4,-15.5) -- (117.5,-15.5) -- (117.5,-30) -- (1,-30) -- (1,-11) -- (8.2,-11);
+      \node[as label=NovaAccent, fill=NovaBg, inner xsep=1.6mm, anchor=center] at (59,-30)
+        {red: again, with a fresh agent};
+      \node[rl tag=NovaMuted] at (13,-24.4) {never changes};
+      \node[rl tag=NovaMuted] at (42,-24.4) {remembers nothing};
+      \node[rl tag=NovaTeal]  at (80,-24.4) {keeps everything};
+    \fi
+    % stage 3: the signs
+    \ifnum#1>2
+      \ralphsign{0}{THE PROMPT}{One task. Full code, no placeholders. What \emph{done}
+        looks like.}
+      \ralphsign{34}{WHEN IT FAILS}{Don't argue with a run. Put a sign in the prompt, and
+        start again.}
+      \ralphsign{68}{THE MEMORY}{Spec, plan, rulebook. What it learns goes in a file, or it
+        is gone.}
+      \ralphsign{103}{THE STOP}{Tests and a commit, every run. A cap on runs. Then you
+        read it all.}
+    \fi
+  \end{tikzpicture}%
+}
+
 % ─────────────────────────────────────────────────────── the context window
 % A fixed-width bar filling up. Segments are proportional to what a real session looks like
 % after an hour: the rulebook is small, the files it read and the command output are not.

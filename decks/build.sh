@@ -2,7 +2,7 @@
 # Build the Class 4 deck.
 #   ./build.sh
 #
-# Every figure is TikZ, drawn from macros in theme/; the only binary asset is figures/ralph.jpg.
+# Every figure is TikZ, drawn from macros in theme/; the only imported artwork is Liu et al. (2024) fig. 1.
 # LaTeX output goes to out/ (gitignored); the two PDFs are then installed:
 #   out/class-4.pdf        -> content/weeks/week-04/class-4.pdf   (published deck)
 #   out/class-4-notes.pdf  -> teaching/class-4-notes.pdf          (speaker notes, not published)

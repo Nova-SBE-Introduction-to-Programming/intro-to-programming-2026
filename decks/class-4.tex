@@ -603,57 +603,73 @@ that re-feeds the prompt until the judge passes, which is the last three slides 
 before you paste it. New thread before pasting: the AGENTS.md rules from five minutes ago are only
 read at the start of a thread.}
 
-% ── Ralph: the loop with nobody watching
+% ── Ralph, 1 of 3: one run
+% One canvas, three stages, like the git graph and the stack: a single run, then the loop,
+% then the signs. Nothing moves between the three, so the eye only registers what was added.
 \hue{NovaAccent}
-\begin{frame}{Ralph.}
-\framesubtitle{Standard 3 · nobody watching}
+\begin{frame}{One run.}
+\framesubtitle{Ralph · 1 of 3 · one prompt, one fresh agent, one verdict}
 \vspace*{\fill}
-\begin{center}\roundedpic[0.44\linewidth]{figures/ralph.jpg}\end{center}
+\ralphloop{1}
 \vskip3mm
-\begin{tcbitemize}[cardsS, raster columns=2]
-  \carditemplain{What it is}{The same prompt, handed to a fresh agent again and again, until the
-    judge says green.}
-  \carditemplain{Why a crowd}{Every run is a new one, and none remembers the last. What they need
-    to know has to be written down.}
-\end{tcbitemize}
+\muted{A file of instructions. A fresh agent reads it, works in the repo, and the tests say
+red or green. So far, this is the ring from Act 2 with the four parts of an ask in it.}
 \vfill
 \end{frame}
-\tanote{Thirty seconds. You are not demoing this today. Named after Ralph Wiggum: cheerfully,
-relentlessly wrong, and he gets there anyway. The picture is the technical point, not the joke —
-there is no single agent getting better at the task. There is a queue of identical beginners, each
-starting from nothing. Ask the room what that implies, and let someone say it: the files are the
-only memory.}
+\tanote{Forty seconds. Walk the row left to right and name each thing as something they already
+have: the prompt is the shape of an ask, the repo has their rulebook and their spec and their
+tests, the judge is standard 2. The only new word is "fresh": this agent has never seen the
+project before. Green means stop. The question to leave hanging: what happens on red?}
 
-% ── Ralph, in full
+% ── Ralph, 2 of 3: the loop
+% The one-liner breaks the deck's no-commands-on-slides rule on purpose: the literal is the
+% punchline, and it sits where the /goal chip will sit two slides later.
 \hue{NovaAccent}
 \begin{frame}{Nobody is watching.}
-\framesubtitle{Standard 3 · where Ralph comes from}
+\framesubtitle{Ralph · 2 of 3 · red means again, from nothing}
 \vspace*{\fill}
 \begin{center}\codeline{while :; do cat PROMPT.md | claude-code ; done}\end{center}
 \vskip2mm
-\begin{center}\muted{Published in 2025. That is the entire technique.}\end{center}
-\vskip6mm
-\begin{tcbitemize}[cardsS, raster columns=3]
-  \carditemplain{The prompt}{One file, read again from scratch every time. It is the only
-    instruction anyone gives.}
-  \carditemplain{The repo}{Nothing survives a run except what was written to disk. The rulebook and
-    the tests are the memory.}
-  \carditemplain{The catch}{Nobody reads anything until it stops. A weak judge buys you hours of
-    confident wrong.}
-\end{tcbitemize}
+\ralphloop{2}
 \vskip2mm
-% \code{} here would set a \small chip inside a \tiny line and tower over it
+\muted{Published in 2025, and that is the entire technique. Every run is a new agent, so the
+repo is the only memory.}
+\vfill
+\end{frame}
+\tanote{Fifty seconds. Read the line aloud, then point at the picture: red goes back to the
+prompt, not to the agent. The agent is thrown away; the ghosts behind it are the queue of
+identical beginners waiting their turn. Named after Ralph Wiggum: cheerfully, relentlessly
+wrong, and he gets there anyway. Huntley's own line is that the technique is "deterministically
+bad in an undeterministic world": it fails a lot, in bounded, repeatable ways, and something that
+cannot lie catches each one. The three tags are the technical point. The prompt never changes,
+the agent remembers nothing, the repo keeps everything. Ask the room what that implies and let
+someone say it: the files are the only memory. Any agent goes in that pipe; the name in the
+original is just the one he was using.}
+
+% ── Ralph, 3 of 3: the signs
+\hue{NovaAccent}
+\begin{frame}{The signs.}
+\framesubtitle{Ralph · 3 of 3 · how to run it well}
+\vspace*{\fill}
+\ralphloop{3}
+\vskip2mm
 {\tiny\color{NovaMuted}Huntley, G. (2025). \emph{Ralph Wiggum as a ``software engineer''} ·
 ghuntley.com/ralph · an official Claude Code plugin since December 2025}
 \vfill
 \end{frame}
-\tanote{Land it: rulebook, judge, loop are not three tips. They are the three things that make an
-unattended agent safe to run at all. Huntley's own line for why it works is "the technique is
-deterministically bad in an undeterministic world" — bounded, repeatable failure plus a check that
-cannot lie. Credibility beat: Anthropic shipped it as an official Claude Code plugin in December
-2025, and Boris Cherny, who built Claude Code, has said he reaches for it on long-running tasks.
-Nobody should run this today. They should recognise that the three standards are what make it
-possible.}
+\tanote{A minute. Huntley's word for tuning the loop is "signs": when a run does something dumb,
+you do not argue with it, you add a line to the prompt file and the next run reads it. Four
+signs, one per part of the picture. The prompt: one task per run, a full implementation ("no
+placeholders" is a literal line in his prompt), and what done looks like, because that is the
+only stop condition. When it goes wrong: a sign in the prompt, not a correction in the thread.
+This is the same rule as "twice round on the same failure, new thread", one level up. The memory:
+his loop keeps a spec folder, a plan file and a rulebook, and every run may update them, because
+nothing else survives. The stop: the tests run every iteration and every green commits, so a bad
+run can be thrown away; a cap on runs, because the plugin's own advice is to never rely on the
+finish phrase alone; and then a human reads all of it. Credibility beat: Anthropic shipped it as
+an official Claude Code plugin in December 2025, and the person who built Claude Code has said he
+uses it. Nobody runs this today. They should recognise that the three standards are exactly what
+makes it possible.}
 
 % ── the loop, shipped as a feature
 % The visual rhyme with the slide before is the argument: same chip, same place on the page,

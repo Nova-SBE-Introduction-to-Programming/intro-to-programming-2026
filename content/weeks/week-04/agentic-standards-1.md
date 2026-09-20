@@ -148,6 +148,16 @@ That is the honest description, and Huntley's own defence of it is that the tech
 "deterministically bad in an undeterministic world": it fails a lot, but in bounded, repeatable
 ways, and something that cannot lie catches each one.
 
+**Running it well.** Huntley's word for tuning the loop is *signs*: when a run does something
+dumb you do not argue with it, you add a line to the prompt file and the next run reads it. The
+standards that come with the technique are short. One task per run. A full implementation (his
+prompt literally says *no placeholders*). A description of what *done* looks like, because that is
+the only stop condition. Everything the agent needs to remember goes in a file — a spec folder, a
+plan file, the rulebook — and a run may update them, since nothing else survives. The tests run
+every iteration and every green is committed, so a bad run can be thrown away. A cap on runs,
+because the official plugin's own advice is never to rely on the finish phrase alone. And then a
+human reads all of it.
+
 **The loop is a button now.** In 2026 both Claude Code and Codex ship the same idea as a command.
 You give it a finish line in plain words and it keeps taking turns until that finish line holds:
 
