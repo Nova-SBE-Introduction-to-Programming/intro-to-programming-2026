@@ -665,14 +665,16 @@ every turn. If you have the screen, /context in Codex or Claude Code shows the s
 bar; the next slide is that bar over an hour.}
 
 % ── context rot
-% The same window at four moments: it fills on its own, the middle goes soft (the published
-% "lost in the middle" shape, drawn on the object they know rather than as a chart), and
-% compaction folds exactly that part. The two measurements are cited below and on the week page.
+% What the tool itself prints, imitated: /context an hour in (the grid: files and outputs are
+% most of the window, the rulebook a cell) and /compact (the summary the model writes, and the
+% grid after). Compaction is the answer to context rot shown as the thing they will actually
+% type. The two measurements behind "the middle goes soft" are cited below and on the week page.
+% Deliberate exception to "no commands on slides": /context and /compact are the point here.
 \hue{NovaPurple}
 \begin{frame}{Context rot.}
 \framesubtitle{It fills · the middle goes soft · compaction folds it}
 \vspace*{\fill}
-\ctxwindow
+\ctxterminal
 \vskip2mm
 \muted{The middle goes soft long before it is full. Compaction folds exactly that part.}
 \vskip1mm
@@ -680,19 +682,21 @@ bar; the next slide is that bar over an hour.}
 the Middle}, TACL 12 · Chroma (2025), \emph{Context Rot}. Both on the week page.}
 \vfill
 \end{frame}
-\tanote{Read the four rows top to bottom. Minute one is the previous slide as a bar: the rulebook,
-a thin sliver at the left, read once, and your message. Twenty minutes in: every file it opened and
-every command's output is still in there, and it put them there, not you. An hour in: full, and the
-middle has gone soft. That is a measured result, not a feeling: Liu et al.\ 2024 gave a model the
-same twenty documents and moved the one with the answer through them; with it in the middle the
-model did worse than with no documents at all. Chroma 2025 re-ran the idea on eighteen current
-models with the simplest task they could design, copying a list of words, and every one fell before
-ten thousand tokens, a few percent of any window. The number on the box grew a hundredfold and
-neither result moved. So compaction is not the tool being lazy: it folds the soft middle into a
-paragraph and keeps the rulebook and the last few turns, the two parts the model uses best. And
-the rule in standard 3 follows: after twice round on the same failure, start a new thread rather
-than arguing in a long one; it is also why a Ralph loop hands each run a fresh agent. If you have
-the screen, run /context and then /compact so they see the bar drop.}
+\tanote{This is what the tool prints, so if you have the screen, type it and let the real one
+replace the slide. Left, /context an hour into a bug: the grid is the window, every cell a bit
+over one percent. The rulebook is one cell. Your messages are a handful. Files it read and command
+output are three quarters of it, and it put them there, not you. The hatched cells at the end are
+the buffer: when the thread reaches them the tool compacts on its own, and you can ask for it
+earlier. Right, what /compact prints: a line saying it compacted, and the summary the model wrote
+of its own conversation — request, what was done, what is open — followed by the same grid, mostly
+empty again. The rulebook and the last few turns survive as they were; the hour of files became
+the paragraph. Why the middle is the right part to fold is a measured result, not a feeling: Liu
+et al.\ 2024 moved the one document with the answer through twenty and found the model did worse
+with it in the middle than with no documents at all; Chroma 2025 re-ran the idea on eighteen
+current models with the simplest task they could design, copying a list of words, and every one
+fell before ten thousand tokens. Two rules follow, both in the next act: after twice round on the
+same failure, start a new thread rather than arguing in a long one, and it is why a Ralph loop
+hands each run a fresh agent.}
 
 % ═════════════════════════════════════════════ ACT 3 · three standards
 \sectionslide[NovaAccent]{3}{The core of the class}{Three standards.}%

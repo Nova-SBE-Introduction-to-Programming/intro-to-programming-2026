@@ -77,12 +77,18 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   appended in that order — with a dashed arrow from the thought back up to the tools card. That
   arrow answers the question the reasoning slide raises, "how does it know which tool?": the tool's
   own line is in the window, a few lines above the thought that reaches for it. Context rot is then
-  the same window at four moments — minute one, twenty minutes in, an hour in (full, with the middle
-  washed out), after compaction (the soft middle a purple paragraph, the ends kept) — so the
-  progression fills → rots → compacts is one picture read top to bottom. The two published
-  measurements (Liu et al. 2024, worse-than-no-documents in the middle; Chroma 2025, every model
-  falling before ten thousand tokens) are cited on the slide and told in the notes, not charted:
-  the earlier chart versions were illegible at slide size and added nothing the wash does not.
+  what the tool itself prints, imitated: `/context` an hour in (the usage grid, one cell a bit
+  over one percent of the window, files and command output three quarters of it, the rulebook one
+  cell, the hatched autocompact buffer at the end) beside `/compact` (the "Compacted" line, the
+  opening of the summary the model writes of its own conversation, and the same grid after, mostly
+  empty). Three notes point into the panels: the soft middle, the buffer that triggers compaction,
+  the paragraph the middle became. This is a deliberate exception to "no commands on slides", like
+  the Ralph one-liner: the two commands are the point, and if the screen is available the TA types
+  them and the real output replaces the slide. The two published measurements (Liu et al. 2024,
+  worse-than-no-documents in the middle; Chroma 2025, every model falling before ten thousand
+  tokens) are cited on the slide and told in the notes, not charted: the earlier chart versions
+  were illegible at slide size, and a four-moment bar that replaced them briefly was judged too
+  abstract.
   It explains why "start a new thread after twice
 - **The GPT-2 block is four pictures after the unicorn, and they answer "how did it do that?"**
   Trained: a page from the web with the next word hidden, a list of guesses with probabilities, the
@@ -139,7 +145,7 @@ Act 2 and again in Act 3 with the tests in it. Say so on the agenda slide.
 | 5–6 | 4 | Divider: **git**. | — |
 | 6–12 | 5–10 | **Act 1 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → local and remote → merge, approved. About a minute each — it is a build, so do not narrate it twice. | — |
 | 12–13 | 11 | Divider: **agent**. "The thing that will make those commits today is not you. So what is it?" | — |
-| 13–35 | 12–28 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) with the NVIDIA aside between them (why the most valuable company: CUDA, the software that opened the games chip to any maths) · the GPT-2 block, five slides: the unicorn sample read aloud, then how it was trained (guess the next word, WebText; Common Crawl for GPT-3), what it learned (words as places, directions as relations), how it writes (one block ×48; then one word at a time, appended and fed back) · the stack in four moves: a language model · tools · an agent · the harness · **one exchange in full** (slowest slide in the act) · reasoning, watched (the model reaches for a tool mid-thought; the loop is drawn down the left edge, so the next slide only names it) · the ReAct loop · context, concrete (tools, rulebook, your message, then a thought, a call, a result; the dashed arrow shows why it can pick a tool) · context rot (the same window at four moments: it fills, the middle goes soft, compaction folds it). | — |
+| 13–35 | 12–28 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) with the NVIDIA aside between them (why the most valuable company: CUDA, the software that opened the games chip to any maths) · the GPT-2 block, five slides: the unicorn sample read aloud, then how it was trained (guess the next word, WebText; Common Crawl for GPT-3), what it learned (words as places, directions as relations), how it writes (one block ×48; then one word at a time, appended and fed back) · the stack in four moves: a language model · tools · an agent · the harness · **one exchange in full** (slowest slide in the act) · reasoning, watched (the model reaches for a tool mid-thought; the loop is drawn down the left edge, so the next slide only names it) · the ReAct loop · context, concrete (tools, rulebook, your message, then a thought, a call, a result; the dashed arrow shows why it can pick a tool) · context rot (mock terminal panels: `/context` an hour in, `/compact` beside it, three notes pointing in). | — |
 | 35–36 | 29 | Divider: **three standards**. Bridge: the loop has three places you get a say. | — |
 | 36–50 | 30–39 | **Act 3 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · the loop (same loop, tests in it) · the four parts of an ask · Ralph, four slides (who he is · one run · the loop · the signs) · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
 | 50–60 | 40 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
