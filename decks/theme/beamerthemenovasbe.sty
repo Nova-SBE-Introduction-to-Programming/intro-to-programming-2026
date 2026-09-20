@@ -1,7 +1,7 @@
 % Nova SBE · Introduction to Programming — a warm, light, modern beamer theme.
 % Engine: XeLaTeX (Tectonic). Fonts: Inter + JetBrains Mono (system-installed).
 % Palette is the course palette (warm paper, terracotta/teal/amber/violet accents),
-% shared with the site stylesheet, the HTML decks and the Mermaid diagrams.
+% shared with the site stylesheet and the HTML decks.
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{beamerthemenovasbe}[2026/09/19 Nova SBE course theme]
 
@@ -362,6 +362,113 @@
   \end{tikzpicture}%
 }
 
+% ──────────────────────────────────────────────── from a model to an agent
+% One canvas, four stages, like the git graph: a language model, then tools, then the loop that
+% makes it an agent, then the harness drawn around all of it. Because nothing moves between
+% stages, the eye only has to register what was added. \agentstack{1..4}
+\tikzset{
+  as arrow/.style ={-{Stealth[length=2.2mm, width=1.8mm]}, draw=#1, line width=1.3pt},
+  as label/.style ={font=\scriptsize\bfseries, text=#1, inner sep=0pt, inner ysep=1.0mm},
+  as name/.style  ={font=\scriptsize, text=NovaBody, anchor=north, inner sep=0pt},
+  as chip/.style  ={rounded corners=1.2mm, fill=NovaCard, text=NovaFg, font=\scriptsize\bfseries,
+                    inner xsep=2.2mm, inner ysep=1.2mm},
+  as ghost/.style ={circle, draw=NovaLine, line width=0.8pt, dash pattern=on 1.2mm off 1mm,
+                    inner sep=0pt, minimum size=12mm},
+}
+\newcommand{\agentstack}[1]{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-46) rectangle (134,4);
+    % stage 4: the harness is the box everything else was already inside
+    \ifnum#1>3
+      \path[gp card=NovaPurpleBg] (24,-1) rectangle (134,-44);
+      \node[gp eyebrow=NovaPurple] at (24,1.6) {\lsp[13]{CODEX · THE HARNESS}};
+      \node[as chip, draw=NovaPurple, line width=0.8pt, font=\scriptsize\bfseries,
+            text=NovaPurple] at (24,-16) {may I?};
+      \node[as name, anchor=south west, text=NovaPurple, font=\scriptsize] at (30,-42.4)
+        {reads the rulebook first \,·\, keeps the whole conversation \,·\, runs every tool};
+    \fi
+    % you, and the model: text goes in, text comes out
+    \icperson[NovaBody]{12}{-15}
+    \node[as name] at (12,-22.5) {you};
+    \icmodel[NovaPurple]{58}{-16}
+    \node[as name] at (58,-22.5) {the model};
+    \draw[as arrow=NovaBody] (18,-12.5) -- (52,-12.5);
+    \node[as label=NovaBody, anchor=south] at (35,-11.7) {you type};
+    \draw[as arrow=NovaBody] (52,-19.5) -- (18,-19.5);
+    \node[as label=NovaBody, anchor=north] at (35,-20.3) {it writes};
+    \ifnum#1<2
+      \node[as ghost] at (108,-16) {};
+      \node[as name, text=NovaMuted] at (108,-24.5) {nothing else};
+    \fi
+    % stage 2: tools, and the result comes back to the model
+    \ifnum#1>1
+      \iclaptop[NovaPurple]{108}{-16}
+      \node[as name] at (108,-22.5) {your laptop};
+      \node[as chip] (t1) at (96,-29.5) {read};
+      \node[as chip] (t2) at (108,-29.5) {edit};
+      \node[as chip] (t3) at (120,-29.5) {run};
+      \draw[as arrow=NovaPurple] (65,-12.5) -- (100,-12.5);
+      \node[as label=NovaPurple, anchor=south] at (82.5,-11.7) {asks for one};
+      \draw[as arrow=NovaPurple] (100,-19.5) -- (65,-19.5);
+      \node[as label=NovaPurple, anchor=north] at (82.5,-20.3) {the result};
+    \fi
+    % stage 3: the loop; the result is read and the next call chosen, until done
+    \ifnum#1>2
+      \draw[as arrow=NovaAccent, rounded corners=2mm]
+        (108,-33) -- (108,-37.5) -- (66,-37.5) -- (66,-22);
+      \node[as label=NovaAccent, fill=\ifnum#1>3 NovaPurpleBg\else NovaBg\fi,
+            inner xsep=1.6mm, anchor=center] at (87,-37.5) {again, until done};
+    \fi
+  \end{tikzpicture}%
+}
+
+% ───────────────────────────────────────────────────────────── the ReAct ring
+% The one architecture the class rests on, drawn once and reused: three cards in a row, the
+% "not yet" return underneath, the "done" exit to the right. \reactring{reason}{act}{observe}{stop}
+\newcommand{\reactcard}[4]{%
+  \path[gp card=NovaCard] (#1,-3) rectangle ({#1+30},-21);
+  \node[gp eyebrow=#4, anchor=north west] at ({#1+3.4},-6) {\lsp[13]{#2}};
+  \node[gp body, anchor=north west, align=left, text width=24mm] at ({#1+3.4},-11) {#3};}
+\newcommand{\reactring}[4]{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-31) rectangle (134,0);
+    \reactcard{0}{REASON}{#1}{NovaPurple}
+    \reactcard{40}{ACT}{#2}{NovaPurple}
+    \reactcard{80}{OBSERVE}{#3}{NovaPurple}
+    \draw[as arrow=NovaBody] (30.6,-12) -- (39.4,-12);
+    \draw[as arrow=NovaBody] (70.6,-12) -- (79.4,-12);
+    \draw[as arrow=NovaAccent, rounded corners=2mm] (95,-21.6) -- (95,-27.5) -- (15,-27.5) -- (15,-21.6);
+    \node[as label=NovaAccent, fill=NovaBg, inner xsep=1.6mm, anchor=center] at (55,-27.5) {not yet};
+    \draw[as arrow=NovaTeal] (110.6,-12) -- (119.4,-12);
+    \node[gg open=NovaTeal] at (122.6,-12) {};
+    \node[as label=NovaTeal, anchor=north, align=center, text width=22mm] at (125,-14.6) {#4};
+  \end{tikzpicture}%
+}
+
+% ─────────────────────────────────────────────────────── the context window
+% A fixed-width bar filling up. Segments are proportional to what a real session looks like
+% after an hour: the rulebook is small, the files it read and the command output are not.
+\newcommand{\contextbar}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-13) rectangle (134,7);
+    \node[gp eyebrow=NovaMuted] at (0,4.2) {\lsp[13]{EVERYTHING IT CAN SEE AT ONCE}};
+    \path[rounded corners=2mm, fill=NovaCard] (0,0) rectangle (134,-8);
+    \begin{scope}
+      \clip[rounded corners=2mm] (0,0) rectangle (134,-8);
+      \fill[NovaYellow]  (0,0)   rectangle (8,-8);
+      \fill[NovaBody]    (8,0)   rectangle (30,-8);
+      \fill[NovaBlue]    (30,0)  rectangle (70,-8);
+      \fill[NovaTeal]    (70,0)  rectangle (104,-8);
+    \end{scope}
+    \draw[NovaLine, line width=0.9pt, rounded corners=2mm] (0,0) rectangle (134,-8);
+    \node[as name, text=NovaYellow, font=\scriptsize\bfseries, anchor=north west] at (0,-9.4) {rulebook};
+    \node[as name, text=NovaBody,   font=\scriptsize\bfseries] at (21,-9.4)  {your messages};
+    \node[as name, text=NovaBlue,   font=\scriptsize\bfseries] at (50,-9.4)  {every file it read};
+    \node[as name, text=NovaTeal,   font=\scriptsize\bfseries] at (87,-9.4)  {every command's output};
+    \node[as name, text=NovaMuted,  font=\scriptsize\bfseries] at (119,-9.4) {what is left};
+  \end{tikzpicture}%
+}
+
 % section divider frame: \sectionslide{W4}{kicker}{Title}{subtitle}
 \newcommand{\sectionslide}[5][NovaTeal]{%
   \begingroup
@@ -375,14 +482,6 @@
     \vfill
   \end{frame}
   \endgroup}
-
-% diagram helper: \diagram[width]{file}
-% fills the space under the title and centres the artwork in it
-\newcommand{\diagram}[2][0.95\linewidth]{%
-  \vfill\begin{center}\includegraphics[width=#1]{#2}\end{center}\vfill}
-% no \vfill: use when the frame carries other content, which the glue would push off the page
-\newcommand{\diagramtight}[2][0.95\linewidth]{%
-  \begin{center}\includegraphics[width=#1]{#2}\end{center}}
 
 % Speaker notes. beamer lays \note{} out even when notes are hidden, which overfills a
 % box on every frame, so in the slides build the macro expands to nothing.

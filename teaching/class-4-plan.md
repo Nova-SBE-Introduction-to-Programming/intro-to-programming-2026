@@ -15,28 +15,35 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
 - **Tests as the feedback channel.** The "Prompt Problems" line of CS-education research (Denny, Leinonen, Prather et al.; 726-student study, arXiv 2410.03063) shows novices — especially those who find syntax hard — learn well when the task is *write the prompt, let the tests judge, iterate*, averaging 3–4 attempts. That is exactly the loop, so the class makes the loop explicit instead of leaving it implicit.
 - **PRIMM mapped onto agentic work.** Predict (read the spec + tests: which files change?) → Run (the red tests) → Investigate (read the diff) → Modify (fix what the judge reports) → Make (the feature). The deck's live kick-off follows that order.
 - **Industry standards, not tool features.** The three things every agentic team has — a rulebook (`AGENTS.md`, agents.md convention; Anthropic's CLAUDE.md guidance says the same: short, only what can't be inferred, in git), a judge (Anthropic: *"give the agent a way to verify its work… the loop closes on its own"*; Huntley: *check against something that can't lie*), and a loop (Ralph: one task per loop, a stop condition, "no placeholder implementations"). Tool-specific forms (Claude Code `/goal`, Stop hooks, `ralph-loop`) are mentioned once as "the same idea one level up" and left for Part II.
-- **Name the thing before the rules.** Two slides define *agent* by contrast (a chat model writes; an agent = the same model + tools + a loop, acts) and *tool call* concretely (request → executed after approval → output back in the conversation → next call), anchored in what students already saw Codex do. Without this, "the loop" is a metaphor; with it, it's a description of the tool-call chain they watch on stage.
-- **One tool call is shown in full, as a transcript.** The sequence diagram gives the choreography; the slide after
-  it gives the payloads — the structured request the model emits, the approval prompt, the file's own line pasted
-  back, the answer. It is the slide that turns "the AI reads your files" from magic into mechanism, and it sets up
-  standard 2: a thing that can only ask, and can only see what is handed back, is a thing you can verify.
-- **Tools and reasoning get a slide each, before the loop that combines them.** "Agent = model + tools + a loop"
-  is a slogan until they see what a tool buys: the top lane of the diagram is exactly what they did in Class 2 with
-  a browser chat — the model advised, they were the hands, and they were the only one who found out it was wrong.
-  Reasoning is shown on their own SplitIt balances bug: answer at once and you get a plausible guess; work it out
-  and you get line 95. ReAct then lands in one breath, because it is just those two in a loop.
-- **The pre-history earns its place because it takes the magic out.** Students arrive assuming all of this
-  appeared in 2022. Three slides put it where it belongs: the perceptron (1958), the proof that one layer cannot
-  learn XOR and the winter that followed (1969), backpropagation (1986), LSTM (1997), the Transformer (2017) —
-  and then the thing that actually changed, which is not an idea at all. Cheap parallel arithmetic (CUDA 2007,
-  AlexNet 2012) and a scraped web (Common Crawl) arrived at the same time, and the ideas had been waiting. Two
-  minutes buys a model that is engineering rather than magic — and therefore something you can set rules for, which
-  is the whole of Act 2. It also corrects an attribution students usually meet the wrong way round: Minsky and
-  Papert wrote the critique that *motivated* multi-layer networks; they did not invent them.
+- **Git comes first.** It is what they just looked at on their own GitHub page, it is what last week
+  was about, and every later slide (branch, judge, push, merge) leans on its vocabulary. Putting it
+  before the agent material also means the class opens on something concrete and already familiar
+  rather than on an abstraction.
+- **One tool call is shown in full, as a transcript.** The stack gives the choreography; the slide
+  after it gives the payloads — the structured request the model emits, the approval prompt, the
+  file's own line pasted back, the answer. It is the slide that turns "the AI reads your files" from
+  magic into mechanism, and it sets up standard 2: a thing that can only ask, and can only see what
+  is handed back, is a thing you can verify.
+- **The model-to-agent stack is one picture built in four moves.** *A language model*: you and the
+  model, text both ways, and a dashed empty circle where the rest will go. *Tools*: a laptop with
+  read · edit · run, and the result arrow pointing back at the **model**, not at you — that arrow
+  is the whole slide. *An agent*: one more arrow, "again, until done", and the equation. *The
+  harness*: the box that was always there gets drawn and named, with the "may I?" gate on its edge
+  and its three jobs along the bottom. Same canvas every time, so the LLM / tools / agent / harness
+  distinction is spatial: each word is a region of the same picture.
+- **History comes before the stack, and is two slides.** Students arrive assuming all of this
+  appeared in 2022. The run-up (1958–2017) puts the ideas where they belong — the perceptron, the
+  XOR critique and the winter, backpropagation, LSTM, the Transformer — and its caption names what
+  was actually missing: cheap parallel arithmetic (CUDA 2007, AlexNet 2012) and a scraped web
+  (Common Crawl). The second slide is 2018 onwards, and its last line hands off: "the next four
+  slides are that second change." Two minutes buys a model that is engineering rather than magic —
+  and therefore something you can set rules for. It also corrects an attribution students meet the
+  wrong way round: Minsky and Papert wrote the critique that *motivated* multi-layer networks; they
+  did not invent them.
 - **Git is one continuous story, not three rules.** One TikZ macro draws the same commit graph five times, each
   slide one move further on. Because it is literally the same picture at five stages, nothing shifts or rescales
   between slides: it reads as a build, not as five diagrams. A branch is a spatial idea; a sentence about it is not.
-- **`local` and `remote` get their own picture.** Slide 26 is the one place the story leaves the graph: two cards,
+- **`local` and `remote` get their own picture.** Slide 9 is the one place the story leaves the graph: two cards,
   your laptop and GitHub, with the same three-commit chain drawn at the same height in both. That is the whole
   point — one history, kept in two places, with `push` and `pull` as the only things that move between them. The
   team's other branches sit above yours in the GitHub card, greyed, so "shared" is visible rather than asserted.
@@ -47,20 +54,29 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   new to someone who has ever had a model reviewed before it went out — only the vocabulary is. The two habits that
   usually get announced as rules (name the branch after the job; keep commits small) fall out of slides 2 and 3
   instead.
-- **Reasoning gets shown, not described.** Slide 8 says what reasoning is; slide 9 is a chat
-  mock-up where it earns its keep. The ask — *"make it so Ana doesn't owe anything"* — is genuinely
-  ambiguous, and every reading of it moves somebody's money. Read it aloud and stop: the room will
-  give you at least two readings, which is the point. Without the thinking block you get one of
-  them at random and no way to tell which; with it you get the safe one plus a stated assumption
-  you can overrule. The thinking block is styled as the odd one out — no fill, dashed rule, italic
-  — because it is not a message anyone sent.
-- **Context rot is the slide that justifies two existing rules.** The window grew 8k → 32k → 128k
-  → 1M; how well a model uses the middle of it did not. Liu et al. measured the U shape (TACL 2024)
-  and Chroma re-ran it across eighteen models in 2025 — every one degraded with input length, well
-  short of the limit. The curve on the slide is that published shape, not decoration. It explains
-  why "start a new thread after twice round" is standard 3, and why compaction is not the tool
-  being lazy: it discards the part the model was using worst and keeps the two parts it uses best.
-  If you have the screen, run `/context` then `/compact` and let them watch the bar drop.
+- **Reasoning gets shown, not described.** Slide 19 is a chat mock-up where it earns its keep. The
+  ask — *"make it so Ana doesn't owe anything"* — is genuinely ambiguous, and every reading of it
+  moves somebody's money. Read it aloud and stop: the room will give you at least two readings,
+  which is the point. Without the thinking block you get one of them at random and no way to tell
+  which; with it you get the safe one plus a stated assumption you can overrule. The thinking block
+  is styled as the odd one out — no fill, dashed rule, italic — because it is not a message anyone
+  sent. The definition ("worked out first, then answered") is in the kicker; the lineage is in the
+  notes.
+- **ReAct is drawn once and reused, so it reads as the architecture rather than a diagram.** The ring
+  — reason, act, observe, the "not yet" return underneath and the "done" exit to the right — is
+  slide 20 in Act 2 and slide 27 in Act 3 with the tests written into it: *read the failure* ·
+  *edit, then run the tests* · *red, or green?* · *green: read the diff, click the app*. The bridge
+  at the `3` divider is that the ring has three places where you get a say: what it reads before
+  the first thought (the rulebook), what it observes (the judge), and when the return arrow stops
+  (the loop). The standards are the ring, configured.
+- **Context is a bar, and context rot is the slide that justifies two rules.** The context slide
+  draws the window as a fixed-width bar filling up — the rulebook a thin sliver at the left, the
+  files and command output most of it — so "the oldest part goes first" is visible. Then the U:
+  Liu et al. measured it (TACL 2024) and Chroma re-ran it across eighteen models in 2025 — every one
+  degraded with input length, well short of the limit. It explains why "start a new thread after
+  twice round" is standard 3, and why compaction is not the tool being lazy: it discards the part
+  the model was using worst and keeps the two parts it uses best. If you have the screen, run
+  `/context` then `/compact` and let them watch the bar drop.
 - **Ralph gets two slides because the picture is the argument.** The first is the crowd of
   identical Ralphs and nothing else: there is no single agent getting better at the task, there is a
   queue of beginners each starting from nothing, so the files are the only memory. The second breaks
@@ -84,36 +100,39 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
 
 ## Run of show
 
-Four acts, each opened by its kicker colour: **teal** logistics · **violet** what an agent is ·
-**amber/coral** the three standards · **blue** git. Two divider slides (`3` and `git`) mark the turns.
+Four acts, each opened by its kicker colour: **teal** logistics · **blue** git · **violet** from a
+model to an agent · **amber/coral** the three standards. Three divider slides (`git`, `agent`, `3`)
+mark the turns. Three pictures carry the first half and each is *built* rather than shown: the git
+graph grows over six slides, the model-to-agent stack over four, and the ReAct ring appears once in
+Act 2 and again in Act 3 with the tests in it. Say so on the agenda slide.
 
 | Min | Slides | What | Checkpoint |
 |---|---|---|---|
 | 0–5 | 1–3 | Open, agenda, check-in: GitHub page shows the feature-1 branch and a merged PR. | TA has the list of who is behind |
-| 5–22 | 4–15 | **Act 1 — what an agent is.** Chat model vs agent · what a tool is · the tool-call choreography · **one exchange in full** (slowest slide in the act) · what reasoning is · reasoning watched, on an ambiguous ask · ReAct and the harness · context · context rot · the long run-up, 1958–2017 · what actually changed · eight years in one picture. | — |
-| 22–23 | 16 | Divider: **three standards**. | — |
-| 23–36 | 17–24 | **Act 2 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · loop · the four parts of an ask · Ralph, two slides · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
-| 36–37 | 25 | Divider: **git**. | — |
-| 37–42 | 26–31 | **Act 3 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → local and remote → merge, approved. About fifty seconds each — it is a build, so do not narrate it twice. | — |
-| 42–52 | 32 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
-| 52–82 | 33–34 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
-| 82–88 | 35 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
-| 88–90 | 36 | Wrap. | — |
+| 5–6 | 4 | Divider: **git**. | — |
+| 6–12 | 5–10 | **Act 1 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → local and remote → merge, approved. About a minute each — it is a build, so do not narrate it twice. | — |
+| 12–13 | 11 | Divider: **agent**. "The thing that will make those commits today is not you. So what is it?" | — |
+| 13–29 | 12–22 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) · the stack in four moves: a language model · tools · an agent · the harness · **one exchange in full** (slowest slide in the act) · reasoning, watched · the ReAct ring · context · context rot. | — |
+| 29–30 | 23 | Divider: **three standards**. Bridge: the ring has three places you get a say. | — |
+| 30–43 | 24–31 | **Act 3 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · the loop (same ring, tests in it) · the four parts of an ask · Ralph, two slides · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
+| 43–53 | 32 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
+| 53–83 | 33–34 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
+| 83–89 | 35 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
+| 89–90 | 36 | Wrap. | — |
 
-**The lecture half has no slack left.** Act 1 is twelve slides in seventeen minutes and Act 2 is eight in
-thirteen. That closes, but only at these weights, so rehearse to them: one exchange in full 2½ min · chat-vs-agent,
-tools, tool calls, reasoning watched, ReAct 1½ min each · reasoning, context rot 1¼ min · the long run-up and 2018
-onwards 1 min each · context and *why it happened now* 45 s each. In Act 2: rulebook 2½ min and three rules 2 min
-(both live) · judge 2½ · loop and the shape of an ask 1½ each · Ralph 40 s · nobody is watching 50 s · `/goal` 1 min.
-Git gives nothing back — five stages of one growing graph already run at fifty seconds. **The 30 minutes of hands-on
-do not move.** If you are behind at the git divider, cut *why it happened now* and *2018 onwards* on the spot; they
-are the only two slides in the deck nothing later depends on. If the room is quick, the minutes belong to *your
-turn*, not to you.
+**The lecture half is tight but no longer overfull.** Act 2 is eleven slides in sixteen minutes and
+Act 3 is eight in thirteen. Rehearse to these weights: one exchange in full 2½ min · the stack 1 min
+a slide (four) · reasoning, ReAct, context rot 1½ each · context 1 · the two history slides 1½ and 1.
+In Act 3: rulebook 2½ and three rules 2 (both live) · judge 2½ · loop and the shape of an ask 1½
+each · Ralph 40 s · nobody is watching 50 s · `/goal` 1 min. Git runs at a minute a stage. **The 30
+minutes of hands-on do not move.** If you are behind at the `agent` divider, cut the two history
+slides on the spot; they are the only slides nothing later depends on. If the room is quick, the
+minutes belong to *your turn*, not to you.
 
 ## Exact prompts for the live part
 
 - Proof of the rulebook: *"What does AGENTS.md tell you to do?"*
-- Adding the rules: *"Under 'How to answer' in AGENTS.md, add these three lines: …"* — the verbatim wording is on the Week 4 page and in the handout (slide 18 shows only the three concepts: boundary, evidence, off-limits). Read the diff. Accept.
+- Adding the rules: *"Under 'How to answer' in AGENTS.md, add these three lines: …"* — the verbatim wording is on the Week 4 page and in the handout (slide 25 shows only the three concepts: boundary, evidence, off-limits). Read the diff. Accept.
 - The loop prompt (new thread): *"Build `specs/feature-2-categories.md`. Work only on the branch `feature-2-categories`. After every change, run `uv run pytest tests/test_feature_2.py` and keep going until all four tests pass. Do not edit anything in `tests/`. When they pass, paste the final test output and list every file you changed."*
 - After green: *"Show me the diff of every file you changed."* Then, in the browser: Add expense → category box? Group page → totals?
 

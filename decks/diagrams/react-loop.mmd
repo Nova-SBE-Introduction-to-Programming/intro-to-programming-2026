@@ -1,8 +1,0 @@
-flowchart LR
-  R["REASON<br/>what is still failing?"]
-  A["ACT<br/>one tool call"]
-  O["OBSERVE<br/>read the result"]
-  S(["stop — or ask you"])
-  R --> A --> O
-  O -->|"not done"| R
-  O -->|"done"| S

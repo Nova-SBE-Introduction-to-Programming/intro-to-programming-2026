@@ -1,25 +1,22 @@
 # Decks
 
-LaTeX (beamer) slides for the course, with diagrams authored in Mermaid.
+LaTeX (beamer) slides for the course. Every figure is drawn in TikZ from macros in the theme.
 
 ```
 decks/
-  class-4.tex                 the deck
-  class-4-notes.tex           same deck, notes on a second screen
-  theme/beamerthemenovasbe.sty  warm light theme: course palette, Inter + JetBrains Mono
-  diagrams/*.mmd              Mermaid sources
-  figures/*.pdf               rendered diagrams (committed; regenerate with the script)
-  render-diagrams.py          Mermaid → PDF, via headless Chromium
-  build.sh                    everything, and installs the results
-  out/                        LaTeX output (gitignored)
-  vendor/                     mermaid.min.js, fetched on demand (gitignored)
+  class-4.tex                   the deck
+  class-4-notes.tex             same deck, notes on a second screen
+  theme/beamerthemenovasbe.sty  warm light theme: course palette, Inter + JetBrains Mono,
+                                and the figure macros (\gitgraph, \agentstack, \reactring, …)
+  figures/ralph.jpg             the one image
+  build.sh                      both PDFs, installed into the repo
+  out/                          LaTeX output (gitignored)
 ```
 
 ## Build
 
 ```
-./build.sh                 # diagrams + both PDFs, installed into the repo
-./build.sh --no-diagrams   # skip Mermaid (nothing in diagrams/ changed)
+./build.sh
 ```
 
 It installs `content/weeks/week-04/class-4.pdf` (the published deck, linked from the Week 4
@@ -29,33 +26,20 @@ page) and `teaching/class-4-notes.pdf` (speaker notes, not published).
 
 - **Tectonic** — a self-contained LaTeX engine; it downloads the packages it needs on first
   run and caches them. `pacman -S tectonic`, `brew install tectonic`.
-- **uv** — runs `render-diagrams.py` with Playwright, and Playwright's Chromium
-  (`uv run --with playwright python -m playwright install chromium`; the render script also uses
-  `pypdf` and `pillow`, which `uv` fetches for you) for the Mermaid step.
-  Not needed if you build with `--no-diagrams`.
 - Fonts **Inter** and **JetBrains Mono** installed system-wide.
 
 ## Why it is built this way
 
-- **Mermaid renders in Chromium, not rsvg.** Mermaid puts node labels in `<foreignObject>`,
-  which `rsvg-convert` silently drops — boxes come out empty. Chromium prints the SVG straight
-  to a vector PDF with the labels intact, and uses the same fonts as the slides.
-- **The diagram background is the deck background.** Chromium always prints white paper, so the
-  page is painted `#FFFCF7`. The slides use the same flat colour, so the seam is invisible.
-- **Diagram PDFs are committed.** The deck then rebuilds anywhere Tectonic runs, with no
-  Node/Chromium. Only re-run the Mermaid step when a `.mmd` changes.
-- **Rebuilt PDFs differ byte-for-byte** even when nothing changed, because Chromium and
-  Tectonic stamp a creation date. The rendering is identical; `git checkout` the artifacts
-  if a rebuild leaves noise in `git status`.
-
-## The optional Ralph image
-
-The "Meet Ralph" slide draws an image from `figures/ralph.png` if one is there, and lays itself out
-without it if not — so the deck builds either way. Drop a still in at roughly 4:3 and rebuild.
-
-Two things to know. A PDF cannot animate a GIF, so use a single frame (`magick ralph.gif[0]
-figures/ralph.png` picks the first one). And the obvious source is copyrighted, so choose an image
-you are comfortable using in a lecture — that call is not the build script's to make.
+- **Figures are macros, not files.** Three of them are "builds": the same canvas shown at
+  successive stages (`\gitgraph{1..5}`, `\agentstack{1..4}`) or the same ring with different
+  words (`\reactring`). Because nothing moves between slides, the eye only registers what was
+  added. Mermaid was tried first and dropped: it sized every diagram to its own content, so a
+  five-stage story jumped and rescaled, and its fonts and line weights never matched the cards.
+- **Icons are drawn** (`\icmodel`, `\icperson`, `\iclaptop`, `\icgear`): no icon font is
+  guaranteed on the presenting machine.
+- **Rebuilt PDFs differ byte-for-byte** even when nothing changed, because Tectonic stamps a
+  creation date. The rendering is identical; `git checkout` the artifacts if a rebuild leaves
+  noise in `git status`.
 
 ## Writing slides
 
@@ -73,9 +57,10 @@ you are comfortable using in a lecture — that call is not the build script's t
 \tanote{Speaker note — appears only in the notes build.}
 ```
 
-Also available: `steps` (numbered chips), `callout`, `\code{}`, `\pill{}`, `\lead{}`,
-`\muted{}`, `\diagram`/`\diagramtight` (the tight one has no `\vfill`; use it when the frame
-carries other content), and `\sectionslide{W4}{kicker}{Title}{subtitle}`.
+Also available: `steps` (numbered chips), `callout`, `\code{}`, `\codeline{}` (a chip big enough
+to carry a slide), `\pill{}`, `\muted{}`, `\roundedpic`, the `chatsaid`/`chatthinks` transcript
+environments, `\contextbar`, and `\sectionslide{W4}{kicker}{Title}{subtitle}`.
 
 Beamer will not reflow to fit: if a frame overruns, the build says
-`Overfull \vbox ... too high` and you trim it. Keep the build warning-free.
+`Overfull \vbox ... too high` and you trim it. Keep the build warning-free, and look at the
+rendered pages — a clean log says nothing about whether a label collides.

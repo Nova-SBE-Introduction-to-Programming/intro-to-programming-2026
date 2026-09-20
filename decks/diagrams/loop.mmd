@@ -1,8 +1,0 @@
-%%{init: {"themeVariables": {"fontSize": "20px"}}}%%
-flowchart LR
-  RED["RED"] --> B["BUILD"] --> RUN["RUN THE TESTS"] --> Q{"green?"}
-  Q -->|"yes"| STOP["STOP<br/>read the diff · click the app"]
-  Q -->|"no"| READ["READ THE FAILURE"]
-  READ --> B
-  READ -.->|"twice"| NEW["NEW THREAD"]
-  NEW -.-> B

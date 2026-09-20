@@ -5,4 +5,3 @@ __pycache__/
 
 # LaTeX deck build: sources and rendered figures are tracked, output is not
 decks/out/
-decks/vendor/

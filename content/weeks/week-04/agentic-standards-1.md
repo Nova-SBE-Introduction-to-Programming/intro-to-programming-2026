@@ -8,6 +8,15 @@ Three things every team that ships with AI agents does. They fit on one page and
 
 ## 0 · What an agent is
 
+Four words, in order, and each one adds one thing to the picture:
+
+| | What it is | What it adds |
+|---|---|---|
+| **Language model** | Text in, text out. Has never seen your folder; cannot run anything. | — |
+| **Tools** | Named actions it may *ask for*: read a file, edit a file, run a command. | The result comes back to the **model**, not to you |
+| **Agent** | Model + tools + a loop. Acts, sees the result, chooses again. | The loop |
+| **Harness** | The software around the model: runs the call, asks you first, keeps the conversation, loads `AGENTS.md`. Codex, Claude Code, Cursor. | The box all of it runs in |
+
 **A plain LLM writes.** ChatGPT in a browser predicts the next words of an answer. It has never seen your folder; it cannot open a file, run a test or check anything. You copy code in, you paste it out, you find out whether it works. When it says "the tests pass", that is a sentence that sounds right — nothing more.
 
 **An agent acts.** Codex on your repo is the same kind of model **plus tools, in a loop**. The tools are few: *read* a file, *edit* a file, *run* a command. The loop is: act, see the result, decide the next action, until the job is done or it needs you.
@@ -101,6 +110,10 @@ the tool being lazy; it is dropping the part the model was using worst.
 ```
 red  →  build  →  run the tests  →  read the failure  →  fix  →  run again  →  …  →  green  →  stop
 ```
+
+This is the ReAct ring from section 0 with the tests written into it: *reason* — read the failure,
+what does the last line say? · *act* — edit, then run the tests · *observe* — red, or green? · green
+means stop, read the diff, click the app.
 
 **One task per loop.** One bug, or one spec. Not "fix everything you see".
 

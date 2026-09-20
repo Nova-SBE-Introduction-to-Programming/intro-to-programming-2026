@@ -1,19 +1,13 @@
 #!/usr/bin/env bash
 # Build the Class 4 deck.
-#   ./build.sh                 diagrams + both PDFs, installed into the repo
-#   ./build.sh --no-diagrams   skip the Mermaid step (diagrams unchanged)
+#   ./build.sh
 #
-# Mermaid sources live in diagrams/, render to figures/*.pdf (committed).
+# Every figure is TikZ, drawn from macros in theme/; the only binary asset is figures/ralph.jpg.
 # LaTeX output goes to out/ (gitignored); the two PDFs are then installed:
 #   out/class-4.pdf        -> content/weeks/week-04/class-4.pdf   (published deck)
 #   out/class-4-notes.pdf  -> teaching/class-4-notes.pdf          (speaker notes, not published)
 set -euo pipefail
 cd "$(dirname "$0")"
-
-if [[ "${1:-}" != "--no-diagrams" ]]; then
-  echo "→ rendering Mermaid diagrams"
-  uv run --quiet --with playwright python render-diagrams.py
-fi
 
 mkdir -p out
 for src in class-4 class-4-notes; do
