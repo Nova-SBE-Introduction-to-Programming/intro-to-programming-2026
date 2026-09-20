@@ -753,34 +753,47 @@
 % ─────────────────────────────────────────────────────── the context window
 % A fixed-width bar filling up. Segments are proportional to what a real session looks like
 % after an hour: the rulebook is small, the files it read and the command output are not.
-% The window at minute one, zoomed in: what the model literally has in front of it, as cards in
-% one container. Tools, rulebook and your message are put there before the first thought; every
-% turn after is appended. The dashed arrow answers "how does it know which tool?": the tool's
-% one-line description is in the window too, a few lines above the thought that reaches for it.
-\newcommand{\ctxcard}[5]{% x y colour EYEBROW text
-  \path[rounded corners=1.8mm, fill=NovaBg] (#1,#2) rectangle ({#1+40},{#2-18});
-  \begin{scope}\clip[rounded corners=1.8mm] (#1,#2) rectangle ({#1+40},{#2-18});
-    \fill[#3] (#1,#2) rectangle ({#1+1.6},{#2-18});\end{scope}
-  \node[gp eyebrow=#3, anchor=north west] at ({#1+4},{#2-2.2}) {\lsp[13]{#4}};
-  \node[gp body, anchor=north west, align=left, text width=34mm, text=NovaFg,
-        execute at begin node={\hyphenpenalty=10000\relax}] at ({#1+4},{#2-6.4}) {#5};}
-\newcommand{\ctxinside}{%
+% The window as one page. Everything the model can see is a single long text, read top to
+% bottom before every word it writes: the tools' one-line descriptions, the rulebook, your
+% message, then its own thought, its call and the result, appended at the bottom. The bracket
+% answers "how does it know which tool?": the tool's line is on the page, above the thought.
+\tikzset{
+  pg tag/.style  ={rounded corners=1.1mm, fill=#1, text=NovaBg, font=\tiny\bfseries,
+                   inner xsep=1.4mm, inner ysep=0.9mm, anchor=west, minimum width=13mm},
+  pg line/.style ={font=\scriptsize, text=NovaFg, anchor=west, align=left, text width=50mm,
+                   inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}},
+}
+\newcommand{\pgrow}[4]{% y colour TAG text
+  \node[pg tag=#2] at (3,#1) {#3};
+  \node[pg line] at (19,#1) {#4};}
+\newcommand{\ctxpage}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-46) rectangle (134,5.5);
-    \node[gp eyebrow=NovaMuted] at (0,3.4) {\lsp[13]{THE WINDOW · MINUTE ONE · ONE LONG TEXT, TOP TO BOTTOM}};
-    \path[rounded corners=2.4mm, fill=NovaCard] (0,0) rectangle (134,-45.5);
-    \ctxcard{2.5}{-2.5}{NovaMuted}{TOOLS}{read a file · edit lines · run a command — one line each, from the harness, saying what it does.}
-    \ctxcard{45.5}{-2.5}{NovaYellow}{RULEBOOK}{Run the tests before saying done. Never edit a
-      test. State your assumptions.}
-    \ctxcard{88.5}{-2.5}{NovaBody}{YOU}{Bug 002: removing a member crashes the app.}
-    \ctxcard{2.5}{-25}{NovaPurple}{IT THINKS}{Where is a member removed? I have a tool that
-      reads files. Use it.}
-    \ctxcard{45.5}{-25}{NovaBlue}{TOOL CALL}{read: the file that holds the logic}
-    \ctxcard{88.5}{-25}{NovaBlue}{RESULT}{the whole file, 140 lines, now sitting in the window}
-    \node[font=\large\bfseries, text=NovaMuted] at (131,-34) {$\cdots$};
-    \draw[as arrow=NovaAccent, dash pattern=on 1.4mm off 0.9mm] (9,-25) -- (9,-20.5);
-    \node[as label=NovaAccent, anchor=west] at (11.5,-22.8) {the tool's own line is in the window
-      too — that is how it can be picked};
+    \useasboundingbox (0,-50.5) rectangle (134,5.5);
+    \node[gp eyebrow=NovaMuted] at (0,3.4) {\lsp[13]{ONE PAGE · EVERYTHING IT CAN SEE}};
+    \path[gp card=NovaBg] (0,0) rectangle (78,-50);
+    \draw[NovaLine, line width=0.9pt, rounded corners=3.6mm] (0,0) rectangle (78,-50);
+    \node[font=\tiny\bfseries, text=NovaMuted, anchor=west, inner sep=0pt] at (3,-3.2) {\lsp[12]{THERE BEFORE THE FIRST THOUGHT}};
+    \pgrow{-7.4}{NovaMuted}{TOOLS}{read a file · edit lines · run a command}
+    \pgrow{-13}{NovaYellow}{RULEBOOK}{Run the tests before saying done.}
+    \pgrow{-19.6}{NovaBody}{YOU}{Bug 002: removing a member crashes the app.}
+    \draw[NovaLine, line width=0.9pt] (3,-24.2) -- (75,-24.2);
+    \node[font=\tiny\bfseries, text=NovaMuted, anchor=west, inner sep=0pt] at (3,-26.8) {\lsp[12]{ADDED AS IT WORKS, AT THE BOTTOM}};
+    \pgrow{-31.6}{NovaPurple}{IT THINKS}{Where is a member removed? I have a tool that reads files.}
+    \pgrow{-38.6}{NovaBlue}{CALL}{read the file that holds the logic}
+    \pgrow{-44.6}{NovaBlue}{RESULT}{the whole file, 140 lines, now on the page}
+    % ── how it picks a tool
+    \draw[as arrow=NovaAccent, dash pattern=on 1.4mm off 0.9mm, rounded corners=1.5mm]
+      (71,-31.6) -- (75,-31.6) -- (75,-7.4) -- (70,-7.4);
+    \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=north west, align=left, text width=48mm,
+          inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}] at (85,-30.6) {the tool's own
+          line is on the page — that is how it knows which one to call};
+    % ── the reader
+    \begin{scope}[scale=2.2, shift={(49.5,-5.2)}]\icmodel[NovaPurple]{0}{0}\end{scope}
+    \draw[as arrow=NovaPurple] (100,-11.5) -- (81,-11.5);
+    \node[as label=NovaPurple, anchor=south] at (90.5,-10.7) {reads all of it};
+    \node[gp body, text width=46mm, anchor=north] at (109,-20.6) {before every word it writes};
+    \node[gp body, text width=46mm, anchor=north, text=NovaMuted] at (109,-43) {Nothing that is
+      not on the page exists for it.};
   \end{tikzpicture}%
 }
 % ────────────────────────────────────────────────── /context and /compact
