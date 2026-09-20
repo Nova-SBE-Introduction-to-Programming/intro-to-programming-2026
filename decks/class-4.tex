@@ -46,7 +46,7 @@ laptop: SplitIt with feature 1 merged, clean main, Codex open, GitHub Desktop si
 
 % ── 3 · check-in
 \hue{NovaTeal}
-\begin{frame}{Show me your GitHub page.}
+\begin{frame}{Your GitHub page.}
 \framesubtitle{Check-in · 5 min}
 \vspace*{\fill}
 \begin{itemize}
@@ -63,7 +63,7 @@ Don't debug git at the front: point at last week's "when git is confusing" slide
 
 % ═════════════════════════════════════════════ ACT 1 · what an agent is
 \hue{NovaPurple}
-\begin{frame}{A chat model \muted{writes}. An agent \textcolor{NovaAccent}{acts}.}
+\begin{frame}{Chat model, or agent.}
 \framesubtitle{What is an agent?}
 \vspace*{\fill}
 \begin{tcbitemize}[cardsS, raster columns=2]
@@ -81,17 +81,19 @@ powers. "Agentic" just means: can act, not only answer.}
 
 % ── 5 · what a tool is
 \hue{NovaPurple}
-\begin{frame}{Without tools it can only give \muted{advice}.}
-\framesubtitle{What is an agent? · Tools}
+\begin{frame}{Tools.}
+\framesubtitle{What is an agent?}
 \vspace*{\fill}
-\diagramtight[0.60\linewidth]{figures/tool-what.pdf}
+\diagramtight[0.54\linewidth]{figures/tool-what.pdf}
 \vskip3mm
 \begin{tcbitemize}[cardsS, raster columns=2]
-  \carditemplain{What a tool is}{A named action the model is allowed to ask for.
+  \carditemplain{What it is}{A named action the model is allowed to ask for.
     Read a file · edit a file · run a command.}
-  \carditemplain{Why it changes everything}{The result comes back \emph{to the model}. Without
+    \carditemplain{Why it matters}{The result comes back \emph{to the model}. Without
     tools you are the hands, and the only one who finds out.}
 \end{tcbitemize}
+\vskip4mm
+\muted{Without tools it can only give advice.}
 \vfill
 \end{frame}
 \tanote{The top lane is what they did all through Class 2 with a browser chat: the model advises,
@@ -102,7 +104,7 @@ almost everything; the next slide is the protocol.}
 
 % ── 5 · tool calls
 \hue{NovaPurple}
-\begin{frame}{How it reaches your files.}
+\begin{frame}{A tool call.}
 \framesubtitle{Tool calls}
 \diagram[0.80\linewidth]{figures/tool-call.pdf}
 \vskip1mm
@@ -118,8 +120,8 @@ words — "that's a read, that's an edit, that's a run" — so the diagram and t
 
 % ── 6b · one tool call in full
 \hue{NovaPurple}
-\begin{frame}{What goes back and forth.}
-\framesubtitle{Tool calls · one exchange, in full}
+\begin{frame}{One exchange, in full.}
+\framesubtitle{Tool calls · in full}
 \vspace*{\fill}
 \begin{tabular}{@{}r@{\hskip 5mm}l@{}}
   \eyebrow{you type}          & what was the last expense?                                         \\[3.4mm]
@@ -143,16 +145,16 @@ harness has its own wire format, and they never type it themselves.}
 
 % ── 7 · what reasoning is
 \hue{NovaPurple}
-\begin{frame}{Answer at once — or \textcolor{NovaAccent}{work it out}.}
-\framesubtitle{What is an agent? · Reasoning}
+\begin{frame}{Reasoning.}
+\framesubtitle{What is an agent?}
 \vspace*{\fill}
-\diagramtight[0.60\linewidth]{figures/reasoning.pdf}
+\diagramtight[0.57\linewidth]{figures/reasoning.pdf}
 \vskip1mm
 \begin{tcbitemize}[cardsS, raster row skip=2mm]
   \carditemplain{What it is}{Work it out in steps, \emph{then} decide — as you would on paper.}
   \carditemplain{The problem it solves}{A model answers in one pass — the same effort for
     \emph{2 + 2} as for your bug. The steps it writes \textbf{are} the extra thinking.}
-  \carditemplain{Why it matters here}{A guess at step one is still wrong at step ten.}
+  \carditemplain{Why it matters}{A guess at step one is still wrong at step ten.}
 \end{tcbitemize}
 \vskip1mm
 {\tiny\color{NovaMuted}Nye et al.\ (2021) scratchpads · Wei et al.\ (2022) chain-of-thought,
@@ -171,14 +173,14 @@ screen, which is why you still read the diff.}
 
 % ── 6 · ReAct
 \hue{NovaPurple}
-\begin{frame}{The loop has a name: \textcolor{NovaAccent}{ReAct}.}
-\framesubtitle{Reason · act · observe}
+\begin{frame}{The ReAct loop.}
+\framesubtitle{What is an agent?}
 \diagramtight[0.84\linewidth]{figures/react-loop.pdf}
 \vskip3mm
 \begin{tcbitemize}[cardsS, raster columns=2]
   \carditemplain{The harness}{It runs the tool, asks your permission and feeds the result back.
     Codex is one; so are Claude Code and Cursor.}
-  \carditemplain{Why you care}{They all run this same loop. Learn it once, and the tools are
+  \carditemplain{Why it matters}{They all run this same loop. Learn it once, and the tools are
     interchangeable.}
 \end{tcbitemize}
 \vskip2mm
@@ -193,8 +195,8 @@ you configuring the harness — the rulebook it loads, the judge it runs, the st
 
 % ── 10 · the long run-up
 \hue{NovaPurple}
-\begin{frame}{The ideas are sixty years old.}
-\framesubtitle{How we got here · the long run-up}
+\begin{frame}{The long run-up.}
+\framesubtitle{How we got here}
 \diagramtight[0.82\linewidth]{figures/prehistory.pdf}
 \vskip4mm
 \muted{The ideas were all there. \textbf{Something else was missing.}}
@@ -216,8 +218,8 @@ work.}
 
 % ── 11 · what actually changed
 \hue{NovaPurple}
-\begin{frame}{Compute and text arrived \textcolor{NovaAccent}{at the same time}.}
-\framesubtitle{How we got here · why it happened now}
+\begin{frame}{Why it happened now.}
+\framesubtitle{How we got here}
 \vspace*{\fill}
 \begin{tcbitemize}[cardsS, raster columns=2]
   \carditem{Compute}{Arithmetic got cheap}{In 2007 graphics cards became programmable. In 2012
@@ -244,8 +246,8 @@ about intelligence. If someone asks why this happened now and not in 1990, that 
 
 % ── 12 · chronology
 \hue{NovaPurple}
-\begin{frame}{Then eight years, four kinds of capability.}
-\framesubtitle{How we got here · 2018 onwards}
+\begin{frame}{2018 onwards.}
+\framesubtitle{How we got here}
 \diagram[1.0\linewidth]{figures/chronology.pdf}
 \vskip1mm
 \muted{The job changed twice: when it learned to take \textbf{instructions}, and when it got
@@ -264,7 +266,7 @@ release months on purpose.}
 
 % ── 9 · standard 1
 \hue{NovaYellow}
-\begin{frame}{\code{AGENTS.md} — read before anything else.}
+\begin{frame}{\code{AGENTS.md}}
 \framesubtitle{Standard 1 · The rulebook}
 \vspace*{\fill}
 \begin{tcbitemize}[cardsS]
@@ -283,7 +285,7 @@ Mention the 32 KB cap only if asked; the real cap is attention.}
 
 % ── 10 · the three rules
 \hue{NovaYellow}
-\begin{frame}{Three rules to add today.}
+\begin{frame}{Three rules.}
 \framesubtitle{Standard 1 · Live · 4 min}
 \vspace*{\fill}
 \begin{tcbitemize}[cardsS]
@@ -301,17 +303,19 @@ the diff aloud, accept, commit in GitHub Desktop. The third already existed in s
 
 % ── 11 · standard 2
 \hue{NovaAccent}
-\begin{frame}{Decide what \textcolor{NovaAccent}{done} means before you start.}
-\framesubtitle{Standard 2 · The judge}
+\begin{frame}{The judge.}
+\framesubtitle{Standard 2 · 5 min}
 \vspace*{\fill}
 \begin{tcbitemize}[cardsS, raster columns=2]
-  \carditem{It stops when it looks done}{So give it a check.}{Failing tests are the to-do list.
+  \carditem{The problem}{So give it a check.}{Failing tests are the to-do list.
     Green is the finish line.}
-  \carditem{Never move the goalposts}{Editing a test is cheating.}{It is not finishing.}
-  \carditem{Evidence, not claims}{Show me the output.}{Anyone can type ``all tests pass''.}
-  \carditem{Green is not done}{Read the diff. Click the app.}{App wrong, tests green? You found a
+  \carditem{The rule}{Editing a test is cheating.}{It is not finishing.}
+  \carditem{Evidence}{Show me the output.}{Anyone can type ``all tests pass''.}
+    \carditem{After green}{Read the diff. Click the app.}{App wrong, tests green? You found a
     missing test.}
 \end{tcbitemize}
+\vskip5mm
+\muted{Decide what \emph{done} means before you start.}
 \vfill
 \end{frame}
 \tanote{Run the red tests on stage (command on the Week 4 page) and open the test file next to the
@@ -320,8 +324,8 @@ form field is not tested at all, so only clicking the app catches a missing one.
 
 % ── 12 · standard 3
 \hue{NovaAccent}
-\begin{frame}{Red \arr build \arr run \arr fix \arr \textcolor{NovaTeal}{green}.}
-\framesubtitle{Standard 3 · The loop}
+\begin{frame}{The loop.}
+\framesubtitle{Standard 3 · 5 min}
 \diagram[1.0\linewidth]{figures/loop.pdf}
 \vskip1mm
 \begin{tcbitemize}[cardsS]
@@ -337,8 +341,8 @@ idea one level up is a script that re-feeds the prompt until the judge passes. P
 
 % ── 13 · the four parts of an ask
 \hue{NovaAccent}
-\begin{frame}{Every good ask has four parts.}
-\framesubtitle{Standard 3 · The shape of the ask}
+\begin{frame}{The shape of an ask.}
+\framesubtitle{Standard 3}
 \vspace*{\fill}
 \begin{tcbitemize}[cardsS, raster columns=4]
   \carditem{1}{The task}{One thing. Name the spec.}
@@ -356,8 +360,8 @@ read at the start of a thread.}
 
 % ── 14 · Ralph: the loop with nobody watching
 \hue{NovaAccent}
-\begin{frame}{Meet \textcolor{NovaAccent}{Ralph}.}
-\framesubtitle{Standard 3 · The loop with nobody watching}
+\begin{frame}{Ralph.}
+\framesubtitle{Standard 3 · nobody watching}
 \vspace*{\fill}
 % figures/ralph.png is optional: drop a still in and it appears beside the loop
 \IfFileExists{figures/ralph.png}{%
@@ -376,7 +380,7 @@ read at the start of a thread.}
 \begin{tcbitemize}[cardsS, raster columns=2]
   \carditemplain{What it is}{The same prompt, handed to a fresh agent again and again, until the
     judge says green.}
-  \carditemplain{Why it needs today}{Nobody is watching. The rulebook keeps it in bounds; the judge
+  \carditemplain{The catch}{Nobody is watching. The rulebook keeps it in bounds; the judge
     is all that can stop it.}
 \end{tcbitemize}
 \vfill
@@ -398,8 +402,8 @@ the way they already think: a draft, checkpoints, a review, a sign-off.}
 
 % ── git 1 · main
 \hue{NovaBlue}
-\begin{frame}{This is \code{main}.}
-\framesubtitle{Git · the version everyone trusts}
+\begin{frame}{\code{main}}
+\framesubtitle{Git · 1 of 6}
 \vspace*{\fill}
 \gitstory[0.318]{figures/git-story-1.pdf}
 \vskip6mm
@@ -410,8 +414,8 @@ the way they already think: a draft, checkpoints, a review, a sign-off.}
 
 % ── git 2 · branch
 \hue{NovaBlue}
-\begin{frame}{You never edit the original.}
-\framesubtitle{Git · a branch is your draft}
+\begin{frame}{A branch.}
+\framesubtitle{Git · 2 of 6}
 \vspace*{\fill}
 \gitstory{figures/git-story-2.pdf}
 \vskip6mm
@@ -422,8 +426,8 @@ from \code{main}, undisturbed.}
 
 % ── git 3 · commit
 \hue{NovaBlue}
-\begin{frame}{Every save point is a commit.}
-\framesubtitle{Git · checkpoints you can explain}
+\begin{frame}{A commit.}
+\framesubtitle{Git · 3 of 6}
 \vspace*{\fill}
 \gitstory{figures/git-story-3.pdf}
 \vskip6mm
@@ -434,8 +438,8 @@ back to any of them.}
 
 % ── git 4 · main has not moved
 \hue{NovaBlue}
-\begin{frame}{\code{main} has not moved.}
-\framesubtitle{Git · why this is safe}
+\begin{frame}{Working on a branch.}
+\framesubtitle{Git · 4 of 6}
 \vspace*{\fill}
 \gitstory{figures/git-story-4.pdf}
 \vskip6mm
@@ -445,8 +449,8 @@ back to any of them.}
 
 % ── git 5 · push and review
 \hue{NovaBlue}
-\begin{frame}{Until you push, it is only on your laptop.}
-\framesubtitle{Git · sending it for review}
+\begin{frame}{Push, and pull request.}
+\framesubtitle{Git · 5 of 6}
 \diagram[1.0\linewidth]{figures/git-roundtrip.pdf}
 \vskip1mm
 \muted{\textbf{Push} puts your draft where the team can see it. A \textbf{pull request} asks
@@ -455,8 +459,8 @@ someone to read the diff first. Today that someone is you, reviewing the agent.}
 
 % ── git 6 · merge
 \hue{NovaBlue}
-\begin{frame}{Once it is approved, it comes home.}
-\framesubtitle{Git · the sign-off}
+\begin{frame}{Merge.}
+\framesubtitle{Git · 6 of 6}
 \vspace*{\fill}
 \gitstory{figures/git-story-5.pdf}
 \vskip6mm
@@ -471,8 +475,8 @@ branch: it is finished, GitHub offers to delete it, say yes.}
 
 % ═════════════════════════════════════════════ ACT 4 · do it
 \hue{NovaTeal}
-\begin{frame}{Build one, live.}
-\framesubtitle{Live · Feature 2 · 10 min}
+\begin{frame}{Feature 2, live.}
+\framesubtitle{Live · 10 min}
 \vspace*{\fill}
 \begin{steps}
   \item \textbf{Branch.} Named after the spec.
@@ -493,7 +497,7 @@ rule, re-prompt.}
 
 % ── 19 · your turn
 \hue{NovaTeal}
-\begin{frame}{One bug on \code{main}. One feature on a branch.}
+\begin{frame}{One bug, then feature 2.}
 \framesubtitle{Your turn · 30 min}
 \vspace*{\fill}
 \begin{tcbitemize}[cardsS, raster columns=2]
@@ -515,8 +519,8 @@ Anyone still on feature 1 does that first; feature 2 becomes homework.}
 
 % ── 20 · when it goes wrong
 \hue{NovaAccent}
-\begin{frame}{Five things you will see.}
-\framesubtitle{When the loop goes wrong}
+\begin{frame}{When it goes wrong.}
+\framesubtitle{Your turn}
 \vspace*{\fill}
 \begin{steps}
   \item \textbf{It edited a test.} Discard. Say the rule. Run again.
@@ -532,7 +536,7 @@ Anyone still on feature 1 does that first; feature 2 becomes homework.}
 
 % ── 21 · retro
 \hue{NovaYellow}
-\begin{frame}{What did it get wrong? Write the rule.}
+\begin{frame}{Write one rule.}
 \framesubtitle{Retro · 6 min}
 \vspace*{\fill}
 \begin{itemize}
@@ -550,8 +554,8 @@ the diff before committing". Reject vague ones ("be careful"). Ask "how would yo
 
 % ── 22 · wrap
 \hue{NovaTeal}
-\begin{frame}{Next week you build alone.}
-\framesubtitle{Before next week}
+\begin{frame}{Before next week.}
+\framesubtitle{Class 4 · wrap}
 \vspace*{\fill}
 \begin{itemize}
   \item Feature 2: green, merged, pushed.
