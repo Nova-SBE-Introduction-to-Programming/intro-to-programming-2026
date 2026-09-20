@@ -23,7 +23,7 @@
 % ═════════════════════════════════════════════ ACT 0 · open
 \sectionslide[NovaTeal]{W4}{Block 1 · Class 4 · Practical}{Rules, judge, loop.}%
 {Last week you watched a feature get built. Today you build one.}
-\tanote{Timing: open + check-in 5 · what an agent is 15 · three standards 13 · git standards 7 ·
+\tanote{Timing: open + check-in 5 · what an agent is 17 · three standards 13 · git standards 5 ·
 live kick-off 10 · your turn 30 · retro 6 · wrap 2 = 88, plus the two dividers. TA-run. Slides carry ideas
 only: every command is on the Week 4 page, open on their laptops, and in these notes. Presenting
 laptop: SplitIt with feature 1 merged, clean main, Codex open, GitHub Desktop signed in, data reset.}
@@ -193,17 +193,72 @@ far better alternating a thought with an action and reading the result than answ
 Every harness since is that loop with better plumbing. The line to land: the three standards are
 you configuring the harness — the rulebook it loads, the judge it runs, the stop condition.}
 
-% ── 7 · chronology
+% ── 10 · the long run-up
 \hue{NovaPurple}
-\begin{frame}{Eight years, four kinds of capability.}
-\framesubtitle{How we got here}
+\begin{frame}{The ideas came first. By decades.}
+\framesubtitle{How we got here · the long run-up}
+\diagramtight[0.82\linewidth]{figures/prehistory.pdf}
+\vskip4mm
+\muted{Sixty years of theory. \textbf{What was missing was never the idea.}}
+\vfill
+\end{frame}
+\tanote{Ninety seconds, left to right. The dates are on the slide; the names and the story are
+here. 1958,
+Rosenblatt's perceptron: a machine that adjusts its own weights from examples instead of being
+programmed rule by rule. That is still the whole idea. 1969, Minsky and Papert's book
+\emph{Perceptrons}: one layer can only separate what a straight line separates, so it cannot learn
+XOR — about as simple as a function gets. Funding collapsed; the first AI winter. Careful with the
+attribution: Minsky did not invent multi-layer networks. Everyone knew more layers would fix XOR;
+nobody could train them — his critique is what made that the open problem. 1986, Rumelhart, Hinton
+and Williams in Nature: backpropagation sends the error back through every layer, so many layers
+finally become trainable. The answer to 1969, seventeen years late. 1997, Hochreiter and
+Schmidhuber: LSTM carries memory across a sequence. 2017, Vaswani et al.: the Transformer drops
+recurrence for attention and trains in parallel — every model two slides from now is one of these.
+If it comes up: Hinton shared the 2024 Nobel Prize in Physics with John Hopfield for this line of
+work.}
+
+% ── 11 · what actually changed
+\hue{NovaPurple}
+\begin{frame}{Compute and text arrived \textcolor{NovaAccent}{at the same time}.}
+\framesubtitle{How we got here · why it happened now}
+\vspace*{\fill}
+\begin{tcbitemize}[cardsS, raster columns=2]
+  \carditem{Compute}{Arithmetic got cheap}{2007 — graphics cards became programmable.
+    2012 — a network trained on two of them won the image contest outright.}
+  \carditem{Data}{The web became a corpus}{From 2007 — a non-profit crawling the public web and
+    giving it away. Billions of pages of text, free.}
+\end{tcbitemize}
+\vskip6mm
+\muted{Neural nets are not new. \textbf{Cheap parallel arithmetic and a scraped web are.}}
+\vskip3mm
+{\tiny\color{NovaMuted}NVIDIA CUDA (2007) · Krizhevsky, Sutskever \& Hinton, AlexNet (2012) ·
+Common Crawl (founded 2007, public crawls from 2011)}
+\vfill
+\end{frame}
+\tanote{This is the payoff of the previous slide, and the line to land: the ideas sat there for
+decades because the two things they needed had not arrived. \textbf{Compute} — NVIDIA's CUDA (2007)
+let ordinary programmers run their own maths on a graphics card, which is thousands of tiny
+arithmetic units built for game pixels and, as it turns out, exactly what a neural network needs.
+In 2012 AlexNet — Krizhevsky, Sutskever and Hinton — trained on two consumer GPUs and won the
+ImageNet competition with roughly half the error of the runner-up; that is the moment it became
+obvious to everyone. \textbf{Data} — Common Crawl, a non-profit founded in 2007 publishing
+full-scale crawls from 2011: the web itself, free, as a training corpus. Neither one is an idea
+about intelligence. If someone asks why this happened now and not in 1990, that is the whole
+answer.}
+
+% ── 12 · chronology
+\hue{NovaPurple}
+\begin{frame}{Then eight years, four kinds of capability.}
+\framesubtitle{How we got here · 2018 onwards}
 \diagram[1.0\linewidth]{figures/chronology.pdf}
 \vskip1mm
 \muted{The job changed twice: when it learned to take \textbf{instructions}, and when it got
 \textbf{tools and a loop}.}
 \vfill
 \end{frame}
-\tanote{Two minutes, one sweep left to right. Say the four band names as you go — completing,
+\tanote{Two minutes, one sweep left to right. Sixty years fitted onto the last two slides; these
+eight get their own because this is where the job changed, not just the size. Say the four band
+names as you go — completing,
 conversing, acting, persisting — that is the shape to remember, not the model names. If asked for
 an example of reasoning: an older model asked why the balances were wrong guesses a plausible edit;
 a reasoning model works the arithmetic out and lands on the actual line. Dates are approximate
