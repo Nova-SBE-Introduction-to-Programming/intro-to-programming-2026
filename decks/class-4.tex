@@ -25,8 +25,8 @@
 \tanote{Timing, dividers included: open + check-in 5 · git 7 · from a model to an agent 18 ·
 three standards 15 · live kick-off 10 · your turn 30 · retro 4 · wrap 1 = 90, no slack. Per-slide
 weights are in the plan, not on the slides. The GPT-2 block puts the lecture four minutes over:
-cut the two history slides (12–13) by default, run them only if ahead; the GPT-2 block (14–18) is
-the next cut. TA-run. Slides carry
+cut the history slides (12–14, NVIDIA included) by default, run them only if ahead; the GPT-2
+block (15–19) is the next cut. TA-run. Slides carry
 ideas only: every command is on the Week 4 page, open on their laptops, and in these notes.
 Presenting laptop: SplitIt with feature 1 merged, clean main, Codex open, GitHub Desktop signed in,
 data reset.}
@@ -255,6 +255,40 @@ graphics card, and in 2012 AlexNet trained on two of them and cut the ImageNet e
 data: Common Crawl, a non-profit giving the public web away as text. Neither is an idea about
 intelligence. If someone asks why this happened now and not in 1990, that is the answer. If it
 comes up: Hinton shared the 2024 Nobel Prize in Physics with Hopfield for this line of work.}
+
+% ── an aside: why NVIDIA
+% The one company the room has heard of, and the answer is a piece of software, which is the
+% point of the whole run-up slide: the ideas were old, the compute arrived.
+\hue{NovaPurple}
+\begin{frame}{Why NVIDIA?}
+\framesubtitle{How we got here · an aside · the answer is CUDA}
+\vspace*{\fill}
+\begin{tikzpicture}[overlay, remember picture]
+  \node[anchor=north west, inner sep=0pt] at ([xshift=13mm, yshift=-26.5mm]current page.north west)
+    {\includegraphics[width=26mm]{figures/nvidia-logo.pdf}};
+\end{tikzpicture}%
+\cudafig
+\vskip2mm
+\muted{The chip was built for games. CUDA let everyone else use it — and training a neural
+network is nothing but parallel arithmetic.}
+\vskip1mm
+{\tiny\color{NovaMuted}GeForce 256 (1999) · CUDA 1.0 (2007) · Krizhevsky et al.\ (2012), two GTX 580s ·
+first company past \$4 trillion, July 2025 · logo © NVIDIA}
+\vfill
+\end{frame}
+\tanote{A minute; it is an aside, but it is the one company name in the room everyone knows, and
+the answer is a software story, which is the run-up slide's point. Ask the question and take a
+guess or two (chips, AI). Then the answer: CUDA, 2007. A graphics card draws millions of pixels
+at once, and no pixel waits for another, so the chip is thousands of small slow workers instead of
+a few fast ones. That is the top-right picture. Until 2007 you could only use it by pretending
+your problem was a picture. CUDA let any programmer write ordinary maths for it. Then the same
+parallel trick found its uses in order: games, then crypto mining (billions of hashes, side by
+side: the 2017 and 2021 card shortages), then in 2012 AlexNet was trained on two gaming cards and
+cut the ImageNet error by nearly half, and today a language model is trained on tens of thousands
+of these chips at once, because training is nothing but multiplying big grids of numbers. The
+valuation: NVIDIA passed four trillion dollars in July 2025, the first company to; say "as of
+this year" and check the number the week you teach. The lesson to carry: the ideas were old, the
+compute arrived, and the thing that unlocked the compute was a piece of software.}
 
 % ── history 2 · 2018 onwards
 \hue{NovaPurple}

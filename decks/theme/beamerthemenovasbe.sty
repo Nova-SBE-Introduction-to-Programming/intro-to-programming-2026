@@ -712,6 +712,43 @@
   \end{tikzpicture}%
 }
 
+% ────────────────────────────────────────────────────────── why NVIDIA: CUDA
+% An aside in the history: the chip was built for games, CUDA let everyone else use it, and
+% neural-network training is nothing but parallel arithmetic. Top row: a CPU as a few big
+% workers against a GPU as a grid of tiny ones. Bottom row: the four uses, in order, with the
+% software step highlighted because it is the answer.
+\newcommand{\nvcard}[5]{%
+  \path[rounded corners=2.4mm, fill=#5, draw=none] (#1,-22) rectangle ({#1+30},-41);
+  \node[gp eyebrow=#4, anchor=north west] at ({#1+2.6},-24.4) {\lsp[13]{#2}};
+  \node[gp body, anchor=north west, align=left, text width=25mm,
+        execute at begin node={\hyphenpenalty=10000\relax}] at ({#1+2.6},-29) {#3};}
+\newcommand{\cudafig}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-41) rectangle (134,2);
+    % the question, beside the logo (placed by the frame)
+    \node[anchor=north west, align=left, text width=56mm, font=\normalsize\bfseries, text=NovaFg,
+          inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}] at (31,-1) {Why is NVIDIA the most valuable company in the world?};
+    \node[anchor=north west, align=left, font=\normalsize, text=NovaAccent, inner sep=0pt]
+      at (31,-13.5) {One piece of software.};
+    % a CPU: a few fast workers · a GPU: thousands of slow ones
+    \node[gp eyebrow=NovaMuted] at (90,0.4) {\lsp[13]{A CPU}};
+    \foreach \x in {90,96} {\foreach \y in {-3,-9} {\path[rounded corners=0.6mm, fill=NovaBody] (\x,\y) rectangle ({\x+5},{\y-5});}}
+    \node[as name, font=\tiny, text=NovaMuted, anchor=north west, align=left] at (90,-16) {a few, fast,\\one thing each};
+    \node[gp eyebrow=NovaTeal] at (106,0.4) {\lsp[13]{A GPU}};
+    \foreach \x in {106,108.2,...,132} {\foreach \y in {-3,-5.2,...,-14} {\fill[NovaTeal] (\x,\y) rectangle ({\x+1.6},{\y-1.6});}}
+    \node[as name, font=\tiny, text=NovaTeal, anchor=north west, align=left] at (106,-16) {thousands, slower,\\all at once};
+    % the four uses
+    \nvcard{0}{GAMES · 1999}{Millions of pixels, none waiting for another. Parallel by necessity.}{NovaMuted}{NovaCard}
+    \nvcard{34.7}{CUDA · 2007}{Any maths, by any programmer, on the games chip.}{NovaAccent}{NovaAccent!10!NovaBg}
+    \path[rounded corners=2.4mm, draw=NovaAccent, line width=0.9pt] (34.7,-22) rectangle (64.7,-41);
+    \nvcard{69.3}{MINING · 2010s}{The same trick: billions of hashes, side by side.}{NovaMuted}{NovaCard}
+    \nvcard{104}{TRAINING · 2012 $\rightarrow$}{AlexNet on two gaming cards. Today: thousands of chips, one model.}{NovaTeal}{NovaCard}
+    \draw[as arrow=NovaBody] (30.6,-31.5) -- (34.1,-31.5);
+    \draw[as arrow=NovaBody] (65.3,-31.5) -- (68.7,-31.5);
+    \draw[as arrow=NovaBody] (99.9,-31.5) -- (103.4,-31.5);
+  \end{tikzpicture}%
+}
+
 % ─────────────────────────────────────────────────────── the context window
 % A fixed-width bar filling up. Segments are proportional to what a real session looks like
 % after an hour: the rulebook is small, the files it read and the command output are not.

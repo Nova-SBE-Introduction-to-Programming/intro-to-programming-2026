@@ -8,7 +8,7 @@ decks/
   class-4-notes.tex             same deck, notes on a second screen
   theme/beamerthemenovasbe.sty  warm light theme: course palette, Inter + JetBrains Mono,
                                 and the figure macros (\gitgraph, \agentstack, \reactring, …)
-  figures/                      Liu et al. (2024) fig. 1, the only imported artwork
+  figures/                      ralph.jpg, Liu et al. (2024) fig. 1, the NVIDIA logo (Wikimedia SVG → PDF)
   build.sh                      both PDFs, installed into the repo
   out/                          LaTeX output (gitignored)
 ```
