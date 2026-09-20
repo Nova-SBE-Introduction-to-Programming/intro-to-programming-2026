@@ -36,6 +36,8 @@
 \definecolor{NovaYellow}{HTML}{A9750B}
 \definecolor{NovaPurple}{HTML}{6B5CA5}
 \definecolor{NovaBlue}{HTML}{2F7196}   % the git section
+\definecolor{NovaShadow}{HTML}{E7DCC9} % soft lift under cards
+\definecolor{NovaChip}{HTML}{F1E9DA}   % inline code tint
 
 % ─────────────────────────────────────────────────────────── fonts
 \setsansfont{Inter}[Ligatures=TeX, Numbers=Lining]
@@ -116,9 +118,13 @@
 % ─────────────────────────────────────────────────────────── building blocks
 % inline code chip
 \newcommand{\code}[1]{%
-  \tcbox[on line, boxsep=0pt, left=1.1mm, right=1.1mm, top=0.5mm, bottom=0.5mm,
-         colback=NovaCard, colframe=NovaLine, boxrule=0.4pt, arc=0.9mm]%
+  \tcbox[on line, boxsep=0pt, left=1.3mm, right=1.3mm, top=0.6mm, bottom=0.6mm,
+         colback=NovaChip, boxrule=0pt, arc=1.1mm]%
         {\monofont\small\color{NovaFg}#1}}
+
+% a filename or branch name used AS a frame title: the inline \code chip is \small, which
+% left these titles looking like a stray pill in an empty title bar
+\newcommand{\codetitle}[1]{{\monofont\color{NovaFg}#1}}
 
 % pill badge
 \newcommand{\pill}[2][NovaAccent]{%
@@ -127,12 +133,13 @@
     {\lsp[11]{\MakeUppercase{#2}}};}}
 
 % small tracked label, used above card headings
-\newcommand{\eyebrow}[2][NovaMuted]{{\scriptsize\bfseries\color{#1}\lsp[14]{\MakeUppercase{#2}}}}
+\newcommand{\eyebrow}[2][\novakickercolor]{{\scriptsize\bfseries\color{#1}\lsp[14]{\MakeUppercase{#2}}}}
 
 % cards: a raster of equal-height boxes
 \tcbset{novacard/.style={
-  enhanced, colback=NovaCard, colframe=NovaLine, boxrule=0.6pt, arc=3mm,
-  left=3.4mm, right=3.4mm, top=3.0mm, bottom=3.0mm,
+  enhanced, colback=NovaCard, boxrule=0pt, arc=3.6mm,
+  fuzzy shadow={0.35mm}{-0.35mm}{-0.25mm}{0.055mm}{NovaShadow},
+  left=4.2mm, right=4.2mm, top=3.6mm, bottom=3.6mm,
   fontupper=\small\raggedright\color{NovaBody}, valign=top,
   before upper={\hyphenpenalty=10000\exhyphenpenalty=10000}}}
 % used as \begin{tcbitemize}[cards] ... \end{tcbitemize}; override with raster columns=2.
@@ -142,7 +149,7 @@
   raster row skip=2.8mm, raster column skip=2.8mm, novacard}}
 % denser variant for four-up or text-heavy rows
 \tcbset{cardsS/.style={cards, fontupper=\footnotesize\raggedright\color{NovaBody},
-  left=2.9mm, right=2.9mm, top=2.5mm, bottom=2.5mm}}
+  left=3.6mm, right=3.6mm, top=3.1mm, bottom=3.1mm}}
 % \carditem{eyebrow}{heading}{body}
 \newcommand{\carditem}[3]{%
   \tcbitem \eyebrow{#1}\par\vskip1.9mm
@@ -153,8 +160,9 @@
 % numbered steps
 \newlist{steps}{enumerate}{1}
 \newcommand{\stepchip}[1]{%
-  \tikz[baseline=(c.base)]{\node[fill=NovaLine, text=NovaFg, rounded corners=1.1mm,
-    inner xsep=1.9mm, inner ysep=0.8mm, font=\footnotesize\bfseries](c){#1};}}
+  \tikz[baseline=(c.base)]{\node[fill=\novakickercolor!16!NovaBg, text=\novakickercolor,
+    rounded corners=1.2mm, inner xsep=2.0mm, inner ysep=0.9mm,
+    font=\footnotesize\bfseries](c){#1};}}
 \setlist[steps]{label=\protect\stepchip{\arabic*}, leftmargin=9mm, labelsep=3mm,
                 itemsep=1.7mm, topsep=1.6mm, parsep=0pt}
 % enumitem's \setlist wins over beamer's itemize template, so name the label here too
@@ -170,9 +178,11 @@
 \newcommand{\muted}[1]{{\color{NovaMuted}#1}}
 
 % a full-width quote/callout with an accent rule on the left
-\newtcolorbox{callout}[1][NovaAccent]{enhanced, colback=NovaCard, colframe=NovaLine,
-  boxrule=0.6pt, arc=3mm, left=5mm, right=4mm, top=3.2mm, bottom=3.2mm,
-  borderline west={2.6pt}{0pt}{#1}, fontupper=\raggedright\color{NovaFg}}
+\newtcolorbox{callout}[1][NovaAccent]{enhanced, colback=NovaCard, boxrule=0pt, arc=3.6mm,
+  left=5.4mm, right=4.4mm, top=3.6mm, bottom=3.6mm,
+  fuzzy shadow={0.35mm}{-0.35mm}{-0.25mm}{0.055mm}{NovaShadow},
+  borderline west={2.8pt}{0pt}{#1},
+  fontupper=\raggedright\color{NovaFg}}
 
 % section divider frame: \sectionslide{W4}{kicker}{Title}{subtitle}
 \newcommand{\sectionslide}[5][NovaTeal]{%

@@ -15,6 +15,7 @@ from playwright.sync_api import sync_playwright
 HERE = pathlib.Path(__file__).parent
 SRC, OUT = HERE / "diagrams", HERE / "figures"
 BG, FG, MUTED, LINE, CARD = "#FFFCF7", "#2E3A41", "#6E7D85", "#E6DCCC", "#F4EDE0"
+SOFT = "#EDE4D5"   # node outlines: present, but not a drawn box
 ORANGE, TEAL, YELLOW, PURPLE = "#D2552C", "#12897A", "#A9750B", "#6B5CA5"
 PAD = 6  # pt of breathing room around the artwork
 MERMAID_VERSION = "11.17.2"
@@ -31,10 +32,10 @@ CONFIG = {
                  "rotateCommitLabel": False, "mainBranchName": "main"},
     "themeVariables": {
         "background": "transparent", "fontFamily": "Inter, sans-serif", "fontSize": "18px",
-        "primaryColor": CARD, "primaryTextColor": FG, "primaryBorderColor": LINE,
-        "secondaryColor": CARD, "secondaryTextColor": FG, "secondaryBorderColor": LINE,
-        "tertiaryColor": CARD, "tertiaryTextColor": FG, "tertiaryBorderColor": LINE,
-        "lineColor": MUTED, "textColor": FG, "mainBkg": CARD, "nodeBorder": LINE,
+        "primaryColor": CARD, "primaryTextColor": FG, "primaryBorderColor": SOFT,
+        "secondaryColor": CARD, "secondaryTextColor": FG, "secondaryBorderColor": SOFT,
+        "tertiaryColor": CARD, "tertiaryTextColor": FG, "tertiaryBorderColor": SOFT,
+        "lineColor": MUTED, "textColor": FG, "mainBkg": CARD, "nodeBorder": SOFT,
         "clusterBkg": "transparent", "clusterBorder": LINE,
         "edgeLabelBackground": BG, "labelBoxBkgColor": CARD,
         "actorBkg": CARD, "actorBorder": TEAL, "actorTextColor": FG, "actorLineColor": LINE,
