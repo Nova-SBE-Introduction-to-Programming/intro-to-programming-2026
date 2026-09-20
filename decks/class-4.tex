@@ -446,41 +446,25 @@ and it is why a Ralph loop hands each run a fresh agent. If someone asks how big
 thousand words and growing, but the next slide is why the number is not the point.}
 
 % ── context rot
-% The U is the published shape, not decoration: performance is high at the ends of the window and
-% sags in the middle, which is also the argument for what compaction throws away.
+% Same bar as the slide before, twice: the wash over the middle is the published "lost in the
+% middle" shape drawn on the object they already know, and the second bar is what compaction does.
 \hue{NovaPurple}
 \begin{frame}{Context rot.}
 \framesubtitle{Why a long thread goes stale}
 \vspace*{\fill}
-\noindent%
-\begin{tikzpicture}[x=1mm, y=1mm]
-  \useasboundingbox (0,-7) rectangle (134,21);
-  \node[gp eyebrow=NovaMuted] at (0,17.6) {\lsp[13]{HOW WELL IT USES WHAT IS THERE}};
-  \draw[NovaLine, line width=0.9pt] (0,0) -- (134,0);
-  \draw[NovaAccent, line width=1.9pt] (2,14.5) .. controls (38,1.4) and (96,1.4) .. (132,14.5);
-  \node[gg dot=NovaAccent] at (2,14.5) {};
-  \node[gg dot=NovaAccent] at (132,14.5) {};
-  \node[gg dot=NovaMuted]  at (67,4.7) {};
-  \node[gp body, anchor=north west] at (0,-1.6) {the start of the thread};
-  \node[gp body, anchor=north]      at (67,-1.6) {everything in the middle};
-  \node[gp body, anchor=north east] at (134,-1.6) {what you just said};
-\end{tikzpicture}%
+\contextrot
 \vskip3mm
-\begin{tcbitemize}[cardsS, raster columns=3]
-  \carditemplain{It is measured}{Eighteen models tested. Every one got worse as the input grew,
-    well short of the limit.}
-  \carditemplain{Lost in the middle}{It uses the start and the end. The middle goes soft — and
-    that is where your bug is.}
-  \carditemplain{So: compact}{Keep a summary and what just happened, drop the rest. A
-    million-word window is not a memory.}
-\end{tcbitemize}
-\vskip2mm
-{\tiny\color{NovaMuted}Liu, N. F.\ et al.\ (2024). \emph{Lost in the Middle: How Language Models
-Use Long Contexts.} TACL 12 · arxiv.org/abs/2307.03172 · Chroma (2025), \emph{Context Rot}}
+\muted{It reads the ends well and the middle badly. Windows grew a hundredfold; that did not
+change.}
+\vskip1mm
+{\tiny\color{NovaMuted}Liu et al.\ (2024), \emph{Lost in the Middle}, TACL 12 ·
+Chroma (2025), \emph{Context Rot}: 18 models, every one worse as the input grew}
 \vfill
 \end{frame}
-\tanote{Windows went 8k, 32k, 128k, a million. The number on the box grew a hundredfold; how well
-the model uses the middle of it did not. Liu et al.\ measured the U shape in 2024 and it has held
+\tanote{Same bar as the previous slide, so point at it: an hour in, it is full, and the wash over the
+middle is how well the model reads each part. The pin is the point — the error they pasted is in
+the soft part. Windows went 8k, 32k, 128k, a million; the number on the box grew a hundredfold
+and the wash did not move. Liu et al.\ measured the U shape in 2024 and it has held
 for every model family since — Chroma re-ran it across eighteen models in 2025 and every one of
 them degraded with input length, including well short of the limit. Two things follow, and both
 are rules in the next act. Start a new thread rather than arguing in a long one. And compaction is

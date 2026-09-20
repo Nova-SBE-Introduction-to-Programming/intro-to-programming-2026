@@ -71,11 +71,15 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   (the loop). The standards are the ring, configured.
 - **Context is a bar, and context rot is the slide that justifies two rules.** The context slide
   draws the window as a fixed-width bar filling up — the rulebook a thin sliver at the left, the
-  files and command output most of it — so "the oldest part goes first" is visible. Then the U:
-  Liu et al. measured it (TACL 2024) and Chroma re-ran it across eighteen models in 2025 — every one
-  degraded with input length, well short of the limit. It explains why "start a new thread after
-  twice round" is standard 3, and why compaction is not the tool being lazy: it discards the part
-  the model was using worst and keeps the two parts it uses best. If you have the screen, run
+  files and command output most of it — so "the oldest part goes first" is visible. Context rot is
+  the *same bar*, an hour in and full, with the middle washed out and a pin on "the error you
+  pasted forty minutes ago"; underneath it, the same bar after compaction: the middle folded into
+  one purple paragraph, the last few turns kept, room again. The wash is the published shape —
+  Liu et al. measured it (TACL 2024) and Chroma re-ran it across eighteen models in 2025, every
+  one degrading with input length well short of the limit — drawn on the object they already know
+  instead of as a graph. It explains why "start a new thread after twice round" is standard 3, and
+  why compaction is not the tool being lazy: it discards the part the model was using worst and
+  keeps the two parts it uses best. If you have the screen, run
   `/context` then `/compact` and let them watch the bar drop.
 - **Ralph gets two slides because the picture is the argument.** The first is the crowd of
   identical Ralphs and nothing else: there is no single agent getting better at the task, there is a

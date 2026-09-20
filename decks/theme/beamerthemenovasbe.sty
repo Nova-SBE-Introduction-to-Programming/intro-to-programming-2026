@@ -14,7 +14,7 @@
 \RequirePackage{microtype}      % protrusion only; letterspacing is a fontspec feature under XeTeX
 \RequirePackage{graphicx}
 \RequirePackage{etoolbox}
-\usetikzlibrary{calc, arrows.meta, shadows}
+\usetikzlibrary{calc, arrows.meta, shadows, fadings}
 
 % slides are ragged right: justification on short measures opens rivers
 \AtBeginEnvironment{frame}{\raggedright}
@@ -466,6 +466,60 @@
     \node[as name, text=NovaBlue,   font=\scriptsize\bfseries] at (50,-9.4)  {every file it read};
     \node[as name, text=NovaTeal,   font=\scriptsize\bfseries] at (87,-9.4)  {every command's output};
     \node[as name, text=NovaMuted,  font=\scriptsize\bfseries] at (119,-9.4) {what is left};
+  \end{tikzpicture}%
+}
+
+% ───────────────────────────────────────────────────────────── context rot
+% The same bar as \contextbar, twice. First a thread that has filled the window, with a wash
+% over the middle: that is the published "lost in the middle" shape, shown on the object they
+% already know rather than as a graph. Then the same bar after compaction: the middle folded
+% into a summary, the ends kept, room again. pgf fadings rendered nothing here under XeTeX, so the
+% wash is 134 opaque strips mixed towards the page colour; wider strips band at projection size.
+\newcommand{\ctxseg}[3]{\fill[#3] (#1,0) rectangle (#2,-7);}
+% a segment drawn as opaque 1mm strips, each mixed towards the page colour by how far it sits
+% from the ends of the window (translucent strips over a flat fill left hairline seams)
+\newcommand{\ctxfade}[3]{%
+  \foreach \xa in {#1,...,\numexpr#2-1\relax} {
+    \pgfmathsetmacro{\pct}{100-88*max(0,1-((\xa+0.5-67)/57)^2)}
+    \fill[#3!\pct!NovaBg] (\xa,0) rectangle (\xa+1.04,-7);
+  }}
+\newcommand{\contextrot}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-36) rectangle (134,5);
+    % ── a long thread
+    \node[gp eyebrow=NovaMuted] at (0,2.6) {\lsp[13]{AN HOUR IN · THE WINDOW IS FULL}};
+    \begin{scope}
+      \clip[rounded corners=2mm] (0,0) rectangle (134,-7);
+      \ctxfade{0}{8}{NovaYellow}
+      \ctxfade{8}{34}{NovaBody}
+      \ctxfade{34}{92}{NovaBlue}
+      \ctxfade{92}{134}{NovaTeal}
+    \end{scope}
+    \draw[NovaLine, line width=0.9pt, rounded corners=2mm] (0,0) rectangle (134,-7);
+    \node[as name, text=NovaFg, font=\scriptsize\bfseries, anchor=north west] at (0,-8.2) {sharp};
+    \node[as name, text=NovaMuted, font=\scriptsize\bfseries] at (67,-8.2) {soft};
+    \node[as name, text=NovaFg, font=\scriptsize\bfseries, anchor=north east] at (134,-8.2) {sharp};
+    \node[gg dot=NovaAccent] at (52,-3.5) {};
+    \draw[NovaAccent, line width=0.8pt] (52,-6.5) -- (52,-11.5);
+    \node[as label=NovaAccent, anchor=north] at (52,-11.6) {the error you pasted forty minutes ago};
+    % ── compact
+    \draw[as arrow=NovaPurple] (100,-9) -- (100,-19.5);
+    \node[as label=NovaPurple, anchor=west] at (102.5,-14.5) {compact};
+    % ── the same window, after
+    \node[gp eyebrow=NovaMuted] at (0,-21.2) {\lsp[13]{AFTER · A SUMMARY, AND WHAT JUST HAPPENED}};
+    \begin{scope}[shift={(0,-24.5)}]
+      \path[rounded corners=2mm, fill=NovaCard] (0,0) rectangle (134,-7);
+      \begin{scope}
+        \clip[rounded corners=2mm] (0,0) rectangle (134,-7);
+        \ctxseg{0}{8}{NovaYellow}
+        \ctxseg{8}{40}{NovaPurple}
+        \ctxseg{40}{64}{NovaTeal}
+      \end{scope}
+      \draw[NovaLine, line width=0.9pt, rounded corners=2mm] (0,0) rectangle (134,-7);
+      \node[as name, text=NovaPurple, font=\scriptsize\bfseries] at (24,-8.2) {the middle, in a paragraph};
+      \node[as name, text=NovaTeal,   font=\scriptsize\bfseries] at (52,-8.2) {the last few turns};
+      \node[as name, text=NovaMuted,  font=\scriptsize\bfseries] at (99,-8.2) {room again};
+    \end{scope}
   \end{tikzpicture}%
 }
 
