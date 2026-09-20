@@ -56,7 +56,7 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   new to someone who has ever had a model reviewed before it went out — only the vocabulary is. The two habits that
   usually get announced as rules (name the branch after the job; keep commits small) fall out of slides 2 and 3
   instead.
-- **Reasoning gets shown, not described.** Slide 19 is a chat mock-up where it earns its keep. The
+- **Reasoning gets shown, not described.** Slide 20 is a chat mock-up where it earns its keep. The
   ask — *"make it so Ana doesn't owe anything"* — is genuinely ambiguous, and every reading of it
   moves somebody's money. Read it aloud and stop: the room will give you at least two readings,
   which is the point. Without the thinking block you get one of them at random and no way to tell
@@ -64,13 +64,13 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   is styled as the odd one out — no fill, dashed rule, italic — because it is not a message anyone
   sent. The definition ("worked out first, then answered") is in the kicker; the lineage is in the
   notes.
-- **ReAct is drawn once and reused, so it reads as the architecture rather than a diagram.** The ring
+- **ReAct is drawn once and reused, so it reads as the architecture rather than a diagram.** The loop
   — reason, act, observe, the "not yet" return underneath and the "done" exit to the right — is
-  slide 20 in Act 2 and slide 27 in Act 3 with the tests written into it: *read the failure* ·
+  slide 21 in Act 2 and slide 28 in Act 3 with the tests written into it: *read the failure* ·
   *edit, then run the tests* · *red, or green?* · *green: read the diff, click the app*. The bridge
-  at the `3` divider is that the ring has three places where you get a say: what it reads before
+  at the `3` divider is that the loop has three places where you get a say: what it reads before
   the first thought (the rulebook), what it observes (the judge), and when the return arrow stops
-  (the loop). The standards are the ring, configured.
+  (the loop). The standards are the loop, configured.
 - **Context is a bar; context rot is two measurements, shown as measurements.** The context slide
   draws the window as a fixed-width bar filling up — the rulebook a thin sliver at the left, the
   files and command output most of it — so "the oldest part goes first" is visible. Context rot
@@ -118,7 +118,7 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
 Four acts, each opened by its kicker colour: **teal** logistics · **blue** git · **violet** from a
 model to an agent · **amber/coral** the three standards. Three divider slides (`git`, `agent`, `3`)
 mark the turns. Three pictures carry the first half and each is *built* rather than shown: the git
-graph grows over six slides, the model-to-agent stack over four, and the ReAct ring appears once in
+graph grows over six slides, the model-to-agent stack over four, and the ReAct loop appears once in
 Act 2 and again in Act 3 with the tests in it. Say so on the agenda slide.
 
 | Min | Slides | What | Checkpoint |
@@ -127,9 +127,9 @@ Act 2 and again in Act 3 with the tests in it. Say so on the agenda slide.
 | 5–6 | 4 | Divider: **git**. | — |
 | 6–12 | 5–10 | **Act 1 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → local and remote → merge, approved. About a minute each — it is a build, so do not narrate it twice. | — |
 | 12–13 | 11 | Divider: **agent**. "The thing that will make those commits today is not you. So what is it?" | — |
-| 13–30 | 12–23 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) and one exhibit (GPT-2's unicorns, read aloud) · the stack in four moves: a language model · tools · an agent · the harness · **one exchange in full** (slowest slide in the act) · reasoning, watched (the model reaches for a tool mid-thought; the loop is drawn down the left edge, so the next slide only names it) · the ReAct ring · context · context rot. | — |
-| 30–31 | 24 | Divider: **three standards**. Bridge: the ring has three places you get a say. | — |
-| 31–45 | 25–34 | **Act 3 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · the loop (same ring, tests in it) · the four parts of an ask · Ralph, four slides (who he is · one run · the loop · the signs) · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
+| 13–30 | 12–23 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) and one exhibit (GPT-2's unicorns, read aloud) · the stack in four moves: a language model · tools · an agent · the harness · **one exchange in full** (slowest slide in the act) · reasoning, watched (the model reaches for a tool mid-thought; the loop is drawn down the left edge, so the next slide only names it) · the ReAct loop · context · context rot. | — |
+| 30–31 | 24 | Divider: **three standards**. Bridge: the loop has three places you get a say. | — |
+| 31–45 | 25–34 | **Act 3 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · the loop (same loop, tests in it) · the four parts of an ask · Ralph, four slides (who he is · one run · the loop · the signs) · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
 | 45–55 | 35 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
 | 55–85 | 36–37 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
 | 85–89 | 38 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
@@ -147,7 +147,7 @@ minutes belong to *your turn*, not to you.
 ## Exact prompts for the live part
 
 - Proof of the rulebook: *"What does AGENTS.md tell you to do?"*
-- Adding the rules: *"Under 'How to answer' in AGENTS.md, add these three lines: …"* — the verbatim wording is on the Week 4 page and in the handout (slide 25 shows only the three concepts: boundary, evidence, off-limits). Read the diff. Accept.
+- Adding the rules: *"Under 'How to answer' in AGENTS.md, add these three lines: …"* — the verbatim wording is on the Week 4 page and in the handout (slide 26 shows only the three concepts: boundary, evidence, off-limits). Read the diff. Accept.
 - The loop prompt (new thread): *"Build `specs/feature-2-categories.md`. Work only on the branch `feature-2-categories`. After every change, run `uv run pytest tests/test_feature_2.py` and keep going until all four tests pass. Do not edit anything in `tests/`. When they pass, paste the final test output and list every file you changed."*
 - After green: *"Show me the diff of every file you changed."* Then, in the browser: Add expense → category box? Group page → totals?
 

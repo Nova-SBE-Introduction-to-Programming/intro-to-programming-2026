@@ -3,7 +3,7 @@
 %   ./build.sh            → out/class-4.pdf and out/class-4-notes.pdf, installed into the repo
 %
 % Every figure is drawn in TikZ from macros in the theme. Three of them are "builds": the same
-% canvas shown at successive stages (\gitgraph, \agentstack) or the same ring with different
+% canvas shown at successive stages (\gitgraph, \agentstack) or the same loop with different
 % words (\reactring), so nothing moves between slides and the eye only registers what was added.
 \documentclass[aspectratio=169,10pt]{beamer}
 \usepackage{theme/beamerthemenovasbe}
@@ -22,8 +22,10 @@
 % ═════════════════════════════════════════════ ACT 0 · open
 \sectionslide[NovaTeal]{W4}{Block 1 · Class 4 · Practical}{Rules, judge, loop.}%
 {Last week you watched a feature get built. Today you build one.}
-\tanote{Timing: open + check-in 5 · git 6 · from a model to an agent 16 · three standards 13 ·
-live kick-off 10 · your turn 30 · retro 6 · wrap 2 = 88, plus the dividers. TA-run. Slides carry
+\tanote{Timing, dividers included: open + check-in 5 · git 7 · from a model to an agent 18 ·
+three standards 15 · live kick-off 10 · your turn 30 · retro 4 · wrap 1 = 90, no slack. Per-slide
+weights are in the plan, not on the slides. If behind at the agent divider, drop the two history
+slides and the unicorn. TA-run. Slides carry
 ideas only: every command is on the Week 4 page, open on their laptops, and in these notes.
 Presenting laptop: SplitIt with feature 1 merged, clean main, Codex open, GitHub Desktop signed in,
 data reset.}
@@ -44,7 +46,7 @@ data reset.}
 \vfill
 \end{frame}
 \tanote{Three pictures carry the first half, and each one is built up over several slides rather
-than shown at once: the git graph, the model-to-agent stack, and the ReAct ring. Say so: "you will
+than shown at once: the git graph, the model-to-agent stack, and the ReAct loop. Say so: "you will
 see the same picture grow." That is the whole visual method of the class.}
 
 % ── 3 · check-in
@@ -60,7 +62,7 @@ see the same picture grow." That is the whole visual method of the class.}
 \muted{Not there yet? Start there today.}
 \vfill
 \end{frame}
-\tanote{Walk the room looking at browsers, not code. Two minutes per row; note who is behind.
+\tanote{Walk the room looking at browsers, not code. Thirty seconds a row; note who is behind, move on.
 They can pull main and run the feature-1 tests while you walk; the command is on the Week 4 page.
 Don't debug git at the front: the next six slides are the explanation, and the page has the
 "when git is confusing" table from last week.}
@@ -119,7 +121,7 @@ back to any of them.}
 \vspace*{\fill}
 \gitgraph{4}
 \vskip6mm
-\muted{Three commits in and half of it broken. Everyone else's copy is untouched.}
+\muted{Two commits in and half of it broken. Everyone else's copy is untouched.}
 \vfill
 \end{frame}
 
@@ -164,8 +166,9 @@ back to any of them.}
   \screen{86}{-29}
   \draw[gg lane=NovaTeal] (93,-33.5) -- (127,-33.5);
   \node[gg dot=NovaTeal] at (99,-33.5) {}; \node[gg dot=NovaTeal] at (110,-33.5) {}; \node[gg dot=NovaTeal] at (121,-33.5) {};
-  \draw[gg lane=NovaLine, dash pattern=on 1.2mm off 1mm] (104,-33.5) .. controls (108,-33.5) and (107,-40) .. (111,-40) -- (124,-40);
-  \node[gg note, anchor=north west, text=NovaMuted, font=\tiny] at (92,-38.6) {your branch: not until they pull};
+  \draw[gg lane=NovaLine, dash pattern=on 1.2mm off 1mm] (123,-33.5) .. controls (125.5,-33.5) and (125,-40) .. (127.5,-40) -- (131,-40);
+  \node[gg note, anchor=north west, align=left, text=NovaBody, font=\scriptsize] at (91,-36.8)
+    {your branch:\\not until they pull};
   \node[gp eyebrow=NovaMuted, anchor=north] at (109,-48.2) {\lsp[13]{A TEAMMATE · LOCAL}};
 \end{tikzpicture}%
 \vskip0.8mm
@@ -215,19 +218,20 @@ sentence. If you are behind, the two history slides are the ones to cut.}
 \vskip3mm
 \noindent%
 \begin{tikzpicture}
-  \useasboundingbox (0,-21mm) rectangle (0.994\linewidth,12mm);
-  \tlband{0.01}{0.17}{NovaMuted}{the idea}
-  \tlband{0.21}{0.37}{NovaYellow}{the winter}
-  \tlband{0.41}{0.77}{NovaAccent}{the answers}
-  \tlband{0.81}{0.98}{NovaPurple}{the shape}
+  % to scale: x = 0.08 + (year - 1958) / 59 * 0.84, so the seventeen-year winter is visible
+  \useasboundingbox (0,-32mm) rectangle (0.994\linewidth,12mm);
+  \tlband{0.01}{0.16}{NovaMuted}{the idea}
+  \tlband{0.20}{0.45}{NovaYellow}{the winter}
+  \tlband{0.48}{0.80}{NovaAccent}{the answers}
+  \tlband{0.84}{0.98}{NovaPurple}{the shape}
   \draw[tl axis] (0,0) -- (\linewidth,0);
-  \tlstop{0.10}{NovaMuted}{1958}{Perceptron}{learns from examples}{17mm}
-  \tlstop{0.29}{NovaYellow}{1969}{\emph{Perceptrons}}{one layer cannot do XOR}{20mm}
-  \tlstop{0.49}{NovaAccent}{1986}{Backpropagation}{many layers, trainable at last}{20mm}
-  \tlstop{0.69}{NovaAccent}{1997}{LSTM}{memory across a sequence}{20mm}
-  \tlstop{0.89}{NovaPurple}{2017}{Transformer}{attention, and it scales}{20mm}
+  \tlstop{0.08}{NovaMuted}{1958}{Perceptron}{learns from examples}{17mm}
+  \tlstop{0.237}{NovaYellow}{1969}{\emph{Perceptrons}}{one layer cannot do XOR}{20mm}
+  \tlstop{0.479}{NovaAccent}{1986}{Backpropagation}{many layers, trainable at last}{20mm}
+  \tlstop[11mm]{0.635}{NovaAccent}{1997}{LSTM}{memory across a sequence}{20mm}
+  \tlstop{0.92}{NovaPurple}{2017}{Transformer}{attention, and it scales}{20mm}
 \end{tikzpicture}%
-\vskip10mm
+\vskip1.5mm
 \muted{The ideas were all there. What was missing arrived after 2007: \textbf{cheap parallel
 arithmetic} (graphics cards) and \textbf{the web as text}.}
 \vskip2mm
@@ -246,7 +250,7 @@ finally become trainable. The answer to 1969, seventeen years late. 1997, Hochre
 Schmidhuber: LSTM carries memory across a sequence. 2017, Vaswani et al.: the Transformer drops
 recurrence for attention and trains in parallel. Then the caption, which is the payoff: none of
 this is new. What arrived was compute — CUDA in 2007 let ordinary programmers run their maths on a
-graphics card, and in 2012 AlexNet trained on two of them and halved the error at ImageNet — and
+graphics card, and in 2012 AlexNet trained on two of them and cut the ImageNet error by nearly half (15\% against 26\%) — and
 data: Common Crawl, a non-profit giving the public web away as text. Neither is an idea about
 intelligence. If someone asks why this happened now and not in 1990, that is the answer. If it
 comes up: Hinton shared the 2024 Nobel Prize in Physics with Hopfield for this line of work.}
@@ -266,7 +270,7 @@ comes up: Hinton shared the 2024 Nobel Prize in Physics with Hopfield for this l
   \draw[tl axis] (0,0) -- (\linewidth,0);
   \tlstop{0.06}{NovaMuted}{2018}{GPT-1}{continues text}{19mm}
   \tlstop[11mm]{0.19}{NovaMuted}{2019}{GPT-2}{coherent paragraphs}{19mm}
-  \tlstop{0.32}{NovaYellow}{2020}{GPT-3, Codex}{learns from the prompt}{19mm}
+  \tlstop{0.32}{NovaYellow}{2020–21}{GPT-3, Codex}{learns from the prompt}{19mm}
   \tlstop[11mm]{0.45}{NovaYellow}{2022}{ChatGPT}{follows instructions}{19mm}
   \tlstop{0.58}{NovaAccent}{2023}{GPT-4}{tool calling}{19mm}
   \tlstop[11mm]{0.71}{NovaAccent}{2024}{Reasoning}{thinks before it acts}{19mm}
@@ -277,16 +281,16 @@ comes up: Hinton shared the 2024 Nobel Prize in Physics with Hopfield for this l
   \node[tl param=NovaMuted]  at (0.19\linewidth, -30mm) {1.5B};
   \node[tl param=NovaYellow] at (0.32\linewidth, -30mm) {175B};
   \node[tl param=NovaMuted, font=\scriptsize] at (0.45\linewidth, -30mm) {not published};
-  \node[tl param=NovaAccent] at (0.58\linewidth, -30mm) {$\approx$1.8T\,{\normalfont\color{NovaMuted}(leak)}};
+  \node[tl param=NovaMuted] at (0.58\linewidth, -30mm) {$\approx$1.8T\,{\normalfont(leak)}};
   \node[tl param=NovaMuted, font=\scriptsize] at (0.71\linewidth, -30mm) {not published};
-  \node[tl param=NovaMuted, font=\scriptsize\itshape, anchor=north east] at (\linewidth, -30mm)
-    {$\leftarrow$ parameters};
+  \node[tl param=NovaLine] at (0.84\linewidth, -30mm) {—};
+  \node[tl param=NovaLine] at (0.93\linewidth, -30mm) {—};
 \end{tikzpicture}%
 \vskip3mm
 \muted{The job changed twice: when it learned to take \textbf{instructions}, and when it got
 \textbf{tools and a loop}. The next four slides are that second change.}
 \vskip1mm
-{\tiny\color{NovaMuted}Parameters: Radford et al.\ (2018, 2019), Brown et al.\ (2020) · GPT-4: an
+{\tiny\color{NovaMuted}Bottom row, parameters: Radford et al.\ (2018, 2019), Brown et al.\ (2020) · GPT-4: an
 unconfirmed 2023 report (SemiAnalysis) · none published since}
 \vfill
 \end{frame}
@@ -456,7 +460,7 @@ Three ways to do it: delete her expenses, mark her settled, or take her out of t
 Two of those move Bruno's and Carla's numbers. One doesn't.
 \end{turnthinks}
 \vskip1mm
-\begin{turn}[NovaPurpleBg]{answer}{NovaPurple}
+\begin{turn}[NovaPurpleBg]{answer}{NovaTeal}
 Marked Ana settled up; Bruno and Carla are unchanged. Deleting her expenses would move theirs
 too — say so if you meant that.
 \end{turn}
@@ -479,7 +483,7 @@ and a worked answer look equally confident on screen, which is why you still rea
 to standard 1: "state your assumption" is a rule you can put in AGENTS.md.}
 
 % ── ReAct
-% The one architecture the class rests on. The same ring comes back in Act 3 with the tests in
+% The one architecture the class rests on. The same loop comes back in Act 3 with the tests in
 % the OBSERVE card, so the standards read as this loop configured, not as three separate tips.
 \hue{NovaPurple}
 \begin{frame}{The loop has a name: ReAct.}
@@ -498,7 +502,7 @@ plumbing.}
 \vfill
 \end{frame}
 \tanote{ReAct = "Reasoning and Acting", Yao et al.\ 2022: a model does far better alternating a
-thought with an action and reading the result than answering in one go. This ring is the picture
+thought with an action and reading the result than answering in one go. This loop is the picture
 to remember from today; it comes back in Act 3 with the tests in the observe card, and the three
 standards are you configuring it: the rulebook it reads before the first thought, the judge it
 observes, and when the "not yet" arrow stops. Point at the three cards and the two arrows, and
@@ -514,16 +518,17 @@ then at the stack from three slides ago: same thing, unrolled.}
 \begin{tcbitemize}[cardsS, raster columns=2]
   \carditemplain{What it is}{The whole conversation: every file it opened and every command it
     ran is still in there, taking up room.}
-  \carditemplain{Why it matters}{Fixed size. When it fills, the oldest part goes first — usually
-    your instructions.}
+  \carditemplain{Why it matters}{Fixed size. When it fills, the tool folds the middle into a
+    summary — and the middle is where the files it read went.}
 \end{tcbitemize}
 \vfill
 \end{frame}
 \tanote{If you have the screen, type /context in Codex or Claude Code and it draws the same bar.
 Two things to point at. The rulebook is the thin sliver at the left: small, and it is read once, at
 the start. The files and the command output are most of it, and they arrive on their own. When it
-runs out the tool drops the oldest part, which is usually your original instructions. That is the
-reason behind the rule in standard 3 — after twice round on the same failure, start a new thread —
+runs out the tool compacts: it folds the middle of the conversation into a short summary and keeps
+the rulebook and the recent turns, so the rules survive and the files it read an hour ago become
+the blurred part. That is the reason behind the rule in standard 3 — after twice round on the same failure, start a new thread —
 and it is why a Ralph loop hands each run a fresh agent. If someone asks how big: a few hundred
 thousand words and growing, but the next slide is why the number is not the point.}
 
@@ -534,7 +539,7 @@ thousand words and growing, but the next slide is why the number is not the poin
 % PNG's fonts vanish at slide size: a trivial task, and every line falls as the input grows.
 \hue{NovaPurple}
 \begin{frame}{Context rot.}
-\framesubtitle{Why a long thread goes stale · so: new thread, or compact}
+\framesubtitle{Why a long thread goes stale · so: start a new thread}
 \vspace*{\fill}
 \noindent\begin{minipage}[t]{0.33\linewidth}
   \eyebrow[NovaMuted]{Where the answer sits}\par\vskip1.6mm
@@ -545,8 +550,8 @@ thousand words and growing, but the next slide is why the number is not the poin
 \begin{minipage}[t]{0.62\linewidth}
   \eyebrow[NovaMuted]{How long the input is}\par\vskip1.6mm
   \chromachart\par\vskip1.8mm
-  {\scriptsize\raggedright\color{NovaBody}Four 2025 models copying a list of words. Every one
-  falls from a few hundred tokens on — nowhere near the window.\par}
+  {\scriptsize\raggedright\color{NovaBody}Four 2025 models copying words. Three fall from a few
+  hundred tokens on; all flatten long before the window fills.\par}
 \end{minipage}
 \vskip1.5mm
 {\tiny\color{NovaMuted}Liu et al.\ (2024), \emph{Lost in the Middle}, TACL 12, fig.\ 1
@@ -568,7 +573,7 @@ uses best. If you have the screen, run /context and then /compact so they see th
 % ═════════════════════════════════════════════ ACT 3 · three standards
 \sectionslide[NovaAccent]{3}{The core of the class}{Three standards.}%
 {A rulebook it reads. A judge it cannot argue with. A loop that knows when to stop.}
-\tanote{Say the bridge out loud: the ring from ten minutes ago has three places where you get a
+\tanote{Say the bridge out loud: the loop from ten minutes ago has three places where you get a
 say — what it reads before the first thought, what it observes, and when the return arrow stops.
 Those are the three standards, in that order.}
 
@@ -595,7 +600,7 @@ cap is attention.}
 % ── the three rules
 \hue{NovaYellow}
 \begin{frame}{Three rules.}
-\framesubtitle{Standard 1 · Live · 4 min}
+\framesubtitle{Standard 1 · Live}
 \vspace*{\fill}
 \begin{tcbitemize}[cardsS]
   \carditem{Boundary}{One branch per spec.}{Never straight to \code{main}.}
@@ -614,11 +619,11 @@ explicit, and the student enforces it. Codex only reads AGENTS.md at the start o
 % ── standard 2
 \hue{NovaAccent}
 \begin{frame}{The judge.}
-\framesubtitle{Standard 2 · 5 min}
+\framesubtitle{Standard 2}
 \vspace*{\fill}
 \begin{tcbitemize}[cardsS, raster columns=2]
-  \carditem{The problem}{So give it a check.}{Failing tests are the to-do list.
-    Green is the finish line.}
+  \carditem{The problem}{It stops when it looks done.}{So give it a check: failing tests are the
+    to-do list, green is the finish line.}
   \carditem{The rule}{Editing a test is cheating.}{It is not finishing.}
   \carditem{Evidence}{Show me the output.}{Anyone can type ``all tests pass''.}
   \carditem{After green}{Read the diff. Click the app.}{App wrong, tests green? You found a
@@ -632,10 +637,10 @@ explicit, and the student enforces it. Codex only reads AGENTS.md at the start o
 spec: one test per checklist line. "Green is not done" is the card that pays off today: feature 2's
 form field is not tested at all, so only clicking the app catches a missing one.}
 
-% ── standard 3 · the same ring, with the tests in it
+% ── standard 3 · the same loop, with the tests in it
 \hue{NovaAccent}
 \begin{frame}{The loop.}
-\framesubtitle{Standard 3 · 5 min · the ReAct ring, with the tests in it}
+\framesubtitle{Standard 3 · the ReAct loop, with the tests in it}
 \vspace*{\fill}
 \reactring{read the failure: \emph{what does the last line say?}}%
           {edit, then run the tests}%
@@ -650,7 +655,7 @@ form field is not tested at all, so only clicking the app catches a missing one.
 \end{tcbitemize}
 \vfill
 \end{frame}
-\tanote{Same ring as Act 2, on purpose: point back to it. The rulebook is what it read before the
+\tanote{Same loop as Act 2, on purpose: point back to it. The rulebook is what it read before the
 first card, the judge is the observe card, and standard 3 is what the red arrow is allowed to do.
 Today the loop runs inside one Codex turn and you watch; the same idea one level up is a script
 that re-feeds the prompt until the judge passes, which is the last three slides of this act.}
@@ -699,7 +704,7 @@ them, and the next three slides show why that works.}
 \ralphloop{1}
 \vskip3mm
 \muted{A file of instructions. A fresh agent reads it, works in the repo, and the tests say
-red or green. So far, this is the ring from Act 2 with the four parts of an ask in it.}
+red or green. So far, this is the loop from Act 2, with the four parts of an ask in it.}
 \vfill
 \end{frame}
 \tanote{Forty seconds. Walk the row left to right and name each thing as something they already
@@ -809,7 +814,7 @@ first.}
 \end{steps}
 \vfill
 \end{frame}
-\tanote{Let it loop for real; 2-4 rounds is normal. Narrate it as the ring: "that's a read, that's
+\tanote{Let it loop for real; 2-4 rounds is normal. Narrate it as the loop: "that's a read, that's
 an edit, that's a run — red — round again." Commands and file names are on the Week 4 page if you
 want them on screen. The two things it commonly misses on this feature: it forgets to refresh the
 data files from the seed (tests stay green while the app crashes on load) and it never adds the
@@ -846,7 +851,7 @@ return zero. Anyone still on feature 1 does that first; feature 2 becomes homewo
 \begin{steps}
   \item \textbf{It edited a test.} Discard. Say the rule. Run again.
   \item \textbf{``Done'' — tests red.} Ask for the output.
-  \item \textbf{Same failure, three times.} Stop. Read it yourself. New thread.
+  \item \textbf{Same failure, twice.} Stop. Read it yourself. New thread.
   \item \textbf{It fixed three other things.} Discard. One task per loop.
   \item \textbf{Green, app wrong.} Write down what the judge missed.
 \end{steps}
@@ -885,7 +890,7 @@ this?".}
   \item Push before you close the laptop.
 \end{itemize}
 \vskip9mm
-{\displayfont\Large\bfseries\color{NovaFg}Rulebook \textcolor{NovaMuted}{·} judge
+{\displayfont\Large\bfseries\color{NovaFg}Rules \textcolor{NovaMuted}{·} judge
 \textcolor{NovaMuted}{·} loop.}
 \vfill
 \end{frame}

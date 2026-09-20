@@ -102,7 +102,7 @@ Live on SplitIt: the three lines go into `AGENTS.md`, feature 2 starts on a bran
 Copy these under **How to answer** in your own `AGENTS.md`, read the diff, then commit and push.
 
 ```
-- Build each spec on a branch named after it, e.g. feature-2-categories. Never commit to main directly.
+- Build each spec on a branch named after it, e.g. feature-2-categories. Never commit a feature to main directly.
 - After every change, run the tests for the task and paste the final output. The output is the proof, not a sentence.
 - Never edit, delete or skip anything in tests/. If a test looks wrong, say so and stop.
 ```
@@ -138,7 +138,7 @@ Copies of the specs, the bug reports and the standards sheet are in the material
 |---|---|
 | It edited a test | *Discard changes* on that file in GitHub Desktop. Say: "never edit tests/". Run again. |
 | It says "done" but the tests are red | "Paste the test output." The output is the judge, not the sentence. |
-| Same failure three times in a row | Stop. Read the failure yourself: the last line says what, the line above says where. New thread, better prompt. |
+| Same failure twice in a row | Stop. Read the failure yourself: the last line says what, the line above says where. New thread, better prompt. |
 | It fixed three other things too | Discard them. One task per loop. Ask again for the one thing. |
 | Tests green, app wrong | The judge missed something. Write down what — that is a test that should exist. Fix by hand or re-prompt with the symptom. |
 

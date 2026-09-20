@@ -88,7 +88,7 @@ the tool being lazy; it is dropping the part the model was using worst.
 **The three rules you add today.** A boundary, an evidence rule, and one thing that is off-limits:
 
 ```
-- Build each spec on a branch named after it, e.g. feature-2-categories. Never commit to main directly.
+- Build each spec on a branch named after it, e.g. feature-2-categories. Never commit a feature to main directly.
 - After every change, run the tests for the task and paste the final output. The output is the proof, not a sentence.
 - Never edit, delete or skip anything in tests/. If a test looks wrong, say so and stop.
 ```
@@ -111,7 +111,7 @@ the tool being lazy; it is dropping the part the model was using worst.
 red  →  build  →  run the tests  →  read the failure  →  fix  →  run again  →  …  →  green  →  stop
 ```
 
-This is the ReAct ring from section 0 with the tests written into it: *reason* — read the failure,
+This is the ReAct loop from section 0 with the tests written into it: *reason* — read the failure,
 what does the last line say? · *act* — edit, then run the tests · *observe* — red, or green? · green
 means stop, read the diff, click the app.
 
