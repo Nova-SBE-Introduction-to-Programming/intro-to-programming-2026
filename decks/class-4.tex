@@ -2,8 +2,9 @@
 %
 %   ./build.sh            → build/class-4.pdf and build/class-4-notes.pdf
 %
-% Diagrams are authored in Mermaid under diagrams/ and rendered to PDF by
-% render-diagrams.py; this file only includes the results.
+% Loops and transcripts are authored in Mermaid under diagrams/ and rendered to PDF by
+% render-diagrams.py; this file only includes the results. The timelines and the git act are
+% drawn in TikZ instead — see the theme: Mermaid could not hold them still or fill the width.
 \documentclass[aspectratio=169,10pt]{beamer}
 \usepackage{theme/beamerthemenovasbe}
 % \tanote{} blocks are written once; the notes build shows them on a second screen.
@@ -452,17 +453,18 @@ are not housekeeping. They are what stands between you and an agent confidently 
 % ═════════════════════════════════════════════ ACT 3 · git, as one story
 \sectionslide[NovaBlue]{git}{How a team stays sane}{One change, start to finish.}%
 {\code{main} is the version everyone trusts. Here is how a change gets into it.}
-\tanote{Seven minutes for the whole story. The graph grows by one move per slide, so each takes
-about forty seconds. They met repo, commit, branch and push last week as words; this is the same
-four words as a single narrative, in the shape they will actually see in GitHub Desktop. Frame it
-the way they already think: a draft, checkpoints, a review, a sign-off.}
+\tanote{Five minutes for the whole story, about fifty seconds a slide. Four of the six are the
+previous picture plus one move, so do not narrate them twice — point at what is new and go on.
+They met repo, commit, branch and push last week as words; this is the same words as a single
+narrative, in the shape they will actually see in GitHub Desktop. Frame it the way they already
+think: a draft, checkpoints, a review, a sign-off.}
 
 % ── git 1 · main
 \hue{NovaBlue}
 \begin{frame}{\codetitle{main}}
 \framesubtitle{Git · 1 of 6}
 \vspace*{\fill}
-\gitstory[0.318]{figures/git-story-1.pdf}
+\gitgraph{1}
 \vskip6mm
 \muted{One version, one history, one truth. No folder full of
 \emph{model\_v3\_FINAL\_jm}.}
@@ -474,7 +476,7 @@ the way they already think: a draft, checkpoints, a review, a sign-off.}
 \begin{frame}{A branch.}
 \framesubtitle{Git · 2 of 6}
 \vspace*{\fill}
-\gitstory{figures/git-story-2.pdf}
+\gitgraph{2}
 \vskip6mm
 \muted{A \textbf{branch} is your own copy to work in, named after the job. Everyone else carries on
 from \code{main}, undisturbed.}
@@ -486,7 +488,7 @@ from \code{main}, undisturbed.}
 \begin{frame}{A commit.}
 \framesubtitle{Git · 3 of 6}
 \vspace*{\fill}
-\gitstory{figures/git-story-3.pdf}
+\gitgraph{3}
 \vskip6mm
 \muted{A \textbf{commit} is a checkpoint with a note saying what changed. Small ones. You can go
 back to any of them.}
@@ -498,28 +500,67 @@ back to any of them.}
 \begin{frame}{Working on a branch.}
 \framesubtitle{Git · 4 of 6}
 \vspace*{\fill}
-\gitstory{figures/git-story-4.pdf}
+\gitgraph{4}
 \vskip6mm
 \muted{Three commits in and half of it broken. Everyone else's copy is untouched.}
 \vfill
 \end{frame}
 
-% ── git 5 · push and review
+% ── git 5 · local and remote
+% Two boxes, one history, two arrows. The chains sit at the same height in both cards on
+% purpose: the point of the slide is that it is the same history, kept in two places.
 \hue{NovaBlue}
-\begin{frame}{Push, and pull request.}
+\begin{frame}{Local, and remote.}
 \framesubtitle{Git · 5 of 6}
-\diagram[1.0\linewidth]{figures/git-roundtrip.pdf}
-\vskip1mm
-\muted{\textbf{Push} puts your draft where the team can see it. A \textbf{pull request} asks
-someone to read the diff first. Today that someone is you, reviewing the agent.}
+\vspace*{\fill}
+\noindent%
+\begin{tikzpicture}[x=1mm, y=1mm]
+  \useasboundingbox (0,-41) rectangle (134,5);
+  % ── your laptop
+  \node[gp eyebrow=NovaMuted] at (0,1.4) {\lsp[13]{YOUR LAPTOP · LOCAL}};
+  \path[gp card=NovaCard] (0,-1) rectangle (62,-38.5);
+  \node[gp head] at (31,-4.4) {the folder you edit};
+  \node[gp file, anchor=west] (fa) at (12,-12.5) {app.py};
+  \node[gp file, anchor=west] (fb) at ($(fa.east)+(2.4mm,0)$) {tests/};
+  \node[gp file, anchor=west] (fc) at ($(fb.east)+(2.4mm,0)$) {AGENTS.md};
+  \draw[gp move=NovaMuted] (31,-17) -- (31,-23);
+  \node[gp movelabel=NovaFg, anchor=west] at (33,-20) {commit};
+  \gpchain{19}{43}{-28}{NovaTeal}
+  \node[gp body] at (31,-31.4) {your history};
+  % ── github: the same chain, at the same height, with the rest of the team above it
+  \node[gp eyebrow=NovaBlue] at (86,1.4) {\lsp[13]{GITHUB · THE REMOTE}};
+  \path[gp card=NovaBlueBg] (86,-1) rectangle (134,-38.5);
+  \node[gp head] at (110,-4.4) {one copy, shared};
+  \gpchain{98}{122}{-14}{NovaBlue!32}
+  \gpchain{98}{122}{-21}{NovaBlue!32}
+  \gpchain{98}{122}{-28}{NovaTeal}
+  \node[gp body] at (110,-31.4) {yours, and everyone else's};
+  % ── the two moves
+  \draw[gp move=NovaMuted] (64.5,-21) -- (83.5,-21);
+  \node[gp movelabel=NovaFg, anchor=south] at (74,-20.1) {push};
+  \node[gp body] at (74,-22.1) {your branch, up};
+  \draw[gp move=NovaMuted] (83.5,-33) -- (64.5,-33);
+  \node[gp movelabel=NovaFg, anchor=south] at (74,-32.1) {pull};
+  \node[gp body] at (74,-34.1) {their work, down};
+\end{tikzpicture}%
+\vskip4mm
+\muted{\textbf{Push} sends your branch to the copy everyone shares, where a \textbf{pull request}
+asks someone to read the diff first. Today that someone is you, reviewing the agent.}
+\vfill
 \end{frame}
+\tanote{The only slide in the act that leaves the graph, and the one that fixes the vocabulary:
+\emph{local} is the copy on your laptop, \emph{remote} is the copy on GitHub. Point at the two
+chains drawn at the same height and say it plainly — it is one history, kept in two places, and
+push and pull are the only things that move between them. The grey chains above yours are the rest
+of the team. If someone asks where "add"/"staging" went: GitHub Desktop turned it into the
+checkboxes next to each changed file, so they have already used it without the name.}
 
 % ── git 6 · merge
 \hue{NovaBlue}
 \begin{frame}{Merge.}
 \framesubtitle{Git · 6 of 6}
 \vspace*{\fill}
-\gitstory{figures/git-story-5.pdf}
+\gitgraph{5}
 \vskip6mm
 \muted{\textbf{Merge} is the sign-off. \code{main} now has your work, and the next person starts
 from there.}

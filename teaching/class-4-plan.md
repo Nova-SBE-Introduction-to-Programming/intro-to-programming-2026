@@ -1,6 +1,6 @@
 # Class 4 — Rules, judge, loop · TA plan and answer key
 
-90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (31 slides in four acts; LaTeX source in
+90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (32 slides in four acts; LaTeX source in
 `decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
 open it on the second screen in any PDF presenter) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 
@@ -33,9 +33,15 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   minutes buys a model that is engineering rather than magic — and therefore something you can set rules for, which
   is the whole of Act 2. It also corrects an attribution students usually meet the wrong way round: Minsky and
   Papert wrote the critique that *motivated* multi-layer networks; they did not invent them.
-- **Git is one continuous story, not three rules.** The same `gitGraph` is drawn five times, each slide one move
-  further on, and the frames are aligned on the `main` badge so the graph holds still and only grows — it reads as a
-  build, not as five diagrams. A branch is a spatial idea; a sentence about it is not.
+- **Git is one continuous story, not three rules.** One TikZ macro draws the same commit graph five times, each
+  slide one move further on. Because it is literally the same picture at five stages, nothing shifts or rescales
+  between slides: it reads as a build, not as five diagrams. A branch is a spatial idea; a sentence about it is not.
+- **`local` and `remote` get their own picture.** Slide 26 is the one place the story leaves the graph: two cards,
+  your laptop and GitHub, with the same three-commit chain drawn at the same height in both. That is the whole
+  point — one history, kept in two places, with `push` and `pull` as the only things that move between them. The
+  team's other branches sit above yours in the GitHub card, greyed, so "shared" is visible rather than asserted.
+  Staging is deliberately absent: GitHub Desktop collapses it into the file checkboxes, and naming a fourth place
+  buys nothing today. If someone asks, that is what the checkbox column is.
 - **It is framed the way this audience already thinks.** `main` is the approved version, a branch is your draft,
   commits are checkpoints, a pull request is sending it for review, a merge is the sign-off. Nothing about git is
   new to someone who has ever had a model reviewed before it went out — only the vocabulary is. The two habits that
@@ -51,24 +57,25 @@ Four acts, each opened by its kicker colour: **teal** logistics · **violet** wh
 | Min | Slides | What | Checkpoint |
 |---|---|---|---|
 | 0–5 | 1–3 | Open, agenda, check-in: GitHub page shows the feature-1 branch and a merged PR. | TA has the list of who is behind |
-| 5–22 | 4–12 | **Act 1 — what an agent is.** Chat model vs agent · what a tool is · the tool-call choreography · **one exchange in full** (go slowly — it demystifies everything) · what reasoning is · ReAct and the harness · the long run-up, 1958–2017 · what actually changed: compute and text · eight years in one picture. | — |
-| 22–23 | 13 | Divider: **three standards**. | — |
-| 23–36 | 14–19 | **Act 2 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · loop · the four parts of an ask · Ralph, 30 s. | Every laptop: an `AGENTS.md` commit pushed |
-| 36–37 | 20 | Divider: **git**. | — |
-| 37–42 | 21–26 | **Act 3 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → push and pull request → merge, approved. About forty seconds each — it is a build, so do not narrate it twice. | — |
-| 42–52 | 27 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
-| 52–82 | 28–29 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
-| 82–88 | 30 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
-| 88–90 | 31 | Wrap. | — |
+| 5–22 | 4–13 | **Act 1 — what an agent is.** Chat model vs agent · what a tool is · the tool-call choreography · **one exchange in full** (go slowly — it demystifies everything) · what reasoning is · ReAct and the harness · context (45 s: show the screenshot, read one card, move on) · the long run-up, 1958–2017 · what actually changed: compute and text · eight years in one picture. | — |
+| 22–23 | 14 | Divider: **three standards**. | — |
+| 23–36 | 15–20 | **Act 2 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · loop · the four parts of an ask · Ralph, 30 s. | Every laptop: an `AGENTS.md` commit pushed |
+| 36–37 | 21 | Divider: **git**. | — |
+| 37–42 | 22–27 | **Act 3 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → local and remote → merge, approved. About fifty seconds each — it is a build, so do not narrate it twice. | — |
+| 42–52 | 28 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
+| 52–82 | 29–30 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
+| 82–88 | 31 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
+| 88–90 | 32 | Wrap. | — |
 
-Act 1 and Act 3 are the flex, and they trade: the three history slides cost two minutes, and git gives them up —
-six slides of one growing graph run fast. The 30 minutes of hands-on at the end do not move. If the room is quick,
-the minutes belong to *your turn*, not to you.
+Act 1 and Act 3 are the flex, and they trade: the three history slides and the context slide cost three minutes,
+and git gives them up — five stages of one growing graph run fast, because each is the previous picture plus one
+move. The 30 minutes of hands-on at the end do not move. If the room is quick, the minutes belong to *your turn*,
+not to you.
 
 ## Exact prompts for the live part
 
 - Proof of the rulebook: *"What does AGENTS.md tell you to do?"*
-- Adding the rules: *"Under 'How to answer' in AGENTS.md, add these three lines: …"* — the verbatim wording is on the Week 4 page and in the handout (slide 15 shows only the three concepts: boundary, evidence, off-limits). Read the diff. Accept.
+- Adding the rules: *"Under 'How to answer' in AGENTS.md, add these three lines: …"* — the verbatim wording is on the Week 4 page and in the handout (slide 16 shows only the three concepts: boundary, evidence, off-limits). Read the diff. Accept.
 - The loop prompt (new thread): *"Build `specs/feature-2-categories.md`. Work only on the branch `feature-2-categories`. After every change, run `uv run pytest tests/test_feature_2.py` and keep going until all four tests pass. Do not edit anything in `tests/`. When they pass, paste the final test output and list every file you changed."*
 - After green: *"Show me the diff of every file you changed."* Then, in the browser: Add expense → category box? Group page → totals?
 

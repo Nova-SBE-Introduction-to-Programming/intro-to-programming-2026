@@ -14,7 +14,7 @@
 \RequirePackage{microtype}      % protrusion only; letterspacing is a fontspec feature under XeTeX
 \RequirePackage{graphicx}
 \RequirePackage{etoolbox}
-\usetikzlibrary{calc}
+\usetikzlibrary{calc, arrows.meta, shadows}
 
 % slides are ragged right: justification on short measures opens rivers
 \AtBeginEnvironment{frame}{\raggedright}
@@ -38,6 +38,7 @@
 \definecolor{NovaBlue}{HTML}{2F7196}   % the git section
 \definecolor{NovaShadow}{HTML}{E7DCC9} % soft lift under cards
 \definecolor{NovaChip}{HTML}{F1E9DA}   % inline code tint
+\definecolor{NovaBlueBg}{HTML}{E9F0F4} % the remote: the one card that is not on your laptop
 
 % ─────────────────────────────────────────────────────────── fonts
 \setsansfont{Inter}[Ligatures=TeX, Numbers=Lining]
@@ -215,6 +216,77 @@
   \draw[tl band=#3] (#1\linewidth, 7.4mm) -- (#2\linewidth, 7.4mm);
   \node[tl bandlabel=#3] at (#1\linewidth, 9.6mm) {\lsp[13]{\MakeUppercase{#4}}};}
 
+% ─────────────────────────────────────────────────────────────── git, drawn
+% The git act is one commit graph shown five times, plus one picture of where the work lives.
+% Both were Mermaid; Mermaid sized each gitGraph to its own content, so the graph jumped and
+% rescaled between slides and a Python pass had to re-align the five PDFs on the main badge.
+% Drawing all five stages from one macro on a fixed canvas removes the problem instead of
+% correcting it: the graph now holds still because it is literally the same picture, grown.
+\tikzset{
+  gg lane/.style  ={draw=#1, line width=2.4pt, line cap=round},
+  gg dot/.style   ={circle, fill=#1, draw=NovaBg, line width=1.2pt,
+                    inner sep=0pt, minimum size=6.6pt},
+  gg open/.style  ={circle, fill=NovaBg, draw=#1, line width=2.2pt,
+                    inner sep=0pt, minimum size=5.6pt},
+  gg pill/.style  ={rounded corners=1.5mm, fill=#1, text=white, font=\scriptsize\bfseries,
+                    inner xsep=2.6mm, inner ysep=1.3mm},
+  gg note/.style  ={font=\scriptsize, text=NovaBody, inner sep=0pt, inner ysep=1.3mm},
+  gg tag/.style   ={font=\scriptsize\bfseries, text=#1, inner sep=0pt, inner ysep=1.5mm},
+  % places: the two boxes on the local/remote slide
+  % shadows.blur builds its fade out of a box and drags the footer in with it, typesetting the
+  % slide number in \nullfont; a plain offset copy is indistinguishable at projection size
+  gp card/.style  ={rounded corners=3.6mm, fill=#1, draw=none,
+                    drop shadow={shadow xshift=0.4mm, shadow yshift=-0.45mm,
+                                 fill=NovaShadow, opacity=1}},
+  gp eyebrow/.style={font=\scriptsize\bfseries, text=#1, anchor=south west, inner sep=0pt},
+  gp head/.style  ={font=\scriptsize\bfseries, text=NovaFg, anchor=north, align=center,
+                    inner sep=0pt},
+  gp body/.style  ={font=\scriptsize, text=NovaBody, anchor=north, align=center, inner sep=0pt},
+  gp file/.style  ={rounded corners=1.2mm, fill=NovaBg, text=NovaBody, font=\tiny\ttfamily,
+                    inner xsep=1.8mm, inner ysep=1.1mm},
+  gp move/.style  ={-{Stealth[length=2.2mm, width=1.8mm]}, draw=#1, line width=1.4pt},
+  gp movelabel/.style={font=\scriptsize\bfseries, text=#1, inner sep=0pt, inner ysep=1.1mm},
+}
+% \gpchain{x from}{x to}{y}{colour} — three commits on a line, the shorthand for "a history"
+\newcommand{\gpchain}[4]{%
+  \draw[gg lane=#4] (#1,#3) -- (#2,#3);
+  \node[gg dot=#4] at (#1,#3) {};
+  \node[gg dot=#4] at ({(#1+#2)/2},#3) {};
+  \node[gg dot=#4] at (#2,#3) {};}
+
+% \gitgraph{stage} — stage 1..5 of the same graph. x is a fraction of \linewidth, y is mm.
+\newlength{\ggw}
+\newcommand{\gitgraph}[1]{%
+  \setlength{\ggw}{\linewidth}%
+  \par\noindent\begin{tikzpicture}[x=\ggw, y=1mm]
+    \useasboundingbox (0,-17) rectangle (1,14);
+    % main runs the full width from the first slide on: it is never the thing that moves
+    \draw[gg lane=NovaTeal] (0.12,7) -- (1,7);
+    \node[gg pill=NovaTeal, anchor=east] at (0.105,7) {main};
+    \node[gg dot=NovaTeal] at (0.22,7) {};
+    \node[gg note, anchor=south] at (0.22,10) {feature 1};
+    \ifnum#1>1
+      \draw[gg lane=NovaAccent] (0.22,7) .. controls (0.30,7) and (0.29,-7) .. (0.37,-7)
+                                -- (0.53,-7);
+      \node[gg pill=NovaAccent, anchor=north west] at (0.365,-10.4) {feature-2-categories};
+    \fi
+    \ifnum#1>2
+      \node[gg dot=NovaAccent] at (0.53,-7) {};
+      \node[gg note, anchor=south] at (0.53,-4) {column};
+    \fi
+    \ifnum#1>3
+      \draw[gg lane=NovaAccent] (0.53,-7) -- (0.70,-7);
+      \node[gg dot=NovaAccent] at (0.70,-7) {};
+      \node[gg note, anchor=south] at (0.70,-4) {totals};
+    \fi
+    \ifnum#1>4
+      \draw[gg lane=NovaTeal] (0.70,-7) .. controls (0.78,-7) and (0.79,7) .. (0.87,7);
+      \node[gg open=NovaTeal] at (0.87,7) {};
+      \node[gg tag=NovaTeal, anchor=south] at (0.87,10) {approved};
+    \fi
+  \end{tikzpicture}%
+}
+
 % section divider frame: \sectionslide{W4}{kicker}{Title}{subtitle}
 \newcommand{\sectionslide}[5][NovaTeal]{%
   \begingroup
@@ -233,17 +305,6 @@
 % fills the space under the title and centres the artwork in it
 \newcommand{\diagram}[2][0.95\linewidth]{%
   \vfill\begin{center}\includegraphics[width=#1]{#2}\end{center}\vfill}
-% same, but capped by height for tall diagrams
-\newcommand{\diagramh}[2][0.70\textheight]{%
-  \vfill\begin{center}\includegraphics[height=#1]{#2}\end{center}\vfill}
-% The git story is one graph drawn five times. render-diagrams.py pads the five PDFs to a shared
-% canvas and aligns them on the main-branch badge, so placing them identically makes the graph
-% hold still and only grow.
-\newlength{\gitw}
-\setlength{\gitw}{0.70\linewidth}
-\newcommand{\gitstory}[2][0]{%
-  \par\vspace{1mm}\begin{center}\includegraphics[width=\gitw]{#2}\end{center}\vspace{1mm}}
-
 % no \vfill: use when the frame carries other content, which the glue would push off the page
 \newcommand{\diagramtight}[2][0.95\linewidth]{%
   \begin{center}\includegraphics[width=#1]{#2}\end{center}}
