@@ -137,6 +137,8 @@ while :; do cat PROMPT.md | claude-code ; done
 Any agent goes in that pipe — the name in the original was just the one he happened to be using.
 Anthropic later shipped it as an official Claude Code plugin (`ralph-wiggum`, December 2025), so
 this is a practice you will meet at work, not a stunt.
+One difference is worth knowing: the plugin is a *Stop hook* that feeds the same prompt back into
+the same conversation, so it does not get the fresh start described next. Only the shell loop does.
 
 The same prompt, fed to a **fresh** agent, over and over. Each run starts with no memory of the last
 one, so the agent cannot talk itself into a story about what it already did. The only state is

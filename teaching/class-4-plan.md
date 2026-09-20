@@ -1,6 +1,6 @@
 # Class 4 — Rules, judge, loop · TA plan and answer key
 
-90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (37 slides in four acts; LaTeX source in
+90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (39 slides in four acts; LaTeX source in
 `decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
 open it on the second screen in any PDF presenter) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 
@@ -83,7 +83,8 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   round" is standard 3, and why compaction is not the tool being lazy: it discards the part the
   model was using worst and keeps the two parts it uses best. If you have the screen, run
   `/context` then `/compact` and let them watch the bar drop.
-- **Ralph gets three slides because the picture is the argument.** One canvas grown three
+- **Ralph gets four slides because the picture is the argument.** The crowd photo first and alone:
+  not one agent getting better, a queue of identical beginners. Then one canvas grown three
   times, like the git graph. *One run*: prompt → fresh agent → repo → tests, every part something
   they already have from this act. *Nobody is watching*: the one-liner on top (the deck's one
   deliberate command on a slide — `while :; do cat PROMPT.md | claude-code ; done` is the
@@ -97,7 +98,9 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   runs, then a human reads). Seeing that the famous technique is four words of shell is what makes
   the three standards feel load-bearing rather than fussy. Provenance sits on the last of the
   three: Huntley 2025, an official Claude Code plugin since December 2025, and the person who
-  built Claude Code has said he uses it.
+  built Claude Code has said he uses it. One footnote, verified in the plugin's source: the plugin
+  is a Stop hook that feeds the prompt back into the *same* conversation, so only the shell loop
+  gets the fresh agent the slide describes. The citation line says so.
 - **`/goal` closes the act, and it is the reason the act matters.** A year after Huntley's bash
   loop, both Claude Code and Codex ship it as a command: a finish line in plain words, and turns
   keep running until a separate evaluator model agrees it holds. Underneath it is a Stop hook —
@@ -124,21 +127,21 @@ Act 2 and again in Act 3 with the tests in it. Say so on the agenda slide.
 | 5–6 | 4 | Divider: **git**. | — |
 | 6–12 | 5–10 | **Act 1 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → local and remote → merge, approved. About a minute each — it is a build, so do not narrate it twice. | — |
 | 12–13 | 11 | Divider: **agent**. "The thing that will make those commits today is not you. So what is it?" | — |
-| 13–29 | 12–22 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) · the stack in four moves: a language model · tools · an agent · the harness · **one exchange in full** (slowest slide in the act) · reasoning, watched · the ReAct ring · context · context rot. | — |
-| 29–30 | 23 | Divider: **three standards**. Bridge: the ring has three places you get a say. | — |
-| 30–44 | 24–32 | **Act 3 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · the loop (same ring, tests in it) · the four parts of an ask · Ralph, three slides (one run · the loop · the signs) · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
-| 44–54 | 33 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
-| 54–84 | 34–35 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
-| 84–89 | 36 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
-| 89–90 | 37 | Wrap. | — |
+| 13–30 | 12–23 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) and one exhibit (GPT-2's unicorns, read aloud) · the stack in four moves: a language model · tools · an agent · the harness · **one exchange in full** (slowest slide in the act) · reasoning, watched · the ReAct ring · context · context rot. | — |
+| 30–31 | 24 | Divider: **three standards**. Bridge: the ring has three places you get a say. | — |
+| 31–45 | 25–34 | **Act 3 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · the loop (same ring, tests in it) · the four parts of an ask · Ralph, four slides (who he is · one run · the loop · the signs) · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
+| 45–55 | 35 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
+| 55–85 | 36–37 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
+| 85–89 | 38 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
+| 89–90 | 39 | Wrap. | — |
 
-**The lecture half is tight but no longer overfull.** Act 2 is eleven slides in sixteen minutes and
-Act 3 is nine in fourteen. Rehearse to these weights: one exchange in full 2½ min · the stack 1 min
-a slide (four) · reasoning, ReAct, context rot 1½ each · context 1 · the two history slides 1½ and 1.
+**The lecture half is tight but no longer overfull.** Act 2 is twelve slides in seventeen minutes and
+Act 3 is ten in fourteen. Rehearse to these weights: one exchange in full 2½ min · the stack 1 min
+a slide (four) · reasoning, ReAct, context rot 1½ each · context 1 · the two history slides 1½ and 1 · the unicorn 1.
 In Act 3: rulebook 2½ and three rules 2 (both live) · judge 2½ · loop and the shape of an ask 1½
-each · Ralph 40 s, 50 s, 60 s (one run · nobody is watching · the signs) · `/goal` 1 min. Git runs at a minute a stage. **The 30
+each · Ralph 20 s, 40 s, 50 s, 60 s (who he is · one run · nobody is watching · the signs) · `/goal` 1 min. Git runs at a minute a stage. **The 30
 minutes of hands-on do not move.** If you are behind at the `agent` divider, cut the two history
-slides on the spot; they are the only slides nothing later depends on. If the room is quick, the
+  slides and the unicorn on the spot; they are the only slides nothing later depends on. If the room is quick, the
 minutes belong to *your turn*, not to you.
 
 ## Exact prompts for the live part

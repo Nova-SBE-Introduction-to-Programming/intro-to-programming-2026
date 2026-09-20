@@ -283,6 +283,41 @@ conversing, acting, persisting). That is the shape to remember, not the model na
 sentence on the slide is the hand-off: everything from 2023 on is "tools and a loop", and the next
 four slides build exactly that. Dates are approximate release months on purpose.}
 
+% ── history, one exhibit · what "coherent paragraphs" looked like in 2019
+% The most famous language-model output before ChatGPT, reproduced as published. It does two
+% jobs: shows "completing" before anyone says "text in, text out", and plants the four-horned
+% unicorn for the day fluency and truth come apart.
+\hue{NovaPurple}
+\begin{frame}{Ovid's Unicorn.}
+\framesubtitle{How we got here · 2019 · nobody asked it anything}
+\vspace*{\fill}
+\begin{chatsaid}{a human wrote}{NovaMuted}{\linewidth}
+In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously
+unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact
+that the unicorns spoke perfect English.
+\end{chatsaid}
+\vskip1.5mm
+\begin{chatsaid}[NovaPurpleBg]{GPT-2 continued}{NovaPurple}{\linewidth}
+The scientist named the population, after their distinctive horn, Ovid's Unicorn. These
+four-horned, silver-white unicorns were previously unknown to science. [\ldots] Dr.\ Jorge
+Pérez, an evolutionary biologist from the University of La Paz, and several companions, were
+exploring the Andes Mountains when they found a small valley, with no other animals or humans.
+\end{chatsaid}
+\vskip1mm
+{\tiny\color{NovaMuted}Radford et al.\ (2019), \emph{Language Models are Unsupervised Multitask
+Learners}, table 13 · the best of ten samples · OpenAI, 14 February 2019}
+\vfill
+\end{frame}
+\tanote{One minute, and read it aloud; the room will laugh at the right place. This is the sample
+OpenAI published with GPT-2 in February 2019, the one that made the field sit up: a model that
+only predicts the next word, given three sentences, keeps a news story going with a named
+scientist, a university, and quotes. Two things to plant. First, "completing": nobody asked it a
+question, it continued the text, which is all a language model does and is the top-left band on
+the timeline. Second, the four horns: two sentences in, a unicorn has four of them, and the prose
+never flinches. Fluency and truth are different properties, and only one of them is what the
+model is trained for. That is why Act 3 has a judge. Say it was the best of ten tries; the paper
+says so.}
+
 % ── stack 1 · a language model
 % Four slides, one canvas. Each adds one thing; the caption is the definition of that thing.
 \hue{NovaPurple}
@@ -603,6 +638,21 @@ that re-feeds the prompt until the judge passes, which is the last three slides 
 before you paste it. New thread before pasting: the AGENTS.md rules from five minutes ago are only
 read at the start of a thread.}
 
+% ── Ralph: who he is
+\hue{NovaAccent}
+\begin{frame}{Ralph.}
+\framesubtitle{Standard 3 · nobody watching}
+\vspace*{\fill}
+\begin{center}\roundedpic[0.42\linewidth]{figures/ralph.jpg}\end{center}
+\vskip3mm
+\muted{A cartoon character who is cheerfully, relentlessly wrong, and gets there anyway. Not one
+agent getting better at the task: a crowd of identical beginners, each starting from nothing.}
+\vfill
+\end{frame}
+\tanote{Twenty seconds, and let the picture do it. Named after Ralph Wiggum from The Simpsons.
+The joke is the technical point: there is no single agent learning the job, there is a queue of
+them, and the next three slides show why that works.}
+
 % ── Ralph, 1 of 3: one run
 % One canvas, three stages, like the git graph and the stack: a single run, then the loop,
 % then the signs. Nothing moves between the three, so the eye only registers what was added.
@@ -653,8 +703,8 @@ original is just the one he was using.}
 \vspace*{\fill}
 \ralphloop{3}
 \vskip2mm
-{\tiny\color{NovaMuted}Huntley, G. (2025). \emph{Ralph Wiggum as a ``software engineer''} ·
-ghuntley.com/ralph · an official Claude Code plugin since December 2025}
+{\tiny\color{NovaMuted}Huntley (2025), \emph{Ralph Wiggum as a ``software engineer''}, ghuntley.com/ralph ·
+a Claude Code plugin since Dec.\ 2025 (same session, not a fresh one)}
 \vfill
 \end{frame}
 \tanote{A minute. Huntley's word for tuning the loop is "signs": when a run does something dumb,
@@ -668,7 +718,9 @@ nothing else survives. The stop: the tests run every iteration and every green c
 run can be thrown away; a cap on runs, because the plugin's own advice is to never rely on the
 finish phrase alone; and then a human reads all of it. Credibility beat: Anthropic shipped it as
 an official Claude Code plugin in December 2025, and the person who built Claude Code has said he
-uses it. Nobody runs this today. They should recognise that the three standards are exactly what
+uses it. One honest footnote if asked: the plugin is a Stop hook that re-feeds the prompt into
+the same conversation, so it does not get the fresh start; only the shell loop does. Nobody
+runs this today. They should recognise that the three standards are exactly what
 makes it possible.}
 
 % ── the loop, shipped as a feature
