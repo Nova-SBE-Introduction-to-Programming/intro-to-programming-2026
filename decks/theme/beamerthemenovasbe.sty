@@ -260,6 +260,32 @@
       fontupper=\small\itshape\raggedright\color{NovaMuted}]%
 }{\end{tcolorbox}}
 
+% ── a transcript with the loop drawn down its left edge
+% Each turn is a box on a vertical spine, labelled by what the model is doing (reason, act,
+% observe, answer) so the ReAct slide that follows only has to name what the room just watched.
+% \begin{turn}[fill]{LABEL}{label colour} ... \end{turn}; the reasoning turns use turnthinks.
+\newtcolorbox{turn}[3][NovaCard]{enhanced, colback=#1, colframe=#1, boxrule=0pt, arc=2.4mm,
+  left=3.4mm, right=3.4mm, top=1.1mm, bottom=1.1mm,
+  width=\dimexpr\linewidth-24mm\relax, enlarge left by=24mm,
+  fontupper=\scriptsize\raggedright\color{NovaFg},
+  overlay={%
+    \draw[NovaLine, line width=0.9pt] ([xshift=-4.2mm, yshift=1.8mm]frame.north west)
+      -- ([xshift=-4.2mm, yshift=-1.8mm]frame.south west);
+    \fill[#3] ([xshift=-4.2mm]frame.west) circle (1.1mm);
+    \node[anchor=east, font=\scriptsize\bfseries, text=#3, inner sep=0pt]
+      at ([xshift=-8mm]frame.west) {\lsp[12]{\MakeUppercase{#2}}};}}
+\newtcolorbox{turnthinks}[1][REASON]{enhanced, colback=NovaBg, colframe=NovaBg, boxrule=0pt, arc=2.4mm,
+  borderline={0.9pt}{0pt}{NovaLine, dash pattern=on 1.5mm off 1.1mm},
+  left=3.4mm, right=3.4mm, top=1.1mm, bottom=1.1mm,
+  width=\dimexpr\linewidth-24mm\relax, enlarge left by=24mm,
+  fontupper=\scriptsize\itshape\raggedright\color{NovaMuted},
+  overlay={%
+    \draw[NovaLine, line width=0.9pt] ([xshift=-4.2mm, yshift=1.8mm]frame.north west)
+      -- ([xshift=-4.2mm, yshift=-1.8mm]frame.south west);
+    \fill[NovaPurple] ([xshift=-4.2mm]frame.west) circle (1.1mm);
+    \node[anchor=east, font=\scriptsize\bfseries, text=NovaPurple, inner sep=0pt]
+      at ([xshift=-8mm]frame.west) {\lsp[12]{#1}};}}
+
 % ─────────────────────────────────────────────────────────── flat icons
 % Drawn, not imported: no icon font is guaranteed on the presenting machine, and a hand-drawn
 % glyph in the deck's own line weight sits better next to the cards than a pasted symbol.

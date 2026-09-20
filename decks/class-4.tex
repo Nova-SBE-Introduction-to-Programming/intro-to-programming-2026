@@ -428,37 +428,55 @@ reads it like any other message. Ask the room: "if we had said no, what could it
 Nothing. The JSON is illustrative; each harness has its own wire format, and they never type it.}
 
 % ── reasoning, watched
-% A chat mock-up on an ask that is genuinely ambiguous, in their own app. The thinking block is
-% the odd one out on purpose: no fill, dashed rule, italic — it is not a message anyone sent.
+% A transcript on an ask that is genuinely ambiguous, in their own app, with the loop drawn
+% down the left edge: the model thinks, reaches for a tool mid-thought, reads what came back,
+% thinks again, answers. The next slide only has to name the rhythm.
 \hue{NovaPurple}
 \begin{frame}{Reasoning.}
-\framesubtitle{Thinking before acting · worked out first, then answered}
+\framesubtitle{Thinking before acting · and reaching for a tool mid-thought}
 \vspace*{\fill}
-\begin{chatsaid}{you}{NovaMuted}{0.58\linewidth}
-  Make it so Ana doesn't owe anything.
-\end{chatsaid}
-\vskip1.6mm
-\begin{chatthinks}
-  That could mean delete her expenses, mark her settled up, or take her out of the split. Two of
-  those change what everyone \emph{else} owes. One doesn't.
-\end{chatthinks}
-\vskip1.6mm
-\begin{chatsaid}[NovaPurpleBg]{codex}{NovaPurple}{0.88\linewidth}
-  Marked Ana settled up, so the other balances are untouched. Deleting her expenses would move
-  theirs too — tell me if you meant that.
-\end{chatsaid}
+\begin{turn}{you}{NovaMuted}
+Make it so Ana doesn't owe anything.
+\end{turn}
+\vskip1mm
+\begin{turnthinks}
+Owe according to what? I have a tool that reads files. Look at the balances first.
+\end{turnthinks}
+\vskip1mm
+\begin{turn}[NovaBg]{act}{NovaYellow}
+\code{read\_file} \quad \code{data/balances.csv}
+\end{turn}
+\vskip1mm
+\begin{turn}[NovaBg]{observe}{NovaTeal}
+\code{Ana,-12.50} \quad \code{Bruno,+6.25} \quad \code{Carla,+6.25}
+\end{turn}
+\vskip1mm
+\begin{turnthinks}
+Three ways to do it: delete her expenses, mark her settled, or take her out of the split.
+Two of those move Bruno's and Carla's numbers. One doesn't.
+\end{turnthinks}
+\vskip1mm
+\begin{turn}[NovaPurpleBg]{answer}{NovaPurple}
+Marked Ana settled up; Bruno and Carla are unchanged. Deleting her expenses would move theirs
+too — say so if you meant that.
+\end{turn}
 \vfill
 \end{frame}
 \tanote{Read the ask aloud and stop. Ask the room what it means — you will get at least two
-answers, which is the point. Without the middle block you get one of the three at random and no
-way to tell which. With it you get the safe one plus a stated assumption you can overrule. What
-reasoning is: the model writes its working out before it answers, and the steps it writes are the
-extra thinking — a model spends a fixed effort per word, so working it out on the page is how it
-buys more. Lineage if asked: scratchpads (Nye et al.\ 2021), chain-of-thought (Wei et al.\ 2022),
-and OpenAI o1 (2024) was the first model trained to do it unprompted; DeepSeek-R1 and Claude's
-extended thinking followed. The honest part: a guess and a worked answer look equally confident on
-screen, which is why you still read the diff. Tie to standard 1: "state your assumption" is a rule
-you can put in AGENTS.md.}
+answers, which is the point. Then walk the spine. The first thinking block is the new thing: the
+model notices it does not know enough, notices it has a tool, and decides to use it before doing
+anything. That is a decision, made in words, before any action. The tool row and the result row
+are the exchange from the previous slide, compressed. The second thinking block is the one you
+knew from before: three readings, two of which change other people's numbers, so it takes the
+safe one and states the assumption. Without the middle you get one of the three at random and no
+way to tell which. What reasoning is: the model writes its working out before it answers, and the
+steps it writes are the extra thinking — a model spends a fixed effort per word, so working it
+out on the page is how it buys more. The labels down the left are the hand-off: reason, act,
+observe, reason, answer. Next slide gives that a name. Lineage if asked: scratchpads (Nye et al.\
+2021), chain-of-thought (Wei et al.\ 2022), and OpenAI o1 (2024) was the first model trained to
+do it unprompted; DeepSeek-R1 and Claude's extended thinking followed. The honest part: a guess
+and a worked answer look equally confident on screen, which is why you still read the diff. Tie
+to standard 1: "state your assumption" is a rule you can put in AGENTS.md.}
 
 % ── ReAct
 % The one architecture the class rests on. The same ring comes back in Act 3 with the tests in
