@@ -575,6 +575,143 @@
   \end{tikzpicture}%
 }
 
+% ──────────────────────────────────────────────────────── GPT-2, in three pictures
+% After the unicorn: how it was trained (hide the next word, guess, get corrected), what it
+% learned (words as positions, directions as relations), how it writes (one block repeated,
+% one word at a time, appended and fed back). All three are illustrative sketches; the notes
+% carry the real numbers. Styles shared with the other figures.
+\tikzset{
+  gt chip/.style  ={rounded corners=1.1mm, fill=NovaCard, text=NovaFg, font=\scriptsize,
+                    inner xsep=1.5mm, inner ysep=0.9mm},
+  gt word/.style  ={font=\scriptsize\bfseries, text=#1, inner sep=0pt},
+  gt bar/.style   ={fill=#1, rounded corners=0.5mm},
+  gt mono/.style  ={font=\tiny\ttfamily, text=NovaBody, inner sep=0pt, align=left},
+}
+% ── 1. the training game
+\newcommand{\nextwordfig}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-44) rectangle (134,4);
+    % a page from the web, with the next word hidden
+    \node[gp eyebrow=NovaMuted] at (0,1.6) {\lsp[13]{A PAGE FROM THE WEB}};
+    \path[gp card=NovaCard] (0,0) rectangle (70,-15);
+    \node[gp body, anchor=north west, align=left, text width=64mm, text=NovaFg, execute at begin node={\hyphenpenalty=10000\relax}] at (3,-3)
+      {The scientist named the population, after their distinctive
+       \textcolor{NovaAccent}{\rule[-0.6mm]{9mm}{0.7pt}}};
+    % the model, and its guess
+    \draw[as arrow=NovaBody] (71,-7.5) -- (77.5,-7.5);
+    \fill[NovaPurpleBg] (84,-7.5) circle (6.4);
+    \icmodel[NovaPurple]{84}{-7.5}
+    \draw[as arrow=NovaPurple] (90.5,-7.5) -- (97,-7.5);
+    \node[gp eyebrow=NovaMuted] at (99,1.6) {\lsp[13]{ITS GUESS}};
+    \foreach \w/\p/\yy/\c in {horn/62/-1.5/NovaPurple, colour/14/-4.6/NovaLine, feature/9/-7.7/NovaLine,
+                              size/5/-10.8/NovaLine, name/3/-13.9/NovaLine} {
+      \node[font=\tiny, text=NovaBody, anchor=east, inner sep=0pt] at (109,\yy) {\w};
+      \fill[gt bar=\c] (110,{\yy+0.9}) rectangle ({110+\p*0.34},{\yy-0.9});
+      \node[font=\tiny, text=NovaMuted, anchor=west, inner sep=0pt] at ({111+\p*0.34},\yy) {\p\%};}
+    % the answer on the page, and the correction
+    \node[as chip, draw=NovaTeal, line width=0.8pt, text=NovaTeal] at (84,-24) {the page says: horn};
+    \draw[as arrow=NovaAccent] (84,-21.2) -- (84,-15.2);
+    \node[as label=NovaAccent, anchor=west, align=left] at (104,-21) {off by a bit?\\nudge the numbers};
+    \node[as label=NovaAccent, anchor=west, align=left, font=\scriptsize, text=NovaMuted]
+      at (104,-28) {then the next word,\\a few billion times over};
+    % the pages
+    \node[gp eyebrow=NovaMuted] at (0,-24) {\lsp[13]{THE PAGES}};
+    \node[gt chip, anchor=north west] at (0,-26.5) {WebText};
+    \node[gt chip, anchor=north west] at (17.5,-26.5) {8 million pages};
+    \node[gt chip, anchor=north west] at (44,-26.5) {40 GB};
+    \node[font=\scriptsize, text=NovaBody, anchor=north west, align=left, text width=72mm,
+          execute at begin node={\hyphenpenalty=10000\relax}]
+      at (0,-33) {every page a Reddit user had linked to, in 2017. GPT-3, a year later, read
+      Common Crawl: a filtered copy of the public web.};
+  \end{tikzpicture}%
+}
+% ── 2. what it learned: a word is a place
+\newcommand{\mapword}[4]{\node[gg dot=#3] at (#1,#2) {};
+  \node[gt word=#3, anchor=west] at ({#1+2.2},#2) {#4};}
+\newcommand{\meaningmap}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-40) rectangle (134,4);
+    \path[rounded corners=3.6mm, fill=NovaCard!45!NovaBg] (0,3) rectangle (134,-40);
+    % people
+    \mapword{8}{-6}{NovaBlue}{scientist}
+    \mapword{14}{-11.5}{NovaBlue}{biologist}
+    \mapword{4}{-15}{NovaBlue}{researcher}
+    % animals
+    \mapword{20}{-30}{NovaPurple}{horse}
+    \mapword{26}{-36}{NovaPurple}{pony}
+    \mapword{10}{-38}{NovaPurple}{donkey}
+    \mapword{56}{-17}{NovaPurple}{unicorn}
+    % horns
+    \mapword{78}{-6}{NovaYellow}{horn}
+    \mapword{88}{-2}{NovaYellow}{antler}
+    \mapword{90}{-10}{NovaYellow}{tusk}
+    % horse + horn = unicorn
+    \draw[as arrow=NovaAccent, dash pattern=on 1.6mm off 1mm] (23,-28.5) -- (54,-19);
+    \node[as label=NovaAccent, fill=NovaCard!45!NovaBg, inner xsep=1.2mm, rotate=17]
+      at (36,-22.6) {+ horn};
+    % capitals and countries: the same arrow twice
+    \mapword{96}{-38}{NovaTeal}{Lisbon}
+    \mapword{112}{-27}{NovaTeal}{Portugal}
+    \mapword{106}{-42}{NovaTeal}{Madrid}
+    \mapword{122}{-31}{NovaTeal}{Spain}
+    \draw[as arrow=NovaTeal] (98,-36.5) -- (110.5,-28.5);
+    \draw[as arrow=NovaTeal] (108,-40.5) -- (120.5,-32.5);
+    \node[font=\scriptsize\bfseries, text=NovaTeal, anchor=south east] at (131,-24.8)
+      {the same arrow: capital $\rightarrow$ country};
+    \node[font=\tiny, text=NovaMuted, anchor=south west] at (46,-38.8)
+      {a flat sketch of a space with 1,600 dimensions};
+  \end{tikzpicture}%
+}
+% ── 3. how it writes: one block, repeated; one word, appended
+\newcommand{\gptstack}[1]{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,\ifnum#1>1 -46\else -30\fi) rectangle (134,4);
+    % words in
+    \node[gp eyebrow=NovaMuted] at (0,1.6) {\lsp[13]{WORDS IN}};
+    \node[gt chip, anchor=west, font=\tiny] at (0,-6) {\ldots};
+    \node[gt chip, anchor=west, font=\tiny] at (7,-6) {after};
+    \node[gt chip, anchor=west, font=\tiny] at (17,-6) {their};
+    \node[gt chip, anchor=west, font=\tiny] at (27,-6) {distinctive};
+    \ifnum#1>1
+      \node[gt chip, anchor=west, font=\tiny\bfseries, fill=NovaTeal, text=white] at (0,-12) {horn};
+    \fi
+    % numbers
+    \draw[as arrow=NovaBody] (45,-6) -- (50,-6);
+    \path[gp card=NovaCard] (51,0) rectangle (66,-14);
+    \node[gt mono, anchor=north west] at (53,-2.4) {0.12\\-0.80\\0.33\\\ldots};
+    \node[as name, font=\tiny, text=NovaMuted] at (58.5,-15.5) {1,600 numbers a word};
+    % one block, 48 times
+    \draw[as arrow=NovaBody] (67,-6) -- (72,-6);
+    \path[gp card=NovaPurpleBg] (73,0) rectangle (106,-21.5);
+    \node[gp eyebrow=NovaPurple, anchor=north west] at (75.4,-2.2) {\lsp[13]{ONE BLOCK · $\times$ 48}};
+    \foreach \x in {78,83,88,93,98} {\fill[NovaPurple] (\x,-12) circle (0.9);}
+    \fill[NovaTeal] (103,-12) circle (1.1);
+    \draw[NovaPurple, line width=1.6pt] (103,-12) .. controls (100,-7.5) and (96,-7.5) .. (93,-12);
+    \draw[NovaPurple, line width=0.9pt] (103,-12) .. controls (98,-5.5) and (88,-5.5) .. (83,-12);
+    \draw[NovaPurple, line width=0.5pt] (103,-12) .. controls (97,-4) and (84,-4) .. (78,-12);
+    \node[font=\tiny, text=NovaPurple, anchor=north west, align=left] at (75.4,-14.4)
+      {look back: which earlier words matter?\\then think it over};
+    % next word
+    \draw[as arrow=NovaPurple] (107,-6) -- (112,-6);
+    \node[gp eyebrow=NovaMuted] at (113,1.6) {\lsp[13]{NEXT WORD}};
+    \foreach \w/\p/\yy/\c in {horn/62/-3.5/NovaPurple, colour/14/-7/NovaLine, feature/9/-10.5/NovaLine} {
+      \node[font=\tiny, text=NovaBody, anchor=east, inner sep=0pt] at (122,\yy) {\w};
+      \fill[gt bar=\c] (123,{\yy+0.9}) rectangle ({123+\p*0.17},{\yy-0.9});}
+    \node[as name, font=\tiny, text=NovaMuted, anchor=north west, align=left] at (113,-14) {1.5 billion numbers,\\all set by the game};
+    \ifnum#1>1
+      % append it and go again
+      \draw[as arrow=NovaAccent, rounded corners=2mm] (133,-13) -- (133,-25) -- (20,-25) -- (20,-15.5);
+      \node[as label=NovaAccent, fill=NovaBg, inner xsep=1.6mm] at (74,-25) {append it, and go again};
+      % the story, one word at a time
+      \node[gp eyebrow=NovaMuted] at (0,-30) {\lsp[13]{SO THE STORY GROWS}};
+      \node[gt chip, anchor=west, font=\tiny] at (0,-36) {\ldots distinctive};
+      \foreach \x/\w in {24/horn, 34/., 40/These, 53/four, 63/-horned, 78/{,}, 83/silver, 96/-white, 109/unicorns} {
+        \node[gt chip, anchor=west, font=\tiny, fill=NovaTeal!14!NovaBg, text=NovaTeal] at (\x,-36) {\w};}
+      \node[font=\scriptsize, text=NovaBody, anchor=north west] at (0,-40) {each word chosen from the guess, then fed back in; nobody planned the sentence};
+    \fi
+  \end{tikzpicture}%
+}
+
 % ─────────────────────────────────────────────────────── the context window
 % A fixed-width bar filling up. Segments are proportional to what a real session looks like
 % after an hour: the rulebook is small, the files it read and the command output are not.

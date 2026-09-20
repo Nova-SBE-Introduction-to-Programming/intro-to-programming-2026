@@ -1,6 +1,6 @@
 # Class 4 — Rules, judge, loop · TA plan and answer key
 
-90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (39 slides in four acts; LaTeX source in
+90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (43 slides in four acts; LaTeX source in
 `decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
 open it on the second screen in any PDF presenter) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 
@@ -83,6 +83,17 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   round" is standard 3, and why compaction is not the tool being lazy: it discards the part the
   model was using worst and keeps the two parts it uses best. If you have the screen, run
   `/context` then `/compact` and let them watch the bar drop.
+- **The GPT-2 block is four pictures after the unicorn, and they answer "how did it do that?"**
+  Trained: a page from the web with the next word hidden, a list of guesses with probabilities, the
+  page uncovered, the numbers nudged — and the data named honestly (WebText, 8 million Reddit-linked
+  pages; Common Crawl is GPT-3's, a year later). Learned: a map where a word is a point, horse plus
+  horn lands near unicorn, and Lisbon→Portugal is the same arrow as Madrid→Spain; encode and decode
+  by nearness is both why the story stayed plausible and why the unicorn got four horns. Writes: words
+  become numbers, one block repeated 48 times looks back at earlier words, out comes the guess; then
+  the same picture with one arrow added, the chosen word appended and the box run again, and the
+  unicorn sentence growing chip by chip along the bottom. That loop is the hand-off: the agent loop
+  four slides later is "append it and go again" with a tool call instead of a word. All three figures
+  are sketches; the notes carry the real numbers and the caveats.
 - **Ralph gets four slides because the picture is the argument.** The crowd photo first and alone:
   not one agent getting better, a queue of identical beginners. Then one canvas grown three
   times, like the git graph. *One run*: prompt → fresh agent → repo → tests, every part something
@@ -127,21 +138,23 @@ Act 2 and again in Act 3 with the tests in it. Say so on the agenda slide.
 | 5–6 | 4 | Divider: **git**. | — |
 | 6–12 | 5–10 | **Act 1 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → local and remote → merge, approved. About a minute each — it is a build, so do not narrate it twice. | — |
 | 12–13 | 11 | Divider: **agent**. "The thing that will make those commits today is not you. So what is it?" | — |
-| 13–30 | 12–23 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) and one exhibit (GPT-2's unicorns, read aloud) · the stack in four moves: a language model · tools · an agent · the harness · **one exchange in full** (slowest slide in the act) · reasoning, watched (the model reaches for a tool mid-thought; the loop is drawn down the left edge, so the next slide only names it) · the ReAct loop · context · context rot. | — |
-| 30–31 | 24 | Divider: **three standards**. Bridge: the loop has three places you get a say. | — |
-| 31–45 | 25–34 | **Act 3 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · the loop (same loop, tests in it) · the four parts of an ask · Ralph, four slides (who he is · one run · the loop · the signs) · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
-| 45–55 | 35 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
-| 55–85 | 36–37 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
-| 85–89 | 38 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
-| 89–90 | 39 | Wrap. | — |
+| 13–34 | 12–27 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) · the GPT-2 block, five slides: the unicorn sample read aloud, then how it was trained (guess the next word, WebText; Common Crawl for GPT-3), what it learned (words as places, directions as relations), how it writes (one block ×48; then one word at a time, appended and fed back) · the stack in four moves: a language model · tools · an agent · the harness · **one exchange in full** (slowest slide in the act) · reasoning, watched (the model reaches for a tool mid-thought; the loop is drawn down the left edge, so the next slide only names it) · the ReAct loop · context · context rot. | — |
+| 34–35 | 28 | Divider: **three standards**. Bridge: the loop has three places you get a say. | — |
+| 35–49 | 29–38 | **Act 3 — the standards.** Rulebook (+ live: add three rules, commit) · judge (run the red tests on stage) · the loop (same loop, tests in it) · the four parts of an ask · Ralph, four slides (who he is · one run · the loop · the signs) · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
+| 49–59 | 39 | **Live kick-off.** Branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
+| 59–89 | 40–41 | **Your turn.** Bug on `main`, then feature 2 on a branch. | Bug test green and pushed; feature 2 green on its branch |
+| 89–93 | 42 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
+| 93–94 | 43 | Wrap. | — |
 
-**The lecture half is tight but no longer overfull.** Act 2 is twelve slides in seventeen minutes and
+**The lecture half is now four minutes over, and the table says so honestly.** Act 2 is sixteen slides in twenty-one minutes and
 Act 3 is ten in fourteen. Rehearse to these weights: one exchange in full 2½ min · the stack 1 min
-a slide (four) · reasoning, ReAct, context rot 1½ each · context 1 · the two history slides 1½ and 1 · the unicorn 1.
+a slide (four) · reasoning, ReAct, context rot 1½ each · context 1 · the two history slides 1½ and 1 · the GPT-2 block 1 · 1 · 1½ · 1 · 1 (unicorn, trained, learned, inside, one word at a time).
 In Act 3: rulebook 2½ and three rules 2 (both live) · judge 2½ · loop and the shape of an ask 1½
 each · Ralph 20 s, 40 s, 50 s, 60 s (who he is · one run · nobody is watching · the signs) · `/goal` 1 min. Git runs at a minute a stage. **The 30
 minutes of hands-on do not move.** If you are behind at the `agent` divider, cut the two history
-  slides and the unicorn on the spot; they are the only slides nothing later depends on. If the room is quick, the
+  slides (12–13) by default and run them only if ahead: the GPT-2 block now carries the history the room
+  needs, and cutting them brings the lecture back to ninety. If still behind, the GPT-2 block itself
+  (14–18) is the next cut; nothing later depends on it except the phrase "append it and go again". If the room is quick, the
 minutes belong to *your turn*, not to you.
 
 ## Exact prompts for the live part

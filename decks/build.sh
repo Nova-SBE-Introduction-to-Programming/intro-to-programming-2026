@@ -13,8 +13,11 @@ mkdir -p out
 for src in class-4 class-4-notes; do
   echo "→ compiling $src.tex"
   # keep the filter narrow: a broad grep once hid a fatal "LaTeX Error" and shipped a stale PDF
+  # a halted run leaves the previous PDF in out/, so remove it first and fail on any error line
+  rm -f "out/$src.pdf"
   tectonic -X compile "$src.tex" --outdir out 2>&1 \
-    | grep -viE "absolute path|^note:|color stack|Object @(Navigation|page)" || true
+    | grep -viE "absolute path|^note:|color stack|Object @(Navigation|page)" | tee out/$src.build.log || true
+  if grep -qE "^error:|LaTeX Error|^!" "out/$src.build.log"; then echo "!! $src.tex: compile errors above"; exit 1; fi
   [[ -f "out/$src.pdf" ]] || { echo "!! $src.tex did not produce a PDF"; exit 1; }
 done
 

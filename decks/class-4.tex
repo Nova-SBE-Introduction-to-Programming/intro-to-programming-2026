@@ -24,8 +24,9 @@
 {Last week you watched a feature get built. Today you build one.}
 \tanote{Timing, dividers included: open + check-in 5 · git 7 · from a model to an agent 18 ·
 three standards 15 · live kick-off 10 · your turn 30 · retro 4 · wrap 1 = 90, no slack. Per-slide
-weights are in the plan, not on the slides. If behind at the agent divider, drop the two history
-slides and the unicorn. TA-run. Slides carry
+weights are in the plan, not on the slides. The GPT-2 block puts the lecture four minutes over:
+cut the two history slides (12–13) by default, run them only if ahead; the GPT-2 block (14–18) is
+the next cut. TA-run. Slides carry
 ideas only: every command is on the Week 4 page, open on their laptops, and in these notes.
 Presenting laptop: SplitIt with feature 1 merged, clean main, Codex open, GitHub Desktop signed in,
 data reset.}
@@ -339,6 +340,101 @@ the timeline. Second, the four horns: two sentences in, a unicorn has four of th
 never flinches. Fluency and truth are different properties, and only one of them is what the
 model is trained for. That is why Act 3 has a judge. Say it was the best of ten tries; the paper
 says so.}
+
+% ── GPT-2 in three pictures: trained, learned, writes
+% The unicorn showed what it did; these show how. Sketches, not diagrams of the real thing:
+% the notes carry the real numbers and the honest caveats.
+\hue{NovaPurple}
+\begin{frame}{Guess the next word.}
+\framesubtitle{How we got here · GPT-2 · 1 of 4 · how it was trained}
+\vspace*{\fill}
+\nextwordfig
+\vskip2.5mm
+\muted{That is all training is: hide the next word, guess, get corrected. No grammar lesson,
+no facts typed in — just 1.5 billion numbers, nudged a few billion times.}
+\vskip1mm
+{\tiny\color{NovaMuted}Radford et al.\ (2019): WebText, 8 million pages, 40 GB · Brown et al.\ (2020): GPT-3 on
+Common Crawl, filtered · percentages illustrative}
+\vfill
+\end{frame}
+\tanote{A minute. Walk the picture left to right, then down. A page from the web with the next
+word covered. The model guesses: a whole list, each with a probability. The page is uncovered:
+horn. If the model put too little weight on horn, every one of its numbers is nudged a hair in
+the direction that would have made horn more likely. Then the next word, on the next page, for
+weeks. Nobody typed in a fact or a grammar rule; everything it knows fell out of that game. The
+data: OpenAI did not use Common Crawl for GPT-2. They said it was too messy and built WebText:
+every outbound link from a Reddit post with at least three upvotes, 45 million links, 8 million
+pages after cleaning, 40 GB of text. Common Crawl, the non-profit copy of the public web from
+slide 12, is what GPT-3 was trained on a year later, after filtering. The numbers on the bars are
+made up to look right; the real list has 50,257 entries, one per token, and a token is often a
+piece of a word rather than a whole one.}
+
+\hue{NovaPurple}
+\begin{frame}{Words become places.}
+\framesubtitle{How we got here · GPT-2 · 2 of 4 · what it learned}
+\vspace*{\fill}
+\meaningmap
+\vskip2mm
+\muted{Encode: a word becomes a position. Decode: a position becomes the nearest word. Neighbours
+mean similar things; directions mean relations.}
+\vskip1mm
+{\tiny\color{NovaMuted}Positions illustrative · arrow arithmetic: Mikolov et al.\ (2013), king $-$ man $+$ woman $\approx$ queen}
+\vfill
+\end{frame}
+\tanote{A minute and a half; this is the slide that makes the unicorn make sense. Every word the
+model knows is a point, and a point is just a list of 1,600 numbers. The guessing game moved the
+points. Words that show up in the same places on the web ended up near each other, because the
+model was rewarded for treating them alike: horse, pony, donkey in one cluster, scientist and
+biologist in another. Two things to point at. First, the dashed arrow: start at horse, move in the
+direction that horn lives, and you arrive near unicorn. The model never memorised a definition of
+unicorn; it has a position for it, and the position is roughly horse plus horn. Second, the teal
+arrows: Lisbon to Portugal and Madrid to Spain are the same arrow. Relations are directions. That
+is the famous king minus man plus woman is queen, and it is why the story could name a scientist,
+give him a university in La Paz and put him in the Andes: each of those is the nearest word to a
+position the story had moved to. Now the honest half: encode and decode by nearness is also how
+you get four-horned unicorns. Numbers of horns live near horned, and nothing in the map knows that
+one is the right number. Say the caveat once: a flat sketch of 1,600 dimensions, and the
+positions here are drawn by hand to make the point.}
+
+\hue{NovaPurple}
+\begin{frame}{Inside the box.}
+\framesubtitle{How we got here · GPT-2 · 3 of 4 · how it writes}
+\vspace*{\fill}
+\gptstack{1}
+\vskip3mm
+\muted{Words become numbers. One block, repeated 48 times, lets each word look back at the ones
+before it and think it over. Out comes the guess.}
+\vfill
+\end{frame}
+\tanote{A minute. Left to right. The words go in and become their positions from the last slide.
+Then one block, the same block, 48 times in a row: each word looks back at the earlier words and
+decides which ones matter (the arcs: the last word attends strongly to "distinctive", less to
+"their"), then a small network thinks over what it collected. That look-back is attention, the
+thing the 2017 Transformer from slide 12 introduced, and it is the whole architecture: nothing
+else in there. At the top, a probability for every word in the vocabulary. GPT-2's 1.5 billion
+numbers are the weights inside those 48 blocks plus the word positions, and every one of them was
+set by the guessing game. Do not go deeper than this; nobody in the room needs the maths, they
+need the shape: numbers in, look back, guess.}
+
+\hue{NovaPurple}
+\begin{frame}{One word at a time.}
+\framesubtitle{How we got here · GPT-2 · 4 of 4 · how it writes}
+\vspace*{\fill}
+\gptstack{2}
+\vskip2.5mm
+\muted{Pick a word from the guess, append it, run the whole box again. The story grows one word at a
+time. Nobody planned the sentence — and nothing checks it.}
+\vfill
+\end{frame}
+\tanote{A minute, and it is the hand-off. Same picture, one arrow added: the chosen word is
+stuck on the end of the input and the box runs again. That loop is how every word of the unicorn
+story was produced, and it is the loop at the bottom: horn, full stop, These, four, -horned. Two
+things to land. First: there is no plan. The model does not know how the sentence ends when it
+starts it, which is why a fluent paragraph can walk into four horns and keep going. Second:
+nothing in the loop checks anything. That gap, between producing text and checking it, is what
+the rest of the class fills: tools that let it look, a judge that says red or green, and rules.
+Keep "append it and go again" in their ears; the agent loop on the next slides is that loop, one
+level up, with a tool call instead of a word.}
 
 % ── stack 1 · a language model
 % Four slides, one canvas. Each adds one thing; the caption is the definition of that thing.
