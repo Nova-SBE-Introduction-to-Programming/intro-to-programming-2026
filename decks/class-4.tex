@@ -81,27 +81,58 @@ file and it showed the real line. A browser chat could not have. Same model fami
 powers. "Agentic" just means: can act, not only answer.}
 
 % ── 5 · what a tool is
+% The old version was two thin mermaid strips of boxes. The asymmetry that matters was in the
+% card text and not in the picture: with tools, the result comes back to the MODEL. Here the
+% return arrow carries it, and its length is the argument — short in the top lane (it comes back
+% to you), full width in the bottom (it comes back to the thing doing the work).
 \hue{NovaPurple}
 \begin{frame}{Tools.}
 \framesubtitle{What is an agent?}
 \vspace*{\fill}
-\diagramtight[0.52\linewidth]{figures/tool-what.pdf}
+\noindent%
+\begin{tikzpicture}[x=1mm, y=1mm]
+  \useasboundingbox (0,-53) rectangle (134,4);
+  % ── without tools: you are the hands, and you are the one who finds out
+  \node[gp eyebrow=NovaMuted] at (0,1.2) {\lsp[13]{WITHOUT TOOLS}};
+  \path[gp card=NovaCard] (0,-1) rectangle (134,-23);
+  \icmodel[NovaMuted]{22}{-8.5}
+  \icperson[NovaMuted]{67}{-8.5}
+  \iclaptop[NovaMuted]{112}{-8.5}
+  \node[gp body] at (22,-14) {the model};
+  \node[gp body] at (67,-14) {you};
+  \node[gp body] at (112,-14) {your laptop};
+  \draw[gp move=NovaMuted] (29,-8.5) -- (60,-8.5);
+  \node[gp movelabel=NovaBody, anchor=south] at (44.5,-7.7) {advice};
+  \draw[gp move=NovaMuted] (75,-8.5) -- (104,-8.5);
+  \node[gp movelabel=NovaBody, anchor=south] at (89.5,-7.7) {you type it};
+  \draw[gp move=NovaMuted, rounded corners=1.4mm] (112,-17.5) -- (112,-19.8) -- (67,-19.8);
+  \node[gp body, anchor=center, fill=NovaCard, inner xsep=1.8mm, inner ysep=0.5mm] at (89.5,-19.8) {you find out};
+  % ── with tools: the same model, but the result lands back where the work happens
+  \node[gp eyebrow=NovaBlue] at (0,-26.8) {\lsp[13]{WITH TOOLS}};
+  \path[gp card=NovaBlueBg] (0,-29) rectangle (134,-51);
+  \icmodel[NovaPurple]{22}{-36.5}
+  \icgear[NovaBlue]{67}{-36.5}
+  \iclaptop[NovaBlue]{112}{-36.5}
+  \node[gp body] at (22,-42) {the model};
+  \node[gp body] at (67,-42) {Codex};
+  \node[gp body] at (112,-42) {your laptop};
+  \draw[gp move=NovaBlue] (29,-36.5) -- (60,-36.5);
+  \node[gp movelabel=NovaBlue, anchor=south] at (44.5,-35.7) {read · edit · run};
+  \draw[gp move=NovaBlue] (74,-36.5) -- (104,-36.5);
+  \node[gp movelabel=NovaBlue, anchor=south] at (89,-35.7) {does it};
+  \draw[gp move=NovaBlue, rounded corners=1.4mm] (112,-45.5) -- (112,-47.8) -- (22,-47.8);
+  \node[gp body, anchor=center, fill=NovaBlueBg, inner xsep=1.8mm, inner ysep=0.5mm] at (67,-47.8) {\textbf{it} finds out};
+\end{tikzpicture}%
 \vskip3mm
-\begin{tcbitemize}[cardsS, raster columns=2]
-  \carditemplain{What it is}{A named action the model is allowed to ask for.
-    Read a file · edit a file · run a command.}
-    \carditemplain{Why it matters}{The result comes back \emph{to the model}. Without
-    tools you are the hands, and the only one who finds out.}
-\end{tcbitemize}
-\vskip4mm
-\muted{Without tools it can only give advice.}
+\muted{The same model both times. What changes is who finds out that it was wrong.}
 \vfill
 \end{frame}
 \tanote{The top lane is what they did all through Class 2 with a browser chat: the model advises,
-they carry it out, they report back. They were the tool. The bottom lane is Codex. Ask the room:
-"in the top lane, who finds out if the code was wrong?" They do, eventually. In the bottom lane
-the model finds out immediately, which is the whole reason a loop is possible. Three tools cover
-almost everything; the next slide is the protocol.}
+they carry it out, they report back. They were the tool. Point at the two return arrows — that is
+the whole slide. In the top lane it comes back to you, and only when you get round to it. In the
+bottom lane it comes back to the model, immediately, which is the only reason a loop is possible
+at all. A tool is a named action it is allowed to ask for: read a file, edit a file, run a command.
+Three of them cover almost everything. The next slide is the protocol.}
 
 % ── 5 · tool calls
 \hue{NovaPurple}
@@ -172,6 +203,35 @@ trained by reinforcement learning to do it unprompted, followed by DeepSeek-R1 a
 extended thinking. Say the honest part too: a guess and a worked answer look equally confident on
 screen, which is why you still read the diff.}
 
+% ── 7b · reasoning, as a transcript
+% The slide before this one says what reasoning is. This one lets them watch it earn its keep on
+% an ask that is genuinely ambiguous, in their own app, so the disambiguation is one they can check.
+\hue{NovaPurple}
+\begin{frame}{Reasoning, watched.}
+\framesubtitle{What is an agent?}
+\vspace*{\fill}
+\begin{chatsaid}{you}{NovaMuted}{0.58\linewidth}
+  Make it so Ana doesn't owe anything.
+\end{chatsaid}
+\vskip2.0mm
+\begin{chatthinks}
+  That could mean delete her expenses, mark her settled up, or take her out of the split. Two of
+  those change what everyone \emph{else} owes. One doesn't.
+\end{chatthinks}
+\vskip2.0mm
+\begin{chatsaid}[NovaPurpleBg]{codex}{NovaPurple}{0.88\linewidth}
+  Marked Ana settled up, so the other balances are untouched. Deleting her expenses would move
+  theirs too — tell me if you meant that.
+\end{chatsaid}
+\vfill
+\end{frame}
+\tanote{Read the ask aloud and stop. Ask the room what it means — you will get at least two
+answers, which is the point. The ask was ambiguous and every reading changes someone's money.
+Without the middle block you get one of the three at random and no way to tell which. With it you
+get the safe one, plus a sentence telling you the assumption so you can overrule it. That is what
+you are buying. Tie it to standard 1: "state your assumption" is a rule you can put in AGENTS.md,
+and it is the difference between this answer and a silent guess.}
+
 % ── 6 · ReAct
 \hue{NovaPurple}
 \begin{frame}{The ReAct loop.}
@@ -217,6 +277,49 @@ your original instructions. That is the reason behind the rule in standard 3 - a
 the same failure, start a new thread rather than arguing in the old one. It is also why a Ralph
 loop hands each run a fresh agent. If someone asks how big: a few hundred thousand words, and
 growing every year, but the habit matters more than the number.}
+
+% ── 10b · context rot
+% The U is the published shape, not decoration: performance is high at the ends of the window and
+% sags in the middle, which is also the argument for what compaction throws away.
+\hue{NovaPurple}
+\begin{frame}{Context rot.}
+\framesubtitle{What is an agent? · why a long thread goes stale}
+\vspace*{\fill}
+\noindent%
+\begin{tikzpicture}[x=1mm, y=1mm]
+  \useasboundingbox (0,-7) rectangle (134,21);
+  \node[gp eyebrow=NovaMuted] at (0,17.6) {\lsp[13]{HOW WELL IT USES WHAT IS THERE}};
+  \draw[NovaLine, line width=0.9pt] (0,0) -- (134,0);
+  \draw[NovaAccent, line width=1.9pt] (2,14.5) .. controls (38,1.4) and (96,1.4) .. (132,14.5);
+  \node[gg dot=NovaAccent] at (2,14.5) {};
+  \node[gg dot=NovaAccent] at (132,14.5) {};
+  \node[gg dot=NovaMuted]  at (67,4.7) {};
+  \node[gp body, anchor=north west] at (0,-1.6) {the start of the thread};
+  \node[gp body, anchor=north]      at (67,-1.6) {everything in the middle};
+  \node[gp body, anchor=north east] at (134,-1.6) {what you just said};
+\end{tikzpicture}%
+\vskip3mm
+\begin{tcbitemize}[cardsS, raster columns=3]
+  \carditemplain{It is measured}{Eighteen models tested. Every one got worse as the input grew,
+    well short of the limit.}
+  \carditemplain{Lost in the middle}{It uses the start and the end. The middle goes soft — and
+    that is where your bug is.}
+  \carditemplain{So: compact}{Keep a summary and what just happened, drop the rest. A
+    million-word window is not a memory.}
+\end{tcbitemize}
+\vskip2mm
+{\tiny\color{NovaMuted}Liu, N. F.\ et al.\ (2024). \emph{Lost in the Middle: How Language Models
+Use Long Contexts.} TACL 12 · arxiv.org/abs/2307.03172 · Chroma (2025), \emph{Context Rot}}
+\vfill
+\end{frame}
+\tanote{Windows went 8k, 32k, 128k, a million. The number on the box grew a hundredfold; how well
+the model uses the middle of it did not. Liu et al.\ measured the U shape in 2024 and it has held
+for every model family since — Chroma re-ran it across eighteen models in 2025 and every one of
+them degraded with input length, including well short of the limit. Two things follow, and both
+are already rules in this deck. Start a new thread rather than arguing in a long one. And
+compaction is not the tool being lazy: it is deliberately discarding the part the model was using
+worst, and keeping the two parts it uses best. If you have the screen, run /context and then
+/compact so they see the bar drop.}
 
 % ── 10 · the long run-up
 \hue{NovaPurple}
@@ -467,6 +570,41 @@ bounded, repeatable failure plus a check that cannot lie. Worth the credibility 
 shipped it as an official Claude Code plugin in December 2025, and Boris Cherny, who built Claude
 Code, has said he reaches for it on long-running tasks. Nobody should run this today. They should
 recognise that the three standards are what make it possible.}
+
+% ── 16 · the loop, shipped as a feature
+% The visual rhyme with the slide before is the argument: same chip, same place on the page,
+% one year apart. The loop got easier to run; the judge did not get easier to write.
+\hue{NovaAccent}
+\begin{frame}{\codetitle{/goal}}
+\framesubtitle{Standard 3 · the loop, one year later}
+\vspace*{\fill}
+\begin{center}\codeline{/goal every test in tests/ passes, and nothing in tests/ changed}\end{center}
+\vskip2mm
+\begin{center}\muted{2026. The shell loop is now one sentence, in the tool.}\end{center}
+\vskip6mm
+\begin{tcbitemize}[cardsS, raster columns=3]
+  \carditemplain{Who decides}{After each turn a \emph{second}, smaller model reads the
+    conversation and rules: not yet, done, or impossible. Not the one doing the work.}
+  \carditemplain{What it can see}{It cannot run your tests. It only reads what the agent put on
+    screen. So the finish line has to be something the agent can show you.}
+  \carditemplain{Still yours}{The tool runs the loop now. Nobody has automated deciding what
+    \emph{done} means.}
+\end{tcbitemize}
+\vskip2mm
+{\tiny\color{NovaMuted}Claude Code, \emph{Keep Claude working toward a goal} ·
+code.claude.com/docs/en/goal · Codex ships the same command, behind \emph{features: goals}}
+\vfill
+\end{frame}
+\tanote{This is the payoff of the whole act, so do not rush it. A year ago Ralph was a bash loop
+you wrote yourself. Today both Claude Code and Codex ship it: /goal takes a finish line in plain
+words and keeps taking turns until a separate evaluator model agrees it holds. Underneath it is
+literally a Stop hook, which is what the ralph-wiggum plugin was. Two things to land. First: the
+evaluator does not run anything — it only reads the transcript, which is exactly why "paste the
+final test output" is in their loop prompt. Evidence is not politeness, it is the only thing the
+judge can see. Second: everything the tool automated was the easy half. Nothing here writes the
+rulebook or decides what done means. That is the job, and it is theirs. Students on Codex can turn
+it on today; tell them it is in the handout, and that they should not use it until they have a
+test that fails first.}
 
 % ═════════════════════════════════════════════ ACT 3 · git, as one story
 \sectionslide[NovaBlue]{git}{How a team stays sane}{One change, start to finish.}%

@@ -50,6 +50,17 @@ back. (The exact wire format differs between tools; you never type it yourself.)
 
 The two jumps that changed the job: *instructions* (2022) and *tools + a loop* (2023–25). Everything since is plumbing and stamina — and the reason the standards exist.
 
+**Context, and context rot.** Everything the model can see at once — your messages, every file it
+read, every command's output — is its *context window*, and it has a fixed size. Windows have grown
+fast (8k tokens, then 32k, then 128k, now a million) but the useful part has not grown with them.
+Models use the **start** and the **end** of a long context well and the middle badly: that is the
+"lost in the middle" result, measured across models and tasks and still holding.² A 2025 re-run
+across eighteen current models found every one of them got worse as the input grew — well short of
+the limit.³ So a long thread does not get wiser, it gets vaguer. Two habits follow, and both are
+already rules below: start a new thread instead of arguing in an old one, and let the tool
+*compact* — it throws away the soft middle and keeps a summary plus what just happened. That is not
+the tool being lazy; it is dropping the part the model was using worst.
+
 **Why it matters here.** An agent can *run* the tests — but it can still *say* they passed without showing you. Tools give it hands; they don't make it honest. Hence the standards: a rulebook it reads before it acts, a judge whose output it cannot argue with, and a loop that knows when to stop.
 
 ## 1 · The rulebook — `AGENTS.md`
@@ -124,11 +135,29 @@ That is the honest description, and Huntley's own defence of it is that the tech
 "deterministically bad in an undeterministic world": it fails a lot, but in bounded, repeatable
 ways, and something that cannot lie catches each one.
 
+**The loop is a button now.** In 2026 both Claude Code and Codex ship the same idea as a command.
+You give it a finish line in plain words and it keeps taking turns until that finish line holds:
+
+```
+/goal every test in tests/ passes, and nothing in tests/ changed
+```
+
+After each turn a *second, smaller* model reads the conversation and rules: not yet, done, or
+impossible. Two things about it are worth more than the command itself. The evaluator **cannot run
+your tests** — it only reads what the agent put on screen, which is exactly why "paste the final
+test output" belongs in your ask. And everything that got automated here was the easy half: nothing
+in it writes your rulebook or decides what *done* means. On Codex it is off by default; turn it on
+with `codex features enable goals`. Don't reach for it until you have a test that fails first.
+
 **Why it needs the first two standards.** Nobody is watching. The rulebook is what keeps it inside the lines, and the judge is what tells it to stop. Get either wrong and
 it will spend an hour going confidently in the wrong direction. That is why the rulebook and the
 judge come first in this course: they are what makes walking away possible. Part II, in Block 3.
 
-Source: Geoffrey Huntley, *Ralph Wiggum as a "software engineer"*, ghuntley.com/ralph (2025).
+Sources: ² Liu, N. F. et al. (2024). *Lost in the Middle: How Language Models Use Long Contexts.*
+TACL 12, arxiv.org/abs/2307.03172 · ³ Chroma (2025), *Context Rot: How Increasing Input Tokens
+Impacts LLM Performance*, trychroma.com/research/context-rot · Geoffrey Huntley,
+*Ralph Wiggum as a "software engineer"*, ghuntley.com/ralph (2025) · Claude Code,
+*Keep Claude working toward a goal*, code.claude.com/docs/en/goal.
 
 ---
 
