@@ -669,31 +669,31 @@ gets longer with every turn; the next slide is what it looks like an hour in.}
 % Deliberate exception to "no commands on slides": /context and /compact are the point here.
 \hue{NovaPurple}
 \begin{frame}{Context rot.}
-\framesubtitle{It fills · the middle goes soft · compaction folds it}
+\framesubtitle{It fills, it gets messy, the answers get worse}
 \vspace*{\fill}
 \ctxterminal
 \vskip2mm
-\muted{The middle goes soft long before it is full. Compaction folds exactly that part.}
+\muted{A full, messy window makes the work worse. Compaction clears it.}
 \vskip1mm
-{\tiny\color{NovaMuted}The soft middle is measured, not a metaphor: Liu et al.\ (2024), \emph{Lost in
-the Middle}, TACL 12 · Chroma (2025), \emph{Context Rot}. Both on the week page.}
+{\tiny\color{NovaMuted}Measured by Liu et al.\ (2024) and Chroma (2025); both linked on the week page.}
 \vfill
 \end{frame}
 \tanote{This is what the tool prints, so if you have the screen, type it and let the real one
 replace the slide. Left, /context an hour into a bug: the grid is the window, every cell a bit
-over one percent. The rulebook is one cell. Your messages are a handful. Files it read and command
-output are three quarters of it, and it put them there, not you. The hatched cells at the end are
-the buffer: when the thread reaches them the tool compacts on its own, and you can ask for it
-earlier. Right, what /compact prints: a line saying it compacted, and the summary the model wrote
-of its own conversation — request, what was done, what is open — followed by the same grid, mostly
-empty again. The rulebook and the last few turns survive as they were; the hour of files became
-the paragraph. Why the middle is the right part to fold is a measured result, not a feeling: Liu
-et al.\ 2024 moved the one document with the answer through twenty and found the model did worse
+over one percent. The rules are one cell. Your messages are a handful. Files it read and command
+output are three quarters of it, and it put them there, not you. And it is not one topic: in an
+hour you asked about the bug, then a git question, then how the CSV is read, and all three are
+still on the page, side by side, every time it reads it. Full and messy has been measured: Liu et
+al.\ 2024 moved the one document with the answer through twenty and found the model did worse
 with it in the middle than with no documents at all; Chroma 2025 re-ran the idea on eighteen
-current models with the simplest task they could design, copying a list of words, and every one
-fell before ten thousand tokens. Two rules follow, both in the next act: after twice round on the
-same failure, start a new thread rather than arguing in a long one, and it is why a Ralph loop
-hands each run a fresh agent.}
+current models copying a list of words, and every one fell before ten thousand tokens, faster
+when unrelated text was mixed in. Those are reading tasks; a coding agent reads before every edit,
+so the same thing hits the code. The hatched cells are the buffer: there the tool compacts on its
+own, and you can ask earlier. Right, what /compact prints: the summary the model wrote of its own
+conversation — topics, request, done, open — and the same grid, mostly empty again. The rules and
+the last turns survive as they were; the hour of files became the paragraph. Two rules follow in
+the next act: after twice round on the same failure, start a new thread, and a Ralph loop hands
+each run a fresh agent for the same reason.}
 
 % ═════════════════════════════════════════════ ACT 3 · three standards
 \sectionslide[NovaAccent]{3}{The core of the class}{Three standards.}%

@@ -826,7 +826,7 @@
 \newcommand{\ctxterminal}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
     \useasboundingbox (0,-44.5) rectangle (134,5.5);
-    \node[gp eyebrow=NovaMuted] at (0,3.4) {\lsp[13]{AN HOUR IN · ASK THE TOOL}};
+    \node[gp eyebrow=NovaMuted] at (0,3.4) {\lsp[13]{AN HOUR IN}};
     % ── left · /context
     \path[rounded corners=2.4mm, fill=NovaFg] (0,0) rectangle (64,-33);
     \node[tm dim] at (3,-2.4) {>};
@@ -849,24 +849,23 @@
     \node[tm text] at (76,-2.4) {/compact};
     \node[tm text, text=NovaPurple!60!white] at (73,-6) {Compacted. Continuing from a summary:};
     \node[tm text, text width=42mm, align=left] at (73,-9.6) {%
-      This session continues an earlier\\
-      conversation that ran out of context.\\
-      1. Request: bug 002, removing a\\
-      \hphantom{1. }member crashes. Fix the logic;\\
-      \hphantom{1. }do not touch the tests.\\
-      2. Done so far: the crash found, one\\
-      \hphantom{1. }helper written, tests still red.\\
+      Topics so far: bug 002, a git question,\\
+      how the CSV is read.\\
+      1. Request: removing a member crashes.\\
+      \hphantom{1. }Fix the logic; do not touch tests.\\
+      2. Done: crash found, one helper\\
+      \hphantom{1. }written, tests still red.\\
       3. Open: run the tests, read the diff.};
     \tmgrid{117}{-8}{1.5}{0/NovaMuted, 1/NovaMuted, 2/NovaMuted, 3/NovaMuted, 4/NovaMuted, 5/NovaMuted, 6/NovaYellow, 7/NovaPurple, 8/NovaPurple, 9/NovaPurple, 10/NovaPurple, 11/NovaPurple, 12/NovaBlue, 13/NovaBlue, 14/NovaTeal, 15/NovaTeal, 16/free, 17/free, 18/free, 19/free, 20/free, 21/free, 22/free, 23/free, 24/free, 25/free, 26/free, 27/free, 28/free, 29/free, 30/free, 31/free, 32/free, 33/free, 34/free, 35/free, 36/free, 37/free, 38/free, 39/free, 40/free, 41/free, 42/free, 43/free, 44/free, 45/free, 46/free, 47/free, 48/free, 49/free, 50/free, 51/free, 52/free, 53/free, 54/free, 55/free, 56/free, 57/free, 58/free, 59/free, 60/free, 61/free, 62/free, 63/free, 64/free, 65/free, 66/free, 67/free, 68/free, 69/free, 70/free, 71/free, 72/free, 73/free, 74/free, 75/buf, 76/buf, 77/buf, 78/buf, 79/buf}
     \node[tm text, anchor=north] at (123.5,-21.4) {24k / 200k};
     \node[tm text, anchor=north] at (123.5,-24.2) {12\% full};
     % ── notes
     \draw[as arrow=NovaAccent] (14,-36) -- (14,-27);
-    \node[tm note] at (0,-36.6) {an hour of files and outputs: the soft middle, most of the window};
+    \node[tm note] at (0,-36.6) {an hour of files, outputs and three unrelated questions, all still in there};
     \draw[as arrow=NovaAccent] (46,-36) -- (46,-26.6);
-    \node[tm note] at (43,-36.6) {when it reaches this it compacts on its own — or you ask first};
+    \node[tm note] at (43,-36.6) {here it compacts on its own — or you ask first};
     \draw[as arrow=NovaAccent] (94,-36) -- (94,-30.5);
-    \node[tm note, text width=44mm] at (88,-36.6) {the middle, folded into a paragraph the model wrote; rulebook and last turns kept};
+    \node[tm note, text width=44mm] at (88,-36.6) {the conversation folded into a short summary; the rules and the last turns kept};
   \end{tikzpicture}%
 }
 

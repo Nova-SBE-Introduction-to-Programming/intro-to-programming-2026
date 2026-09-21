@@ -82,8 +82,11 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   over one percent of the window, files and command output three quarters of it, the rulebook one
   cell, the hatched autocompact buffer at the end) beside `/compact` (the "Compacted" line, the
   opening of the summary the model writes of its own conversation, and the same grid after, mostly
-  empty). Three notes point into the panels: the soft middle, the buffer that triggers compaction,
-  the paragraph the middle became. This is a deliberate exception to "no commands on slides", like
+  empty). Three notes point into the panels, in plain words: an hour of files, outputs and three unrelated
+  questions still in there; the buffer where it compacts on its own; the conversation folded into a
+  short summary with the rules and last turns kept. The slide's own words stay short ("a full,
+  messy window makes the work worse; compaction clears it") and the jargon (soft middle, TACL)
+  lives only in the notes. This is a deliberate exception to "no commands on slides", like
   the Ralph one-liner: the two commands are the point, and if the screen is available the TA types
   them and the real output replaces the slide. The two published measurements (Liu et al. 2024,
   worse-than-no-documents in the middle; Chroma 2025, every model falling before ten thousand
