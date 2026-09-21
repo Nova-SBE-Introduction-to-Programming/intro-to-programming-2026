@@ -108,9 +108,12 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   not one agent getting better, a queue of identical beginners. Then one canvas grown twice,
   like the git graph. *Nobody is watching*: prompt → fresh agent → repo → tests, every part
   something they already have from this act (a separate *One run* stage restated the ask slide
-  and was cut 2026-09-21), the one-liner on top (the deck's one
-  deliberate command on a slide — `while :; do cat PROMPT.md | claude-code ; done` is the
-  punchline and does not survive paraphrase), and the red verdict routed back to the prompt, not
+  and was cut 2026-09-21), the plugin's one line on top (the deck's one
+  deliberate command on a slide, since 2026-09-21 the official `ralph-loop` form rather than Huntley's
+  shell loop, at the user's request: `/ralph-loop "the message" --max-iterations 20 --completion-promise "GREEN"`,
+  drawn in pieces so each input carries a label: the ask, a cap on runs, the phrase it may only say
+  when true — and the phrase is standard 2 again, the agent's own word, which is why the message says
+  "the phrase only after green" and why the cap exists), and the red verdict routed back to the prompt, not
   the agent, with a queue of ghost agents behind the live one and three tags: the prompt never
   changes, the agent remembers nothing, the repo keeps everything. Ask the room what that implies
   and let someone say it: the files are the only memory. *Don't argue. Add a line*: Huntley's own word for tuning the loop is "signs", and the

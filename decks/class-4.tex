@@ -754,8 +754,8 @@ the same four parts in a file, and nobody watching.}
 \vspace*{\fill}
 \begin{center}\roundedpic[0.42\linewidth]{figures/ralph.jpg}\end{center}
 \vskip3mm
-\muted{A cartoon character who is cheerfully, relentlessly wrong, and gets there anyway. Not one
-agent getting better at the task: a crowd of identical beginners, each starting from nothing.}
+\muted{Cheerfully, relentlessly wrong, and gets there anyway. Not an agent getting smarter: the
+same instructions, again and again, until the tests agree.}
 \vfill
 \end{frame}
 \tanote{Twenty seconds, and let the picture do it. Named after Ralph Wiggum from The Simpsons.
@@ -763,32 +763,34 @@ The joke is the technical point: there is no single agent learning the job, ther
 them, and the next two slides show why that works.}
 
 % ── Ralph, 1 of 2: the loop
-% One canvas, two stages, like the git graph and the stack: the loop, then the signs. The
-% one-liner breaks the deck's no-commands-on-slides rule on purpose: the literal is the
-% punchline, and it sits where the /goal chip will sit two slides later.
+% One canvas, two stages, like the git graph and the stack: the loop, then a sign. The plugin's
+% one line breaks the deck's no-commands-on-slides rule on purpose: its three inputs are the
+% point, and it sits where the /goal chip will sit two slides later.
 \hue{NovaAccent}
 \begin{frame}{Nobody is watching.}
-\framesubtitle{Ralph · 1 of 2 · the message from the last slide, in a file, on repeat}
+\framesubtitle{Ralph · 1 of 2 · the message from the last slide, on repeat}
 \vspace*{\fill}
-\begin{center}\codeline{while :; do cat PROMPT.md | claude-code ; done}\end{center}
-\vskip2mm
+\ralphcmd
+\vskip1mm
 \ralphloop{2}
 \vskip2mm
-\muted{A fresh agent reads the file, works in the repo, the tests judge. Green stops it. Red
-starts the next one, from nothing.}
+\muted{It stops on its word, or on the cap. So the message says: phrase only after green.}
 \vfill
 \end{frame}
-\tanote{Ninety seconds. Read the line aloud, then walk the row left to right and name each thing
-as something they already have: the prompt is the message from the last slide, saved as a file;
-the repo has their rulebook, their spec and their tests; the tests are standard 2. The only new
-word is "fresh": this agent has never seen the project before. Then the arrow: red goes back to
-the prompt, not to the agent. The agent is thrown away; the ghosts behind it are the queue of
-identical beginners waiting their turn. Huntley's own line is that the technique is
-"deterministically bad in an undeterministic world": it fails a lot, in bounded, repeatable ways,
-and something that cannot lie catches each one. The three tags are the technical point. The
-prompt never changes, the agent remembers nothing, the repo keeps everything. Ask the room what
-that implies and let someone say it: the files are the only memory. Any agent goes in that pipe;
-the name in the original is just the one he was using.}
+\tanote{Ninety seconds. Read the line aloud and name its three inputs: the ask from the last
+slide, a cap on runs, and a phrase. Then walk the row: the agent works in the repo, which has
+their rulebook, their spec and their tests; the tests judge; on red the same message is fed back
+and it goes again; the ghosts behind it are the runs still to come. The three tags are the point:
+the message never changes, the agent is told it again, the repo keeps everything. Now the trap,
+and it is standard 2 again: the loop ends when the agent types the phrase, and that is its own
+word. The plugin's rule is that it may only say it when true, but nothing checks. So the message
+has to say "the phrase only after every test passes", and the cap is there because the plugin's
+own advice is never to trust the phrase alone. Huntley's original was a shell loop that piped a
+prompt file into a fresh agent each run, "deterministically bad in an undeterministic world";
+Anthropic shipped it as an official Claude Code plugin in December 2025, as a Stop hook that
+feeds the same message back into the same conversation, so this agent does remember, and the
+context slide applies: the cap also stops a long, messy conversation. Any agent goes in the
+loop; Codex has the same idea under a different name.}
 
 % ── Ralph, 2 of 2: a sign
 % Huntley's word for tuning the loop is "signs". Drawn as the thing it is: a run did something
@@ -805,19 +807,15 @@ a Claude Code plugin since Dec.\ 2025 (same session, not a fresh one)}
 \vfill
 \end{frame}
 \tanote{A minute. Same picture, plus what you do when a run goes wrong. Run 4 edited a test to
-make it pass, the exact thing the third rulebook line forbids. In a conversation you would reply;
-here there is nobody to reply to, run 4 is gone. So you add one line to the file, and run 5, a
-fresh agent, reads it before it starts. Huntley calls these signs: every dumb run becomes a line,
+make it pass, the exact thing the third rulebook line forbids. In a conversation you would argue
+back; here you cancel the loop, add one line to the message, and start it again, so run 5 reads
+the line before it starts. Huntley calls these signs: every dumb run becomes a line,
 and the file gets better while the agents stay the same. This is the same rule as "twice on the
 same failure, new conversation, better ask", one level up, and it is the same diff they read on
-the rulebook slide. The rest of running it well, only if asked: the prompt holds one task and says
-what done looks like, because that is the only stop; every green run commits, so a bad run can be
-thrown away; a cap on runs, because the plugin's own advice is never to trust the finish phrase
-alone; and then a human reads all of it. Credibility beat: Anthropic shipped it as an official
-Claude Code plugin in December 2025, and the person who built Claude Code has said he uses it. One
-honest footnote if asked: the plugin is a Stop hook that re-feeds the prompt into the same
-conversation, so it does not get the fresh start; only the shell loop does. Nobody runs this
-today. They should recognise that the three standards are exactly what makes it possible.}
+the rulebook slide. The rest of running it well, only if asked: the message holds one task and
+says what done looks like; every green run commits, so a bad run can be thrown away; and when the
+loop ends, a human reads all of it. Credibility beat: the person who built Claude Code has said he
+uses it. Nobody runs this today. They should recognise that the three standards are exactly what makes it possible.}
 
 % ── the loop, shipped as a feature
 % The visual rhyme with the slide before is the argument: same chip, same place on the page,

@@ -137,8 +137,17 @@ while :; do cat PROMPT.md | claude-code ; done
 ```
 
 Any agent goes in that pipe — the name in the original was just the one he happened to be using.
-Anthropic later shipped it as an official Claude Code plugin (`ralph-wiggum`, December 2025), so
-this is a practice you will meet at work, not a stunt.
+Anthropic later shipped it as an official Claude Code plugin (`ralph-loop`, December 2025), so
+this is a practice you will meet at work, not a stunt. The plugin takes three inputs:
+
+```
+/ralph-loop "<the loop prompt above>" --max-iterations 20 --completion-promise "GREEN"
+```
+
+The prompt is the four-part ask. The cap stops it after that many runs. The phrase is how the
+agent ends the loop early: it may only say it when it is true, and nothing checks, so the prompt
+must say *the phrase only after every test passes*, and the cap is there because the plugin's own
+advice is never to trust the phrase alone.
 One difference is worth knowing: the plugin is a *Stop hook* that feeds the same prompt back into
 the same conversation, so it does not get the fresh start described next. Only the shell loop does.
 

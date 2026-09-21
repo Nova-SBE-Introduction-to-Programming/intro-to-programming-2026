@@ -541,6 +541,25 @@
   rl chip/.style  ={rounded corners=1.2mm, fill=NovaBg, text=NovaBody, font=\tiny\bfseries,
                     inner xsep=1.6mm, inner ysep=1.0mm},
 }
+% the plugin's one line, drawn in pieces so each input carries a label: the ask, the cap,
+% and the phrase the agent may only say when it is true. \ralphcmd.
+\tikzset{
+  rc mono/.style ={font=\scriptsize\ttfamily, text=#1, anchor=west, inner sep=0pt},
+  rc lab/.style  ={font=\tiny\bfseries, text=#1, anchor=north, inner sep=0pt, align=center},
+}
+\newcommand{\ralphcmd}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-9) rectangle (134,3.5);
+    \path[rounded corners=2.4mm, fill=NovaChip] (7,3.2) rectangle (127,-3.2);
+    \node[rc mono=NovaMuted] (a) at (10.6,0) {/ralph-loop};
+    \node[rc mono=NovaFg, anchor=west] (b) at ([xshift=1.6mm]a.east) {"the message"};
+    \node[rc mono=NovaYellow, anchor=west] (c) at ([xshift=1.6mm]b.east) {--max-iterations 20};
+    \node[rc mono=NovaTeal, anchor=west] (d) at ([xshift=1.6mm]c.east) {--completion-promise "GREEN"};
+    \node[rc lab=NovaFg] at ([yshift=-4.4mm]b.south) {the ask};
+    \node[rc lab=NovaYellow] at ([yshift=-4.4mm]c.south) {a cap on runs};
+    \node[rc lab=NovaTeal] at ([yshift=-4.4mm]d.south) {the phrase it may only say when true};
+  \end{tikzpicture}%
+}
 \newcommand{\ralphloop}[1]{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
     \useasboundingbox (0,\ifnum#1>2 -52.5\else -33\fi) rectangle (134,4);
@@ -554,7 +573,7 @@
     \fi
     \fill[NovaPurpleBg] (42,-11) circle (7.2);
     \icmodel[NovaPurple]{42}{-11}
-    \node[as name] at (42,-21) {a fresh agent};
+    \node[as name] at (42,-21) {the agent};
     % the repo: the files it reads and writes
     \path[gp card=NovaCard] (66,-3) rectangle (94,-19);
     \node[gp eyebrow=NovaMuted, anchor=north west] at (68.6,-5.2) {\lsp[13]{THE REPO}};
@@ -581,9 +600,9 @@
       \draw[as arrow=NovaAccent, rounded corners=2mm]
         (114.4,-15.5) -- (117.5,-15.5) -- (117.5,-30) -- (1,-30) -- (1,-11) -- (8.2,-11);
       \node[as label=NovaAccent, fill=NovaBg, inner xsep=1.6mm, anchor=center] at (59,-30)
-        {red: again, with a fresh agent};
+        {red: again};
       \node[rl tag=NovaMuted] at (13,-24.4) {never changes};
-      \node[rl tag=NovaMuted] at (42,-24.4) {remembers nothing};
+      \node[rl tag=NovaMuted] at (42,-24.4) {told it again};
       \node[rl tag=NovaTeal]  at (80,-24.4) {keeps everything};
     \fi
     % stage 3: a sign. A run did something dumb; the answer is one added line in the prompt
@@ -594,13 +613,13 @@
             text width=34mm, inner sep=0pt] at (6.2,-36.6)
         {run 4 edited a test to make it pass};
       \node[font=\scriptsize, text=NovaBody, anchor=north west, align=left, text width=34mm,
-            inner sep=0pt] at (6.2,-44.6) {Don't reply to it. It is gone. Add a line:};
+            inner sep=0pt] at (6.2,-44.6) {Don't argue in the chat. Cancel, add a line, start again:};
       \draw[as arrow=NovaBody] (42,-43) -- (49,-43);
       % the prompt file, as a diff
       \path[gp card=NovaBg] (52,-34) rectangle (106,-52);
       \fill[NovaTeal!12!NovaBg] (52.5,-44.2) rectangle (105.5,-48.6);
       \draw[NovaLine, line width=0.9pt, rounded corners=2.4mm] (52,-34) rectangle (106,-52);
-      \node[font=\tiny\ttfamily, text=NovaMuted, anchor=west, inner sep=0pt] at (55,-36.8) {PROMPT.md};
+      \node[pg head] at (55,-36.8) {\lsp[12]{THE MESSAGE}};
       \node[pg text=NovaMuted, text width=48mm] at (55,-40.2) {Fix bug 002. Run the tests until green.};
       \node[font=\scriptsize\bfseries, text=NovaTeal, anchor=north west, inner sep=0pt] at (55,-45) {+};
       \node[pg text=NovaFg, text width=46mm] at (58.5,-45) {Never edit a test. Say so instead.};
