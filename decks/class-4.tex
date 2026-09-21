@@ -632,103 +632,122 @@ after twice round on the same failure, start a new thread, and a Ralph loop hand
 agent for the same reason.}
 
 % ═════════════════════════════════════════════ ACT 3 · three standards
-\sectionslide[NovaAccent]{3}{The core of the class}{Three standards.}%
-{A rulebook it reads. A judge it cannot argue with. A loop that knows when to stop.}
-\tanote{Say the bridge out loud, then show it: the loop from ten minutes ago has three places
-where you get a say. The next slide pins them on.}
+% Order since 2026-09-21: the room's three questions first (brief · check · retry), then one
+% standard per question, then all three in the one message they paste, then Ralph. Every
+% example is bug 002, the task they do next.
+\sectionslide[NovaAccent]{3}{The core of the class}{Delegating.}%
+{Handing work to something fast, tireless, and always sure it is done.}
+\tanote{Say the bridge in their words: you are about to hand a task to something that works fast,
+never gets tired, and will tell you it is done. Anyone who has ever delegated asks three
+questions. Next slide.}
 
-% The bridge, drawn: the Act 2 ring unchanged, with the three standards as numbered pins on the
-% three places the student gets a say. Every Act 3 slide is one of these pins.
-\begin{frame}{Three places you get a say.}
-\framesubtitle{The same loop, three pins}
+\begin{frame}{Three questions.}
+\framesubtitle{Brief it · check it · send it back}
 \vspace*{\fill}
-\standardsmap
-\vskip5mm
-\muted{Same loop as Act 2. Each standard is a pin on it, not a line in a list.}
+\threeqs
+\vskip4mm
+\muted{One bug for all three today: removing a member crashes the page.}
 \vfill
 \end{frame}
-\tanote{Nothing new in the ring; point at it and name the three pins in order. One, what it reads
-before the first thought: the rulebook. Two, what lands at observe, the one thing it cannot argue
-with: the tests. Three, the return arrow: when it may go round again and when it must stop. Then
-say the plan: one slide or two per pin, then you do all three on your own laptop.}
+\tanote{Read the three questions and stop. These are the three standards, and the chips are the
+names they will carry from here: the rulebook, the tests, the loop. Point at the ring from Act 2
+if it helps: the brief is what it reads before the first thought, the check is what lands at
+observe, the retry is the return arrow. Then say that every slide until Ralph is bug 002, the
+bug they fix in half an hour.}
 
-% ── standard 1
+% ── standard 1 · the brief
 \hue{NovaYellow}
-\begin{frame}{Three lines in the rulebook.}
-\framesubtitle{Standard 1 · The rulebook it reads first}
+\begin{frame}{Say it once.}
+\framesubtitle{Standard 1 · how do I brief it?}
 \vspace*{\fill}
 \rulebookpage
 \vskip2.5mm
-\muted{It lives in git. When the agent misbehaves, the fix is usually a line here.}
+\muted{The lines you would otherwise repeat. It reads them before every conversation.}
 \vfill
 \end{frame}
 \tanote{The page is drawn as the diff they will read in a minute: three sections, and the three
 boundary lines in green, the way GitHub Desktop shows an added line. Same page as the context
 slide on purpose: the rulebook is the top of that page, read before your message, every new
-thread. Ask Codex on stage: "What does AGENTS.md tell you to do?" It recites the file; that is the
-proof. Then the live part: ask Codex to add the three lines, read the diff aloud (it will look
-exactly like the slide), accept, commit in GitHub Desktop. The third rule already existed in
-spirit; now it is explicit, and the student enforces it. Codex only reads AGENTS.md at the start
-of a thread, so say "new thread" now. What stays out, if asked: your code explained. It can read
-that itself, and every extra line hides a real one; the test for a line is "would removing it
-cause a mistake?" Mention the 32 KB cap only if asked; the real cap is attention.}
+conversation. Ask Codex on stage: "What does AGENTS.md tell you to do?" It recites the file; that
+is the proof. Then the live part: ask Codex to add the three lines, read the diff aloud (it will
+look exactly like the slide), accept, commit in GitHub Desktop. Codex only reads AGENTS.md at the
+start of a thread, so say "new conversation" now. What stays out, if asked: your code explained.
+It can read that itself, and every extra line hides a real one; the test for a line is "would
+removing it cause a mistake?" Mention the 32 KB cap only if asked; the real cap is attention.}
 
+% ── standard 2 · the check, in two slides: what a judge is, then how to read one
 \hue{NovaAccent}
-\begin{frame}{The judge.}
-\framesubtitle{Standard 2 · the one it cannot argue with}
+\begin{frame}{Don't take its word.}
+\framesubtitle{Standard 2 · how do I know it is done?}
 \vspace*{\fill}
-\redpanel
+\claimpanel
 \vskip2mm
-\muted{Red is the to-do list. Green is the finish line, not the proof.}
+\muted{A judge is a check that does not need its opinion. Today: the tests from last class.}
 \vfill
 \end{frame}
-\tanote{Two columns: on the left what the agent says, on the right what the tests say. Say the
-rule first: when they disagree, the terminal wins, every time, and anyone can type "the tests
-pass", which is why the rule from the previous slide asks for the output itself. Then run the
-red tests on stage (command on the Week 4 page) so the real output replaces this one, and open
-the test file next to the spec: one test per checklist line. Teach them to read red bottom up,
-in the numbered order: the last line says how far from done, the assertion message says why it
-failed and is the to-do written by whoever wrote the test, and the name says what is being
-checked. This is the bug they will do today, and the message really does say what helper to
-write. "Green is not the proof" is the line that pays off today: feature 2's form field is not
-tested at all, so only clicking the app catches a missing one. Editing a test is not finishing.
-Decide what done means before you start.}
+\tanote{Left, what the agent says; right, what the tests say. The rule in one sentence: when
+they disagree, the terminal wins, every time. Then why the tests count as a judge and the
+sentence does not, the three boxes: they were written before the work, last class, by the
+co-teacher and not by the agent, and they give the same answer every time you run them. That
+is all a judge is. Anyone can type "the tests pass", which is why the third rulebook line asks
+for the output itself. Run the red tests on stage now (command on the Week 4 page) so the real
+output replaces this one, and open the test file next to the spec: one test per checklist
+line.}
 
 \hue{NovaAccent}
-\begin{frame}{The loop.}
-\framesubtitle{Standard 3 · the ReAct loop, with the tests in it}
+\begin{frame}{Red is a to-do list.}
+\framesubtitle{Standard 2 · reading the verdict}
+\vspace*{\fill}
+\redread
+\vskip2mm
+\muted{Green is the finish line, not the proof: then you read the diff and click the app.}
+\vfill
+\end{frame}
+\tanote{This is the real output of the bug they do today. Read it bottom up, in the numbered
+order: the last line says how far from done, the assertion message says why it failed and is the
+to-do written by whoever wrote the test, and the name says what is being checked. The message
+really does say what helper to write. "Green is not the proof" is the line that pays off today:
+feature 2's form field is not tested at all, so only clicking the app catches a missing one.
+Editing a test is not finishing. Decide what done means before you start.}
+
+% ── standard 3 · the retry
+\hue{NovaAccent}
+\begin{frame}{Send the failure back.}
+\framesubtitle{Standard 3 · and when it is not done?}
 \vspace*{\fill}
 \reactring{read the failure: \emph{what does the last line say?}}%
           {edit, then run the tests}%
           {red, or green?}%
           {green: read the diff, click the app}
 \vskip6mm
-\muted{One task per loop. It reads its own failures; you read the result. Stop at green, or after
-twice round on the same failure: then a new thread.}
+\muted{Reads its own failure, goes again. Stop at green, or after twice on the same failure.}
 \vfill
 \end{frame}
 \tanote{Same loop as Act 2, on purpose: point back to it. The rulebook is what it read before the
-first card, the judge is the observe card, and standard 3 is what the red arrow is allowed to do:
-loop on its own, one task at a time, and stop at green or after twice round the same failure. Today
-the loop runs inside one Codex turn and you watch; the same idea one level up is a script that
-re-feeds the prompt until the judge passes, which is the Ralph slides.}
+first card, the tests are the observe card, and standard 3 is what the red arrow is allowed to do:
+loop on its own, one task at a time, and stop at green or after twice round the same failure.
+Why twice: the context slide. A conversation that has failed the same way twice is full of the
+failure, and a fresh one with a better ask does better than a third try. Today the loop runs
+inside one Codex turn and you watch; the same idea one level up is a script that re-feeds the
+prompt until the tests pass, which is the Ralph slides.}
 
 \hue{NovaAccent}
-\begin{frame}{The shape of an ask.}
-\framesubtitle{Standard 3 · what you paste}
+\begin{frame}{All three, in one message.}
+\framesubtitle{Standard 3 · what you paste to start it}
 \vspace*{\fill}
 \askpage
 \vfill
 \end{frame}
 \tanote{Four parts, in every loop prompt they will ever write, and the page they read is the one
 from the context slide with your message on it. Make them name the four back to you before you
-paste it: the task, the fence, the finish line, the proof. New thread before pasting: the AGENTS.md
-rules from five minutes ago are only read at the start of a thread. Next slide: the same four parts
-in a file, and nobody watching.}
+paste it: the task, the fence, the finish line, the proof. Then map them: the fence is the
+rulebook, the finish line is the tests, the proof is what the judge reads. New conversation before
+pasting: the rulebook lines from five minutes ago are only read at the start of one. Next slide:
+the same four parts in a file, and nobody watching.}
 
 \hue{NovaAccent}
 \begin{frame}{Ralph.}
-\framesubtitle{Standard 3 · nobody watching}
+\framesubtitle{Standard 3 · the loop, with nobody watching}
 \vspace*{\fill}
 \begin{center}\roundedpic[0.42\linewidth]{figures/ralph.jpg}\end{center}
 \vskip3mm

@@ -1,6 +1,6 @@
 # Class 4 — Rules, judge, loop · TA plan and answer key
 
-90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (40 slides in four acts; LaTeX source in
+90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (41 slides in four acts; LaTeX source in
 `decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
 open it on the second screen in any PDF presenter) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 
@@ -145,14 +145,21 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   "show me the output" on three slides and "never touch the tests" on four; and no slide ever
   showing a failing test although the notes ask the TA to say "what does the last line say?" all
   afternoon. The rulebook and the three rules merged into one slide, the live kick-off and the
-  your-turn tasks into one slide that stays on screen for forty minutes. 42 slides then; 39 since the GPT-2 cut; 40 with the map below.
-- **The bridge into Act 3 is a slide, not a sentence** (2026-09-21, the user's coherence pass). The
-  standards used to arrive as a list on the divider, and the reason they are *these three* lived only
-  in the speaker note ("the loop has three places you get a say"). Now the slide after the divider
-  is the Act 2 ring, unchanged, with three numbered pins: before the first thought, the rulebook;
-  at observe, the judge; on the return arrow, the loop. Every Act 3 slide is then one of the pins,
-  and the loop slide later in the act is the same ring with the tests written in, so the act never
-  leaves the picture the students already know.
+  your-turn tasks into one slide that stays on screen for forty minutes. 42 slides then; 39 since the GPT-2 cut; 41 since the reorder below.
+- **Act 3 opens with the room's own three questions, and every example is bug 002** (2026-09-21,
+  the user's second coherence pass: "the order is wrong, too much on the slide, too abstract, jargon
+  before the why; judge not well explained"). The divider is now *Delegating*: handing work to
+  something fast, tireless and always sure it is done. The first slide asks what anyone asks before
+  delegating: how do I brief it, how do I know it is done, and when it is not? Each column answers in
+  one line and ends in the tool word as a chip (the rulebook · the tests · the loop), so the jargon
+  arrives after the question it answers. Then one standard per question, in that order, with the
+  question as the kicker. The judge is two slides because it was doing two jobs: *Don't take its word*
+  is the concept (the sentence next to the verdict, and the three things that make a check a judge:
+  written before the work, by someone who is not the agent, the same answer every time), and *Red is
+  a to-do list* is the reading lesson. The ask closes the act as *All three, in one message*, on bug
+  002, and then Ralph is the same message in a file. A map slide that pinned the three standards on
+  the ReAct ring lived for one commit between the two passes; it explained the order in the tool's
+  terms, not the room's, and went.
 - **Rules come from failures.** The retro converts today's worst agent behaviour into one `AGENTS.md` line with the reason in the commit message. That's the meta-skill: the rulebook grows from observation, not from longer prompts.
 
 ## Run of show
@@ -170,17 +177,17 @@ Act 2 and again in Act 3 with the tests in it. Say so on the agenda slide.
 | 6–12 | 5–10 | **Act 1 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → local and remote → merge, approved. About a minute each — it is a build, so do not narrate it twice. | — |
 | 12–13 | 11 | Divider: **agent**. "The thing that will make those commits today is not you. So what is it?" | — |
 | 13–32 | 12–25 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) with the NVIDIA aside between them (why the most valuable company: CUDA, the software that opened the games chip to any maths) · the GPT-2 pair: the unicorn sample read aloud, then how it was trained (a strip: hide a word, guess, correct, and round again; the notes carry the data and the "one word at a time, nothing checks" hand-off) · the stack in four moves: a language model · tools · an agent · the harness · **one exchange in full** (slowest slide in the act) · reasoning, watched (the model reaches for a tool mid-thought; the loop is drawn down the left edge, so the next slide only names it) · the ReAct loop · context (one page the model reads: tools, rulebook, your message above the line, thought, call, result below it; the bracket shows why it can pick a tool) · context rot (mock terminal panels: `/context` an hour in, `/compact` beside it, three notes pointing in). | — |
-| 32–33 | 26–27 | Divider: **three standards**, then the map: the Act 2 ring with the three standards pinned on it, in order. Say the bridge on the divider, point at the pins on the map. | — |
-| 33–46 | 28–36 | **Act 3 — the standards.** Rulebook as the diff they will read, the three rules as green added lines (+ live: add them, commit) · judge: what it says next to what the tests say, the failing test read bottom up by number (+ live: run the red tests on stage) · the loop (same loop, tests in it) · the ask as a page, four tagged parts · Ralph, four slides (who he is · one run · the loop · the signs) · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
-| 46–56 | 37 | **Live kick-off.** The "Your turn" slide goes up and stays up: branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
-| 56–86 | 37–38 | **Your turn.** Bug on `main`, then feature 2 on a branch; "When it goes wrong" for the last ten minutes. | Bug test green and pushed; feature 2 green on its branch |
-| 86–89 | 39 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
-| 89–90 | 40 | Wrap. | — |
+| 32–33 | 26–27 | Divider: **Delegating**, then the three questions: brief it, check it, send it back. Read the questions, name the chips, say that every slide until Ralph is bug 002. | — |
+| 33–46 | 28–37 | **Act 3 — the standards, one per question.** *Say it once*: the rulebook as the diff they will read, three rules as green added lines (+ live: add them, commit) · *Don't take its word*: the sentence next to the verdict, and what makes a check a judge (+ live: run the red tests on stage) · *Red is a to-do list*: the failing test read bottom up by number · *Send the failure back*: the loop with the tests in it · *All three, in one message*: the ask on bug 002 · Ralph, four slides (who he is · one run · the loop · the signs) · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
+| 46–56 | 38 | **Live kick-off.** The "Your turn" slide goes up and stays up: branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
+| 56–86 | 38–39 | **Your turn.** Bug on `main`, then feature 2 on a branch; "When it goes wrong" for the last ten minutes. | Bug test green and pushed; feature 2 green on its branch |
+| 86–89 | 40 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
+| 89–90 | 41 | Wrap. | — |
 
-**The lecture half is on budget, with half a minute of slack.** Act 2 is fourteen slides in nineteen minutes and
-Act 3 is nine in twelve and a half. Rehearse to these weights: one exchange in full 2½ min · the stack 1 min
+**The lecture half is on budget with no slack.** Act 2 is fourteen slides in nineteen minutes and
+Act 3 ten in thirteen, so cut the history slides the moment you are behind at the `agent` divider. Rehearse to these weights: one exchange in full 2½ min · the stack 1 min
 a slide (four) · reasoning, ReAct, context rot 1½ each · context 1 · the two history slides 1½ and 1 · NVIDIA 1 · the GPT-2 pair 1 · 1½ (unicorn, trained).
-In Act 3: the map 30 s · rulebook 3 (live: add the three lines, commit) · judge 2½ (live: run the red tests) · loop 1 · the shape of an ask 1½ · Ralph 20 s, 40 s, 50 s, 60 s (who he is · one run · nobody is watching · the signs) · `/goal` 1 min. Git runs at a minute a stage. **The 30
+In Act 3: three questions 45 s · say it once 3 (live: add the three lines, commit) · don't take its word 1½ (live: run the red tests) · red is a to-do list 1 · send the failure back 1 · all three in one message 1½ · Ralph 20 s, 40 s, 50 s, 60 s (who he is · one run · nobody is watching · the signs) · `/goal` 1 min. Git runs at a minute a stage. **The 30
 minutes of hands-on do not move.** If you are behind at the `agent` divider, cut the three history
   slides (12–14, NVIDIA included) and run them only if ahead: the GPT-2 pair carries the history the room
   needs. If still behind, the GPT-2 pair itself
