@@ -1,6 +1,6 @@
 # Class 4 — Rules, judge, loop · TA plan and answer key
 
-90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (42 slides in four acts; LaTeX source in
+90 min · practical · 2026-09-22 · deck `content/weeks/week-04/class-4.pdf` (39 slides in four acts; LaTeX source in
 `decks/`, rebuild with `decks/build.sh`) · speaker notes `teaching/class-4-notes.pdf` (slide left, notes right —
 open it on the second screen in any PDF presenter) · page `weeks/week-04` · handout `agentic-standards-1.md`.
 
@@ -66,7 +66,7 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   notes.
 - **ReAct is drawn once and reused, so it reads as the architecture rather than a diagram.** The loop
   — reason, act, observe, the "not yet" return underneath and the "done" exit to the right — is
-  slide 21 in Act 2 and slide 28 in Act 3 with the tests written into it: *read the failure* ·
+  slide 23 in Act 2 and slide 29 in Act 3 with the tests written into it: *read the failure* ·
   *edit, then run the tests* · *red, or green?* · *green: read the diff, click the app*. The bridge
   at the `3` divider is that the loop has three places where you get a say: what it reads before
   the first thought (the rulebook), what it observes (the judge), and when the return arrow stops
@@ -95,17 +95,15 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   were illegible at slide size, and a four-moment bar that replaced them briefly was judged too
   abstract.
   It explains why "start a new thread after twice
-- **The GPT-2 block is four pictures after the unicorn, and they answer "how did it do that?"**
-  Trained: a page from the web with the next word hidden, a list of guesses with probabilities, the
-  page uncovered, the numbers nudged — and the data named honestly (WebText, 8 million Reddit-linked
-  pages; Common Crawl is GPT-3's, a year later). Learned: a map where a word is a point, horse plus
-  horn lands near unicorn, and Lisbon→Portugal is the same arrow as Madrid→Spain; encode and decode
-  by nearness is both why the story stayed plausible and why the unicorn got four horns. Writes: words
-  become numbers, one block repeated 48 times looks back at earlier words, out comes the guess; then
-  the same picture with one arrow added, the chosen word appended and the box run again, and the
-  unicorn sentence growing chip by chip along the bottom. That loop is the hand-off: the agent loop
-  four slides later is "append it and go again" with a tool call instead of a word. All three figures
-  are sketches; the notes carry the real numbers and the caveats.
+- **The GPT-2 block is the unicorn and one picture.** The picture answers "how did it do that?"
+  as a strip of three numbered steps: hide a word on a page from the web, guess (a list with
+  probabilities), correct (the page says horn; nudge the numbers), with one loop arrow back to the
+  start, "next word, next page, a few billion times". The map of word-positions, the block repeated
+  48 times and the sentence growing chip by chip were cut on 2026-09-21: three slides of how the
+  machine is built, for a room that only needs the shape of the game. What survives of them is one
+  caption line and the hand-off in the notes: writing is the same loop run forwards with nothing to
+  check against, which is why the unicorn got four horns, and the agent loop later is this loop one
+  level up. The data (WebText, not Common Crawl) and the real numbers live in the notes.
 - **Ralph gets four slides because the picture is the argument.** The crowd photo first and alone:
   not one agent getting better, a queue of identical beginners. Then one canvas grown three
   times, like the git graph. *One run*: prompt → fresh agent → repo → tests, every part something
@@ -142,7 +140,7 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   "show me the output" on three slides and "never touch the tests" on four; and no slide ever
   showing a failing test although the notes ask the TA to say "what does the last line say?" all
   afternoon. The rulebook and the three rules merged into one slide, the live kick-off and the
-  your-turn tasks into one slide that stays on screen for forty minutes. 42 slides.
+  your-turn tasks into one slide that stays on screen for forty minutes. 42 slides then; 39 since the GPT-2 cut.
 - **Rules come from failures.** The retro converts today's worst agent behaviour into one `AGENTS.md` line with the reason in the commit message. That's the meta-skill: the rulebook grows from observation, not from longer prompts.
 
 ## Run of show
@@ -159,28 +157,28 @@ Act 2 and again in Act 3 with the tests in it. Say so on the agenda slide.
 | 5–6 | 4 | Divider: **git**. | — |
 | 6–12 | 5–10 | **Act 1 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → local and remote → merge, approved. About a minute each — it is a build, so do not narrate it twice. | — |
 | 12–13 | 11 | Divider: **agent**. "The thing that will make those commits today is not you. So what is it?" | — |
-| 13–35 | 12–28 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) with the NVIDIA aside between them (why the most valuable company: CUDA, the software that opened the games chip to any maths) · the GPT-2 block, five slides: the unicorn sample read aloud, then how it was trained (guess the next word, WebText; Common Crawl for GPT-3), what it learned (words as places, directions as relations), how it writes (one block ×48; then one word at a time, appended and fed back) · the stack in four moves: a language model · tools · an agent · the harness · **one exchange in full** (slowest slide in the act) · reasoning, watched (the model reaches for a tool mid-thought; the loop is drawn down the left edge, so the next slide only names it) · the ReAct loop · context (one page the model reads: tools, rulebook, your message above the line, thought, call, result below it; the bracket shows why it can pick a tool) · context rot (mock terminal panels: `/context` an hour in, `/compact` beside it, three notes pointing in). | — |
-| 35–36 | 29 | Divider: **three standards**. Bridge: the loop has three places you get a say. | — |
-| 36–48 | 30–37 | **Act 3 — the standards.** Rulebook as a page, the three rules as the lines added today (+ live: add them, commit) · judge: a failing test as the terminal prints it, read bottom up (+ live: run the red tests on stage) · the loop (same loop, tests in it) · the ask as a page, four tagged parts · Ralph, four slides (who he is · one run · the loop · the signs) · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
-| 48–58 | 38 | **Live kick-off.** The "Your turn" slide goes up and stays up: branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
-| 58–88 | 38–39 | **Your turn.** Bug on `main`, then feature 2 on a branch; "When it goes wrong" for the last ten minutes. | Bug test green and pushed; feature 2 green on its branch |
-| 88–92 | 40 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
-| 92–93 | 41 | Wrap. | — |
+| 13–32 | 12–25 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) with the NVIDIA aside between them (why the most valuable company: CUDA, the software that opened the games chip to any maths) · the GPT-2 pair: the unicorn sample read aloud, then how it was trained (a strip: hide a word, guess, correct, and round again; the notes carry the data and the "one word at a time, nothing checks" hand-off) · the stack in four moves: a language model · tools · an agent · the harness · **one exchange in full** (slowest slide in the act) · reasoning, watched (the model reaches for a tool mid-thought; the loop is drawn down the left edge, so the next slide only names it) · the ReAct loop · context (one page the model reads: tools, rulebook, your message above the line, thought, call, result below it; the bracket shows why it can pick a tool) · context rot (mock terminal panels: `/context` an hour in, `/compact` beside it, three notes pointing in). | — |
+| 32–33 | 26 | Divider: **three standards**. Bridge: the loop has three places you get a say. | — |
+| 33–45 | 27–34 | **Act 3 — the standards.** Rulebook as a page, the three rules as the lines added today (+ live: add them, commit) · judge: a failing test as the terminal prints it, read bottom up (+ live: run the red tests on stage) · the loop (same loop, tests in it) · the ask as a page, four tagged parts · Ralph, four slides (who he is · one run · the loop · the signs) · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
+| 45–55 | 35 | **Live kick-off.** The "Your turn" slide goes up and stays up: branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
+| 55–85 | 35–36 | **Your turn.** Bug on `main`, then feature 2 on a branch; "When it goes wrong" for the last ten minutes. | Bug test green and pushed; feature 2 green on its branch |
+| 85–89 | 37 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |
+| 89–90 | 38 | Wrap. | — |
 
-**The lecture half is now three minutes over, and the table says so honestly.** Act 2 is seventeen slides in twenty-two minutes and
+**The lecture half is on budget, with about a minute of slack.** Act 2 is fourteen slides in nineteen minutes and
 Act 3 is eight in twelve. Rehearse to these weights: one exchange in full 2½ min · the stack 1 min
-a slide (four) · reasoning, ReAct, context rot 1½ each · context 1 · the two history slides 1½ and 1 · NVIDIA 1 · the GPT-2 block 1 · 1 · 1½ · 1 · 1 (unicorn, trained, learned, inside, one word at a time).
+a slide (four) · reasoning, ReAct, context rot 1½ each · context 1 · the two history slides 1½ and 1 · NVIDIA 1 · the GPT-2 pair 1 · 1½ (unicorn, trained).
 In Act 3: rulebook 3 (live: add the three lines, commit) · judge 2½ (live: run the red tests) · loop 1 · the shape of an ask 1½ · Ralph 20 s, 40 s, 50 s, 60 s (who he is · one run · nobody is watching · the signs) · `/goal` 1 min. Git runs at a minute a stage. **The 30
 minutes of hands-on do not move.** If you are behind at the `agent` divider, cut the three history
-  slides (12–14, NVIDIA included) by default and run them only if ahead: the GPT-2 block now carries the history the room
-  needs, and cutting them brings the lecture back to ninety. If still behind, the GPT-2 block itself
-  (15–19) is the next cut; nothing later depends on it except the phrase "append it and go again". If the room is quick, the
+  slides (12–14, NVIDIA included) and run them only if ahead: the GPT-2 pair carries the history the room
+  needs. If still behind, the GPT-2 pair itself
+  (15–16) is the next cut; nothing later depends on it except the phrase "append it and go again". If the room is quick, the
 minutes belong to *your turn*, not to you.
 
 ## Exact prompts for the live part
 
 - Proof of the rulebook: *"What does AGENTS.md tell you to do?"*
-- Adding the rules: *"Under 'How to answer' in AGENTS.md, add these three lines: …"* — the verbatim wording is on the Week 4 page and in the handout (slide 26 shows only the three concepts: boundary, evidence, off-limits). Read the diff. Accept.
+- Adding the rules: *"Under 'How to answer' in AGENTS.md, add these three lines: …"* — the verbatim wording is on the Week 4 page and in the handout (slide 27 shows only the three concepts: boundary, evidence, off-limits). Read the diff. Accept.
 - The loop prompt (new thread): *"Build `specs/feature-2-categories.md`. Work only on the branch `feature-2-categories`. After every change, run `uv run pytest tests/test_feature_2.py` and keep going until all four tests pass. Do not edit anything in `tests/`. When they pass, paste the final test output and list every file you changed."*
 - After green: *"Show me the diff of every file you changed."* Then, in the browser: Add expense → category box? Group page → totals?
 
