@@ -133,9 +133,14 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   what done means. Students on Codex can enable it today (`codex features enable goals`); tell them
   not to, until they have a test that fails first.
 - **Act 3 is drawn in Act 2's two visual languages, not in cards.** Everything the agent reads is a
-  page (the rulebook, with the three rules as the lines added today; the ask, with its four parts
-  tagged), and everything it shows you is a terminal (the judge is a failing test as printed, with
-  three notes: the count says how far, the name says what, the message says why — the to-do).
+  page (the rulebook, with the three rules drawn as GitHub Desktop draws added lines, green band and
+  a plus, because they read a diff last class and will read this one in a minute; the ask, with its
+  four parts tagged), and everything it shows you is a terminal (the judge is what the agent says,
+  "done, the tests pass", in a chat bubble next to what the tests say, "1 failed", with numbers 1–3
+  on the lines in the order to read them: the count says how far, the message says why — the
+  to-do — and the name says what). The judge's first version had the terminal alone with three
+  arrows from below, and the user found it unintuitive (2026-09-21): the title promised a concept and
+  the picture was a reading lesson, and the arrows' left-to-right order fought the lines' top-to-bottom order.
   That fixed three things at once (2026-09-21): five card grids in a row at the core of the class;
   "show me the output" on three slides and "never touch the tests" on four; and no slide ever
   showing a failing test although the notes ask the TA to say "what does the last line say?" all
@@ -159,7 +164,7 @@ Act 2 and again in Act 3 with the tests in it. Say so on the agenda slide.
 | 12–13 | 11 | Divider: **agent**. "The thing that will make those commits today is not you. So what is it?" | — |
 | 13–32 | 12–25 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) with the NVIDIA aside between them (why the most valuable company: CUDA, the software that opened the games chip to any maths) · the GPT-2 pair: the unicorn sample read aloud, then how it was trained (a strip: hide a word, guess, correct, and round again; the notes carry the data and the "one word at a time, nothing checks" hand-off) · the stack in four moves: a language model · tools · an agent · the harness · **one exchange in full** (slowest slide in the act) · reasoning, watched (the model reaches for a tool mid-thought; the loop is drawn down the left edge, so the next slide only names it) · the ReAct loop · context (one page the model reads: tools, rulebook, your message above the line, thought, call, result below it; the bracket shows why it can pick a tool) · context rot (mock terminal panels: `/context` an hour in, `/compact` beside it, three notes pointing in). | — |
 | 32–33 | 26 | Divider: **three standards**. Bridge: the loop has three places you get a say. | — |
-| 33–45 | 27–34 | **Act 3 — the standards.** Rulebook as a page, the three rules as the lines added today (+ live: add them, commit) · judge: a failing test as the terminal prints it, read bottom up (+ live: run the red tests on stage) · the loop (same loop, tests in it) · the ask as a page, four tagged parts · Ralph, four slides (who he is · one run · the loop · the signs) · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
+| 33–45 | 27–34 | **Act 3 — the standards.** Rulebook as the diff they will read, the three rules as green added lines (+ live: add them, commit) · judge: what it says next to what the tests say, the failing test read bottom up by number (+ live: run the red tests on stage) · the loop (same loop, tests in it) · the ask as a page, four tagged parts · Ralph, four slides (who he is · one run · the loop · the signs) · `/goal`. | Every laptop: an `AGENTS.md` commit pushed |
 | 45–55 | 35 | **Live kick-off.** The "Your turn" slide goes up and stays up: branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
 | 55–85 | 35–36 | **Your turn.** Bug on `main`, then feature 2 on a branch; "When it goes wrong" for the last ten minutes. | Bug test green and pushed; feature 2 green on its branch |
 | 85–89 | 37 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |

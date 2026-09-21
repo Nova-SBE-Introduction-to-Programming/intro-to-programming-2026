@@ -640,7 +640,7 @@ Those are the three standards, in that order.}
 
 % ── standard 1
 \hue{NovaYellow}
-\begin{frame}{\codetitle{AGENTS.md}}
+\begin{frame}{Three lines in the rulebook.}
 \framesubtitle{Standard 1 · The rulebook it reads first}
 \vspace*{\fill}
 \rulebookpage
@@ -648,34 +648,37 @@ Those are the three standards, in that order.}
 \muted{It lives in git. When the agent misbehaves, the fix is usually a line here.}
 \vfill
 \end{frame}
-\tanote{Same visual as the context slide on purpose: the rulebook is the top of that page, read
-before your message, every new thread. Ask Codex on stage: "What does AGENTS.md tell you to do?"
-It recites the file; that is the proof. Three sections, and the test for every line is: would
-removing it cause a mistake? If not, cut it, because it cannot read your code from here, it can
-only read it in the repo. Then do the live part: ask Codex to add the three boundary lines, read
-the diff aloud, accept, commit in GitHub Desktop. The third rule already existed in spirit; now it
-is explicit, and the student enforces it. Codex only reads AGENTS.md at the start of a thread, so
-say "new thread" now. Mention the 32 KB cap only if asked; the real cap is attention.}
+\tanote{The page is drawn as the diff they will read in a minute: three sections, and the three
+boundary lines in green, the way GitHub Desktop shows an added line. Same page as the context
+slide on purpose: the rulebook is the top of that page, read before your message, every new
+thread. Ask Codex on stage: "What does AGENTS.md tell you to do?" It recites the file; that is the
+proof. Then the live part: ask Codex to add the three lines, read the diff aloud (it will look
+exactly like the slide), accept, commit in GitHub Desktop. The third rule already existed in
+spirit; now it is explicit, and the student enforces it. Codex only reads AGENTS.md at the start
+of a thread, so say "new thread" now. What stays out, if asked: your code explained. It can read
+that itself, and every extra line hides a real one; the test for a line is "would removing it
+cause a mistake?" Mention the 32 KB cap only if asked; the real cap is attention.}
 
 \hue{NovaAccent}
 \begin{frame}{The judge.}
-\framesubtitle{Standard 2 · read the last line first}
+\framesubtitle{Standard 2 · the one it cannot argue with}
 \vspace*{\fill}
 \redpanel
-\vskip2.5mm
-\muted{Red is the to-do list; green is the finish line. Editing a test is not finishing.}
-\vskip1mm
-\muted{After green: read the diff, click the app. Green but wrong means a missing test.}
+\vskip2mm
+\muted{Red is the to-do list. Green is the finish line, not the proof.}
 \vfill
 \end{frame}
-\tanote{Run the red tests on stage (command on the Week 4 page) so the real output replaces this
-one, and open the test file next to the spec: one test per checklist line. Then teach them to read
-red, bottom up: the count says how far from done, the name says what is being checked, and the
-assertion message says why it failed, which is the to-do written by whoever wrote the test. This
-is the bug they will do today, and the message really does say what helper to write. Anyone can
-type "all tests pass": that is why the rule from the previous slide asks for the output itself.
-"Green is not done" is the line that pays off today: feature 2's form field is not tested at all,
-so only clicking the app catches a missing one. Decide what done means before you start.}
+\tanote{Two columns: on the left what the agent says, on the right what the tests say. Say the
+rule first: when they disagree, the terminal wins, every time, and anyone can type "the tests
+pass", which is why the rule from the previous slide asks for the output itself. Then run the
+red tests on stage (command on the Week 4 page) so the real output replaces this one, and open
+the test file next to the spec: one test per checklist line. Teach them to read red bottom up,
+in the numbered order: the last line says how far from done, the assertion message says why it
+failed and is the to-do written by whoever wrote the test, and the name says what is being
+checked. This is the bug they will do today, and the message really does say what helper to
+write. "Green is not the proof" is the line that pays off today: feature 2's form field is not
+tested at all, so only clicking the app catches a missing one. Editing a test is not finishing.
+Decide what done means before you start.}
 
 \hue{NovaAccent}
 \begin{frame}{The loop.}

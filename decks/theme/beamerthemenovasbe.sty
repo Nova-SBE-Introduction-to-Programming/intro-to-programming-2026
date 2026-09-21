@@ -709,55 +709,84 @@
   pg side/.style ={font=\scriptsize, text=NovaBody, anchor=north west, align=left, text width=44mm,
                    inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}},
 }
-% the rulebook as a page: what is already there, the three lines added today, what stays out
+% the rulebook as the diff they will read today: the file with its three sections, the three
+% boundary lines drawn as GitHub Desktop draws added lines (green band, a plus in the gutter)
 \newcommand{\rulebookpage}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
     \useasboundingbox (0,-50.5) rectangle (134,1);
     \path[gp card=NovaBg] (0,0) rectangle (80,-50);
+    \foreach \t in {-20.6,-25,-29.4} {
+      \fill[NovaTeal!12!NovaBg] (0.5,\t) rectangle (79.5,{\t-4.4});}
     \draw[NovaLine, line width=0.9pt, rounded corners=3.6mm] (0,0) rectangle (80,-50);
-    \node[pg head] at (4,-3.6) {\lsp[12]{HOW TO RUN}};
-    \node[pg text=NovaBody] at (4,-6.4) {The app, the tests, and how to reset the data: one
+    \node[font=\tiny\ttfamily, text=NovaMuted, anchor=west, inner sep=0pt] at (4,-3.2) {AGENTS.md};
+    \node[pg head] at (4,-7.2) {\lsp[12]{HOW TO RUN}};
+    \node[pg text=NovaBody] at (4,-9.8) {The app, the tests, and how to reset the data: one
       command each. Things it cannot guess.};
-    \node[pg head] at (4,-16) {\lsp[12]{BOUNDARIES}};
-    \foreach \y/\l in {-18.8/{One branch per spec. Never straight to \code{main}.},
-                       -23.2/{Show me the test output, not a summary of it.},
-                       -27.6/{Never touch the tests. If one looks wrong, say so and stop.}} {
-      \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=north west, inner sep=0pt] at (4,\y) {+};
+    \node[pg head] at (4,-18.6) {\lsp[12]{BOUNDARIES}};
+    \foreach \y/\l in {-21.4/{One branch per spec. Never straight to \code{main}.},
+                       -25.8/{Show me the test output, not a summary of it.},
+                       -30.2/{Never touch the tests. If one looks wrong, say so.}} {
+      \node[font=\scriptsize\bfseries, text=NovaTeal, anchor=north west, inner sep=0pt] at (4,\y) {+};
       \node[pg text=NovaFg, text width=66mm] at (7.5,\y) {\l};}
-    \node[pg head] at (4,-38) {\lsp[12]{HOW TO REPORT BACK}};
-    \node[pg text=NovaBody] at (4,-40.8) {File and line for every claim. Change code only when
+    \node[pg head] at (4,-37.2) {\lsp[12]{HOW TO REPORT BACK}};
+    \node[pg text=NovaBody] at (4,-39.8) {File and line for every claim. Change code only when
       asked.};
-    % ── the reader, and the two notes
+    % ── the reader, and what happens today
     \begin{scope}[scale=2, shift={(54.5,-4.5)}]\icmodel[NovaPurple]{0}{0}\end{scope}
     \draw[as arrow=NovaPurple] (101,-9) -- (83,-9);
     \node[as label=NovaPurple, anchor=south] at (92,-8.2) {reads it first};
     \node[pg side] at (86,-18.6) {every new thread, before your message.};
-    \draw[as arrow=NovaAccent, dash pattern=on 1.4mm off 0.9mm] (86,-29) -- (81.5,-29);
-    \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=north west, align=left, text width=46mm,
-          inner sep=0pt] at (88,-27.4) {today: add these three, read the diff, commit};
-    \node[pg head] at (86,-39) {\lsp[12]{WHAT STAYS OUT}};
-    \node[pg side, text=NovaMuted] at (86,-41.8) {Your code, explained. It can read that itself;
-      every extra line hides a real one.};
+    \draw[as arrow=NovaTeal] (86,-27.2) -- (81.5,-27.2);
+    \node[font=\scriptsize\bfseries, text=NovaTeal, anchor=north west, align=left, text width=46mm,
+          inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}] at (88,-25.6)
+      {today: these three lines. Read the diff, commit.};
   \end{tikzpicture}%
 }
-% a failing test, as the terminal prints it, with what to read in it
+% the judge: what the agent says next to what the tests say. The claim is a chat bubble, the
+% verdict is the terminal, and the numbers say in which order to read a failing test (bottom up).
+\tikzset{
+  tm num/.style ={circle, fill=NovaAccent, text=NovaBg, font=\tiny\bfseries, inner sep=0pt,
+                  minimum size=3.4mm},
+}
 \newcommand{\redpanel}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-42) rectangle (134,1);
-    \path[rounded corners=2.4mm, fill=NovaFg] (0,0) rectangle (134,-28);
-    \node[tm big, text=NovaLine] at (3,-2.6) {>};
-    \node[tm big] at (7,-2.6) {run the tests};
-    \node[tm big] at (3,-7) {test\_bug\_002.py F\hspace{58mm}[1 of 13]};
-    \node[tm big, text=NovaAccent!75!white] at (3,-11.4) {\_\_\_\_\_\_ test\_bug\_002\_removing\_a\_member\_removes\_their\_expenses \_\_\_\_\_\_};
-    \node[tm big] at (3,-15.8) {AssertionError: removing a member must also remove their expenses:};
-    \node[tm big] at (3,-19.4) {\hspace{6mm}write remove\_member\_expenses and call it from remove\_member};
-    \node[tm big, text=NovaAccent!75!white] at (3,-24.6) {1 failed, 12 passed};
-    \draw[as arrow=NovaAccent] (18,-33.5) -- (18,-26.6);
-    \node[tm note, text width=26mm] at (4,-34.1) {how far from done};
-    \draw[as arrow=NovaAccent] (60,-33.5) -- (60,-21.6);
-    \node[tm note, text width=44mm] at (46,-34.1) {the message says why. That is the to-do};
-    \draw[as arrow=NovaAccent] (106,-33.5) -- (106,-13.6);
-    \node[tm note, text width=28mm] at (98,-34.1) {the name says what};
+    \useasboundingbox (0,-45) rectangle (134,4);
+    % ── the claim
+    \begin{scope}[scale=0.75, shift={(4.6,2)}]\icmodel[NovaPurple]{0}{0}\end{scope}
+    \node[pg head, text=NovaPurple] at (7.5,1.5) {\lsp[12]{WHAT IT SAYS}};
+    \path[gp card=NovaPurpleBg] (0,-3.5) rectangle (40,-21);
+    \node[pg text=NovaFg, text width=34mm] at (3,-6) {Done. Removing a member now also removes
+      their expenses, and the tests pass.};
+    \draw[NovaAccent, line width=1.3pt] (1.4,-25.3) -- (4.2,-28.1) (1.4,-28.1) -- (4.2,-25.3);
+    \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=west, inner sep=0pt] at (6.5,-26.7)
+      {a claim. Anyone can type it.};
+    % ── the verdict
+    \node[pg head, text=NovaAccent] at (46,1.5) {\lsp[12]{WHAT THE TESTS SAY}};
+    \path[rounded corners=2.4mm, fill=NovaFg] (46,-3.5) rectangle (134,-35);
+    \node[tm big, text=NovaLine] at (49,-6) {>};
+    \node[tm big] at (53,-6) {run the tests};
+    \node[tm big] at (49,-10) {test\_bug\_002.py F};
+    \node[tm big, text=NovaAccent!75!white] at (49,-14) {\_\_\_ removing\_a\_member\_removes\_their\_expenses \_\_\_};
+    \node[tm big] at (49,-18) {AssertionError: removing a member must also remove};
+    \node[tm big] at (49,-22) {\hspace{4mm}their expenses. Write remove\_member\_expenses and};
+    \node[tm big] at (49,-26) {\hspace{4mm}call it from remove\_member};
+    \node[tm big, text=NovaAccent!75!white] at (49,-30) {1 failed, 12 passed};
+    \node[tm num] at (129.5,-15.6) {3};
+    \node[tm num] at (129.5,-19.6) {2};
+    \node[tm num] at (129.5,-31.6) {1};
+    % ── how to read it
+    \draw[NovaTeal, line width=1.3pt] (47.3,-39.2) -- (48.6,-40.5) -- (51.2,-37.6);
+    \node[font=\scriptsize\bfseries, text=NovaTeal, anchor=west, inner sep=0pt] at (53,-39)
+      {the verdict. Read it from the bottom:};
+    \node[tm num] at (47.7,-43.6) {1};
+    \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=west, inner sep=0pt] at (50.4,-43.6)
+      {how far from done};
+    \node[tm num] at (80.7,-43.6) {2};
+    \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=west, inner sep=0pt] at (83.4,-43.6)
+      {why: that is the to-do};
+    \node[tm num] at (117.7,-43.6) {3};
+    \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=west, inner sep=0pt] at (120.4,-43.6)
+      {what};
   \end{tikzpicture}%
 }
 % the ask as a page: four tagged parts, the same four things every loop prompt has
