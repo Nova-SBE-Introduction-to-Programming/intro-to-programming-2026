@@ -845,27 +845,34 @@
       {what is checked};
   \end{tikzpicture}%
 }
-% the ask as a page: four tagged parts, the same four things every loop prompt has
-\newcommand{\askrow}[4]{% y colour TAG text
-  \node[pg tag=#2] at (4,#1) {#3};
-  \node[pg line, text width=58mm] at (22,#1) {#4};}
+% the ask as a message: the skeleton every loop prompt has, the two slots that change
+% highlighted, and beside each paragraph the part it is and the reason it is there
+\tikzset{
+  ak slot/.style ={rounded corners=0.8mm, fill=NovaAccent!16!NovaBg, draw=NovaAccent!60!NovaBg,
+                   line width=0.5pt, text=NovaFg, inner xsep=0.7mm, inner ysep=0.3mm},
+  ak why/.style  ={font=\scriptsize, text=NovaBody, anchor=north west, align=left, text width=46mm,
+                   inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}},
+}
+\newcommand{\askslot}[1]{\tikz[baseline=(s.base)]\node[ak slot] (s) {#1};}
+\newcommand{\askpart}[5]{% y colour TAG why text
+  \node[pg line, text width=64mm] at (4,#1) {#5};
+  \draw[#2, line width=1.1pt] (80,{#1+3.6}) -- (80,{#1-3.6});
+  \node[gp eyebrow=#2, anchor=north west] at (84,{#1+3.6}) {\lsp[13]{#3}};
+  \node[ak why] at (84,{#1-0.2}) {#4};}
 \newcommand{\askpage}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-42.5) rectangle (134,1);
-    \path[gp card=NovaBg] (0,0) rectangle (86,-42);
-    \draw[NovaLine, line width=0.9pt, rounded corners=3.6mm] (0,0) rectangle (86,-42);
-    \askrow{-6}{NovaFg}{1 · THE TASK}{Fix bug 002: removing a member crashes the page.
-      Nothing else.}
-    \askrow{-15}{NovaYellow}{2 · BOUNDARY}{On this branch only. Do not change any test.}
-    \askrow{-24}{NovaAccent}{3 · THE JUDGE}{Run the tests, and keep going until every one passes.}
-    \askrow{-33}{NovaTeal}{4 · EVIDENCE}{Then paste the full test output and list every file you
-      touched.}
-    \begin{scope}[scale=2, shift={(55.5,-4.5)}]\icmodel[NovaPurple]{0}{0}\end{scope}
-    \draw[as arrow=NovaPurple] (102,-9) -- (89,-9);
-    \node[pg side] at (92,-17) {One task, the fence from the rulebook, the tests as the finish
-      line, the output as proof. Every loop prompt you will ever write.};
-    \node[pg side, text=NovaMuted] at (92,-33) {Written out in full on the Week 4 page. Copy it;
-      change two names.};
+    \useasboundingbox (0,-44) rectangle (134,4);
+    \node[pg head] at (0,2) {\lsp[12]{NEW CONVERSATION · YOUR MESSAGE}};
+    \path[gp card=NovaBg] (0,0) rectangle (76,-43);
+    \draw[NovaLine, line width=0.9pt, rounded corners=3.6mm] (0,0) rectangle (76,-43);
+    \askpart{-6}{NovaFg}{1 · THE TASK}{One thing, named. Not two.}%
+      {Fix \askslot{bug 002: removing a member crashes the page}. Nothing else.}
+    \askpart{-16}{NovaYellow}{2 · THE FENCE}{The rulebook, repeated for this task.}%
+      {Work on \askslot{this branch} only. Do not change any test.}
+    \askpart{-26}{NovaAccent}{3 · THE FINISH LINE}{The tests decide, not the agent.}%
+      {Run the tests, and keep going until every one passes.}
+    \askpart{-36}{NovaTeal}{4 · THE PROOF}{What you read before you believe it.}%
+      {Then paste the full test output and list every file you touched.}
   \end{tikzpicture}%
 }
 % ────────────────────────────────────────────────── /context and /compact
