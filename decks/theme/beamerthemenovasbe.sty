@@ -494,6 +494,37 @@
   \end{tikzpicture}%
 }
 
+% ─────────────────────────────────────────────── the three standards as pins on the ring
+% The bridge from Act 2 to Act 3, drawn: the same ReAct ring, with the three places the student
+% gets a say pinned on it, numbered in the order the standards come. \standardsmap.
+\tikzset{
+  sm pin/.style ={font=\scriptsize\bfseries, text=NovaAccent, anchor=west, inner sep=0pt},
+}
+\newcommand{\standardsmap}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-37) rectangle (134,6);
+    \reactcard{0}{REASON}{a short thought}{NovaPurple}
+    \reactcard{40}{ACT}{one tool call}{NovaPurple}
+    \reactcard{80}{OBSERVE}{the result lands}{NovaPurple}
+    \draw[as arrow=NovaBody] (30.6,-12) -- (39.4,-12);
+    \draw[as arrow=NovaBody] (70.6,-12) -- (79.4,-12);
+    \draw[as arrow=NovaAccent, rounded corners=2mm] (95,-21.6) -- (95,-27.5) -- (15,-27.5) -- (15,-21.6);
+    \node[as label=NovaAccent, fill=NovaBg, inner xsep=1.6mm, anchor=center] at (55,-27.5) {not yet};
+    \draw[as arrow=NovaTeal] (110.6,-12) -- (119.4,-12);
+    \node[gg open=NovaTeal] at (122.6,-12) {};
+    \node[as label=NovaTeal, anchor=north, align=center, text width=22mm] at (125,-14.6) {done};
+    % pin 1: before the first thought
+    \node[tm num] at (1.7,2.2) {1};
+    \node[sm pin] at (5,2.2) {the rulebook\textcolor{NovaBody}{\mdseries: read before the first thought}};
+    % pin 2: what it observes
+    \node[tm num] at (81.7,2.2) {2};
+    \node[sm pin] at (85,2.2) {the judge\textcolor{NovaBody}{\mdseries: what it cannot argue with}};
+    % pin 3: the return arrow
+    \node[tm num] at (16.7,-33) {3};
+    \node[sm pin] at (20,-33) {the loop\textcolor{NovaBody}{\mdseries: when it goes round again, and when it stops}};
+  \end{tikzpicture}%
+}
+
 % ───────────────────────────────────────────────────────────── the Ralph loop
 % Standard 3 with nobody watching, as one canvas grown three times: a single run (prompt →
 % fresh agent → repo → tests), then the loop (the red verdict sends the same prompt to a new
