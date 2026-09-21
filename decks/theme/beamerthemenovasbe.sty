@@ -874,7 +874,8 @@
 }
 \newcommand{\askslot}[1]{\tikz[baseline=(s.base)]\node[ak slot] (s) {#1};}
 \newcommand{\askpart}[5]{% y colour TAG why text
-  \node[pg line, text width=64mm] at (4,#1) {#5};
+  \fill[#2, rounded corners=0.4mm] (3,{#1+3.6}) rectangle (4.2,{#1-3.6});
+  \node[pg line, text width=62mm] at (7,#1) {#5};
   \draw[#2, line width=1.1pt] (80,{#1+3.6}) -- (80,{#1-3.6});
   \node[gp eyebrow=#2, anchor=north west] at (84,{#1+3.6}) {\lsp[13]{#3}};
   \node[ak why] at (84,{#1-0.2}) {#4};}
