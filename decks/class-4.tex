@@ -706,64 +706,42 @@ Those are the three standards, in that order.}
 % ── standard 1
 \hue{NovaYellow}
 \begin{frame}{\codetitle{AGENTS.md}}
-\framesubtitle{Standard 1 · The rulebook}
+\framesubtitle{Standard 1 · The rulebook it reads first}
 \vspace*{\fill}
-\begin{tcbitemize}[cardsS]
-  \carditem{What it is}{A README for agents.}{Every session starts by reading it.}
-  \carditem{What goes in}{What it cannot guess.}{Commands. Boundaries. How to report back.}
-  \carditem{What stays out}{What it can read.}{Your code, explained. Every extra line hides a real
-    one.}
-\end{tcbitemize}
-\vskip6mm
+\rulebookpage
+\vskip2.5mm
 \muted{It lives in git. When the agent misbehaves, the fix is usually a line here.}
 \vfill
 \end{frame}
-\tanote{Ask Codex on stage: "What does AGENTS.md tell you to do?" It recites the file. That is the
-proof it reads it — and the thin sliver at the left of the context bar. The test for every line:
-would removing it cause a mistake? If not, cut it. Mention the 32 KB cap only if asked; the real
-cap is attention.}
+\tanote{Same visual as the context slide on purpose: the rulebook is the top of that page, read
+before your message, every new thread. Ask Codex on stage: "What does AGENTS.md tell you to do?"
+It recites the file; that is the proof. Three sections, and the test for every line is: would
+removing it cause a mistake? If not, cut it, because it cannot read your code from here, it can
+only read it in the repo. Then do the live part: ask Codex to add the three boundary lines, read
+the diff aloud, accept, commit in GitHub Desktop. The third rule already existed in spirit; now it
+is explicit, and the student enforces it. Codex only reads AGENTS.md at the start of a thread, so
+say "new thread" now. Mention the 32 KB cap only if asked; the real cap is attention.}
 
-% ── the three rules
-\hue{NovaYellow}
-\begin{frame}{Three rules.}
-\framesubtitle{Standard 1 · Live}
-\vspace*{\fill}
-\begin{tcbitemize}[cardsS]
-  \carditem{Boundary}{One branch per spec.}{Never straight to \code{main}.}
-  \carditem{Evidence}{Show me the test output.}{The output itself, not a summary of it.}
-  \carditem{Off-limits}{Never touch the tests.}{If one looks wrong, say so and stop.}
-\end{tcbitemize}
-\vskip6mm
-\muted{Exact wording on the Week 4 page. Add them, read the diff, commit, push.}
-\vfill
-\end{frame}
-\tanote{Do it on stage: ask Codex to add the three rules under "How to answer" in AGENTS.md, read
-the diff aloud, accept, commit in GitHub Desktop. The third already existed in spirit; now it is
-explicit, and the student enforces it. Codex only reads AGENTS.md at the start of a thread, so say
-"new thread" now.}
-
-% ── standard 2
 \hue{NovaAccent}
 \begin{frame}{The judge.}
-\framesubtitle{Standard 2}
+\framesubtitle{Standard 2 · read the last line first}
 \vspace*{\fill}
-\begin{tcbitemize}[cardsS, raster columns=2]
-  \carditem{The problem}{It stops when it looks done.}{So give it a check: failing tests are the
-    to-do list, green is the finish line.}
-  \carditem{The rule}{Editing a test is cheating.}{It is not finishing.}
-  \carditem{Evidence}{Show me the output.}{Anyone can type ``all tests pass''.}
-  \carditem{After green}{Read the diff. Click the app.}{App wrong, tests green? You found a
-    missing test.}
-\end{tcbitemize}
-\vskip5mm
-\muted{Decide what \emph{done} means before you start.}
+\redpanel
+\vskip2.5mm
+\muted{Red is the to-do list; green is the finish line. Editing a test is not finishing.}
+\vskip1mm
+\muted{After green: read the diff, click the app. Green but wrong means a missing test.}
 \vfill
 \end{frame}
-\tanote{Run the red tests on stage (command on the Week 4 page) and open the test file next to the
-spec: one test per checklist line. "Green is not done" is the card that pays off today: feature 2's
-form field is not tested at all, so only clicking the app catches a missing one.}
+\tanote{Run the red tests on stage (command on the Week 4 page) so the real output replaces this
+one, and open the test file next to the spec: one test per checklist line. Then teach them to read
+red, bottom up: the count says how far from done, the name says what is being checked, and the
+assertion message says why it failed, which is the to-do written by whoever wrote the test. This
+is the bug they will do today, and the message really does say what helper to write. Anyone can
+type "all tests pass": that is why the rule from the previous slide asks for the output itself.
+"Green is not done" is the line that pays off today: feature 2's form field is not tested at all,
+so only clicking the app catches a missing one. Decide what done means before you start.}
 
-% ── standard 3 · the same loop, with the tests in it
 \hue{NovaAccent}
 \begin{frame}{The loop.}
 \framesubtitle{Standard 3 · the ReAct loop, with the tests in it}
@@ -772,40 +750,30 @@ form field is not tested at all, so only clicking the app catches a missing one.
           {edit, then run the tests}%
           {red, or green?}%
           {green: read the diff, click the app}
-\vskip4mm
-\begin{tcbitemize}[cardsS]
-  \carditemplain{One task per loop}{One bug, or one spec.}
-  \carditemplain{Let it loop}{It reads its own failures. You read the result.}
-  \carditemplain{Know when to stop}{Green. Or twice round on the same failure — then a new
-    thread.}
-\end{tcbitemize}
+\vskip6mm
+\muted{One task per loop. It reads its own failures; you read the result. Stop at green, or after
+twice round on the same failure: then a new thread.}
 \vfill
 \end{frame}
 \tanote{Same loop as Act 2, on purpose: point back to it. The rulebook is what it read before the
-first card, the judge is the observe card, and standard 3 is what the red arrow is allowed to do.
-Today the loop runs inside one Codex turn and you watch; the same idea one level up is a script
-that re-feeds the prompt until the judge passes, which is the last three slides of this act.}
+first card, the judge is the observe card, and standard 3 is what the red arrow is allowed to do:
+loop on its own, one task at a time, and stop at green or after twice round the same failure. Today
+the loop runs inside one Codex turn and you watch; the same idea one level up is a script that
+re-feeds the prompt until the judge passes, which is the Ralph slides.}
 
-% ── the four parts of an ask
 \hue{NovaAccent}
 \begin{frame}{The shape of an ask.}
-\framesubtitle{Standard 3}
+\framesubtitle{Standard 3 · what you paste}
 \vspace*{\fill}
-\begin{tcbitemize}[cardsS, raster columns=4]
-  \carditem{1}{The task}{One thing. Name the spec.}
-  \carditem{2}{The boundary}{This branch. Never the tests.}
-  \carditem{3}{The judge}{Run the tests until they pass.}
-  \carditem{4}{The evidence}{The output, and every file touched.}
-\end{tcbitemize}
-\vskip7mm
-\muted{Written out in full on the Week 4 page. Copy it; change two names.}
+\askpage
 \vfill
 \end{frame}
-\tanote{Four parts, in every loop prompt they will ever write. Make them name the four back to you
-before you paste it. New thread before pasting: the AGENTS.md rules from five minutes ago are only
-read at the start of a thread.}
+\tanote{Four parts, in every loop prompt they will ever write, and the page they read is the one
+from the context slide with your message on it. Make them name the four back to you before you
+paste it: the task, the fence, the finish line, the proof. New thread before pasting: the AGENTS.md
+rules from five minutes ago are only read at the start of a thread. Next slide: the same four parts
+in a file, and nobody watching.}
 
-% ── Ralph: who he is
 \hue{NovaAccent}
 \begin{frame}{Ralph.}
 \framesubtitle{Standard 3 · nobody watching}
@@ -902,12 +870,11 @@ makes it possible.}
 \begin{center}\muted{2026. The shell loop is now one sentence, in the tool.}\end{center}
 \vskip6mm
 \begin{tcbitemize}[cardsS, raster columns=3]
-  \carditemplain{Who decides}{After each turn a \emph{second}, smaller model reads the
-    conversation and rules: not yet, done, or impossible. Not the one doing the work.}
-  \carditemplain{What it can see}{It cannot run your tests. It only reads what the agent put on
-    screen. So the finish line has to be something the agent can show you.}
-  \carditemplain{Still yours}{The tool runs the loop now. Nobody has automated deciding what
-    \emph{done} means.}
+  \carditemplain{Who decides}{A \emph{second}, smaller model reads the conversation after each
+    turn: not yet, done, or impossible.}
+  \carditemplain{What it can see}{Only what the agent put on screen. It cannot run your tests,
+    so the finish line must be something the agent shows.}
+  \carditemplain{Still yours}{Nobody has automated deciding what \emph{done} means.}
 \end{tcbitemize}
 \vskip2mm
 {\tiny\color{NovaMuted}Claude Code, \emph{Keep Claude working toward a goal} ·
@@ -927,9 +894,11 @@ first.}
 
 % ═════════════════════════════════════════════ ACT 4 · do it
 \hue{NovaTeal}
-\begin{frame}{Feature 2, live.}
-\framesubtitle{Live · 10 min}
+\begin{frame}{Your turn.}
+\framesubtitle{Live, 10 min · then 30 min on your own}
 \vspace*{\fill}
+\noindent\begin{minipage}[t]{0.56\linewidth}
+\vspace{0pt}
 \begin{steps}
   \item \textbf{Branch.} Named after the spec.
   \item \textbf{Red first.} See what is missing before anything is written.
@@ -938,38 +907,34 @@ first.}
   \item \textbf{Green — now don't trust it.} Read the diff. Click the app.
   \item \textbf{Commit, push, pull request, merge.}
 \end{steps}
-\vfill
-\end{frame}
-\tanote{Let it loop for real; 2-4 rounds is normal. Narrate it as the loop: "that's a read, that's
-an edit, that's a run — red — round again." Commands and file names are on the Week 4 page if you
-want them on screen. The two things it commonly misses on this feature: it forgets to refresh the
-data files from the seed (tests stay green while the app crashes on load) and it never adds the
-form field (nothing tests that screen). Both are the "green is not done" lesson. Show them, do not
-fix them silently. If it edits a test: stop, discard, point at the rule, re-prompt.}
-
-% ── your turn
-\hue{NovaTeal}
-\begin{frame}{One bug, then feature 2.}
-\framesubtitle{Your turn · 30 min}
-\vspace*{\fill}
-\begin{tcbitemize}[cardsS, raster columns=2]
+\end{minipage}\hfill
+\begin{minipage}[t]{0.40\linewidth}
+\vspace{0pt}
+\begin{tcbitemize}[cardsS, raster columns=1]
   \carditem{SplitIt}{Bug 2, then feature 2}{Removing a member crashes the page. Then expense
     categories.}
   \carditem{Tiny CRM}{Bug 3, then feature 2}{``Won this month'' is always zero. Then conversion by
     source.}
 \end{tcbitemize}
-\vskip7mm
+\end{minipage}
+\vskip3mm
 \muted{Files, test names and the ask: Week 4 page.}
 \vfill
 \end{frame}
-\tanote{Roam for two things: did they ask for the test output, and did they read the diff before
-accepting. Never answer a failing test. Ask "what does the last line say?". SplitIt bug 002: the
-test demands a helper that also removes the member's expenses; the assertion message says so. Tiny
-CRM bug 003 has a twist: stamping the close date is not enough. The month counter gives up on the
-whole list when any won lead has no date, and the seed has five; the fix is to skip them, not
-return zero. Anyone still on feature 1 does that first; feature 2 becomes homework.}
+\tanote{This slide stays on screen for forty minutes. First the live ten: do feature 2 on stage and
+let it loop for real, 2--4 rounds is normal. Narrate it as the loop: "that's a read, that's an
+edit, that's a run — red — round again." Commands and file names are on the Week 4 page if you want
+them on screen. The two things it commonly misses on this feature: it forgets to refresh the data
+files from the seed (tests stay green while the app crashes on load) and it never adds the form
+field (nothing tests that screen). Both are the "green is not done" lesson. Show them, do not fix
+them silently. If it edits a test: stop, discard, point at the rule, re-prompt. Then their thirty:
+roam for two things, did they ask for the test output, and did they read the diff before accepting.
+Never answer a failing test; ask "what does the last line say?". SplitIt bug 002: the test demands
+a helper that also removes the member's expenses; the assertion message says so. Tiny CRM bug 003
+has a twist: stamping the close date is not enough. The month counter gives up on the whole list
+when any won lead has no date, and the seed has five; the fix is to skip them, not return zero.
+Anyone still on feature 1 does that first; feature 2 becomes homework.}
 
-% ── when it goes wrong
 \hue{NovaAccent}
 \begin{frame}{When it goes wrong.}
 \framesubtitle{Your turn}
