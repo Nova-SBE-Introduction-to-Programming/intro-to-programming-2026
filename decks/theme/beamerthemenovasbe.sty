@@ -540,15 +540,10 @@
   rl tag/.style   ={font=\scriptsize\bfseries, text=#1, anchor=north, inner sep=0pt},
   rl chip/.style  ={rounded corners=1.2mm, fill=NovaBg, text=NovaBody, font=\tiny\bfseries,
                     inner xsep=1.6mm, inner ysep=1.0mm},
-  rl sign/.style  ={rounded corners=1.8mm, fill=NovaBg, draw=NovaAccent, line width=0.9pt},
 }
-\newcommand{\ralphsign}[3]{%
-  \path[rl sign] (#1,-35) rectangle ({#1+31},-53);
-  \node[gp eyebrow=NovaAccent, anchor=north west] at ({#1+2.6},-37.4) {\lsp[13]{#2}};
-  \node[gp body, anchor=north west, align=left, text width=26mm] at ({#1+2.6},-42) {#3};}
 \newcommand{\ralphloop}[1]{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,\ifnum#1>2 -53\else -33\fi) rectangle (134,4);
+    \useasboundingbox (0,\ifnum#1>2 -52.5\else -33\fi) rectangle (134,4);
     % the prompt: one file
     \icdoc{13}{-11}
     \node[as name] at (13,-21) {the prompt};
@@ -591,16 +586,28 @@
       \node[rl tag=NovaMuted] at (42,-24.4) {remembers nothing};
       \node[rl tag=NovaTeal]  at (80,-24.4) {keeps everything};
     \fi
-    % stage 3: the signs
+    % stage 3: a sign. A run did something dumb; the answer is one added line in the prompt
+    % file, drawn as the rulebook diff was, and the next fresh agent reads it.
     \ifnum#1>2
-      \ralphsign{0}{THE PROMPT}{One task. Full code, no placeholders. What \emph{done}
-        looks like.}
-      \ralphsign{34}{WHEN IT FAILS}{Don't argue with a run. Put a sign in the prompt, and
-        start again.}
-      \ralphsign{68}{THE MEMORY}{Spec, plan, rulebook. What it learns goes in a file, or it
-        is gone.}
-      \ralphsign{103}{THE STOP}{Tests and a commit, every run. A cap on runs. Then you
-        read it all.}
+      \draw[NovaAccent, line width=1.3pt] (1,-37.6) -- (3.8,-40.4) (1,-40.4) -- (3.8,-37.6);
+      \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=north west, align=left,
+            text width=34mm, inner sep=0pt] at (6.2,-36.6)
+        {run 4 edited a test to make it pass};
+      \node[font=\scriptsize, text=NovaBody, anchor=north west, align=left, text width=34mm,
+            inner sep=0pt] at (6.2,-44.6) {Don't reply to it. It is gone. Add a line:};
+      \draw[as arrow=NovaBody] (42,-43) -- (49,-43);
+      % the prompt file, as a diff
+      \path[gp card=NovaBg] (52,-34) rectangle (106,-52);
+      \fill[NovaTeal!12!NovaBg] (52.5,-44.2) rectangle (105.5,-48.6);
+      \draw[NovaLine, line width=0.9pt, rounded corners=2.4mm] (52,-34) rectangle (106,-52);
+      \node[font=\tiny\ttfamily, text=NovaMuted, anchor=west, inner sep=0pt] at (55,-36.8) {PROMPT.md};
+      \node[pg text=NovaMuted, text width=48mm] at (55,-40.2) {Fix bug 002. Run the tests until green.};
+      \node[font=\scriptsize\bfseries, text=NovaTeal, anchor=north west, inner sep=0pt] at (55,-45) {+};
+      \node[pg text=NovaFg, text width=46mm] at (58.5,-45) {Never edit a test. Say so instead.};
+      % the next agent reads it
+      \draw[as arrow=NovaPurple] (109,-43) -- (116,-43);
+      \node[font=\scriptsize\bfseries, text=NovaPurple, anchor=north west, align=left,
+            text width=17mm, inner sep=0pt] at (118,-39.6) {run 5 reads it first};
     \fi
   \end{tikzpicture}%
 }
