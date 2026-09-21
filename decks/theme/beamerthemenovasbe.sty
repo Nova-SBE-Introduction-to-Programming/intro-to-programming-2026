@@ -821,34 +821,33 @@
   }}
 \newcommand{\tmrow}[4]{% y colour label value
   \fill[#2] (29,{#1-0.3}) rectangle (30.8,{#1-2.1});
-  \node[tm text] at (32,#1) {#3};
-  \node[tm text, anchor=north east] at (62,#1) {#4};}
+  \node[tm text] at (31.5,#1) {#3};
+  \node[tm text, anchor=north east] at (58.5,#1) {#4};}
 \newcommand{\ctxterminal}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-44.5) rectangle (134,5.5);
-    \node[gp eyebrow=NovaMuted] at (0,3.4) {\lsp[13]{AN HOUR IN}};
+    \useasboundingbox (0,-44.5) rectangle (134,1);
     % ── left · /context
-    \path[rounded corners=2.4mm, fill=NovaFg] (0,0) rectangle (64,-33);
+    \path[rounded corners=2.4mm, fill=NovaFg] (0,0) rectangle (61,-33);
     \node[tm dim] at (3,-2.4) {>};
     \node[tm text] at (6,-2.4) {/context};
     \tmgrid{3}{-7}{2.2}{0/NovaMuted, 1/NovaMuted, 2/NovaMuted, 3/NovaMuted, 4/NovaMuted, 5/NovaMuted, 6/NovaYellow, 7/NovaBody, 8/NovaBody, 9/NovaBody, 10/NovaBody, 11/NovaBody, 12/NovaBody, 13/NovaBlue, 14/NovaBlue, 15/NovaBlue, 16/NovaBlue, 17/NovaBlue, 18/NovaBlue, 19/NovaBlue, 20/NovaBlue, 21/NovaBlue, 22/NovaBlue, 23/NovaBlue, 24/NovaBlue, 25/NovaBlue, 26/NovaBlue, 27/NovaBlue, 28/NovaBlue, 29/NovaBlue, 30/NovaBlue, 31/NovaBlue, 32/NovaBlue, 33/NovaBlue, 34/NovaBlue, 35/NovaBlue, 36/NovaBlue, 37/NovaBlue, 38/NovaBlue, 39/NovaBlue, 40/NovaBlue, 41/NovaBlue, 42/NovaBlue, 43/NovaTeal, 44/NovaTeal, 45/NovaTeal, 46/NovaTeal, 47/NovaTeal, 48/NovaTeal, 49/NovaTeal, 50/NovaTeal, 51/NovaTeal, 52/NovaTeal, 53/NovaTeal, 54/NovaTeal, 55/NovaTeal, 56/NovaTeal, 57/NovaTeal, 58/NovaTeal, 59/NovaTeal, 60/NovaTeal, 61/NovaTeal, 62/NovaTeal, 63/NovaTeal, 64/NovaTeal, 65/NovaTeal, 66/NovaTeal, 67/free, 68/free, 69/free, 70/free, 71/free, 72/free, 73/free, 74/free, 75/buf, 76/buf, 77/buf, 78/buf, 79/buf}
-    \node[tm text] at (29,-2.4) {174k / 200k tokens · 87\% full};
+    \node[tm text] at (29,-2.4) {174k / 200k · 87\% full};
     \tmrow{-7}{NovaMuted}{system prompt + tools}{14k}
     \tmrow{-9.8}{NovaYellow}{rulebook}{2k}
     \tmrow{-12.6}{NovaBody}{your messages}{16k}
     \tmrow{-15.4}{NovaBlue}{files it read}{78k}
     \tmrow{-18.2}{NovaTeal}{command output}{64k}
     \draw[NovaMuted, line width=0.35pt] (29,-21.3) rectangle (30.8,-23.1);
-    \node[tm text] at (32,-21) {free}; \node[tm text, anchor=north east] at (62,-21) {26k};
+    \node[tm text] at (31.5,-21) {free}; \node[tm text, anchor=north east] at (58.5,-21) {26k};
     \draw[NovaMuted, line width=0.35pt] (29,-24.1) rectangle (30.8,-25.9);
     \draw[NovaMuted, line width=0.35pt] (29,-25.9) -- (30.8,-24.1);
-    \node[tm text] at (32,-23.8) {autocompact buffer};
-    % ── right · /compact
-    \path[rounded corners=2.4mm, fill=NovaFg] (70,0) rectangle (134,-33);
-    \node[tm dim] at (73,-2.4) {>};
-    \node[tm text] at (76,-2.4) {/compact};
-    \node[tm text, text=NovaPurple!60!white] at (73,-6) {Compacted. Continuing from a summary:};
-    \node[tm text, text width=42mm, align=left] at (73,-9.6) {%
+    \node[tm text] at (31.5,-23.8) {autocompact buffer};
+    % ── /compact, then the right panel
+    \draw[as arrow=NovaPurple] (62.5,-17) -- (70.5,-17);
+    \node[font=\tiny\ttfamily\bfseries, text=NovaPurple, anchor=south, inner sep=0pt] at (66.5,-15.6) {/compact};
+    \path[rounded corners=2.4mm, fill=NovaFg] (72,0) rectangle (134,-33);
+    \node[tm text, text=NovaPurple!60!white] at (75,-2.4) {Compacted. Continuing from a summary:};
+    \node[tm text, text width=40mm, align=left] at (75,-6.4) {%
       Topics so far: bug 002, a git question,\\
       how the CSV is read.\\
       1. Request: removing a member crashes.\\
@@ -856,16 +855,16 @@
       2. Done: crash found, one helper\\
       \hphantom{1. }written, tests still red.\\
       3. Open: run the tests, read the diff.};
-    \tmgrid{117}{-8}{1.5}{0/NovaMuted, 1/NovaMuted, 2/NovaMuted, 3/NovaMuted, 4/NovaMuted, 5/NovaMuted, 6/NovaYellow, 7/NovaPurple, 8/NovaPurple, 9/NovaPurple, 10/NovaPurple, 11/NovaPurple, 12/NovaBlue, 13/NovaBlue, 14/NovaTeal, 15/NovaTeal, 16/free, 17/free, 18/free, 19/free, 20/free, 21/free, 22/free, 23/free, 24/free, 25/free, 26/free, 27/free, 28/free, 29/free, 30/free, 31/free, 32/free, 33/free, 34/free, 35/free, 36/free, 37/free, 38/free, 39/free, 40/free, 41/free, 42/free, 43/free, 44/free, 45/free, 46/free, 47/free, 48/free, 49/free, 50/free, 51/free, 52/free, 53/free, 54/free, 55/free, 56/free, 57/free, 58/free, 59/free, 60/free, 61/free, 62/free, 63/free, 64/free, 65/free, 66/free, 67/free, 68/free, 69/free, 70/free, 71/free, 72/free, 73/free, 74/free, 75/buf, 76/buf, 77/buf, 78/buf, 79/buf}
-    \node[tm text, anchor=north] at (123.5,-21.4) {24k / 200k};
-    \node[tm text, anchor=north] at (123.5,-24.2) {12\% full};
+    \tmgrid{118}{-6}{1.45}{0/NovaMuted, 1/NovaMuted, 2/NovaMuted, 3/NovaMuted, 4/NovaMuted, 5/NovaMuted, 6/NovaYellow, 7/NovaPurple, 8/NovaPurple, 9/NovaPurple, 10/NovaPurple, 11/NovaPurple, 12/NovaBlue, 13/NovaBlue, 14/NovaTeal, 15/NovaTeal, 16/free, 17/free, 18/free, 19/free, 20/free, 21/free, 22/free, 23/free, 24/free, 25/free, 26/free, 27/free, 28/free, 29/free, 30/free, 31/free, 32/free, 33/free, 34/free, 35/free, 36/free, 37/free, 38/free, 39/free, 40/free, 41/free, 42/free, 43/free, 44/free, 45/free, 46/free, 47/free, 48/free, 49/free, 50/free, 51/free, 52/free, 53/free, 54/free, 55/free, 56/free, 57/free, 58/free, 59/free, 60/free, 61/free, 62/free, 63/free, 64/free, 65/free, 66/free, 67/free, 68/free, 69/free, 70/free, 71/free, 72/free, 73/free, 74/free, 75/buf, 76/buf, 77/buf, 78/buf, 79/buf}
+    \node[tm text, anchor=north] at (124,-19) {24k / 200k};
+    \node[tm text, anchor=north] at (124,-21.8) {12\% full};
     % ── notes
     \draw[as arrow=NovaAccent] (14,-36) -- (14,-27);
-    \node[tm note] at (0,-36.6) {an hour of files, outputs and three unrelated questions, all still in there};
+    \node[tm note] at (0,-36.6) {files, outputs and three unrelated questions, all still in there};
     \draw[as arrow=NovaAccent] (46,-36) -- (46,-26.6);
     \node[tm note] at (43,-36.6) {here it compacts on its own — or you ask first};
-    \draw[as arrow=NovaAccent] (94,-36) -- (94,-30.5);
-    \node[tm note, text width=44mm] at (88,-36.6) {the conversation folded into a short summary; the rules and the last turns kept};
+    \draw[as arrow=NovaAccent] (96,-36) -- (96,-30.5);
+    \node[tm note, text width=44mm] at (90,-36.6) {the conversation folded into a short summary; the rules and the last turns kept};
   \end{tikzpicture}%
 }
 

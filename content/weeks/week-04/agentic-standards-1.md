@@ -65,7 +65,9 @@ fast (8k tokens, then 32k, then 128k, now a million) but the useful part has not
 Models use the **start** and the **end** of a long context well and the middle badly: that is the
 "lost in the middle" result, measured across models and tasks and still holding.² A 2025 re-run
 across eighteen current models found every one of them got worse as the input grew — well short of
-the limit.³ So a long thread does not get wiser, it gets vaguer. Two habits follow, and both are
+the limit.³ And it holds for coding, not just reading: given real GitHub bugs with more and more of
+the repository in the window, Claude 3.5 Sonnet fixed 29% of them at 32k tokens and 3% at 256k — the
+same bugs, only more text around them.⁴ So a long thread does not get wiser, it gets vaguer. Two habits follow, and both are
 already rules below: start a new thread instead of arguing in an old one, and let the tool
 *compact* — it throws away the soft middle and keeps a summary plus what just happened. That is not
 the tool being lazy; it is dropping the part the model was using worst.
@@ -180,7 +182,8 @@ judge come first in this course: they are what makes walking away possible. Part
 
 Sources: ² Liu, N. F. et al. (2024). *Lost in the Middle: How Language Models Use Long Contexts.*
 TACL 12, arxiv.org/abs/2307.03172 · ³ Chroma (2025), *Context Rot: How Increasing Input Tokens
-Impacts LLM Performance*, trychroma.com/research/context-rot · Geoffrey Huntley,
+Impacts LLM Performance*, trychroma.com/research/context-rot · ⁴ Rando, S. et al. (2025). *LongCodeBench:
+Evaluating Coding LLMs at 1M Context Windows.* arxiv.org/abs/2505.07897 · Geoffrey Huntley,
 *Ralph Wiggum as a "software engineer"*, ghuntley.com/ralph (2025) · Claude Code,
 *Keep Claude working toward a goal*, code.claude.com/docs/en/goal.
 

@@ -78,19 +78,20 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   "reads all of it, before every word it writes", and a dashed bracket inside the page runs from
   the thought back up to the tools line: that answers the question the reasoning slide raises,
   "how does it know which tool?" — the tool's own line is on the page. Context rot is then
-  what the tool itself prints, imitated: `/context` an hour in (the usage grid, one cell a bit
+  what the tool itself prints, imitated: `/context` some way into a bug (the usage grid, one cell a bit
   over one percent of the window, files and command output three quarters of it, the rulebook one
   cell, the hatched autocompact buffer at the end) beside `/compact` (the "Compacted" line, the
   opening of the summary the model writes of its own conversation, and the same grid after, mostly
-  empty). Three notes point into the panels, in plain words: an hour of files, outputs and three unrelated
+  empty). Three notes point into the panels, in plain words: files, outputs and three unrelated
   questions still in there; the buffer where it compacts on its own; the conversation folded into a
   short summary with the rules and last turns kept. The slide's own words stay short ("a full,
   messy window makes the work worse; compaction clears it") and the jargon (soft middle, TACL)
   lives only in the notes. This is a deliberate exception to "no commands on slides", like
   the Ralph one-liner: the two commands are the point, and if the screen is available the TA types
-  them and the real output replaces the slide. The two published measurements (Liu et al. 2024,
-  worse-than-no-documents in the middle; Chroma 2025, every model falling before ten thousand
-  tokens) are cited on the slide and told in the notes, not charted: the earlier chart versions
+  them and the real output replaces the slide. The slide cites a coding measurement first — Rando et al. 2025, LongCodeBench: Claude 3.5
+  Sonnet fixed 29% of real GitHub bugs at 32k tokens of context and 3% at 256k — and the two
+  reading ones (Liu et al. 2024, worse-than-no-documents in the middle; Chroma 2025, every model
+  falling before ten thousand tokens) are told in the notes, not charted: the earlier chart versions
   were illegible at slide size, and a four-moment bar that replaced them briefly was judged too
   abstract.
   It explains why "start a new thread after twice

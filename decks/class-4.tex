@@ -659,10 +659,10 @@ slides ago: how does it know which tool? Because the tool's own line is on the p
 above the thought that reaches for it. It does not "have" tools the way you have hands; it reads a
 menu and writes an order, and the harness cooks. The model on the right reads the whole page, top
 to bottom, before every word it writes, and nothing that is not on the page exists for it. The page
-gets longer with every turn; the next slide is what it looks like an hour in.}
+gets longer with every turn; the next slide is what it looks like some way into a bug.}
 
 % ── context rot
-% What the tool itself prints, imitated: /context an hour in (the grid: files and outputs are
+% What the tool itself prints, imitated: /context some way in (the grid: files and outputs are
 % most of the window, the rulebook a cell) and /compact (the summary the model writes, and the
 % grid after). Compaction is the answer to context rot shown as the thing they will actually
 % type. The two measurements behind "the middle goes soft" are cited below and on the week page.
@@ -675,25 +675,26 @@ gets longer with every turn; the next slide is what it looks like an hour in.}
 \vskip2mm
 \muted{A full, messy window makes the work worse. Compaction clears it.}
 \vskip1mm
-{\tiny\color{NovaMuted}Measured by Liu et al.\ (2024) and Chroma (2025); both linked on the week page.}
+{\tiny\color{NovaMuted}Measured on bug-fixing: Rando et al.\ (2025), \emph{LongCodeBench} — 29\% fixed with a
+little code in the window, 3\% with a lot · also Liu et al.\ (2024), Chroma (2025). All on the week page.}
 \vfill
 \end{frame}
 \tanote{This is what the tool prints, so if you have the screen, type it and let the real one
-replace the slide. Left, /context an hour into a bug: the grid is the window, every cell a bit
-over one percent. The rules are one cell. Your messages are a handful. Files it read and command
-output are three quarters of it, and it put them there, not you. And it is not one topic: in an
-hour you asked about the bug, then a git question, then how the CSV is read, and all three are
-still on the page, side by side, every time it reads it. Full and messy has been measured: Liu et
-al.\ 2024 moved the one document with the answer through twenty and found the model did worse
-with it in the middle than with no documents at all; Chroma 2025 re-ran the idea on eighteen
-current models copying a list of words, and every one fell before ten thousand tokens, faster
-when unrelated text was mixed in. Those are reading tasks; a coding agent reads before every edit,
-so the same thing hits the code. The hatched cells are the buffer: there the tool compacts on its
-own, and you can ask earlier. Right, what /compact prints: the summary the model wrote of its own
-conversation — topics, request, done, open — and the same grid, mostly empty again. The rules and
-the last turns survive as they were; the hour of files became the paragraph. Two rules follow in
-the next act: after twice round on the same failure, start a new thread, and a Ralph loop hands
-each run a fresh agent for the same reason.}
+replace the slide. Left, /context some way into a bug: the grid is the window, every cell a bit
+over one percent. The rules are one cell, your messages a handful; files it read and command
+output are three quarters of it, and it put them there, not you. And it is not one topic: the bug,
+then a git question, then how the CSV is read, all still on the page every time it reads it. Full
+and messy is measured, on coding too: Rando et al.\ 2025 (LongCodeBench) gave models real GitHub
+bugs with more and more of the repository in the window; Claude 3.5 Sonnet fixed 29 percent at 32
+thousand tokens and 3 percent at 256 thousand, the same bugs with more text around them. On
+reading: Liu et al.\ 2024 found a model did worse with the answer in the middle of twenty
+documents than with none; Chroma 2025 saw eighteen models fall at copying a list before ten
+thousand tokens, faster with unrelated text mixed in. The hatched cells are the buffer: there it
+compacts on its own, and you can ask earlier. Right, what /compact prints: the summary the model
+wrote of its own conversation, then the same grid, mostly empty. The rules and the last turns
+survive as they were; the pile of files became the paragraph. Two rules follow in the next act:
+after twice round on the same failure, start a new thread, and a Ralph loop hands each run a fresh
+agent for the same reason.}
 
 % ═════════════════════════════════════════════ ACT 3 · three standards
 \sectionslide[NovaAccent]{3}{The core of the class}{Three standards.}%
