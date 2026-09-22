@@ -55,7 +55,6 @@ made of. Then the agenda.}
 \begin{frame}{Today.}
 \vspace*{\fill}
 \begin{steps}
-  \item Check-in
   \item Git: one change, start to finish
   \item From a model to an agent
   \item Delegating: the instructions, the judge, the loop
@@ -66,24 +65,11 @@ made of. Then the agenda.}
 \end{frame}
 \tanote{Three pictures carry the first half, and each one is built up over several slides rather
 than shown at once: the git graph, the model-to-agent stack, and the ReAct loop. Say so: "you will
-see the same picture grow." That is the whole visual method of the class.}
-
-% ── 4 · check-in
-\hue{NovaTeal}
-\begin{frame}{Your GitHub page.}
-\vspace*{\fill}
-\begin{itemize}
-  \item A branch for feature 1.
-  \item A merged pull request.
-\end{itemize}
-\vskip5mm
-\muted{Not there yet? Start there today.}
-\vfill
-\end{frame}
-\tanote{Walk the room looking at browsers, not code. Thirty seconds a row; note who is behind, move on.
-They can pull main and run the feature-1 tests while you walk; the command is on the Week 4 page.
-Don't debug git at the front: the next six slides are the explanation, and the page has the
-"when git is confusing" table from last week.}
+see the same picture grow." That is the whole visual method of the class. The check-in happens while this slide is up:
+walk the room looking at browsers, not code, thirty seconds a row, for a feature-1 branch and a
+merged pull request on each GitHub page. Note who is behind and move on; don't debug git at the
+front, the next slides are the explanation and the page has last week's "when git is confusing"
+table. Anyone still on feature 1 does that first today.}
 
 % ═════════════════════════════════════════════ ACT 1 · git, as one story
 % Git comes first: it is the thing they just looked at on their own GitHub page, it is what
@@ -225,6 +211,39 @@ diff --git a/logic.py b/logic.py
 \vfill
 \end{frame}
 
+% ── git 6 · merge
+\hue{NovaBlue}
+\begin{frame}[fragile]{Merge.}
+\vspace*{\fill}
+\gitgraph{5}
+\vskip3mm
+\begin{columns}[t]
+\begin{column}{0.50\textwidth}
+\muted{\textbf{Merge} is the sign-off. \code{main} now has your work, and the next person starts
+from there.}
+\end{column}
+\begin{column}{0.46\textwidth}
+% deliberately the same three lines as on the previous slide, asked of main instead of the branch:
+% what your branch had is now what main gained
+\begin{gitdiff}{git diff main\textasciitilde 1 main}
+diff --git a/db.py b/db.py
+-           "date"]
++           "date", "category"]
+diff --git a/logic.py b/logic.py
++def category_totals(group_id):
++    return sums_by("category", group_id)
+\end{gitdiff}
+\end{column}
+\end{columns}
+\vfill
+\end{frame}
+\tanote{Land the cycle: they are back at slide one, with a bigger main. That is the
+habit. Two rules fall out of the story rather than being announced: name the branch after the job
+(slide 2), and keep commits small enough to explain (slide 3). The diff is the same six lines as
+on the previous slide, asked of main instead of the branch: the column and the totals are main's now. If
+someone asks what happens to the branch: it is finished, GitHub offers to delete it, say yes. Then turn: "the thing that will make
+those commits today is not you. So: what is it?"}
+
 % ── git 5 · local and remote
 % Three machines, one history. GitHub is a cloud in the middle; your laptop and a teammate's sit
 % under it, each showing what it holds. Your branch is on your screen and, once pushed, in the
@@ -287,39 +306,6 @@ The three moves are the only things that cross the gap: push up, pull down, and 
 which is asking someone to read the diff before the cloud's main takes it. If someone asks where
 "add"/"staging" went: GitHub Desktop turned it into the checkboxes next to each changed file, so
 they have already used it without the name.}
-
-% ── git 6 · merge
-\hue{NovaBlue}
-\begin{frame}[fragile]{Merge.}
-\vspace*{\fill}
-\gitgraph{5}
-\vskip3mm
-\begin{columns}[t]
-\begin{column}{0.50\textwidth}
-\muted{\textbf{Merge} is the sign-off. \code{main} now has your work, and the next person starts
-from there.}
-\end{column}
-\begin{column}{0.46\textwidth}
-% deliberately the same three lines as two slides ago, asked of main instead of the branch:
-% what your branch had is now what main gained
-\begin{gitdiff}{git diff main\textasciitilde 1 main}
-diff --git a/db.py b/db.py
--           "date"]
-+           "date", "category"]
-diff --git a/logic.py b/logic.py
-+def category_totals(group_id):
-+    return sums_by("category", group_id)
-\end{gitdiff}
-\end{column}
-\end{columns}
-\vfill
-\end{frame}
-\tanote{Land the cycle: they are back at slide one, with a bigger main. That is the
-habit. Two rules fall out of the story rather than being announced: name the branch after the job
-(slide 2), and keep commits small enough to explain (slide 3). The diff is the same six lines as
-two slides ago, asked of main instead of the branch: the column and the totals are main's now. If
-someone asks what happens to the branch: it is finished, GitHub offers to delete it, say yes. Then turn: "the thing that will make
-those commits today is not you. So: what is it?"}
 
 % ── git, an aside · two branches, one file
 % Numbered as an aside rather than "7 of 7" so the six-slide story above keeps its shape, the
@@ -976,25 +962,6 @@ last line says how far from done, the assertion message says why and is the to-d
 whoever wrote the test, the name says what is checked. Lines two and three are what the agent is
 told next; red is evidence, not bad news. In Block 2 they ask for these tests first, one per
 line, before any code.}
-
-% ── loop · define the assignment before the agent begins
-\hue{NovaAccent}
-\begin{frame}{The assignment.}
-\vspace*{\fill}
-\askpage
-\vskip3mm
-\muted{The exact object you hand over. Only the two highlighted slots change between tasks.}
-\vfill
-\end{frame}
-\tanote{One card, four strips: this is the thing that gets pasted, nothing else. Make them
-name the four parts back to you before you paste it: the task, the fence, the finish line, the
-proof. The highlighted slots are the only words that change between tasks; the skeleton is on
-the Week 4 page. Then say where each strip came from: the fence is the ticket's out-of-scope
-band plus the rulebook, the finish line is the ticket's Done when, and the proof is what the
-judge reads. New conversation
-before pasting: the rulebook lines from five minutes ago are only read at the start of one. Next: what
-happens when nobody is watching the loop it now runs.}
-
 
 % ── persistent loop · the same controls, now across turns
 \hue{NovaAccent}
