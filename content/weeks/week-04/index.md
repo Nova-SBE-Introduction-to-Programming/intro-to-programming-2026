@@ -10,7 +10,7 @@ Block 1 · Practical · 2026-09-22
 
 ## What you need
 
-- Your repo, with feature 1 merged and pushed. Missing files, or no repo at all? Start at *A clean start* under Your turn.
+- Your repo, with feature 1 merged and pushed. No repo, or missing files? See the first box under Your turn.
 - GitHub Desktop signed in (that is what lets Codex push), Codex open on the repo folder, uv working. Nothing new to install.
 - Read before class: `specs/feature-2` in your repo, and the bug for your app — SplitIt `issues/002`, Tiny CRM `issues/003`.
 
@@ -130,30 +130,18 @@ Bug first, then the feature. Everything you type is in a box. Copy it as it is. 
 that change are the file and branch names, and they are given for both apps. Codex does the git,
 in the same chat: you ask, it branches, commits and pushes, and you read the result.
 
-### A clean start, if your repo is missing files
+### No repo, or missing files?
 
-Your repo must have these before anything else works: `AGENTS.md`, `pyproject.toml`, `issues/`,
-`specs/`, `tests/`. Ask Codex, with your repo open:
-
-```
-List the files in this folder. Tell me whether AGENTS.md, pyproject.toml, issues/, specs/ and tests/ are all here.
-```
-
-If anything is missing, or you never made a repo, start from the course copy instead of
-repairing yours. Three steps:
-
-1. On github.com, open the course repo for your app and press **Fork**. Keep the name.
-   SplitIt: `github.com/Nova-SBE-Introduction-to-Programming/splitit` ·
-   Tiny CRM: `github.com/Nova-SBE-Introduction-to-Programming/tiny-crm`
-2. In Codex, open your `nova` folder (the one from Class 2) and paste, with your GitHub username in the slot:
+If you did not finish Class 2 or 3, or your folder is missing `AGENTS.md`, `issues/`, `specs/` or
+`tests/`, start from the course copy. It already has bug 0 fixed and feature 1 built. In Codex, open
+your `nova` folder and paste (Tiny CRM: replace `splitit` with `tiny-crm`):
 
 ```
-Clone https://github.com/<your-username>/splitit into this folder, then run uv run pytest inside it and paste the output.
+Clone https://github.com/Nova-SBE-Introduction-to-Programming/splitit into this folder, then run uv run pytest inside it and paste the output.
 ```
 
-   (Tiny CRM: the same line with `tiny-crm`.) Some tests fail; that is the course.
-3. In Codex, open the new folder as the project. From here on it is your repo: it already has
-   `AGENTS.md`, the issues, the specs and the red tests.
+Then open the new folder in Codex as the project. Some tests fail; that is the course. To push
+later, fork the repo on github.com first and clone your fork instead.
 
 ### Set up, once
 
