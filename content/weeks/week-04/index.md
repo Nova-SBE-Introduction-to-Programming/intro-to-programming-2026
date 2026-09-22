@@ -14,55 +14,50 @@ Block 1 · Practical · 2026-09-22
 - GitHub Desktop signed in, Codex open on the repo folder, uv working. Nothing new to install.
 - Read before class: `specs/feature-2` in your repo, and the bug for your app — SplitIt `issues/002`, Tiny CRM `issues/003`.
 
-## In class
+## What the slides said
 
-Last week you watched a feature get built. Today you build one alone, the way agentic teams do it.
-The class opens with git, because the thing you will build today lives on a branch; then it asks
-what an agent actually is; then it gives you the three standards every agentic team uses.
+Nothing in this section is a step. It is the lecture half of the class, here so you can read it
+back. The steps are under [Your turn](#your-turn-10-min-live-then-30-on-your-own).
 
-### First, git: one change, start to finish
+### Git: one change, start to finish
 
-Last week you learned four words: repo, commit, branch, push. Here they are as one story — the
-journey a single change makes, from your idea to the version everyone uses. It is the workflow you
-already know from anything that gets reviewed before it counts.
+Last week you learned four words: repo, commit, branch, push. As one story, it is the journey a
+single change makes from your idea to the version everyone uses, and it is the workflow you already
+know from anything that gets reviewed before it counts.
 
-1. **`main` is the version everyone trusts.** One file, one history, one truth — not a folder of
-   files all called *FINAL*. Everybody's copy starts from here.
-2. **You never edit the original.** A **branch** is your own copy to work in, named after the job
-   (`feature-2-categories`, not `my-changes`). Everyone else carries on from `main`, undisturbed.
-3. **Every save point is a commit.** A **commit** is a checkpoint with a note saying what changed
-   — *"Fix group title showing the id"*, not *"update"*. Keep them small: each one a step you could
-   explain out loud. You can go back to any of them.
-4. **`main` has not moved.** Three commits deep, half of it broken, the agent having a bad day —
-   the version everyone else is using is untouched. That is the point of
-   working on a branch.
-5. **Until you push, it only exists on your laptop.** **Push** puts your draft where the team can
-   see it. A **pull request** is you asking someone to read the diff before it counts — and today
-   that someone is you, reviewing the agent.
-6. **Merge is the sign-off.** Once it is green and reviewed, it comes home: `main` now includes
-   your work, and the next person's copy starts from there. Then the cycle begins again.
+**`main` is the version everyone trusts.** One file, one history, one truth, not a folder of files
+all called *FINAL*. Everybody's copy starts from here. **You never edit the original:** a **branch**
+is your own copy to work in, named after the job (`feature-2-categories`, not `my-changes`), and
+everyone else carries on from `main` undisturbed. **Every save point is a commit,** a checkpoint
+with a note saying what changed: *"Fix group title showing the id"*, not *"update"*. Keep them
+small, each one a step you could explain out loud; you can go back to any of them. **`main` has not
+moved** while you work: three commits deep, half of it broken, the agent having a bad day, and the
+version everyone else is using is untouched. That is the point of a branch. **Until you push, it
+only exists on your laptop.** Push puts your draft where the team can see it, and a **pull
+request** is you asking someone to read the diff before it counts; today that someone is you,
+reviewing the agent. **Merge is the sign-off.** Once it is green and reviewed it comes home: `main`
+now includes your work, and the next person's copy starts from there.
 
-### Then, from a model to an agent
+### From a model to an agent
 
 Four words, and each one is a region of the same picture.
 
-1. **A language model.** ChatGPT in a browser: text in, text out. It has never seen your folder
-   and cannot run anything. In Class 2 *you* were the hands — you pasted code in and out, and you
-   were the only one who ever found out whether it worked.
-2. **Tools.** A tool is a named action the model may *ask for*: read a file, edit a file, run a
-   command. Three cover nearly everything. The important arrow is the one coming back: the result
-   of the action returns to the **model**, not to you.
-3. **An agent.** The same model, plus tools, plus a loop: it acts, sees the result, and chooses
-   again, until the job is done or it needs you. **Agent = model + tools + a loop.** Run the tests
-   → read the failure → edit → run again: that chain of tool calls *is* the loop.
-4. **The harness.** The model can only *write* a tool call. The software around it runs the call,
-   asks your permission first, puts the output back into the conversation, keeps the whole
-   conversation, and loads `AGENTS.md` at the start. That software is the harness. Codex is one;
-   Claude Code, Cursor and Copilot's agent are others. They differ in tools, permissions and how
-   they manage the conversation; the loop is the same everywhere, so learn it once.
+**A language model** is ChatGPT in a browser: text in, text out. It has never seen your folder and
+cannot run anything. In Class 2 *you* were the hands; you pasted code in and out, and you were the
+only one who ever found out whether it worked. **A tool** is a named action the model may *ask
+for*: read a file, edit a file, run a command. Three cover nearly everything. The important arrow
+is the one coming back: the result of the action returns to the model, not to you. **An agent** is
+the same model, plus tools, plus a loop: it acts, sees the result, and chooses again, until the job
+is done or it needs you. Agent = model + tools + a loop. Run the tests, read the failure, edit,
+run again: that chain of tool calls *is* the loop. **The harness** is the software around the
+model. The model can only *write* a tool call; the harness runs it, asks your permission first,
+puts the output back into the conversation, keeps the whole conversation, and loads `AGENTS.md` at
+the start. Codex is one; Claude Code, Cursor and Copilot's agent are others. They differ in tools,
+permissions and how they manage the conversation; the loop is the same everywhere, so learn it
+once.
 
 **One tool call, in full.** You saw one in Class 2: you asked what was in your expenses file, and
-the model — which has never seen that file — emitted a small structured request to *read
+the model, which has never seen that file, emitted a small structured request to *read
 expenses.csv*; Codex checked with you, read it, pasted the line back into the conversation, and only
 then could the model tell you it was €30 for dinner. A request instead of prose, executed after
 your approval, with the result going back in as ordinary text. Say no, and it has nothing to answer
@@ -75,7 +70,7 @@ move everyone else's money, picks the safe one, and tells you the assumption so 
 it. It matters because an agent takes many steps, and a guess at step one is still wrong at step
 ten.
 
-**The loop has a name: ReAct** ([Yao et al., 2022](https://arxiv.org/abs/2210.03629)) — *reason*
+**The loop has a name: ReAct** ([Yao et al., 2022](https://arxiv.org/abs/2210.03629)): *reason*
 (a short thought: "I still do not know what is in that file"), *act* (one tool call), *observe* (the
 result comes back), repeat until done. It is the architecture underneath every agent you will use,
 and the three standards below are you configuring it: what it reads before the first thought, what
@@ -85,131 +80,181 @@ it observes, and when the loop is allowed to stop.
 examples instead of being programmed rule by rule; **backpropagation** (1986) makes networks many
 layers deep trainable; **LSTM** (1997) carries memory across a sequence; the
 [**Transformer**](https://arxiv.org/abs/1706.03762) (2017) lets every word look at every other, in
-parallel. What was missing was never an idea — it was compute and text: cheap parallel arithmetic
+parallel. What was missing was never an idea; it was compute and text: cheap parallel arithmetic
 (NVIDIA's CUDA in 2007; AlexNet winning an image competition on two gaming cards in 2012) and a
 scraped web to read. Training itself is one game repeated a few billion times: hide the next word,
 guess, get corrected. No grammar and no facts are typed in, which is why a fluent paragraph can
-walk into four-horned unicorns and keep going.
+walk into four-horned unicorns and keep going. **The two jumps that changed the job** were
+*instructions* (2022: ChatGPT follows them) and *tools + a loop* (2023–25: the model can request an
+action, read the result, and choose again). That is the whole reason the three standards exist: a
+model that can act for hours in your repo needs rules and a judge. The year-by-year timeline is in
+the standards sheet.
 
-**The two jumps that changed the job** were *instructions* (2022: ChatGPT follows them) and *tools
-+ a loop* (2023–25: the model can request an action, read the result, and choose again). That is
-the whole reason the three standards below exist — a model that can act for hours in your repo
-needs rules and a judge. The year-by-year timeline is in the standards sheet.
+### The three standards
 
-### Then, three standards
+Before you hand work to something fast, tireless and always sure it is done, you ask three
+questions: how do I brief it, how do I know it is done, and what happens when it is not?
 
-These three are the class. Everything above is background; everything below is you doing them.
+**The instructions, in two files.** The **rulebook, `AGENTS.md`,** is what Codex reads before it
+reads anything else: the rules for *every* task. Commands it cannot guess, boundaries, what is off
+limits, and nothing it could work out by reading the code. It lives in git and gets reviewed like
+code, so when the agent does something wrong the fix is usually a line here, not a longer prompt.
+Codex reads it only at the *start* of a chat. The **spec** is the instructions for *one* task, in
+four sections: *Why* (the intent, how it picks when a line can be read two ways), *What* (a
+checklist, one line per thing that must be true), *Out of scope* (the fence for this task), *Done
+when* (the finish line in plain words). Today's is already in your repo; from Block 2 you write
+them.
 
-1. **The instructions, in two files.** The **rulebook — `AGENTS.md`** — is what Codex reads before it
-   reads anything else: the rules for *every* task. Commands it cannot guess, boundaries, what is
-   off limits — and nothing it could work out by reading the code. It lives in git and gets
-   reviewed like code, so when the agent does something wrong the fix is usually a line here, not a
-   longer prompt. Today you add three rules to the one already in your repo (below) and commit
-   them; Codex reads the file only at the *start* of a thread, so open a new one afterwards.
-   The **spec** is the instructions for *one* task, in four sections: *Why* (the intent — how it picks
-   when a line can be read two ways), *What* (a checklist, one line per thing that must be true),
-   *Out of scope* (the fence for this task), *Done when* (the finish line in plain words). Today's
-   is already in your repo; from Block 2 you write them.
+**The judge: define done before you build.** An agent stops when the work *looks* done, so give it
+something that answers pass or fail without asking it. Today that is the tests: **a test is a claim
+you can run,** a small function whose name is the spec's *What* line and one word, `assert`, saying
+what must be true. They were written before the work, by someone who is not the agent, and they
+give the same answer every time; that is what makes them a judge and "the tests pass" a sentence.
+Open one and read it; you cannot trust a judge you have not read. Two rules follow: never edit a
+test to make it pass (that is cheating, not finishing), and ask for the test *output*, never the
+sentence. Read red from the bottom: the last line says how far from done, the message above says
+why, and that is your to-do. And green is still not the end: one *Done when* line has no test at
+all, and you catch that one by clicking.
 
-2. **The judge — define done before you build.** An agent stops when the work *looks* done, so
-   give it something that answers pass or fail. Today that is `tests/test_feature_2.py`: four
-   tests, already red, and that is your to-do list. **A test is a claim you can run** — a small
-   function whose name is the spec's *What* line, and one word, `assert`, saying what must be true.
-   Open one and read it; you cannot trust a judge you have not read. Two rules follow: never edit a
-   test to make it pass (that is cheating, not finishing), and ask for the test *output*, never the
-   sentence "all tests pass". And green is still not the end — one *Done when* line has no test at
-   all, and you catch that one by clicking.
+**The loop: one task, and a stop condition.** Red, hand it over, it edits and runs, reads the
+failure, again, green. One task per loop, on its own branch. The handover is four things in plain
+words: what to build, what to leave alone, keep going until the tests pass, then paste the output.
+When the same failure comes back twice, stop: read it yourself and start a **new chat** with a
+better ask, because a long chat that is going wrong rarely recovers. With nobody watching, the same
+loop becomes a command, `/goal`, and its stop is the agent's own word, which is why the goal has to
+say how to prove it.
 
-3. **The loop — one task, and a stop condition.** Red → hand it over → it edits and runs → read the
-   failure → again → green. One task per loop, on its own branch. The handover is four things in
-   plain words: what to build, what to leave alone, keep going until the tests pass, then paste the
-   output. When the same failure comes back twice, stop: read it yourself and start a **new thread**
-   with a better ask, because a long thread that is going wrong rarely recovers. With nobody
-   watching, the same loop becomes a command — `/goal`, below.
+## Your turn · 10 min live, then 30 on your own
 
-Live on SplitIt: the three lines go into `AGENTS.md`, feature 2 starts on a branch, the ask goes
-in, we watch it loop, then we read the diff before we trust it.
+The first ten minutes happen on the projector: the TA does the bug on SplitIt, start to finish,
+and lets it loop for real. Then you do the same on your laptop, bug first, then the feature.
 
-### Delegating coding agents
+Everything you type is in a box. Copy it as it is. The only words that change are the file and
+branch names, and they are given for both apps.
 
-The whole of the above as the things you do, in order — the same six steps that are on the slide.
-Three of the four things in the first group are already in your repo; what changes in Block 2 is
-that you write the spec and ask for the tests yourself.
+### Set up, once
 
-**First, set it up** — all of this happens before the agent is told anything.
+**1. Pick a cheaper model.** In Codex, the model picker is at the bottom of the message box. Choose
+**GPT-5.5 with reasoning set to light**, or **5.6 Luna**. The biggest models burn through a free
+plan's limit before the feature is done, and this task does not need them.
 
-1. **The rules.** Open `AGENTS.md`; under *How to answer*, replace the *No git* line with the three
-   lines below. Read the diff, commit, push. Then open a **new thread** — Codex reads the file only
-   at the start of one.
-2. **The task.** Read the spec: *Why* · *What* (one `- [ ]` line per thing that must be true) ·
-   *Out of scope* · *Done when*. Already in your repo as `specs/feature-2-*.md`. From Block 2 you
-   write it: same four headings.
-3. **The tests.** Run them before anything is built. Already in your repo as
-   `tests/test_feature_2.py` — four red, and that is your to-do list. From Block 2, ask for them
-   first: *"Write one test per line of the What checklist in `specs/<spec>.md`, in
-   `tests/test_<name>.py`. No implementation yet."* Run them; they must fail.
-4. **A branch,** named after the task (`feature-2-categories`, `feature-2-conversion`).
-
-**Then hand it over** — one task, one chat.
-
-5. **The ask,** in a new thread: what to build, what to leave alone, and keep going until the tests
-   pass, then paste the test output. The exact wording is [below](#the-loop-prompt); or set it as a
-   goal and leave it.
-
-**Then check it yourself** — the part no test can do.
-
-6. **Read the diff, click the app.** Then commit, push, pull request, merge.
-
-Two things that are not steps, because they are what you do when it goes wrong: if the same failure
-comes back twice, stop, read it yourself and start a new thread with a better ask; and when the
-agent does something you did not want, that is one new line in `AGENTS.md`, with the reason in the
-commit message.
-
-### `/goal` in Codex
-
-The loop as a command: you give Codex a finish line and it keeps taking turns until it holds. Two things to know before you use it. Codex decides for itself when it is "confident" it is there — that is its own word, so the goal must say how to prove it (run the tests, show the output). And nothing in it writes the rulebook or the spec; it automates the easy half.
-
-1. Once, in a terminal: `codex features enable goals`. Restart Codex.
-2. Red test first. Never set a goal without one.
-3. In a new thread on the branch: `/goal` followed by the spec's *Done when* with the fence in it — for SplitIt:
-   > `/goal every test in tests/test_feature_2.py passes, shown by the final pytest output, and nothing in tests/ changed. Stop after 20 turns.`
-4. `/goal` on its own shows the goal and how it is going. `/goal pause`, `/goal resume`, `/goal clear` do what they say.
-5. When it stops: the same human check. Read the diff, click the app.
-
-Not on Codex? Claude Code has the same command with the same name; there a second, smaller model reads the thread after each turn and rules *not yet*, *met* or *impossible*. It cannot run your tests either.
-
-### The three rules you add to `AGENTS.md`
-
-Your `AGENTS.md` has been in the repo since Class 2 (it came in the ZIP). Open it. Under **How to answer**, the last line says *No git in this project unless the student asks for it explicitly*: that was true until last week. Delete that line and put these three in its place, read the diff, then commit and push.
+**2. The three rules.** Open `AGENTS.md` in your repo. Under **How to answer**, the last line says
+*No git in this project unless the student asks for it explicitly*; that was true until last week.
+Delete that line and put these three in its place:
 
 ```
-- Build each spec on a branch named after it, e.g. feature-2-categories. Never commit a feature to main directly.
+- Build each task on a branch named after it, e.g. feature-2-categories. Never commit to main directly.
 - After every change, run the tests for the task and paste the final output. The output is the proof, not a sentence.
 - Never edit, delete or skip anything in tests/. If a test looks wrong, say so and stop.
 ```
 
-Codex only reads `AGENTS.md` at the *start* of a thread, so open a new thread after you commit them.
+In GitHub Desktop, read the diff (three green lines, one red), commit with the message
+`AGENTS.md: three rules from class 4`, push.
 
-## Your turn · 30 min
+**3. Start a new chat.** Codex reads `AGENTS.md` only at the start of a chat, so every task today
+begins with a new one. Check it worked by asking:
 
-Same order as last week: one bug, then the feature, on a branch. Tests first, every time.
+```
+What does AGENTS.md tell you to do?
+```
 
-- **SplitIt:** `issues/002-delete-member-crash.md` (its test is `test_bug_002` in `tests/test_bugs.py`), then `specs/feature-2-categories.md` on a branch called `feature-2-categories`.
-- **Tiny CRM:** `issues/003-won-date-missing.md` (`test_003` in `tests/test_bugs.py`), then `specs/feature-2-conversion.md` on a branch called `feature-2-conversion`.
+It should recite the three rules.
 
-### The loop prompt
+### The bug
 
-Paste this into a **new thread** in Codex, with the spec file open, and change the file names for your app:
+**4. A branch,** in GitHub Desktop: *Current branch → New branch*, named after the task, from `main`.
 
-> Build `specs/feature-2-categories.md`. Work only on the branch `feature-2-categories`. After every change, run `uv run pytest tests/test_feature_2.py` and keep going until all four tests pass. Do not edit anything in `tests/`. When they pass, paste the final test output and list every file you changed.
+| | SplitIt | Tiny CRM |
+|---|---|---|
+| The bug | `issues/002-delete-member-crash.md` | `issues/003-won-date-missing.md` |
+| The branch | `bug-002-delete-member` | `bug-003-won-date` |
 
-The judge is the test output, not the sentence "done". Then *you* check: the diff in GitHub Desktop, and the app in the browser.
+**5. Red first.** In a new chat, before anything is built:
+
+```
+Run uv run pytest tests/test_bugs.py and paste the full output. Do not change anything.
+```
+
+One test fails. Read the last line, then the message above it: that is the to-do.
+
+**6. The ask.** Same chat. SplitIt:
+
+```
+Fix issues/002-delete-member-crash.md. Work only on the branch bug-002-delete-member. After every change, run uv run pytest tests/test_bugs.py and keep going until every test passes. Do not edit anything in tests/. When they pass, paste the final test output and list every file you changed.
+```
+
+Tiny CRM:
+
+```
+Fix issues/003-won-date-missing.md. Work only on the branch bug-003-won-date. After every change, run uv run pytest tests/test_bugs.py and keep going until every test passes. Do not edit anything in tests/. When they pass, paste the final test output and list every file you changed.
+```
+
+**7. Watch it loop.** Read, edit, run, red, again. If the same failure comes back twice, stop: read
+it yourself, start a new chat, and ask again with the symptom in your own words. The table at the
+bottom covers the other ways it goes wrong.
+
+**8. Green? Check it yourself.** In GitHub Desktop, read every changed line. Start the app the way
+you did last week (the command is in `AGENTS.md` under *How to run*) and do the thing the bug
+report describes. The tests are the finish line, not the proof.
+
+**9. Commit, push, pull request, merge.** Commit with a message that says what changed. *Push
+origin*, then *Create Pull Request*, then on GitHub *Merge*. Back in GitHub Desktop: switch to
+`main` and *Pull origin*, so the feature starts from the fixed version.
+
+### The feature
+
+**10. A branch,** from `main`, and a new chat.
+
+| | SplitIt | Tiny CRM |
+|---|---|---|
+| The spec | `specs/feature-2-categories.md` | `specs/feature-2-conversion.md` |
+| The branch | `feature-2-categories` | `feature-2-conversion` |
+
+**11. Red first.** Four tests, all red; that is the to-do list.
+
+```
+Run uv run pytest tests/test_feature_2.py and paste the full output. Do not change anything.
+```
+
+**12. The ask.** SplitIt:
+
+```
+Build specs/feature-2-categories.md. Work only on the branch feature-2-categories. After every change, run uv run pytest tests/test_feature_2.py and keep going until all four tests pass. Do not edit anything in tests/. When they pass, paste the final test output and list every file you changed.
+```
+
+Tiny CRM:
+
+```
+Build specs/feature-2-conversion.md. Work only on the branch feature-2-conversion. After every change, run uv run pytest tests/test_feature_2.py and keep going until all four tests pass. Do not edit anything in tests/. When they pass, paste the final test output and list every file you changed.
+```
+
+**13. Steps 7 to 9 again:** watch, check yourself, merge. One *Done when* line of the spec has no
+test; only clicking the app catches it.
+
+### One rule of your own
+
+**14.** Something the agent did today that you did not want is one new line in `AGENTS.md`. Add
+it, commit with the reason in the message, push. This is the retro at the end of class, and it is
+homework if you did not get to it.
+
+### Instead of watching: `/goal`
+
+Optional, and only after a red test. Codex keeps taking turns until it decides the goal holds. Two
+things to know: it decides for itself, so the goal must say how to prove it; and it writes neither
+the rulebook nor the spec. In a new chat on the branch, paste:
+
+```
+/goal every test in tests/test_feature_2.py passes, shown by the final pytest output, and nothing in tests/ changed. Stop after 20 turns.
+```
+
+`/goal` on its own shows how it is going; `/goal pause`, `/goal resume` and `/goal clear` do what
+they say. When it stops, step 8: read the diff, click the app.
 
 ### Done when
 
-- Bug test green, committed on `main`, pushed.
-- Feature 2 tests green **without touching `tests/`**, the feature visible in the app, on its branch, pushed, pull request merged.
-- `AGENTS.md` has the three lines from class, plus one rule of your own from something the agent got wrong today.
+- Bug test green, on its branch, pull request merged.
+- Feature 2 tests green **without touching `tests/`**, the feature visible in the app, pull request merged.
+- `AGENTS.md` has the three lines from class, plus one rule of your own.
 
 Copies of the specs, the bug reports and the standards sheet are in the materials below; the files that count are the ones in your repo.
 
@@ -219,9 +264,10 @@ Copies of the specs, the bug reports and the standards sheet are in the material
 |---|---|
 | It edited a test | *Discard changes* on that file in GitHub Desktop. Say: "never edit tests/". Run again. |
 | It says "done" but the tests are red | "Paste the test output." The output is the judge, not the sentence. |
-| Same failure twice in a row | Stop. Read the failure yourself: the last line says what, the line above says where. New thread, better prompt. |
+| Same failure twice in a row | Stop. Read the failure yourself: the last line says what, the line above says where. New chat, better ask. |
 | It fixed three other things too | Discard them. One task per loop. Ask again for the one thing. |
-| Tests green, app wrong | The judge missed something. Write down what — that is a test that should exist. Fix by hand or re-prompt with the symptom. |
+| Tests green, app wrong | The judge missed something. Write down what; that is a test that should exist. Fix by hand or ask again with the symptom. |
+| Out of usage on the free plan | Switch to a smaller model (step 1). If it is gone for the day, pair with a neighbour: one laptop, two readers of the diff. |
 
 ## Homework — before Class 5
 

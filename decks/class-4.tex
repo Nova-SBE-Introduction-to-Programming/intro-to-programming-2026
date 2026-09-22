@@ -1107,23 +1107,25 @@ the named version is two slides back. File names and the exact ask are on the We
 \vspace{0pt}
 \begin{tcbitemize}[cardsS, raster columns=1]
   \carditem{SplitIt}{Bug 2, then feature 2}{Removing a member crashes the page. Then expense
-    categories.\\[1.2mm]\filetag{issues/002 · specs/feature-2-categories.md}}
+    categories.}
   \carditem{Tiny CRM}{Bug 3, then feature 2}{``Won this month'' is always zero. Then conversion by
-    source.\\[1.2mm]\filetag{issues/003 · specs/feature-2-conversion.md}}
+    source.}
 \end{tcbitemize}
 \end{minipage}
 \vskip3mm
-\muted{The ask to paste, and the \code{/goal} sentence: Week 4 page.}
+\muted{Files, branch names, the asks to paste and the \code{/goal} sentence: Week 4 page.}
 \vfill
 \end{frame}
-\tanote{This slide stays on screen for forty minutes. First the live ten: do feature 2 on stage and
-let it loop for real, 2--4 rounds is normal. Narrate the workflow: "that's a read, that's an
+\tanote{This slide stays on screen for forty minutes. First the live ten: do bug 002 on stage, the one
+every slide used, and let it loop for real, 2--4 rounds is normal. Narrate the workflow: "that's a read, that's an
 edit, that's a run — red — round again." Commands and file names are on the Week 4 page if you want
-them on screen. The two things it commonly misses on this feature: it forgets to refresh the data
+them on screen. The two things it commonly misses on feature 2, which they reach in their thirty: it forgets to refresh the data
 files from the seed (tests stay green while the app crashes on load) and it never adds the form
 field (nothing tests that screen). Both are the "green is not done" lesson. Show them, do not fix
 them silently. If it edits a test: stop, discard, point at the rule, re-prompt. Then their thirty:
-roam for two things, did they ask for the test output, and did they read the diff before accepting.
+first the model picker on every laptop (GPT-5.5 with light reasoning, or 5.6 Luna; the big models
+exhaust a free plan mid-feature), then roam for two things, did they ask for the test output, and
+did they read the diff before accepting. The bug goes on its own branch now, like the feature.
 Never answer a failing test; ask "what does the last line say?". SplitIt bug 002: the test demands
 a helper that also removes the member's expenses; the assertion message says so. Tiny CRM bug 003
 has a twist: stamping the close date is not enough. The month counter gives up on the whole list
