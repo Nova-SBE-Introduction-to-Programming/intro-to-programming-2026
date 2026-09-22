@@ -10,14 +10,14 @@ Block 1 · Practical · 2026-09-22
 
 ## What you need
 
-- Your repo, with feature 1 merged and pushed. The TA checks your GitHub page in the first five minutes.
+- Your repo, with feature 1 merged and pushed. Missing files, or no repo at all? Start at *A clean start* under Your turn.
 - GitHub Desktop signed in (that is what lets Codex push), Codex open on the repo folder, uv working. Nothing new to install.
 - Read before class: `specs/feature-2` in your repo, and the bug for your app — SplitIt `issues/002`, Tiny CRM `issues/003`.
 
 ## What the slides said
 
 Nothing in this section is a step. It is the lecture half of the class, here so you can read it
-back. The steps are under [Your turn](#your-turn-10-min-live-then-30-on-your-own).
+back. The steps are under [Your turn](#your-turn).
 
 ### Git: one change, start to finish
 
@@ -124,14 +124,36 @@ better ask, because a long chat that is going wrong rarely recovers. With nobody
 loop becomes a command, `/goal`, and its stop is the agent's own word, which is why the goal has to
 say how to prove it.
 
-## Your turn · 10 min live, then 30 on your own
+## Your turn
 
-The first ten minutes happen on the projector: the TA does the bug on SplitIt, start to finish,
-and lets it loop for real. Then you do the same on your laptop, bug first, then the feature.
+Bug first, then the feature. Everything you type is in a box. Copy it as it is. The only words
+that change are the file and branch names, and they are given for both apps. Codex does the git,
+in the same chat: you ask, it branches, commits and pushes, and you read the result.
 
-Everything you type is in a box. Copy it as it is. The only words that change are the file and
-branch names, and they are given for both apps. Codex does the git today, in the same chat: you
-ask, it branches, commits and pushes, and you read the result.
+### A clean start, if your repo is missing files
+
+Your repo must have these before anything else works: `AGENTS.md`, `pyproject.toml`, `issues/`,
+`specs/`, `tests/`. Ask Codex, with your repo open:
+
+```
+List the files in this folder. Tell me whether AGENTS.md, pyproject.toml, issues/, specs/ and tests/ are all here.
+```
+
+If anything is missing, or you never made a repo, start from the course copy instead of
+repairing yours. Three steps:
+
+1. On github.com, open the course repo for your app and press **Fork**. Keep the name.
+   SplitIt: `github.com/Nova-SBE-Introduction-to-Programming/splitit` ·
+   Tiny CRM: `github.com/Nova-SBE-Introduction-to-Programming/tiny-crm`
+2. In Codex, open your `nova` folder (the one from Class 2) and paste, with your GitHub username in the slot:
+
+```
+Clone https://github.com/<your-username>/splitit into this folder, then run uv run pytest inside it and paste the output.
+```
+
+   (Tiny CRM: the same line with `tiny-crm`.) Some tests fail; that is the course.
+3. In Codex, open the new folder as the project. From here on it is your repo: it already has
+   `AGENTS.md`, the issues, the specs and the red tests.
 
 ### Set up, once
 
