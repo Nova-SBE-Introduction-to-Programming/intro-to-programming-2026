@@ -269,21 +269,21 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   Class 3's live feature-1 procedure as a row of chips — branch, red, prompt with the spec, read the
   diff, green, click the app, merge, "you, every step" — and under it today's row: the same chips,
   the four in the middle tinted purple under a bracket, "the agent, on its own, round and round",
-  with the red-again arrow, and one new chip at the front, *the brief*, in the rulebook's amber.
+  with the red-again arrow, and one new chip at the front, *the instructions*, in the rulebook's amber.
   Redrawn later the same day (the user: "much more intuitive / visually pleasant"; the chip
   rows read as two sentences): now two lanes with the same seven stations in the same columns,
   a person icon over every station last week; today the three middle stations sit in a purple
   panel under the model with the "red: again" loop beneath them, the first station is amber
-  (the brief, "new, and yours: rulebook + spec") and the last two are labelled "still yours".
+  (the instructions, "new, and yours: rulebook + spec") and the last two are labelled "still yours".
   Because the columns line up, the handover reads as a region of the picture.
   It sits before the agenda, at the user's request the same day (it was the first slide of Act 3
   for an hour): the class in one picture, so that the agenda's items read as parts of that row —
   git is the branch and merge chips, the agent act is what the purple middle is made of, the
-  standards are the brief and the checks around it. At the *Delegating* divider the TA points
+  standards are the instructions and the checks around it. At the *Delegating* divider the TA points
   back to it. (The three-questions slide that followed the divider was cut later the same day,
   in the pass that retitled the act's slides as *AGENTS.md* / *This task* / *The independent
   judge* / *A failing test* / *The assignment* / *The agent loop* / *A persistent loop* ×3.)
-- **The spec gets its own slide, as the second file of the brief** (2026-09-22). *This task: the
+- **The spec gets its own slide, as the second file of the instructions** (2026-09-22). *This task: the
   specification* (titled *Say what done is* for an hour; `\specpage`) draws feature 2's spec as the page the agent reads, in the ask slide's
   language — the page on the left, each section's tag and reason beside it: *Why* is the intent
   (where the reasoning slide's ambiguity gets resolved), *What* is the checklist and one line is
@@ -446,6 +446,30 @@ open it on the second screen in any PDF presenter) · page `weeks/week-04` · ha
   green is not the end, one task per loop, and why a failing thread gets replaced rather than
   argued with. Net: the section on the core of the class is now longer than the section on how we
   got here, which is the right way round.
+- **The judge slide stripped back to the chain** (2026-09-22, the user: *"let's take the
+  clutter/eyebrows out of The judge comes from the spec"*). Gone: the three numbered column heads
+  (1 · THE SPEC · WHAT → 2 · THE TESTS → 3 · ONE VERDICT) and the hairline row of three chips
+  under them (*written before the work* · *not by the agent* · *same answer every time*). What is
+  left is the derivation itself — four *What* lines, four tests, one verdict — and the arrows are
+  the argument, which is what the slide was always for. Both removals had quietly become
+  duplication rather than scaffolding: *A test is a claim you can run*, added earlier the same day
+  between the spec and this slide, names `tests/test_feature_2.py` on its card and already says
+  "nobody's opinion, the same answer every time, before the agent starts and after it stops" —
+  which is the three chips in one line, one slide earlier, where a student meets the idea first.
+  The heads were right when they were written, before that slide existed. The speaker note used to
+  end a sentence with "which is what the three boxes at the bottom say" and now tells the TA to say
+  it aloud instead, pointing back at the test slide.
+- **"Brief" renamed to "the instructions"** (2026-09-22, the user disliked the word and asked
+  for alternatives). It was agency jargon doing a job plain English does: the collective noun for
+  the two files the agent reads before it works — `AGENTS.md` for every task, the spec for this
+  one. Changed on the agenda, on the bridge slide's amber card, in both handouts and in the source
+  comments. Two things surfaced while grepping for it. The agenda said *"Delegating: the brief, the
+  judge, the loop"* while the deck title, the cover and the Act 3 divider all say *Rules, judge,
+  loop*, so "brief" was already the outlier. And `\tqcol` in the theme — the three-questions
+  figure, whose first column is *"1 · THE BRIEF / How do I brief it?"* — is dead code: nothing in
+  the deck references it, so it was left unedited and is a candidate for deletion. On the card,
+  "the instructions" needs an explicit line break; left to itself TeX hyphenates it as
+  "the in-structions" inside the 15.4mm card.
 - **Every citation is live and clickable, checked end to end** (2026-09-22). All 23 distinct URLs in
   the deck and theme resolve; the two non-200s are bot-blocking, not rot (APA returns 200 with a
   browser user agent, Elsevier 403s any `curl`). The built PDF carries 27 link annotations,
@@ -463,13 +487,13 @@ Act 2 and again in Act 3 with the tests in it. Say so on the agenda slide.
 
 | Min | Slides | What | Checkpoint |
 |---|---|---|---|
-| 0–6 | 1–4 | Open · **Last week, this week** (Class 3's loop as chips; today the middle four go to the agent and *the brief* is new — the class in one picture, before the agenda) · agenda · check-in: GitHub page shows the feature-1 branch and a merged PR. | TA has the list of who is behind |
+| 0–6 | 1–4 | Open · **Last week, this week** (Class 3's loop as chips; today the middle four go to the agent and *the instructions* are new — the class in one picture, before the agenda) · agenda · check-in: GitHub page shows the feature-1 branch and a merged PR. | TA has the list of who is behind |
 | 6–7 | 5 | **Why git exists**: Linus Torvalds, April 2005 — the problem, ten days, what it had to do. | — |
 | 7–14 | 6–13 | **Act 1 — git, as one story.** The graph grows by one move per slide: `main` → branch → commit → second commit (`main` has not moved) → local and remote → merge, approved. About a minute each — it is a build, so do not narrate it twice. Then two asides, forty seconds each: *A conflict* and *The record* (the same commits as a `git log` list, with one diff beside it). | — |
 | 14–15 | 14 | Divider: **agent**. "The thing that will make those commits today is not you. So what is it?" | — |
 | 15–34 | 15–29 | **Act 2 — from a model to an agent.** Two history slides (1958–2017, then 2018 onwards) with the NVIDIA aside between them (why the most valuable company: CUDA, the software that opened the games chip to any maths) · the GPT-2 pair: the unicorn sample read aloud, then how it was trained (a strip: hide a word, guess, correct, and round again; the notes carry the data and the "one word at a time, nothing checks" hand-off) · the stack in four moves: a language model · tools · an agent · the harness · **end-to-end flow** (slowest slide in the act; titled *One exchange, in full.* until 2026-09-21) · reasoning, watched (the model reaches for a tool mid-thought; the loop is drawn down the left edge) · *Prompt engineering, 2022–2024*: five tricks in a table, step by step to please and thank you, and the purple callout that ended them: a model that works it out first, whose own guide says not to ask · the ReAct loop · context (one page the model reads: tools, rulebook, your message above the line, thought, call, result below it; the bracket shows why it can pick a tool) · context rot (mock terminal panels: `/context` an hour in, `/compact` beside it, three notes pointing in). | — |
 | 34–35 | 30 | Divider: **Rules, judge, loop.** Point back at the opening slide: the purple middle is what this act is about; three controls on it: rules, a judge, a loop. Every slide until Your turn is bug 002. | — |
-| 35–47 | 31–38 | **Act 3 — rules, judge, loop.** *AGENTS.md* (titled *Standing rules* for a while): the rulebook as the diff they will read, three rules as green added lines (+ live: replace the No-git line with them, commit) · *This task: the specification*: the spec as the page it reads, four sections tagged (intent · checklist = the judge · fence · finish line; one *Done when* line marked as untested) · *A test is a claim you can run*: one real test from their repo opened up --- name, docstring, `assert` --- because they have run tests since Class 3 without ever seeing inside one · *The judge comes from the spec*: What lines → tests → one verdict, and what makes a check a judge (+ live: run the red tests on stage) · *The assignment*: the ask as the message they will paste, the two slots that change highlighted, each paragraph labelled beside with its part and its reason · *The Ralph Wiggum loop* (the photo, and the name: cheerfully wrong, gets there anyway; a loop around the loop) · *Persistent agentic loop*: one canvas (prompt → agent → repo → eval; red sends the same assignment back), `/goal` on top with the ticket's *Done when*, the fence and a cap, the enable-once line, and in the notes who decides (Codex: its own confidence; Claude Code: a second model; neither runs the tests) · *Delegating coding agents*: the act as six steps under three headings (set it up · hand it over · check it yourself), each anchored to the real file in their repo, the slide to photograph. | Every laptop: an `AGENTS.md` commit pushed |
+| 35–47 | 31–38 | **Act 3 — rules, judge, loop.** *AGENTS.md* (titled *Standing rules* for a while): the rulebook as the diff they will read, three rules as green added lines (+ live: replace the No-git line with them, commit) · *This task: the specification*: the spec as the page it reads, four sections tagged (intent · checklist = the judge · fence · finish line; one *Done when* line marked as untested) · *A test is a claim you can run*: one real test from their repo opened up --- name, docstring, `assert` --- because they have run tests since Class 3 without ever seeing inside one · *The judge comes from the spec*: What lines → tests → one verdict and nothing else, the arrows carrying the argument (+ live: run the red tests on stage) · *The assignment*: the ask as the message they will paste, the two slots that change highlighted, each paragraph labelled beside with its part and its reason · *The Ralph Wiggum loop* (the photo, and the name: cheerfully wrong, gets there anyway; a loop around the loop) · *Persistent agentic loop*: one canvas (prompt → agent → repo → eval; red sends the same assignment back), `/goal` on top with the ticket's *Done when*, the fence and a cap, and in the notes the setup step and who decides (Codex: its own confidence; Claude Code: a second model; neither runs the tests) · *Delegating coding agents*: the act as six steps under three headings (set it up · hand it over · check it yourself), each anchored to the real file in their repo, the slide to photograph. | Every laptop: an `AGENTS.md` commit pushed |
 | 47–58 | 39 | **Live kick-off.** The "Your turn" slide goes up and stays up: branch → red → new thread → paste the ask → watch it loop → read the diff → click the app → merge. Let it get something wrong. | Room has seen one full loop and one "green but wrong" |
 | 58–86 | 39–40 | **Your turn.** Bug on `main`, then feature 2 on a branch; "When it goes wrong" for the last ten minutes. | Bug test green and pushed; feature 2 green on its branch |
 | 86–89 | 41 | **Retro.** Worst agent behaviour → one rule → commit with the reason. Three read out. | Every laptop: a second `AGENTS.md` commit |

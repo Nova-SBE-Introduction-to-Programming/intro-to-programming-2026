@@ -1130,7 +1130,11 @@
 }
 % the judge, slide one: where the tests come from. The spec's What lines on the left, the test
 % that checks each one in the middle (the real names from tests/test_feature_2.py), one verdict
-% on the right, and under it the three things that make the check a judge. \testchain.
+% on the right. Nothing else: the arrows are the argument. Numbered column heads and a row of
+% three "what makes it a judge" chips were tried and cut (2026-09-22, the user: take the clutter
+% and eyebrows out). Both had become redundant once \testanatomy was added on the slide before —
+% it names the file and already says "nobody's opinion, the same answer every time, before the
+% agent starts and after it stops", which is those three chips in one line. \testchain.
 \tikzset{
   tc row/.style  ={rounded corners=1.4mm, fill=NovaCard, text=NovaFg, font=\scriptsize,
                    anchor=west, inner xsep=2mm, inner ysep=1.4mm, minimum width=46mm,
@@ -1141,12 +1145,7 @@
 }
 \newcommand{\testchain}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-46) rectangle (134,3);
-    % numbered, like the three-step strip on the GPT-2 slide: the point is that this is a
-    % derivation, spec first, and the numbers say so before anyone reads a row
-    \node[pg head, text=NovaAccent] at (0,1.5) {\lsp[12]{1 · THE SPEC · WHAT}};
-    \node[pg head, text=NovaFg] at (56,1.5) {\lsp[12]{2 · THE TESTS · test\_feature\_2.py}};
-    \node[pg head, text=NovaAccent] at (114,1.5) {\lsp[12]{3 · ONE VERDICT}};
+    \useasboundingbox (0,-37) rectangle (134,-2);
     \foreach \y/\t/\n in {-6/{\ckbox\ a fixed list of five categories}/test\_the\_category\_list\_is\_fixed,
                           -15/{\ckbox\ a category column in expenses.csv}/test\_expenses\_have\_a\_category\_column,
                           -24/{\ckbox\ add\_expense takes a category}/test\_add\_expense\_saves\_the\_category,
@@ -1161,14 +1160,6 @@
     \node[font=\footnotesize\bfseries, text=NovaAccent!75!white, anchor=west, inner sep=0pt]
       at (116.5,-14.5) {4 failed};
     \node[font=\tiny, text=NovaLine, anchor=west, inner sep=0pt] at (116.5,-18.6) {before you start};
-    % what makes it a judge — a claim about the whole picture, not a fourth column, so it sits
-    % under a hairline instead of floating as another row
-    \draw[NovaLine, line width=0.7pt] (0,-38) -- (134,-38);
-    \node[pg head] at (0,-42.5) {\lsp[12]{A JUDGE:}};
-    \foreach \x/\t in {16/{written before the work}, 58/{not by the agent}, 92/{same answer every time}} {
-      \node[rounded corners=1.2mm, draw=NovaAccent, line width=0.8pt, text=NovaFg,
-            font=\scriptsize\bfseries, inner xsep=2mm, inner ysep=1.2mm, anchor=west]
-        at (\x,-42.5) {\t};}
   \end{tikzpicture}%
 }
 % the assignment: one handover card, the exact object pasted into a new thread. Four coloured
@@ -1320,12 +1311,13 @@
       \begin{scope}[shift={(\x,-31.1)}, scale=0.55]\icperson[NovaBody]{0}{0}\end{scope}
       \node[ho card] at (\x,-38.5) {\t};}
     \begin{scope}[shift={(8.5,-31.1)}, scale=0.55]\icperson[NovaYellow]{0}{0}\end{scope}
-    \node[ho brief] at (8.5,-38.5) {the brief};
+    \node[ho brief] at (8.5,-38.5) {the\\instructions};
     \foreach \x/\t in {46.5/{red tests}, 65.5/{build}, 84.5/{run: green}} {
       \node[ho agent] at (\x,-38.5) {\t};}
-    % the model over its region, and the loop under it
-    \begin{scope}[shift={(65.5,-31.4)}, scale=0.75]\icmodel[NovaPurple]{0}{0}\end{scope}
-    \node[font=\tiny\bfseries, text=NovaPurple, anchor=west, inner sep=0pt] at ({65.5+3.8},-31.4) {the agent};
+    % the band is named, not pictured: "agentic coding" is the thing the rest of the class opens
+    % up, so the icon and the word "agent" are left for the slides that earn them
+    \node[font=\scriptsize\bfseries, text=NovaPurple, anchor=center, inner sep=0pt] at (65.5,-31.4)
+      {Agentic coding};
     \draw[as arrow=NovaAccent, rounded corners=1.6mm]
       ({84.5},-43.5) -- ({84.5},-47) -- ({46.5},-47) -- ({46.5},-43.5);
     \node[as label=NovaAccent, fill=NovaPurpleBg, inner xsep=1.2mm, anchor=center] at (65.5,-47) {red: again};
@@ -1336,7 +1328,7 @@
 }
 
 % ───────────────────────────────────────────────────── the spec, as a page
-% The brief for one task: the spec they read last week, drawn as the page the agent reads,
+% The instructions for one task: the spec they read last week, drawn as the page the agent reads,
 % with the four sections tagged beside it by what each one does for the agent. Every line is
 % feature 2. \specpage.
 \newcommand{\ckbox}{\tikz[baseline=-0.35ex]\draw[NovaMuted, line width=0.55pt] (0,-0.8mm) rectangle (1.6mm,0.8mm);}
@@ -1369,7 +1361,7 @@
       \specline{-40.4}{Editing later · custom categories · charts.}
       \specband{-44}{-58.4}{NovaTeal}{DONE WHEN}
       \specline{-51.4}{Tests green. The seed script runs.}
-      \specline{-55.2}{A form box, page totals. \textcolor{NovaAccent}{\bfseries No test: you click.}}
+      \specline{-55.2}{A form box, page totals.}
     \end{scope}
     \draw[NovaLine, line width=0.9pt, rounded corners=3.6mm] (0,0) rectangle (80,-59);
     \specnext{-6}{NovaPurple}{ITS REASONING}{when a line reads two ways, this is how it picks}

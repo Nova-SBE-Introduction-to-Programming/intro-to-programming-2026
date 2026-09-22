@@ -97,9 +97,9 @@ the tool being lazy; it is dropping the part the model was using worst.
 
 **It is code.** It lives in git, it gets reviewed, it gets pruned. When the agent does something wrong, the fix is often a line here, not a longer prompt. *Would removing this line cause a mistake? If not, cut it.*
 
-### The spec — the brief for one task
+### The spec — the instructions for one task
 
-The rulebook is the brief for every task; the spec is the brief for this one. You read one in
+The rulebook is the instructions for every task; the spec, the instructions for this one. You read one in
 Class 3 (`specs/feature-1`) and you build from one today (`specs/feature-2`). From Block 2 you write
 them, and the shape does not change: four headings, each doing one job for the agent.
 

@@ -33,22 +33,20 @@ data reset.}
 % ── 2 · last week, this week
 % The bridge from Class 3, and it opens the class (2026-09-22, the user: "this should go to the
 % slide before the class content"). Class 3's live feature-1 steps as a row of chips, then the
-% same steps today: the four in the middle go to the agent, one new step, the brief, appears at
-% the front, and the two that stay are reading the diff and merging. The class is then what the
-% brief is and how you check the middle without watching it.
+% same steps today: the four in the middle go to the agent, one new step, the instructions,
+% appears at the front, and the two that stay are reading the diff and merging. The class is then
+% what the instructions are and how you check the middle without watching it.
 \hue{NovaTeal}
 \begin{frame}{Last week, this week.}
 \vspace*{\fill}
 \handover
-\vskip3mm
-\muted{Same stations. Three now run without you. You write the brief instead.}
 \vfill
 \end{frame}
 \tanote{One minute, before the agenda. Top row: what they did on stage last week, branch, red
 tests, paste the spec, read the diff, green, click, merge, and every step had their hands on it.
 Bottom row: today the four in the middle run inside one Codex turn without them, red to green,
-round and round; the only new thing is the first chip. The brief is two files, the rulebook for
-every task and the spec for this one, and the class is about those two files and about how to
+round and round; the only new thing is the first chip. The instructions are two files, the
+rulebook for every task and the spec for this one, and the class is about those two files and about how to
 check the purple part without watching it. Everything until Act 3 is what the purple part is
 made of. Then the agenda.}
 
@@ -60,7 +58,7 @@ made of. Then the agenda.}
   \item Check-in
   \item Git: one change, start to finish
   \item From a model to an agent
-  \item Delegating: the brief, the judge, the loop
+  \item Delegating: the instructions, the judge, the loop
   \item Build one, live — then you build one
   \item Retro: one new rule
 \end{steps}
@@ -878,7 +876,7 @@ own; you can ask earlier. One rule follows in the next act: after twice round on
 start a new thread with a better ask.}
 
 % ═════════════════════════════════════════════ ACT 3 · three standards
-% One task, in the order students actually do it: map the workflow; form the brief; make the
+% One task, in the order students actually do it: map the workflow; write the instructions; make the
 % judge; write the ask; then supervise the loop. Every example is bug 002, the task they do next.
 \sectionslide[NovaAccent]{3}{The core of the class}{Rules, judge, loop.}%
 {Instructions tell the agent what to do. Evidence tells you whether it worked.}
@@ -888,7 +886,7 @@ purple middle of that row is what this act is about. It has three controls: rule
 the work; a judge, which supplies evidence; and a loop, which uses that evidence to decide what
 happens next. Every example from here to Your turn is bug 002, the bug they fix in half an hour.}
 
-% ── standard 1 · the brief
+% ── standard 1 · the instructions
 \hue{NovaYellow}
 \begin{frame}{\codetitle{AGENTS.md}}
 \vspace*{\fill}
@@ -909,7 +907,7 @@ It can read that itself, and every extra line hides a real one; the test for a l
 removing it cause a mistake?" Mention the 32 KB cap only if asked; the real cap is attention.}
 
 % ── standard 1, second file · the spec
-% The brief for one task. The page they read last week, tagged beside by what each section
+% The instructions for one task. The page they read last week, tagged beside by what each section
 % does for the agent: the intent, the checklist that becomes the tests, the fence for this
 % task, the finish line. It is the slide that turns "read a spec" (Class 3) into "write one"
 % (Block 2), and it plants the two things the act ends on: the checklist is the judge, and the
@@ -922,14 +920,15 @@ removing it cause a mistake?" Mention the 32 KB cap only if asked; the real cap 
 \muted{Last week you read one. In Block 2 you write them: the same four sections.}
 \vfill
 \end{frame}
-\tanote{One minute. The rulebook is the brief for every task; this is the brief for one, and
+\tanote{One minute. The rulebook is the instructions for every task; this is the instructions for one, and
 they know the page: it is the spec from last week's slide, feature 2's this time. Walk the four
 tags, not the lines. Why is the intent: the reasoning slide showed an ambiguous ask, and this is
 where the model finds which reading is the safe one. What is a checklist, and the co-teacher
 wrote one test per line, so the checklist is the judge in code. Out of scope is a fence for this
 task only, the way the rulebook is a fence for all of them. Done when is the finish line in plain
-words, and point at the red line: one of them has no test, only clicking catches it, which is the
-green-is-not-done moment later. Land the last caption: in Block 2 there is no PM; they write
+words, and say the thing the slide no longer marks: one of those lines has no test behind it --- the
+form box and the page totals --- so only clicking catches it, which is the green-is-not-done moment
+later. Land the last caption: in Block 2 there is no PM; they write
 these, four sections, and the What lines are the tests they ask for first. The full spec is in
 their repo and on the Week 4 page.}
 
@@ -967,8 +966,9 @@ Red is the agent's next input.}
 \tanote{Follow the arrows left to right: each What line of the ticket has one test with a name
 that says the same thing, and the four of them give one verdict. That is the causal backbone of
 the class: the judge is written from the spec, before the work, by someone who is not the agent,
-and it gives the same answer every time you run it, which is what the three boxes at the bottom
-say. Anyone can type "the tests pass", which is why the third rulebook line asks for the output
+and it gives the same answer every time you run it --- say that out loud, because the slide no
+longer spells it out and the line before it on the test slide is where they last heard it.
+Anyone can type "the tests pass", which is why the third rulebook line asks for the output
 itself: when the sentence and the verdict disagree, the terminal wins. Run the red tests on stage
 now (command on the Week 4 page) so the real output replaces the box, and open the test file next
 to the spec so they see the names match. Read one failure bottom up while it is on screen: the

@@ -100,13 +100,13 @@ needs rules and a judge. The year-by-year timeline is in the standards sheet.
 
 These three are the class. Everything above is background; everything below is you doing them.
 
-1. **The brief, in two files.** The **rulebook — `AGENTS.md`** — is what Codex reads before it
+1. **The instructions, in two files.** The **rulebook — `AGENTS.md`** — is what Codex reads before it
    reads anything else: the rules for *every* task. Commands it cannot guess, boundaries, what is
    off limits — and nothing it could work out by reading the code. It lives in git and gets
    reviewed like code, so when the agent does something wrong the fix is usually a line here, not a
    longer prompt. Today you add three rules to the one already in your repo (below) and commit
    them; Codex reads the file only at the *start* of a thread, so open a new one afterwards.
-   The **spec** is the brief for *one* task, in four sections: *Why* (the intent — how it picks
+   The **spec** is the instructions for *one* task, in four sections: *Why* (the intent — how it picks
    when a line can be read two ways), *What* (a checklist, one line per thing that must be true),
    *Out of scope* (the fence for this task), *Done when* (the finish line in plain words). Today's
    is already in your repo; from Block 2 you write them.
