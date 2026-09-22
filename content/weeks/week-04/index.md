@@ -11,7 +11,7 @@ Block 1 · Practical · 2026-09-22
 ## What you need
 
 - Your repo, with feature 1 merged and pushed. The TA checks your GitHub page in the first five minutes.
-- GitHub Desktop signed in, Codex open on the repo folder, uv working. Nothing new to install.
+- GitHub Desktop signed in (that is what lets Codex push), Codex open on the repo folder, uv working. Nothing new to install.
 - Read before class: `specs/feature-2` in your repo, and the bug for your app — SplitIt `issues/002`, Tiny CRM `issues/003`.
 
 ## What the slides said
@@ -130,26 +130,29 @@ The first ten minutes happen on the projector: the TA does the bug on SplitIt, s
 and lets it loop for real. Then you do the same on your laptop, bug first, then the feature.
 
 Everything you type is in a box. Copy it as it is. The only words that change are the file and
-branch names, and they are given for both apps.
+branch names, and they are given for both apps. Codex does the git today, in the same chat: you
+ask, it branches, commits and pushes, and you read the result.
 
 ### Set up, once
 
 **1. Pick a cheaper model.** In Codex, the model picker is at the bottom of the message box. Choose
 **GPT-5.5 with reasoning set to light**, or **5.6 Luna**. The biggest models burn through a free
-plan's limit before the feature is done, and this task does not need them.
+plan's limit before the feature is done, and this task does not need them. If your plan runs out
+for the day, pair with a neighbour: one laptop, two readers of the diff.
 
-**2. The three rules.** Open `AGENTS.md` in your repo. Under **How to answer**, the last line says
-*No git in this project unless the student asks for it explicitly*; that was true until last week.
-Delete that line and put these three in its place:
+**2. The three rules.** Your `AGENTS.md` has had a last line under *How to answer* since Class 2,
+*No git in this project unless the student asks for it explicitly*; that stopped being true last
+week. Paste this into a chat:
 
 ```
+In AGENTS.md, under "How to answer", delete the line about no git and put these three lines in its place:
 - Build each task on a branch named after it, e.g. feature-2-categories. Never commit to main directly.
 - After every change, run the tests for the task and paste the final output. The output is the proof, not a sentence.
 - Never edit, delete or skip anything in tests/. If a test looks wrong, say so and stop.
+Show me the diff. Then commit with the message "AGENTS.md: three rules from class 4" and push.
 ```
 
-In GitHub Desktop, read the diff (three green lines, one red), commit with the message
-`AGENTS.md: three rules from class 4`, push.
+Read the diff before you accept it: three lines added, one removed, nothing else.
 
 **3. Start a new chat.** Codex reads `AGENTS.md` only at the start of a chat, so every task today
 begins with a new one. Check it worked by asking:
@@ -162,14 +165,24 @@ It should recite the three rules.
 
 ### The bug
 
-**4. A branch,** in GitHub Desktop: *Current branch → New branch*, named after the task, from `main`.
+**4. A branch,** named after the task, from `main`. SplitIt:
+
+```
+Create a branch called bug-002-delete-member from main and switch to it.
+```
+
+Tiny CRM:
+
+```
+Create a branch called bug-003-won-date from main and switch to it.
+```
 
 | | SplitIt | Tiny CRM |
 |---|---|---|
 | The bug | `issues/002-delete-member-crash.md` | `issues/003-won-date-missing.md` |
 | The branch | `bug-002-delete-member` | `bug-003-won-date` |
 
-**5. Red first.** In a new chat, before anything is built:
+**5. Red first.** Same chat, before anything is built:
 
 ```
 Run uv run pytest tests/test_bugs.py and paste the full output. Do not change anything.
@@ -189,26 +202,51 @@ Tiny CRM:
 Fix issues/003-won-date-missing.md. Work only on the branch bug-003-won-date. After every change, run uv run pytest tests/test_bugs.py and keep going until every test passes. Do not edit anything in tests/. When they pass, paste the final test output and list every file you changed.
 ```
 
-**7. Watch it loop.** Read, edit, run, red, again. If the same failure comes back twice, stop: read
-it yourself, start a new chat, and ask again with the symptom in your own words. The table at the
-bottom covers the other ways it goes wrong.
+**7. Watch it loop.** Read, edit, run, red, again. Three things to hold it to: if it says "done"
+without the test output, ask for the output; if it touched a test, tell it to put the test back and
+say the rule; if the same failure comes back twice, stop, read it yourself, start a new chat, and
+ask again with the symptom in your own words.
 
-**8. Green? Check it yourself.** In GitHub Desktop, read every changed line. Start the app the way
-you did last week (the command is in `AGENTS.md` under *How to run*) and do the thing the bug
-report describes. The tests are the finish line, not the proof.
+**8. Green? Check it yourself.** Read every changed line:
 
-**9. Commit, push, pull request, merge.** Commit with a message that says what changed. *Push
-origin*, then *Create Pull Request*, then on GitHub *Merge*. Back in GitHub Desktop: switch to
-`main` and *Pull origin*, so the feature starts from the fixed version.
+```
+Show me the full diff of this branch against main.
+```
+
+Then start the app and do the thing the bug report describes:
+
+```
+Start the app and give me the address to open in the browser.
+```
+
+The tests are the finish line, not the proof.
+
+**9. Commit, push, pull request, merge.**
+
+```
+Commit everything with a message that says what changed, push the branch, and give me the link to open a pull request.
+```
+
+Open the link. On GitHub, read *Files changed* once more, then *Merge pull request*. Back in the
+chat, so the feature starts from the fixed version:
+
+```
+Switch to main and pull.
+```
 
 ### The feature
 
-**10. A branch,** from `main`, and a new chat.
+**10. A branch,** from `main`, in a new chat. SplitIt:
 
-| | SplitIt | Tiny CRM |
-|---|---|---|
-| The spec | `specs/feature-2-categories.md` | `specs/feature-2-conversion.md` |
-| The branch | `feature-2-categories` | `feature-2-conversion` |
+```
+Create a branch called feature-2-categories from main and switch to it.
+```
+
+Tiny CRM:
+
+```
+Create a branch called feature-2-conversion from main and switch to it.
+```
 
 **11. Red first.** Four tests, all red; that is the to-do list.
 
@@ -233,9 +271,14 @@ test; only clicking the app catches it.
 
 ### One rule of your own
 
-**14.** Something the agent did today that you did not want is one new line in `AGENTS.md`. Add
-it, commit with the reason in the message, push. This is the retro at the end of class, and it is
-homework if you did not get to it.
+**14.** Something the agent did today that you did not want is one new line in `AGENTS.md`. Write
+the line yourself, then:
+
+```
+Add this line to AGENTS.md under "How to answer": <your line>. Commit with a message that says why, and push.
+```
+
+This is the retro at the end of class, and it is homework if you did not get to it.
 
 ### Instead of watching: `/goal`
 
@@ -257,17 +300,6 @@ they say. When it stops, step 8: read the diff, click the app.
 - `AGENTS.md` has the three lines from class, plus one rule of your own.
 
 Copies of the specs, the bug reports and the standards sheet are in the materials below; the files that count are the ones in your repo.
-
-## When the loop goes wrong
-
-| What you see | What to do |
-|---|---|
-| It edited a test | *Discard changes* on that file in GitHub Desktop. Say: "never edit tests/". Run again. |
-| It says "done" but the tests are red | "Paste the test output." The output is the judge, not the sentence. |
-| Same failure twice in a row | Stop. Read the failure yourself: the last line says what, the line above says where. New chat, better ask. |
-| It fixed three other things too | Discard them. One task per loop. Ask again for the one thing. |
-| Tests green, app wrong | The judge missed something. Write down what; that is a test that should exist. Fix by hand or ask again with the symptom. |
-| Out of usage on the free plan | Switch to a smaller model (step 1). If it is gone for the day, pair with a neighbour: one laptop, two readers of the diff. |
 
 ## Homework — before Class 5
 

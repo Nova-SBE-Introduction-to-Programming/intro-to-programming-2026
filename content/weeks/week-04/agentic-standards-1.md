@@ -87,13 +87,11 @@ the tool being lazy; it is dropping the part the model was using worst.
 
 **What stays out.** Anything it can read in the code. Long explanations. "Write clean code." Every extra line makes the important lines easier to miss — if the agent keeps ignoring a rule, the file is probably too long.
 
-**The three rules you add today.** A boundary, an evidence rule, and one thing that is off-limits. They replace the last line under *How to answer* (*No git in this project unless the student asks*), which stopped being true in Class 3:
-
-```
-- Build each spec on a branch named after it, e.g. feature-2-categories. Never commit a feature to main directly.
-- After every change, run the tests for the task and paste the final output. The output is the proof, not a sentence.
-- Never edit, delete or skip anything in tests/. If a test looks wrong, say so and stop.
-```
+**Three rules every rulebook in this course carries.** A *branch* rule (each task on its own
+branch, never straight to `main`), an *evidence* rule (after every change, run the tests and paste
+the output; the output is the proof, not a sentence), and an *off-limits* rule (never edit, delete
+or skip a test; if one looks wrong, say so and stop). Each one closes a way the agent goes wrong
+that you will meet today. The exact lines, and the ask that puts them in, are in the Week 4 steps.
 
 **It is code.** It lives in git, it gets reviewed, it gets pruned. When the agent does something wrong, the fix is often a line here, not a longer prompt. *Would removing this line cause a mistake? If not, cut it.*
 
@@ -115,13 +113,10 @@ ready to delegate it. Then the *What* lines, each one checkable by a test you co
 *Why* to two sentences. Put in *Out of scope* the thing the agent will be tempted to do (it will
 refactor the neighbouring function; say no). One spec, one branch, one loop.
 
-**Tests first, from the checklist.** Today they are already written for you:
-`tests/test_feature_2.py`, four red — run them and read them before anything else. From Block 2,
-when nobody writes them for you, ask for them before any implementation: *"Write one test
-per line of the What checklist in `specs/<spec>.md`, in `tests/test_<name>.py`. No implementation
-yet."* Run them; they must fail. Read them: do they check what the line says? Only then the ask. A
-*Done when* line that no test covers (today: the form field and the page section) is the line you
-check by clicking.
+**Tests first, from the checklist.** The *What* lines become tests before any code is written:
+one line, one test. This week they are written for you; from Block 2 you ask the agent for them
+first, with no implementation, run them, and read them: do they check what the line says? Only
+then the ask. A *Done when* line that no test covers is the line you check by clicking.
 
 ## 2 · The judge — define done before you build
 
@@ -165,9 +160,10 @@ means stop, read the diff, click the app.
 
 **A stop condition.** Green, or a cap. Two corrections on the same failure and the thread is full of failed attempts: stop, read the failure yourself, start a **new thread** with a better prompt that says what you learned. A clean thread with a better prompt beats a long thread with corrections.
 
-**The loop prompt** — paste, change the file names:
-
-> Build `specs/<spec>.md`. Work only on the branch `<branch>`. After every change, run `uv run pytest tests/<test file>` and keep going until all tests pass. Do not edit anything in `tests/`. When they pass, paste the final test output and list every file you changed.
+**The ask** is the same four parts every time: the task (one thing, named), the fence (the branch,
+and what not to touch), the finish line (run the tests until every one passes) and the proof (paste
+the output, list the files). Only the task and the branch change between tasks. The copy-ready
+version is in the Week 4 steps.
 
 **Where the loop lives.** Today it runs inside one Codex turn and you watch it. One level up, a
 *script* runs it — you go and do something else.
@@ -230,13 +226,9 @@ your tests** — they only read what the agent put on screen, which is exactly w
 test output" belongs in the sentence. And everything that got automated here was the easy half:
 nothing in it writes your rulebook, writes your spec, or decides what *done* means.
 
-To use it in Codex:
-
-1. Once, in a terminal: `codex features enable goals`, then restart Codex.
-2. A red test first. Never set a goal without one.
-3. In a new thread on the branch: `/goal every test in tests/test_feature_2.py passes, shown by the final pytest output, and nothing in tests/ changed. Stop after 20 turns.`
-4. `/goal` alone shows the goal and its progress; `/goal pause`, `/goal resume`, `/goal clear`.
-5. When it stops, the human check as always: read the diff, click the app.
+Using it is three habits, not a procedure: a red test first, never a goal without one; the
+sentence names the proof and the fence and a cap; and when it stops, the human check as always.
+The Codex desktop app has it built in; the sentence to paste is in the Week 4 steps.
 
 **Why it needs the first two standards.** Nobody is watching. The rulebook is what keeps it inside the lines, and the judge is what tells it to stop. Get either wrong and
 it will spend an hour going confidently in the wrong direction. That is why the rulebook and the
