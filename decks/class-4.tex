@@ -23,24 +23,44 @@
 \sectionslide[NovaTeal]{W4}{Block 1 · Class 4 · Practical}{Rules, judge, loop.}%
 {Last week you watched a feature get built. Today you build one.}
 \tanote{Timing, dividers included: open + check-in 5 · git 7 · from a model to an agent 18 ·
-three standards 15 · live kick-off 10 · your turn 30 · retro 4 · wrap 1 = 90, no slack. Per-slide
-weights are in the plan, not on the slides. The lecture half is on budget with a minute of slack;
-if behind at the agent divider, cut the history slides (12–14, NVIDIA included), and the two
-GPT-2 slides (15–16) are the next cut. TA-run. Slides carry
+delegation workflow 12 · live kick-off 10 · your turn 30 · retro 4 · wrap 1 = 87, with three minutes
+of slack. Per-slide weights are in the plan, not on the slides. If behind at the agent divider,
+cut the history slides (12–14, NVIDIA included), and the two GPT-2 slides (15–16) are the next cut. TA-run. Slides carry
 ideas only: every command is on the Week 4 page, open on their laptops, and in these notes.
 Presenting laptop: SplitIt with feature 1 merged, clean main, Codex open, GitHub Desktop signed in,
 data reset.}
 
-% ── 2 · today
+% ── 2 · last week, this week
+% The bridge from Class 3, and it opens the class (2026-09-22, the user: "this should go to the
+% slide before the class content"). Class 3's live feature-1 steps as a row of chips, then the
+% same steps today: the four in the middle go to the agent, one new step, the brief, appears at
+% the front, and the two that stay are reading the diff and merging. The class is then what the
+% brief is and how you check the middle without watching it.
+\hue{NovaTeal}
+\begin{frame}{Last week, this week.}
+\vspace*{\fill}
+\handover
+\vskip3mm
+\muted{Same stations. Three now run without you. You write the brief instead.}
+\vfill
+\end{frame}
+\tanote{One minute, before the agenda. Top row: what they did on stage last week, branch, red
+tests, paste the spec, read the diff, green, click, merge, and every step had their hands on it.
+Bottom row: today the four in the middle run inside one Codex turn without them, red to green,
+round and round; the only new thing is the first chip. The brief is two files, the rulebook for
+every task and the spec for this one, and the class is about those two files and about how to
+check the purple part without watching it. Everything until Act 3 is what the purple part is
+made of. Then the agenda.}
+
+% ── 3 · today
 \hue{NovaTeal}
 \begin{frame}{Today.}
-\framesubtitle{Class 4}
 \vspace*{\fill}
 \begin{steps}
   \item Check-in
   \item Git: one change, start to finish
   \item From a model to an agent
-  \item Three standards
+  \item Delegating: the brief, the judge, the loop
   \item Build one, live — then you build one
   \item Retro: one new rule
 \end{steps}
@@ -50,10 +70,9 @@ data reset.}
 than shown at once: the git graph, the model-to-agent stack, and the ReAct loop. Say so: "you will
 see the same picture grow." That is the whole visual method of the class.}
 
-% ── 3 · check-in
+% ── 4 · check-in
 \hue{NovaTeal}
 \begin{frame}{Your GitHub page.}
-\framesubtitle{Check-in · 5 min}
 \vspace*{\fill}
 \begin{itemize}
   \item A branch for feature 1.
@@ -71,58 +90,140 @@ Don't debug git at the front: the next six slides are the explanation, and the p
 % ═════════════════════════════════════════════ ACT 1 · git, as one story
 % Git comes first: it is the thing they just looked at on their own GitHub page, it is what
 % last week was about, and every later slide (branch, judge, push, merge) leans on it.
-\sectionslide[NovaBlue]{git}{How a team stays sane}{One change, start to finish.}%
-{\code{main} is the version everyone trusts. Here is how a change gets into it.}
-\tanote{Six minutes for the whole story, about fifty seconds a slide. Five of the six are the
-previous picture plus one move, so do not narrate them twice — point at what is new and go on.
-They met repo, commit, branch and push last week as words; this is the same words as a single
-narrative, in the shape they will actually see in GitHub Desktop. Frame it the way they already
-think: a draft, checkpoints, a review, a sign-off.}
+% The act opens on the person, not a divider (2026-09-22, at the user's request: "why did he
+% invent git?"). Photo: Krd, LinuxCon Europe 2014, Wikimedia Commons, CC BY-SA 4.0.
+\hue{NovaBlue}
+\begin{frame}{Why git exists.}
+\framesubtitle{Linus Torvalds · April 2005}
+\vspace*{\fill}
+\begin{columns}[T]
+\begin{column}{0.30\textwidth}
+\roundedpic[0.97\linewidth]{figures/linus.jpg}
+\vskip2.4mm
+{\footnotesize\color{NovaBody}\emph{``I'm an egotistical bastard, and I name all my projects
+after myself. First Linux, now git.''}\par}
+\end{column}
+\begin{column}{0.66\textwidth}
+\vspace{2mm}
+\begin{itemize}
+  \item 2005. The Linux kernel: thousands of people mailing changes to one man — and the
+    commercial tool that tracked them revoked its free licence.
+  \item He wrote git himself, in about ten days, and was running the kernel on it two months
+    later.
+  \item Everyone holds the \textbf{whole history}. Every change is named by its contents, so
+    nothing can be altered quietly. And it is \textbf{fast}.
+\end{itemize}
+\end{column}
+\end{columns}
+\vfill
+\end{frame}
+\tanote{A minute, and it replaces the divider: the act opens on a person. The story, in the
+order of the cards. 2005: Linus Torvalds has run the Linux kernel for fourteen years, thousands
+of contributors, changes arriving by email. Since 2002 he had tracked them with BitKeeper, a
+commercial tool that let the kernel use it free; in April 2005 that permission was withdrawn
+after another kernel developer reverse-engineered its protocol, and the kernel had nothing.
+Torvalds looked at the alternatives, decided they were all too slow ("take CVS as an example of
+what not to do"), and wrote his own: first commit 7 April 2005, the kernel's own history moved
+into it by June, the 2.6.12 release managed in git that month. Then the three design decisions,
+which are the three ideas of the next eight slides: every developer has the entire history on
+their own machine, not a copy of the current files — that is the local/remote slide; every
+commit is named by a hash of its contents, so history cannot be rewritten without everyone
+noticing — that is the record slide; and it had to merge and branch in seconds, because the
+kernel did it hundreds of times a day. He handed maintenance to Junio Hamano within months and
+has been a user since. The name: git is British slang for an unpleasant person; the quote is his
+own joke about it. Then turn: here is how a change gets into main. If anyone asks about GitHub:
+a company, 2008, that hosts git repositories and added the pull request; not the same thing.}
 
 % ── git 1 · main
 \hue{NovaBlue}
-\begin{frame}{\codetitle{main}}
-\framesubtitle{Git · 1 of 6}
+\begin{frame}[fragile]{\codetitle{main}}
 \vspace*{\fill}
 \gitgraph{1}
-\vskip6mm
+\vskip5mm
+% one project, one story, all the way through the act: the diffs are the SplitIt commits the
+% graph labels — feature 1 on main, then the category column and the totals on the branch — so
+% the cards and the labels say the same thing
+\begin{columns}[t]
+\begin{column}{0.50\textwidth}
 \muted{One version, one history, one truth. No folder full of
 \emph{model\_v3\_FINAL\_jm}.}
+\end{column}
+\begin{column}{0.46\textwidth}
+\begin{gitdiff}{git show}
+diff --git a/logic.py b/logic.py
++def balances(group_id):
++    return paid(group_id) - shares(group_id)
+\end{gitdiff}
+\end{column}
+\end{columns}
 \vfill
 \end{frame}
 
 % ── git 2 · branch
 \hue{NovaBlue}
 \begin{frame}{A branch.}
-\framesubtitle{Git · 2 of 6}
 \vspace*{\fill}
 \gitgraph{2}
-\vskip6mm
+\vskip5mm
+\begin{columns}[t]
+\begin{column}{0.50\textwidth}
 \muted{A \textbf{branch} is your own copy to work in, named after the job. Everyone else carries on
 from \code{main}, undisturbed.}
+\end{column}
+\begin{column}{0.46\textwidth}
+% the one card with nothing in it, and that is the lesson: branching changes no files
+\gitnodiff{git diff main feature-2}{no output — a new branch is an identical copy}
+\end{column}
+\end{columns}
 \vfill
 \end{frame}
 
 % ── git 3 · commit
 \hue{NovaBlue}
-\begin{frame}{A commit.}
-\framesubtitle{Git · 3 of 6}
+\begin{frame}[fragile]{A commit.}
 \vspace*{\fill}
 \gitgraph{3}
-\vskip6mm
+\vskip5mm
+\begin{columns}[t]
+\begin{column}{0.50\textwidth}
 \muted{A \textbf{commit} is a checkpoint with a note saying what changed. Small ones. You can go
 back to any of them.}
+\end{column}
+\begin{column}{0.46\textwidth}
+\begin{gitdiff}{git show}
+diff --git a/db.py b/db.py
+ COLUMNS = ["id", "payer", "amount",
+-           "date"]
++           "date", "category"]
+\end{gitdiff}
+\end{column}
+\end{columns}
 \vfill
 \end{frame}
 
 % ── git 4 · main has not moved
 \hue{NovaBlue}
-\begin{frame}{Working on a branch.}
-\framesubtitle{Git · 4 of 6}
+\begin{frame}[fragile]{Working on a branch.}
 \vspace*{\fill}
 \gitgraph{4}
-\vskip6mm
-\muted{Two commits in and half of it broken. Everyone else's copy is untouched.}
+\vskip3mm
+\begin{columns}[t]
+\begin{column}{0.50\textwidth}
+\muted{Two commits in, the tests are still red, the feature is half-built. Everyone else's
+\code{main} is untouched.}
+\end{column}
+\begin{column}{0.46\textwidth}
+% two commits in: the whole distance between the branch and a main that has not moved
+\begin{gitdiff}{git diff main feature-2}
+diff --git a/db.py b/db.py
+-           "date"]
++           "date", "category"]
+diff --git a/logic.py b/logic.py
++def category_totals(group_id):
++    return sums_by("category", group_id)
+\end{gitdiff}
+\end{column}
+\end{columns}
 \vfill
 \end{frame}
 
@@ -132,9 +233,10 @@ back to any of them.}
 % cloud — and not on theirs until they pull. That asymmetry is what "remote" means.
 \hue{NovaBlue}
 \begin{frame}{Local, and remote.}
-\framesubtitle{Git · 5 of 6}
 \vspace*{\fill}
-\noindent%
+% the fullest picture in the act: scaled down as a whole (type included) and centred, so the
+% caption underneath has room to breathe instead of sitting on the footer
+\noindent\centerline{\scalebox{0.86}{%
 \begin{tikzpicture}[x=1mm, y=1mm]
   \useasboundingbox (0,-50.5) rectangle (134,3.5);
   % ── the moves, drawn first so the cloud covers their far ends
@@ -154,7 +256,7 @@ back to any of them.}
   \node[gg dot=NovaTeal] at (54,-8) {}; \node[gg dot=NovaTeal] at (67,-8) {}; \node[gg dot=NovaTeal] at (80,-8) {};
   \draw[gg lane=NovaAccent] (60,-8) .. controls (65,-8) and (64,-13) .. (69,-13) -- (80,-13);
   \node[gg dot=NovaAccent] at (72,-13) {}; \node[gg dot=NovaAccent] at (80,-13) {};
-  \node[gp eyebrow=NovaBlue, anchor=south] at (67,-18.2) {\lsp[13]{GITHUB · THE REMOTE · ONE COPY, SHARED}};
+  \node[gp eyebrow=NovaBlue, anchor=south] at (67,-18.2) {\lsp[13]{GITHUB · REMOTE}};
   % ── your laptop
   \screen{2}{-29}
   \draw[gg lane=NovaTeal] (9,-33.5) -- (43,-33.5);
@@ -171,10 +273,11 @@ back to any of them.}
   \node[gg note, anchor=north west, align=left, text=NovaBody, font=\scriptsize] at (91,-36.8)
     {your branch:\\not until they pull};
   \node[gp eyebrow=NovaMuted, anchor=north] at (109,-48.2) {\lsp[13]{A TEAMMATE · LOCAL}};
-\end{tikzpicture}%
-\vskip0.8mm
-\muted{Until you \textbf{push}, your branch is only on your laptop. \textbf{Pull} brings their
-work down. A \textbf{pull request} asks someone to read the diff first — today, you.}
+\end{tikzpicture}}}%
+\vskip2.5mm
+\muted{One copy in the cloud, one on each laptop, and nothing crosses by itself. \textbf{Push}
+sends yours up, \textbf{pull} brings theirs down. A \textbf{pull request} asks someone to read it
+before \code{main} takes it.}
 \vfill
 \end{frame}
 \tanote{The only slide in the act that leaves the graph, and the one that fixes the vocabulary:
@@ -189,20 +292,102 @@ they have already used it without the name.}
 
 % ── git 6 · merge
 \hue{NovaBlue}
-\begin{frame}{Merge.}
-\framesubtitle{Git · 6 of 6}
+\begin{frame}[fragile]{Merge.}
 \vspace*{\fill}
 \gitgraph{5}
-\vskip6mm
+\vskip3mm
+\begin{columns}[t]
+\begin{column}{0.50\textwidth}
 \muted{\textbf{Merge} is the sign-off. \code{main} now has your work, and the next person starts
 from there.}
+\end{column}
+\begin{column}{0.46\textwidth}
+% deliberately the same three lines as two slides ago, asked of main instead of the branch:
+% what your branch had is now what main gained
+\begin{gitdiff}{git diff main\textasciitilde 1 main}
+diff --git a/db.py b/db.py
+-           "date"]
++           "date", "category"]
+diff --git a/logic.py b/logic.py
++def category_totals(group_id):
++    return sums_by("category", group_id)
+\end{gitdiff}
+\end{column}
+\end{columns}
 \vfill
 \end{frame}
 \tanote{Land the cycle: they are back at slide one, with a bigger main. That is the
 habit. Two rules fall out of the story rather than being announced: name the branch after the job
-(slide 2), and keep commits small enough to explain (slide 3). If someone asks what happens to the
-branch: it is finished, GitHub offers to delete it, say yes. Then turn: "the thing that will make
+(slide 2), and keep commits small enough to explain (slide 3). The diff is the same six lines as
+two slides ago, asked of main instead of the branch: the column and the totals are main's now. If
+someone asks what happens to the branch: it is finished, GitHub offers to delete it, say yes. Then turn: "the thing that will make
 those commits today is not you. So: what is it?"}
+
+% ── git, an aside · two branches, one file
+% Numbered as an aside rather than "7 of 7" so the six-slide story above keeps its shape, the
+% same way the NVIDIA slide sits inside the history act without renumbering it. The picture is
+% \gitconflict, which is the same canvas and the same colours as the five stages before it.
+\hue{NovaBlue}
+\begin{frame}[fragile]{A conflict.}
+\vspace*{\fill}
+\gitconflict{2}
+\vskip2mm
+\begin{columns}[t]
+\begin{column}{0.50\textwidth}
+\muted{Different files, git merges by itself. When two branches change \textbf{the same lines}, it
+stops and asks which version is right.}
+\end{column}
+\begin{column}{0.46\textwidth}
+% not a diff but the file itself: what git leaves on disk for a human to resolve. The lexer
+% only colours the separator, which is the one line that is not anybody's code
+\begin{gitdiff}{cat logic.py}
+<<<<<<< main
+    return sums_by("category", group_id)
+=======
+    return totals_by_category(group_id)
+>>>>>>> feature-b
+\end{gitdiff}
+\end{column}
+\end{columns}
+\vfill
+\end{frame}
+\tanote{Forty seconds, and say up front that it is an aside: nobody hits this today, because each
+of them is alone on their own repo. It is here so the word is not new in Block 3, when they share
+one. Point at the fork — both branches start from the same commit, and both change the same line
+of logic.py. Feature-a
+comes home first, so main moves. Then feature-b arrives with an edit to a file that no longer looks
+the way it did when it left, and git stops. Be precise about when: it merges changes to different
+files on its own, and it merges changes to different parts of the same file on its own; it refuses
+only when the same lines changed on both sides. The fix is not a git command, it is a person
+reading both versions and choosing. Say the reassuring half out loud, because the word frightens
+people: a conflict is not a mistake, nothing is lost, and it is git declining to guess. How you
+actually resolve one is Block 3 — GitHub Desktop shows both versions side by side and you pick.
+What prevents most of them is already on the slides behind you: small commits, short-lived
+branches, and pull before you start.}
+
+% ── git, a second aside · the record
+% After the conflict: the same five commits as a list, which is what git log prints and what
+% GitHub Desktop's History tab shows. Every row says what changed, who did it and when, and
+% every row can be gone back to. The picked-out row's diff is the one from the commit slide.
+\hue{NovaBlue}
+\begin{frame}{The record.}
+\vspace*{\fill}
+\gitlog
+\vskip3.5mm
+\muted{Every commit on record: \textbf{what} changed, \textbf{who} did it, \textbf{when}. Open
+any one and read its diff — or go back to it.}
+\vfill
+\end{frame}
+\tanote{Forty seconds. This is the graph from the last six slides turned on its side, newest at
+the top: the merge, the branch's two commits in its colour, feature 1. Read one row
+across: a hash, which is the commit's name; the message; who; when. Then the two things it buys.
+First, the audit: pick any row and you get its full diff — the highlighted one is the column
+commit from five slides ago, and that is its diff beside it. Today's commits will be theirs, of
+the agent's work, and this is how they check what went in after the fact, not only at the moment
+they clicked accept. Second, the chip: any row can be gone back to, and nothing above it is deleted
+by doing so; the way to do it is in GitHub Desktop, and it is Block 3. The panel is GitHub
+Desktop's History tab, drawn: click a row on the left, its diff appears on the right. If
+someone asks about the hash: seven characters is enough to name a commit; the full one is forty.}
 
 % ═════════════════════════════════════════════ ACT 2 · from a model to an agent
 \sectionslide[NovaPurple]{agent}{From a chat model to an agent}{What is actually running.}%
@@ -214,78 +399,100 @@ sentence. If you are behind, the two history slides are the ones to cut.}
 
 % ── history 1 · the long run-up
 \hue{NovaPurple}
-\begin{frame}{The long run-up.}
-\framesubtitle{How we got here · 1 of 2}
+\begin{frame}{AI research chronology.}
 \vskip3mm
 \noindent%
 \begin{tikzpicture}
   % to scale: x = 0.08 + (year - 1958) / 59 * 0.84, so the seventeen-year winter is visible
+  % the stops all sit on one row now, so the five pictures can share a row of their own below
   \useasboundingbox (0,-32mm) rectangle (0.994\linewidth,12mm);
-  \tlband{0.01}{0.16}{NovaMuted}{the idea}
-  \tlband{0.20}{0.45}{NovaYellow}{the winter}
-  \tlband{0.48}{0.80}{NovaAccent}{the answers}
-  \tlband{0.84}{0.98}{NovaPurple}{the shape}
+  \tlband{0.01}{0.16}{NovaMuted}{Neuron model}
+  \tlband{0.20}{0.44}{NovaYellow}{AI Winter}
+  \tlband{0.48}{0.80}{NovaAccent}{New hope for neural networks}
+  \tlband{0.84}{0.98}{NovaPurple}{Scale}
   \draw[tl axis] (0,0) -- (\linewidth,0);
   \tlstop{0.08}{NovaMuted}{1958}{Perceptron}{learns from examples}{17mm}
   \tlstop{0.237}{NovaYellow}{1969}{\emph{Perceptrons}}{one layer cannot do XOR}{20mm}
+  % 1997 sits at 0.66 rather than the 0.635 the year scale gives it: "Backpropagation" is a 19mm
+  % word and the two stops are only 21mm apart to scale. Nudging the later one keeps the winter
+  % (1969-1986) the widest gap on the slide, which is the thing the scale is there to show.
   \tlstop{0.479}{NovaAccent}{1986}{Backpropagation}{many layers, trainable at last}{20mm}
-  \tlstop[11mm]{0.635}{NovaAccent}{1997}{LSTM}{memory across a sequence}{20mm}
-  \tlstop{0.92}{NovaPurple}{2017}{Transformer}{attention, and it scales}{20mm}
+  % a range, not a year: Elman's recurrent net is 1990 and LSTM — the one that made long
+  % sequences work — is 1997. The dot sits at the late end because 1990 is only four years from
+  % backpropagation, which on this scale is 5mm, and "Backpropagation" is a 19mm word.
+  \tlstop{0.66}{NovaAccent}{1990–97}{RNN}{memory across a sequence}{18mm}
+  \tlstop{0.92}{NovaPurple}{2017}{Transformer}{every word looks at every other, in parallel}{20mm}
+  % one picture per stop, hanging from a common line under the cards. Provenance, since the
+  % slide now carries papers rather than picture credits: neuron and RNN diagrams by Chrislb
+  % and the XOR square by Yearofthedragon, both CC BY-SA via Wikimedia Commons; the MLP by
+  % HRcommons is public domain; the MLP figure and the Optimus Prime pixel art were supplied by
+  % the user, both without a stated licence.
+  \tlpic{0.08}{-19mm}{12mm}{tl-neuron.png}
+  \tlpic{0.237}{-19mm}{12mm}{tl-xor.png}
+  \tlpic{0.479}{-19mm}{12mm}{tl-mlp.png}
+  \tlpic{0.66}{-19mm}{12mm}{tl-rnn.png}
+  \tlpic{0.92}{-19mm}{12mm}{tl-transformer.png}
 \end{tikzpicture}%
 \vskip1.5mm
-\muted{The ideas were all there. What was missing arrived after 2007: \textbf{cheap parallel
-arithmetic} (graphics cards) and \textbf{the web as text}.}
+\muted{The ideas were all there. What research still needed was \textbf{compute} and \textbf{data},
+and both arrived after 2007.}
 \vskip2mm
-{\tiny\color{NovaMuted}NVIDIA CUDA (2007) · Krizhevsky, Sutskever \& Hinton, AlexNet (2012) ·
-Common Crawl (public crawls from 2011)}
+{\tiny\color{NovaMuted}\srclink{https://doi.org/10.1037/h0042519}{Rosenblatt (1958)} ·
+\srclink{https://archive.org/details/perceptronsintro00mins}{Minsky \& Papert (1969)} ·
+\srclink{https://www.nature.com/articles/323533a0}{Rumelhart, Hinton \& Williams (1986)} ·
+\srclink{https://doi.org/10.1016/0364-0213(90)90002-E}{Elman (1990)} ·
+\srclink{https://www.bioinf.jku.at/publications/older/2604.pdf}{Hochreiter \& Schmidhuber (1997)} ·
+\srclink{https://arxiv.org/abs/1706.03762}{Vaswani et al.\ (2017)}\par
+\srclink{https://developer.nvidia.com/cuda-toolkit}{NVIDIA CUDA (2007)} ·
+\srclink{https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html}{Krizhevsky, Sutskever \& Hinton, AlexNet (2012)} ·
+\srclink{https://commoncrawl.org/}{Common Crawl (public crawls from 2011)}}
 \vfill
 \end{frame}
 \tanote{Ninety seconds, left to right. The dates are on the slide; the names and the story are
-here. 1958, Rosenblatt's perceptron: a machine that adjusts its own weights from examples instead
-of being programmed rule by rule. That is still the whole idea. 1969, Minsky and Papert's book
+here. 1958, Rosenblatt's perceptron: a machine that adjusts its own weights from examples rather
+than being programmed rule by rule. Still the whole idea. 1969, Minsky and Papert's book
 \emph{Perceptrons}: one layer can only separate what a straight line separates, so it cannot learn
 XOR. Funding collapsed; the first AI winter. Careful with the attribution: they wrote the critique
-that made multi-layer networks the open problem; they did not invent them. 1986, Rumelhart, Hinton
+that made multi-layer nets the open problem, not the nets themselves. 1986, Rumelhart, Hinton
 and Williams in Nature: backpropagation sends the error back through every layer, so many layers
-finally become trainable. The answer to 1969, seventeen years late. 1997, Hochreiter and
-Schmidhuber: LSTM carries memory across a sequence. 2017, Vaswani et al.: the Transformer drops
-recurrence for attention and trains in parallel. Then the caption, which is the payoff: none of
+finally become trainable. The answer to 1969, seventeen years late. Recurrence, two papers: Elman
+(1990) gives a network memory of what came before; LSTM (1997) makes it survive a long sequence.
+2017, Vaswani et al.: attention drops the chain — every word looks straight at every other, which
+is why long text holds together and why it trains in parallel. Then the caption, which is the payoff: none of
 this is new. What arrived was compute — CUDA in 2007 let ordinary programmers run their maths on a
-graphics card, and in 2012 AlexNet trained on two of them and cut the ImageNet error by nearly half (15\% against 26\%) — and
+graphics card, and in 2012 AlexNet trained on two of them and cut the ImageNet error by nearly half — and
 data: Common Crawl, a non-profit giving the public web away as text. Neither is an idea about
-intelligence. If someone asks why this happened now and not in 1990, that is the answer. If it
-comes up: Hinton shared the 2024 Nobel Prize in Physics with Hopfield for this line of work.}
+intelligence. If someone asks why now and not in 1990, that is the answer.}
 
 % ── an aside: why NVIDIA
 % The one company the room has heard of, and the answer is a piece of software, which is the
 % point of the whole run-up slide: the ideas were old, the compute arrived.
 \hue{NovaPurple}
-\begin{frame}{Why NVIDIA?}
-\framesubtitle{How we got here · an aside · the answer is CUDA}
+\begin{frame}{Gaming brought cheap parallel arithmetic.}
 \vspace*{\fill}
-\begin{tikzpicture}[overlay, remember picture]
-  \node[anchor=north west, inner sep=0pt] at ([xshift=13mm, yshift=-26.5mm]current page.north west)
-    {\includegraphics[width=26mm]{figures/nvidia-logo.pdf}};
-\end{tikzpicture}%
 \cudafig
-\vskip2mm
-\muted{The chip was built for games. CUDA let everyone else use it — and training a neural
-network is nothing but parallel arithmetic.}
-\vskip1mm
-{\tiny\color{NovaMuted}GeForce 256 (1999) · CUDA 1.0 (2007) · Krizhevsky et al.\ (2012), two GTX 580s ·
-first company past \$4 trillion, July 2025 · logo © NVIDIA}
+\vskip2.4mm
+\muted{NVIDIA made GPUs for gamers, but CUDA opened them for general-purpose computing. Training
+a neural network is nothing but parallel matrix arithmetic.}
+\vskip1.5mm
+{\tiny\color{NovaMuted}\srclink{https://developer.nvidia.com/cuda-toolkit}{CUDA 1.0 (2007)} ·
+\srclink{https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html}{Krizhevsky et al.\ (2012), AlexNet on two GTX 580s} ·
+\srclink{https://arxiv.org/abs/1810.04805}{Devlin et al.\ (2018), BERT}}
 \vfill
 \end{frame}
 \tanote{A minute; it is an aside, but it is the one company name in the room everyone knows, and
-the answer is a software story, which is the run-up slide's point. Ask the question and take a
-guess or two (chips, AI). Then the answer: CUDA, 2007. A graphics card draws millions of pixels
-at once, and no pixel waits for another, so the chip is thousands of small slow workers instead of
-a few fast ones. That is the top-right picture. Until 2007 you could only use it by pretending
-your problem was a picture. CUDA let any programmer write ordinary maths for it. Then the same
-parallel trick found its uses in order: games, then crypto mining (billions of hashes, side by
-side: the 2017 and 2021 card shortages), then in 2012 AlexNet was trained on two gaming cards and
-cut the ImageNet error by nearly half, and today a language model is trained on tens of thousands
-of these chips at once, because training is nothing but multiplying big grids of numbers. The
+the answer is a software story, which is the run-up slide's point. Ask it aloud, it is not on the
+slide: \emph{why is NVIDIA the most valuable company in the
+world?} Take a guess or two (chips, AI). Then the answer: CUDA, 2007. A graphics card draws
+millions of pixels at once, and no pixel waits for another, so the chip is thousands of small slow
+workers instead of a few fast ones. That is the picture at the top. Until 2007 you
+could only use it by pretending your problem was a picture. CUDA let any programmer write ordinary
+maths for it. Then walk the strip, left to right: the same trick, bigger each time. Mining, billions
+of hashes side by side, and the 2017 and 2021 card shortages. AlexNet in 2012 on two gaming cards,
+cutting the ImageNet error by nearly half. BERT in 2018, when the trick jumped from images to
+language. Now one model on tens of thousands of chips at once, because training is nothing but
+multiplying big grids of numbers. Caveat if someone looks it up: Google trained BERT on its own
+TPUs; eight GPUs is the box people quote for reproducing it. A milestone in the trick, not a sale. The
 valuation: NVIDIA passed four trillion dollars in July 2025, the first company to; say "as of
 this year" and check the number the week you teach. The lesson to carry: the ideas were old, the
 compute arrived, and the thing that unlocked the compute was a piece of software.}
@@ -293,60 +500,45 @@ compute arrived, and the thing that unlocked the compute was a piece of software
 % ── history 2 · 2018 onwards
 \hue{NovaPurple}
 \begin{frame}{2018 onwards.}
-\framesubtitle{How we got here · 2 of 2}
-\vskip1.5mm
+% with the caption gone the strip is the whole slide, so it is centred like every other figure
+% frame; the bounding box no longer reserves the space of a parameter row that is gone, or the
+% centring would sit it too high
+\vspace*{\fill}
 \noindent%
 \begin{tikzpicture}
-  \useasboundingbox (0,-33mm) rectangle (\linewidth,11mm);
-  \tlband{0.01}{0.23}{NovaMuted}{completing}
-  \tlband{0.27}{0.61}{NovaYellow}{conversing}
-  \tlband{0.65}{0.87}{NovaAccent}{acting}
-  \tlband{0.88}{0.98}{NovaPurple}{persisting}
+  \useasboundingbox (0,-25.5mm) rectangle (\linewidth,12mm);
+  \tlband{0.01}{0.23}{NovaMuted}{Text completion}
+  \tlband{0.27}{0.62}{NovaYellow}{Conversational / Q\&A}
+  \tlband{0.66}{0.875}{NovaAccent}{Agentic}
+  \tlband[east]{0.915}{1.00}{NovaPurple}{Autonomous agentic}
   \draw[tl axis] (0,0) -- (\linewidth,0);
   \tlstop{0.06}{NovaMuted}{2018}{GPT-1}{continues text}{19mm}
   \tlstop[11mm]{0.19}{NovaMuted}{2019}{GPT-2}{coherent paragraphs}{19mm}
   \tlstop{0.32}{NovaYellow}{2020–21}{GPT-3, Codex}{learns from the prompt}{19mm}
   \tlstop[11mm]{0.45}{NovaYellow}{2022}{ChatGPT}{follows instructions}{19mm}
   \tlstop{0.58}{NovaAccent}{2023}{GPT-4}{tool calling}{19mm}
-  \tlstop[11mm]{0.71}{NovaAccent}{2024}{Reasoning}{thinks before it acts}{19mm}
+  \tlstop[11mm]{0.71}{NovaAccent}{2024}{Reasoning}{o1 thinks before it answers}{19mm}
   \tlstop{0.84}{NovaAccent}{2025}{Harnesses}{builds in your repo}{19mm}
   \tlstop[11mm]{0.93}{NovaPurple}{2026}{Long-running}{works while you are away}{18mm}
-  % parameters, one row under the stops: published for three years, then not
-  \node[tl param=NovaMuted]  at (0.06\linewidth, -30mm) {117M};
-  \node[tl param=NovaMuted]  at (0.19\linewidth, -30mm) {1.5B};
-  \node[tl param=NovaYellow] at (0.32\linewidth, -30mm) {175B};
-  \node[tl param=NovaMuted, font=\scriptsize] at (0.45\linewidth, -30mm) {not published};
-  \node[tl param=NovaMuted] at (0.58\linewidth, -30mm) {$\approx$1.8T\,{\normalfont(leak)}};
-  \node[tl param=NovaMuted, font=\scriptsize] at (0.71\linewidth, -30mm) {not published};
-  \node[tl param=NovaLine] at (0.84\linewidth, -30mm) {—};
-  \node[tl param=NovaLine] at (0.93\linewidth, -30mm) {—};
 \end{tikzpicture}%
-\vskip3mm
-\muted{The job changed twice: when it learned to take \textbf{instructions}, and when it got
-\textbf{tools and a loop}. The next four slides are that second change.}
-\vskip1mm
-{\tiny\color{NovaMuted}Bottom row, parameters: Radford et al.\ (2018, 2019), Brown et al.\ (2020) · GPT-4: an
-unconfirmed 2023 report (SemiAnalysis) · none published since}
 \vfill
 \end{frame}
-\tanote{Two minutes, one sweep left to right. Say the four band names as you go (completing,
-conversing, acting, persisting). That is the shape to remember, not the model names. The last
-sentence on the slide is the hand-off: everything from 2023 on is "tools and a loop", and the next
-four slides build exactly that. Dates are approximate release months on purpose. The bottom row
-is the size story, and it ends: GPT-1 had 117 million parameters, GPT-2 1.5 billion, GPT-3 175
-billion, a thousandfold in two years, and then the numbers stop. OpenAI did not publish GPT-4's;
-the 1.8 trillion figure is a 2023 leak (a mixture of experts, so not all of it runs per token) and
-nobody has confirmed it. Nothing since has a public count. If someone asks why: size stopped being
-the whole story around 2022, and what changed after that is on the right of the timeline, not the
-bottom.}
+\tanote{Two minutes, one sweep left to right. Say the four band names as you go (text completion,
+conversational, agentic, autonomous agentic). That is the shape to remember, not the model names.
+Then say the hand-off out loud, since it is no longer written on the slide: the job changed twice
+— when it learned to take instructions (2022) and when it got tools and a loop (2023 onwards) —
+and the next four slides build exactly that second change. Dates are approximate release months on
+purpose. If asked, there is
+a size story behind these dates too: parameters went from 117 million (GPT-1) to 1.5 billion
+(GPT-2) to 175 billion (GPT-3) in two years, then stopped being published. Size stopped being
+the whole story around 2022, and what changed after that is on the right of the timeline.}
 
 % ── history, one exhibit · what "coherent paragraphs" looked like in 2019
 % The most famous language-model output before ChatGPT, reproduced as published. It does two
 % jobs: shows "completing" before anyone says "text in, text out", and plants the four-horned
 % unicorn for the day fluency and truth come apart.
 \hue{NovaPurple}
-\begin{frame}{Ovid's Unicorn.}
-\framesubtitle{How we got here · 2019 · nobody asked it anything}
+\begin{frame}{GPT-2 writes a paragraph.}
 \vspace*{\fill}
 \begin{chatsaid}{a human wrote}{NovaMuted}{\linewidth}
 In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously
@@ -361,8 +553,8 @@ Pérez, an evolutionary biologist from the University of La Paz, and several com
 exploring the Andes Mountains when they found a small valley, with no other animals or humans.
 \end{chatsaid}
 \vskip1mm
-{\tiny\color{NovaMuted}Radford et al.\ (2019), \emph{Language Models are Unsupervised Multitask
-Learners}, table 13 · the best of ten samples · OpenAI, 14 February 2019}
+{\tiny\color{NovaMuted}\srclink{https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf}{Radford
+et al.\ (2019), \emph{Language Models are Unsupervised Multitask Learners}, table 13} · OpenAI, 14 February 2019}
 \vfill
 \end{frame}
 \tanote{One minute, and read it aloud; the room will laugh at the right place. This is the sample
@@ -380,14 +572,14 @@ says so.}
 % the notes carry the real numbers, the data, and the "one word at a time, nothing checks" hand-off.
 \hue{NovaPurple}
 \begin{frame}{Guess the next word.}
-\framesubtitle{How we got here · GPT-2 · how it was trained}
 \vspace*{\fill}
 \nextwordfig
 \vskip3mm
-\muted{That is all training is: hide the next word, guess, get corrected. Writing is the same
-game run forwards, one word at a time — and nothing checks it.}
+\muted{That is all training is: hide the next word, guess, get corrected.}
 \vskip1mm
-{\tiny\color{NovaMuted}Radford et al.\ (2019), \emph{Language Models are Unsupervised Multitask Learners} · percentages illustrative}
+{\tiny\color{NovaMuted}Trained on 40 GB of text: 8 million pages Reddit users had linked to ·
+\srclink{https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf}{Radford
+et al.\ (2019), \emph{Language Models are Unsupervised Multitask Learners}}}
 \vfill
 \end{frame}
 \tanote{A minute and a half; it is the only GPT-2 slide, so land both halves. Walk the strip
@@ -400,8 +592,8 @@ Reddit users had linked to, 40 GB; GPT-3 read a filtered Common Crawl a year lat
 percentages are made up; the real list has 50,257 entries, one per token. Second half, the
 hand-off: writing is the same loop with no page to check against. Pick a word from the guess,
 stick it on the end, run again; every word of the unicorn story came out that way. No plan, so a
-fluent paragraph can walk into four horns and keep going, and nothing in the loop checks
-anything. That gap is what the rest of the class fills: tools that let it look, a judge that says
+fluent paragraph can walk into four horns and keep going: there is no step three this time, no
+page to uncover, so the guess is the output. That gap is what the rest of the class fills: tools that let it look, a judge that says
 red or green, and rules. The agent loop a few slides on is this loop one level up, with a tool
 call instead of a word.}
 
@@ -409,28 +601,26 @@ call instead of a word.}
 % Four slides, one canvas. Each adds one thing; the caption is the definition of that thing.
 \hue{NovaPurple}
 \begin{frame}{A language model.}
-\framesubtitle{From model to agent · 1 of 4}
 \vspace*{\fill}
 \agentstack{1}
 \vskip3mm
-\muted{Text in, text out. It has never seen your folder and cannot run anything. In Class 2,
-\textbf{you} were the hands.}
+\muted{Text in, text out. It cannot open a file or run anything: you copy in, you paste out, and
+\textbf{you} are the one who finds out whether it works.}
 \vfill
 \end{frame}
 \tanote{This is ChatGPT in a browser, and it is what they used all through Class 2: it advised,
-they carried it out, and they were the only one who ever found out whether it worked. Keep the
-dashed circle in view — that empty space is the whole rest of the act. Say "LLM" once, so they
-have the acronym: large language model. Then never again.}
+they carried it out, and they were the only one who ever found out whether it worked. Point at the
+empty half of the slide and say it: everything else in this act goes there. Say "LLM" once, so
+they have the acronym: large language model. Then never again.}
 
 % ── stack 2 · tools
 \hue{NovaPurple}
 \begin{frame}{Tools.}
-\framesubtitle{From model to agent · 2 of 4}
 \vspace*{\fill}
 \agentstack{2}
 \vskip3mm
-\muted{A \textbf{tool} is a named action it may ask for. Three cover nearly everything. The result
-comes back to \textbf{it}, not to you.}
+\muted{A \textbf{tool} is an action the model can request but cannot carry out itself: read a file,
+edit a file, run a command. Tool results are shown to \textbf{the model}.}
 \vfill
 \end{frame}
 \tanote{Point at the lower arrow and stop there: that is the slide. In Class 2 the result came
@@ -441,7 +631,6 @@ ask, which is what the next slide but one shows in full.}
 % ── stack 3 · an agent
 \hue{NovaPurple}
 \begin{frame}{An agent.}
-\framesubtitle{From model to agent · 3 of 4}
 \vspace*{\fill}
 \agentstack{3}
 \vskip3mm
@@ -457,12 +646,11 @@ and it kept going."}
 % ── stack 4 · the harness
 \hue{NovaPurple}
 \begin{frame}{The harness.}
-\framesubtitle{From model to agent · 4 of 4}
 \vspace*{\fill}
 \agentstack{4}
 \vskip3mm
-\muted{The software around the model. Codex is one; Claude Code and Cursor are others. Same loop
-everywhere — \textbf{learn it once}.}
+\muted{A \textbf{harness} wraps a model with tools, instructions of its own and a loop tuned for
+coding — and it manages the context.}
 \vfill
 \end{frame}
 \tanote{The box was always there; now it has a name. The model writes a tool call; the harness is
@@ -474,22 +662,41 @@ manage the conversation; the loop is the same, which is why this class is not ab
 
 % ── one tool call, in full
 \hue{NovaPurple}
-\begin{frame}{One exchange, in full.}
-\framesubtitle{A tool call · what actually goes back and forth}
+% Same spine as the reasoning slide that follows, on purpose: one turn per box, the loop drawn
+% down the left edge. Here the label names the actor (you · model · harness) because who does
+% what is the lesson; the dot colour still carries the ReAct role, so the next slide is visibly
+% this one plus thinking.
+\begin{frame}{End-to-end flow.}
 \vspace*{\fill}
-\begin{tabular}{@{}r@{\hskip 5mm}l@{}}
-  \eyebrow{you type}          & what was the last expense?                                         \\[3.4mm]
-  \eyebrow{the model emits}   & \code{\{"tool": "read\_file", "path": "data/expenses.csv"\}}        \\[3.4mm]
-  \eyebrow{codex asks}        & \emph{Codex wants to read} \code{data/expenses.csv}\emph{. Allow?} \\[3.4mm]
-  \eyebrow{codex pastes back} & \code{29,3,8,Jantar no Zé dos Cornos,30.00,2026-08-25}             \\[3.4mm]
-  \eyebrow{the model answers} & €30 — dinner at Zé dos Cornos, on 25 August.                       \\
-\end{tabular}
-\vskip6mm
-\muted{It never saw the file. It asked, you said yes, and the line came back.}
+\begin{turnwho}{you}
+what was the last expense?
+\end{turnwho}
+\vskip1mm
+\begin{turnwho}[NovaBg]{model}
+\code{\{"tool": "read\_file", "path": "data/expenses.csv"\}}
+\end{turnwho}
+\vskip1mm
+\begin{turnwho}[NovaBg]{harness}
+\emph{Codex wants to read} \code{data/expenses.csv}\emph{. Allow?}
+\end{turnwho}
+\vskip1mm
+\begin{turnwho}[NovaBg]{harness}
+\code{29,3,8,Jantar no Zé dos Cornos,30.00,2026-08-25}
+\end{turnwho}
+\vskip1mm
+\begin{turnwho}[NovaPurpleBg]{model}
+€30 — dinner at Zé dos Cornos, on 25 August.
+\end{turnwho}
 \vfill
 \end{frame}
 \tanote{Read it top to bottom, slowly. This is the slide that turns the previous four from a
-diagram into a mechanism. Three things to point at. (1) The model's output is not prose: it is a
+diagram into a mechanism. It is the same spine as the reasoning slide that follows — one turn per
+box, the loop down the left edge — so the next slide reads as this one with thinking added rather
+than as a new picture. Down the spine is who is acting, as an icon: the person and the boxed
+\emph{f(x)} are the same two from the stack slides, and the window with a prompt in it is the
+harness — Codex on their laptops. If anyone asks about \emph{f(x)}: that is the claim of the
+history act in one glyph — the model is a function, text in and numbers out, not a mind. One colour per actor, so the eye can count three of them and see that
+the harness does two of the five steps. Three things to point at. (1) The model's output is not prose: it is a
 small structured request naming a tool and what to use it on. It cannot open anything; it can only
 ask. (2) Codex — the harness — is what actually touches the disk, and it stops to ask you first.
 (3) The file's real line is pasted into the conversation as ordinary text, and from there the model
@@ -502,7 +709,6 @@ Nothing. The JSON is illustrative; each harness has its own wire format, and the
 % thinks again, answers. The next slide only has to name the rhythm.
 \hue{NovaPurple}
 \begin{frame}{Reasoning.}
-\framesubtitle{Thinking before acting · and reaching for a tool mid-thought}
 \vspace*{\fill}
 \begin{turn}{you}{NovaMuted}
 Make it so Ana doesn't owe anything.
@@ -521,14 +727,16 @@ Owe according to what? I have a tool that reads files. Look at the balances firs
 \end{turn}
 \vskip1mm
 \begin{turnthinks}
-Three ways to do it: delete her expenses, mark her settled, or take her out of the split.
-Two of those move Bruno's and Carla's numbers. One doesn't.
+Delete her expenses, mark her settled, or drop her from the split? Two move the others.
 \end{turnthinks}
 \vskip1mm
 \begin{turn}[NovaPurpleBg]{answer}{NovaTeal}
-Marked Ana settled up; Bruno and Carla are unchanged. Deleting her expenses would move theirs
-too — say so if you meant that.
+Marked Ana settled up — the one that leaves Bruno and Carla untouched.
 \end{turn}
+\vskip1.5mm
+{\tiny\color{NovaMuted}\srclink{https://arxiv.org/abs/2201.11903}{Wei et al.\ (2022),
+\emph{Chain-of-Thought Prompting Elicits Reasoning in Large Language Models}, NeurIPS 2022 ·
+arxiv.org/abs/2201.11903}}
 \vfill
 \end{frame}
 \tanote{Read the ask aloud and stop. Ask the room what it means — you will get at least two
@@ -541,29 +749,66 @@ safe one and states the assumption. Without the middle you get one of the three 
 way to tell which. What reasoning is: the model writes its working out before it answers, and the
 steps it writes are the extra thinking — a model spends a fixed effort per word, so working it
 out on the page is how it buys more. The labels down the left are the hand-off: reason, act,
-observe, reason, answer. Next slide gives that a name. Lineage if asked: scratchpads (Nye et al.\
-2021), chain-of-thought (Wei et al.\ 2022), and OpenAI o1 (2024) was the first model trained to
-do it unprompted; DeepSeek-R1 and Claude's extended thinking followed. The honest part: a guess
+observe, reason, answer. Next slide gives that a name. The citation is where the technique got its
+name: Wei et al.\ 2022 found that asking a model to write its steps beat asking for the answer.
+Lineage if asked: scratchpads (Nye et al.\ 2021) came first, and OpenAI o1 (2024) was the first
+model trained to do it unprompted; DeepSeek-R1 and Claude's extended thinking followed. The honest part: a guess
 and a worked answer look equally confident on screen, which is why you still read the diff. Tie
 to standard 1: "state your assumption" is a rule you can put in AGENTS.md.}
+
+% ── prompt engineering, and what ended it
+% Straight after reasoning (2026-09-22, the user: a table of prompt-engineering bloopers, "the
+% idea is to convey that reasoning kind of solves this issue"). Six things people typed to a
+% next-word machine and what the score did; the caption is what ended it: a model that works it
+% out first, whose own vendor now says not to ask it to (the purple row that said so was cut the
+% same day, at the user's request). The numbers are the papers' own and the
+% replication caveat sits in the row, so the slide does not oversell the tricks either way.
+\hue{NovaPurple}
+\begin{frame}{Prompt engineering, 2022--2024.}
+\vspace*{\fill}
+\bloopers
+\vskip2.5mm
+\begin{callout}[NovaPurple]
+{\color{NovaPurple}\bfseries Since 2024: don't.} Reasoning models work it out first. OpenAI's guide for them:
+\emph{avoid chain-of-thought prompts}; ``think step by step'' ``can sometimes hinder''.
+\hfill{\tiny\color{NovaMuted}\srclink{https://developers.openai.com/api/docs/guides/reasoning-best-practices}{OpenAI, Reasoning best practices}}
+\end{callout}
+\vfill
+\end{frame}
+\tanote{One minute, and it is a laugh slide with a point. Read two or three rows aloud: a model
+told to take a deep breath got eight points more on school maths than one told to think step by
+step, and nobody wrote that sentence: another model found it by trying prompts (say this, it is
+not on the slide). Offer a tip and
+the judged quality went up by nearly half, on twenty questions, so hold the number loosely. Same
+for the career line: a 2024 replication (arXiv 2409.20303) found about 1%, not significant; the
+slide shows the claim, you carry the caveat. The
+room will have done some of this. Then the honest part: these were real effects on real models, because the
+model is the next-word machine from the GPT-2 slides, and the words that sat next to careful
+answers on the web were words like "let's think step by step". The purple box is the point:
+since o1 in 2024 the model writes its working out on its own, and OpenAI's own guide for those
+models says not to ask for it, it can hurt. That is the reasoning slide before this one. What
+survives of prompt engineering is the next act: say what the task is, what not to touch, what
+done looks like, and what to show you. Structure, not incantations. If someone asks about
+please and thank you: it does not hurt, it costs electricity, and it is a habit worth keeping
+for the humans reading your messages.}
 
 % ── ReAct
 % The one architecture the class rests on. The same loop comes back in Act 3 with the tests in
 % the OBSERVE card, so the standards read as this loop configured, not as three separate tips.
 \hue{NovaPurple}
-\begin{frame}{The loop has a name: ReAct.}
-\framesubtitle{The architecture underneath every agent}
+\begin{frame}{The ReAct loop: the standard agent architecture.}
 \vspace*{\fill}
 \reactring{a short thought: \emph{what do I still not know?}}%
           {one tool call: read, edit, or run}%
           {the result lands in the conversation}%
-          {done — or it asks you}
+          {done, or it needs you}
 \vskip4mm
-\muted{\textbf{Re}ason, \textbf{act}, observe, repeat. Every harness since is this loop with better
-plumbing.}
+\muted{\textbf{Re}ason, \textbf{act}, observe, repeat. Every harness today \emph{still} uses this
+simple pattern.}
 \vskip1.5mm
-{\tiny\color{NovaMuted}Yao, Zhao, Yu, Du, Shafran, Narasimhan \& Cao (2022).
-\emph{ReAct: Synergizing Reasoning and Acting in Language Models.} ICLR 2023 · arxiv.org/abs/2210.03629}
+{\tiny\color{NovaMuted}\srclink{https://arxiv.org/abs/2210.03629}{Yao, Zhao, Yu, Du, Shafran,
+Narasimhan \& Cao (2022). \emph{ReAct: Synergizing Reasoning and Acting in Language Models.}
+ICLR 2023 · arxiv.org/abs/2210.03629}}
 \vfill
 \end{frame}
 \tanote{ReAct = "Reasoning and Acting", Yao et al.\ 2022: a model does far better alternating a
@@ -574,91 +819,78 @@ observes, and when the "not yet" arrow stops. Point at the three cards and the t
 then at the stack from three slides ago: same thing, unrolled.}
 
 % ── context
-% The window drawn as one page the model reads: the tools' one-line descriptions, the rulebook,
-% your message, then its own thought, call and result, added at the bottom. The bracket answers
-% the question the reasoning slide raised: it knows which tool to call because the tool's line
-% is on the page, above the thought.
+% The window drawn as one box, with what it holds drawn as what it is: a menu of three tools
+% and what each returns, the AGENTS.md card with two real lines, then the conversation as chat
+% bubbles — your ask, a thought, a call, the file that came back — added at the bottom. The
+% bracket answers the question the reasoning slide raised: it knows which tool to call because
+% the tool's line is in the box, above the thought.
 \hue{NovaPurple}
 \begin{frame}{Context.}
-\framesubtitle{What it literally sees}
 \vspace*{\fill}
-\ctxpage
+\ctxbox
 \vfill
 \end{frame}
-\tanote{Slow down here; this is the slide that makes "context" concrete. It is one page, and
-everything on it is text. Top, put there before the model thinks at all: the tools, each a single
-line saying what it does, written by the harness; the rulebook, which is your AGENTS.md; and your
-message. Below the line, added as it works: a thought, a tool call, and the result, which is the
-whole file, now on the page. Then the dashed bracket, which answers the question someone asked two
-slides ago: how does it know which tool? Because the tool's own line is on the page, a few lines
-above the thought that reaches for it. It does not "have" tools the way you have hands; it reads a
-menu and writes an order, and the harness cooks. The model on the right reads the whole page, top
-to bottom, before every word it writes, and nothing that is not on the page exists for it. The page
-gets longer with every turn; the next slide is what it looks like some way into a bug.}
+\tanote{Slow down here; this is the slide that makes "context" concrete. It is one box, and
+everything in it is a card of text. At the back, put there before the model thinks at all: the
+tools, a menu of three, one line each saying what it gives back, written by the harness; and the
+rulebook, which is your AGENTS.md, with two of the lines they add today. In front of them, one
+card per turn, added as it works: your message, a thought, a tool call, and the result, which is
+the whole file, now in the box — the newest card is at the front, and the next one goes in front
+of it. Then the two outlined chips, which answer the question someone asked two slides ago: how
+does it know which tool? Because the tool's own line is in the box, a few cards behind the thought
+that reaches for it. It does not "have" tools the way you have hands; it reads a menu and writes
+an order, and the harness cooks. The model beside the box reads all of it, back to front, before
+every word it writes, and nothing that is not in the box exists for it. The box fills with every
+turn; the next slide is what it looks like some way into a bug.}
 
 % ── context rot
-% What the tool itself prints, imitated: /context some way in (the grid: files and outputs are
-% most of the window, the rulebook a cell) and /compact (the summary the model writes, and the
-% grid after). Compaction is the answer to context rot shown as the thing they will actually
-% type. The two measurements behind "the middle goes soft" are cited below and on the week page.
-% Deliberate exception to "no commands on slides": /context and /compact are the point here.
+% The same box as the slide before, twice: stuffed, some way into a bug (the rulebook a thin
+% line at the back; files it read, command output and three unrelated questions in front of it),
+% and after /compact, with four cards in it. The percentages are what /context prints. The two
+% measurements behind "a full, messy window" are cited below and on the week page. /compact is a
+% deliberate exception to "no commands on slides": it is the point here.
 \hue{NovaPurple}
 \begin{frame}{Context rot.}
-\framesubtitle{It fills, it gets messy, the answers get worse}
 \vspace*{\fill}
-\ctxterminal
-\vskip2mm
-\muted{A full, messy window makes the work worse. Compaction clears it.}
+\ctxrot
 \vskip1mm
-{\tiny\color{NovaMuted}Measured on bug-fixing: Rando et al.\ (2025), \emph{LongCodeBench} — 29\% fixed with a
-little code in the window, 3\% with a lot · also Liu et al.\ (2024), Chroma (2025). All on the week page.}
+\muted{A full, messy box makes the work worse. Always \code{/compact} it.}
+\vskip0.5mm
+{\tiny\color{NovaMuted}Measured on bug-fixing: \srclink{https://arxiv.org/abs/2505.07897}{Rando et
+al.\ (2025), \emph{LongCodeBench}} — 29\% fixed with a little code in the window, 3\% with a lot ·
+also \srclink{https://arxiv.org/abs/2307.03172}{Liu et al.\ (2024)},
+\srclink{https://trychroma.com/research/context-rot}{Chroma (2025)}.}
 \vfill
 \end{frame}
-\tanote{This is what the tool prints, so if you have the screen, type it and let the real one
-replace the slide. Left, /context some way into a bug: the grid is the window, every cell a bit
-over one percent. The rules are one cell, your messages a handful; files it read and command
-output are three quarters of it, and it put them there, not you. And it is not one topic: the bug,
-then a git question, then how the CSV is read, all still on the page every time it reads it. Full
-and messy is measured, on coding too: Rando et al.\ 2025 (LongCodeBench) gave models real GitHub
-bugs with more and more of the repository in the window; Claude 3.5 Sonnet fixed 29 percent at 32
-thousand tokens and 3 percent at 256 thousand, the same bugs with more text around them. On
-reading: Liu et al.\ 2024 found a model did worse with the answer in the middle of twenty
-documents than with none; Chroma 2025 saw eighteen models fall at copying a list before ten
-thousand tokens, faster with unrelated text mixed in. The hatched cells are the buffer: there it
-compacts on its own, and you can ask earlier. Right, what /compact prints: the summary the model
-wrote of its own conversation, then the same grid, mostly empty. The rules and the last turns
-survive as they were; the pile of files became the paragraph. Two rules follow in the next act:
-after twice round on the same failure, start a new thread, and a Ralph loop hands each run a fresh
-agent for the same reason.}
+\tanote{Same box, some way into a bug. Left: the rulebook is one thin card at the back now, your
+own messages a handful, and everything else is files it read and command output — it put them
+there, not you. And it is not one topic: the bug, then a git question, then how the CSV is read,
+all still in the box every time it reads it. Type /context if you have the screen: the percentage
+is what it prints. Full and messy is measured, on coding too: Rando et al.\ 2025 (LongCodeBench)
+gave models real GitHub bugs with more and more of the repository in the window; Claude 3.5 Sonnet
+fixed 29 percent at 32 thousand tokens and 3 percent at 256 thousand, the same bugs with more text
+around them. On reading: Liu et al.\ 2024 found a model did worse with the answer in the middle of
+twenty documents than with none; Chroma 2025 saw eighteen models fall at copying a list before ten
+thousand tokens, faster with unrelated text mixed in. Right, after /compact: the pile of files
+became one card, the summary the model wrote of its own conversation; the rulebook and the last
+turns survive as they were, and the box is mostly empty again. Near the top it compacts on its
+own; you can ask earlier. One rule follows in the next act: after twice round on the same failure,
+start a new thread with a better ask.}
 
 % ═════════════════════════════════════════════ ACT 3 · three standards
-% Order since 2026-09-21: the room's three questions first (brief · check · retry), then one
-% standard per question, then all three in the one message they paste, then Ralph. Every
-% example is bug 002, the task they do next.
-\sectionslide[NovaAccent]{3}{The core of the class}{Delegating.}%
-{Handing work to something fast, tireless, and always sure it is done.}
+% One task, in the order students actually do it: map the workflow; form the brief; make the
+% judge; write the ask; then supervise the loop. Every example is bug 002, the task they do next.
+\sectionslide[NovaAccent]{3}{The core of the class}{Rules, judge, loop.}%
+{Instructions tell the agent what to do. Evidence tells you whether it worked.}
 \tanote{Say the bridge in their words: you are about to hand a task to something that works fast,
-never gets tired, and will tell you it is done. Anyone who has ever delegated asks three
-questions. Next slide.}
-
-\begin{frame}{Three questions.}
-\framesubtitle{Brief it · check it · send it back}
-\vspace*{\fill}
-\threeqs
-\vskip4mm
-\muted{One bug for all three today: removing a member crashes the page.}
-\vfill
-\end{frame}
-\tanote{Read the three questions and stop. These are the three standards, and the chips are the
-names they will carry from here: the rulebook, the tests, the loop. Point at the ring from Act 2
-if it helps: the brief is what it reads before the first thought, the check is what lands at
-observe, the retry is the return arrow. Then say that every slide until Ralph is bug 002, the
-bug they fix in half an hour.}
+never gets tired, and will tell you it is done. Point back at the opening slide if it helps: the
+purple middle of that row is what this act is about. It has three controls: rules, which define
+the work; a judge, which supplies evidence; and a loop, which uses that evidence to decide what
+happens next. Every example from here to Your turn is bug 002, the bug they fix in half an hour.}
 
 % ── standard 1 · the brief
 \hue{NovaYellow}
-\begin{frame}{Say it once.}
-\framesubtitle{Standard 1 · how do I brief it?}
+\begin{frame}{\codetitle{AGENTS.md}}
 \vspace*{\fill}
 \rulebookpage
 \vskip2.5mm
@@ -669,201 +901,205 @@ bug they fix in half an hour.}
 boundary lines in green, the way GitHub Desktop shows an added line. Same page as the context
 slide on purpose: the rulebook is the top of that page, read before your message, every new
 conversation. Ask Codex on stage: "What does AGENTS.md tell you to do?" It recites the file; that
-is the proof. Then the live part: ask Codex to add the three lines, read the diff aloud (it will
-look exactly like the slide), accept, commit in GitHub Desktop. Codex only reads AGENTS.md at the
+is the proof. Then the live part: ask Codex to replace the last line under "How to answer" ("No git in
+this project unless the student asks", true until last week) with the three lines, read the diff
+aloud (one red line, three green), accept, commit in GitHub Desktop. Codex only reads AGENTS.md at the
 start of a thread, so say "new conversation" now. What stays out, if asked: your code explained.
 It can read that itself, and every extra line hides a real one; the test for a line is "would
 removing it cause a mistake?" Mention the 32 KB cap only if asked; the real cap is attention.}
 
-% ── standard 2 · the check, in two slides: what a judge is, then how to read one
-\hue{NovaAccent}
-\begin{frame}{Don't take its word.}
-\framesubtitle{Standard 2 · how do I know it is done?}
+% ── standard 1, second file · the spec
+% The brief for one task. The page they read last week, tagged beside by what each section
+% does for the agent: the intent, the checklist that becomes the tests, the fence for this
+% task, the finish line. It is the slide that turns "read a spec" (Class 3) into "write one"
+% (Block 2), and it plants the two things the act ends on: the checklist is the judge, and the
+% finish line is the sentence the agent must prove.
+\hue{NovaYellow}
+\begin{frame}{This task: the specification.}
 \vspace*{\fill}
-\claimpanel
+\specpage
+\vskip1mm
+\muted{Last week you read one. In Block 2 you write them: the same four sections.}
+\vfill
+\end{frame}
+\tanote{One minute. The rulebook is the brief for every task; this is the brief for one, and
+they know the page: it is the spec from last week's slide, feature 2's this time. Walk the four
+tags, not the lines. Why is the intent: the reasoning slide showed an ambiguous ask, and this is
+where the model finds which reading is the safe one. What is a checklist, and the co-teacher
+wrote one test per line, so the checklist is the judge in code. Out of scope is a fence for this
+task only, the way the rulebook is a fence for all of them. Done when is the finish line in plain
+words, and point at the red line: one of them has no test, only clicking catches it, which is the
+green-is-not-done moment later. Land the last caption: in Block 2 there is no PM; they write
+these, four sections, and the What lines are the tests they ask for first. The full spec is in
+their repo and on the Week 4 page.}
+
+% ── standard 2 · the check. First what a test is at all: they have run them since Class 3 and
+% never opened one, and the next slide asks them to judge whether each test checks its What line.
+\hue{NovaAccent}
+\begin{frame}{A test is a claim you can run.}
+\vspace*{\fill}
+\testanatomy
+\vskip2.5mm
+\muted{Three lines: a name, the claim, and \code{assert} — the word that makes it fail. That is
+the whole idea. Red means the claim is not true yet.}
+\vfill
+\end{frame}
+\tanote{Forty-five seconds, and do not skip it: they have been running tests since Class 3 without
+ever opening one, and the next slide asks them to check whether each test really tests its What
+line, which is impossible if a test is a black box that goes red. Read the three parts off the
+card. The name is the What line in snake case. The docstring is the claim in English. \code{assert}
+is the only word that does anything: if what follows is true the test passes silently, and if it is
+false it stops and prints what it wanted against what it got --- which is the failure they will be
+reading all afternoon. Say the honest limit: a test only checks what someone thought to write down,
+which is why green is not the end and why one Done when line on the ticket has no test at all. This
+is the real file in their repo; the other three are the same shape.}
+
+% ── then the judge: what makes a check a judge, and where it comes from
+\hue{NovaAccent}
+\begin{frame}{The judge comes from the spec.}
+\vspace*{\fill}
+\testchain
 \vskip2mm
-\muted{A judge is a check that does not need its opinion. Today: the tests from last class.}
+\muted{These four are in your repo already, and already red. The verdict is theirs, not the agent's.
+Red is the agent's next input.}
 \vfill
 \end{frame}
-\tanote{Left, what the agent says; right, what the tests say. The rule in one sentence: when
-they disagree, the terminal wins, every time. Then why the tests count as a judge and the
-sentence does not, the three boxes: they were written before the work, last class, by the
-co-teacher and not by the agent, and they give the same answer every time you run them. That
-is all a judge is. Anyone can type "the tests pass", which is why the third rulebook line asks
-for the output itself. Run the red tests on stage now (command on the Week 4 page) so the real
-output replaces this one, and open the test file next to the spec: one test per checklist
-line.}
+\tanote{Follow the arrows left to right: each What line of the ticket has one test with a name
+that says the same thing, and the four of them give one verdict. That is the causal backbone of
+the class: the judge is written from the spec, before the work, by someone who is not the agent,
+and it gives the same answer every time you run it, which is what the three boxes at the bottom
+say. Anyone can type "the tests pass", which is why the third rulebook line asks for the output
+itself: when the sentence and the verdict disagree, the terminal wins. Run the red tests on stage
+now (command on the Week 4 page) so the real output replaces the box, and open the test file next
+to the spec so they see the names match. Read one failure bottom up while it is on screen: the
+last line says how far from done, the assertion message says why and is the to-do written by
+whoever wrote the test, the name says what is checked. Lines two and three are what the agent is
+told next; red is evidence, not bad news. In Block 2 they ask for these tests first, one per
+line, before any code.}
 
+% ── loop · define the assignment before the agent begins
 \hue{NovaAccent}
-\begin{frame}{Red is a to-do list.}
-\framesubtitle{Standard 2 · reading the verdict}
-\vspace*{\fill}
-\redread
-\vskip2mm
-\muted{Green is the finish line, not the proof: then you read the diff and click the app.}
-\vfill
-\end{frame}
-\tanote{This is the real output of the bug they do today. Read it bottom up, in the numbered
-order: the last line says how far from done, the assertion message says why it failed and is the
-to-do written by whoever wrote the test, and the name says what is being checked. The message
-really does say what helper to write. "Green is not the proof" is the line that pays off today:
-feature 2's form field is not tested at all, so only clicking the app catches a missing one.
-Editing a test is not finishing. Decide what done means before you start.}
-
-% ── standard 3 · the retry
-\hue{NovaAccent}
-\begin{frame}{Send the failure back.}
-\framesubtitle{Standard 3 · and when it is not done?}
-\vspace*{\fill}
-\reactring{read the failure: \emph{what does the last line say?}}%
-          {edit, then run the tests}%
-          {red, or green?}%
-          {green: read the diff, click the app}
-\vskip6mm
-\muted{Reads its failure, goes again. Stop at green, or after twice on the same failure.}
-\vfill
-\end{frame}
-\tanote{Same loop as Act 2, on purpose: point back to it. The rulebook is what it read before the
-first card, the tests are the observe card, and standard 3 is what the red arrow is allowed to do:
-loop on its own, one task at a time, and stop at green or after twice round the same failure.
-Why twice: the context slide. A conversation that has failed the same way twice is full of the
-failure, and a fresh one with a better ask does better than a third try. Today the loop runs
-inside one Codex turn and you watch; the same idea one level up is a script that re-feeds the
-prompt until the tests pass, which is the Ralph slides.}
-
-\hue{NovaAccent}
-\begin{frame}{All three, in one message.}
-\framesubtitle{Standard 3 · what you paste to start it}
+\begin{frame}{The assignment.}
 \vspace*{\fill}
 \askpage
 \vskip3mm
-\muted{The skeleton never changes. Only the two highlighted slots do.}
+\muted{The exact object you hand over. Only the two highlighted slots change between tasks.}
 \vfill
 \end{frame}
-\tanote{Four parts, in every loop prompt they will ever write, and the page they read is the one
-from the context slide with your message on it. Make them name the four back to you before you
-paste it: the task, the fence, the finish line, the proof. The highlighted slots are the only
-words that change between tasks; the skeleton is on the Week 4 page. Then map them: the fence is
-the rulebook, the finish line is the tests, the proof is what the judge reads. New conversation before
-pasting: the rulebook lines from five minutes ago are only read at the start of one. Next slide:
-the same four parts in a file, and nobody watching.}
+\tanote{One card, four strips: this is the thing that gets pasted, nothing else. Make them
+name the four parts back to you before you paste it: the task, the fence, the finish line, the
+proof. The highlighted slots are the only words that change between tasks; the skeleton is on
+the Week 4 page. Then say where each strip came from: the fence is the ticket's out-of-scope
+band plus the rulebook, the finish line is the ticket's Done when, and the proof is what the
+judge reads. New conversation
+before pasting: the rulebook lines from five minutes ago are only read at the start of one. Next: what
+happens when nobody is watching the loop it now runs.}
 
+
+% ── persistent loop · the same controls, now across turns
 \hue{NovaAccent}
-\begin{frame}{Ralph.}
-\framesubtitle{Standard 3 · the loop, with nobody watching}
+\begin{frame}{The Ralph Wiggum loop.}
 \vspace*{\fill}
 \begin{center}\roundedpic[0.42\linewidth]{figures/ralph.jpg}\end{center}
 \vskip3mm
-\muted{Cheerfully, relentlessly wrong, and gets there anyway. Not an agent getting smarter: the
-same instructions, again and again, until the tests agree.}
+\muted{Cheerfully wrong, and he gets there anyway. A loop around the loop: one run is one attempt,
+and the same assignment comes back until the evaluation stops it.}
+\vskip2mm
+{\tiny\color{NovaMuted}The technique, and the name:
+\srclink{https://ghuntley.com/ralph}{Huntley (2025), \emph{Ralph Wiggum as a ``software engineer''},
+ghuntley.com/ralph}, a Claude Code plugin since Dec.\ 2025 · Ralph Wiggum from \emph{The Simpsons}
+© 20th Television}
 \vfill
 \end{frame}
-\tanote{Twenty seconds, and let the picture do it. Named after Ralph Wiggum from The Simpsons.
-The joke is the technical point: there is no single agent learning the job, there is a queue of
-them, and the next two slides show why that works.}
+\tanote{This is a second loop around the agent loop they have just seen, not a smarter agent. Say
+the distinction explicitly: the inner loop is read, edit, run inside one task. The outer loop
+returns to the same assignment after a task ends. Both need the same three controls: a rulebook,
+a judge, and a stop condition. The name is Ralph Wiggum because the process repeats the work
+cheerfully until external evidence says it can stop. Huntley's original was a shell loop that fed
+the same prompt file to a fresh agent each run; Anthropic shipped it as a Claude Code plugin in
+December 2025 (`/ralph-loop "the assignment" --max-iterations 20 --completion-promise GREEN`: the
+assignment, a cap, a phrase it may only say when true, and nothing checks the phrase, so the cap).
+The next slide draws it, in the form they will actually type today.}
 
-% ── Ralph, 1 of 2: the loop
-% One canvas, two stages, like the git graph and the stack: the loop, then a sign. The plugin's
-% one line breaks the deck's no-commands-on-slides rule on purpose: its three inputs are the
-% point, and it sits where the /goal chip will sit two slides later.
 \hue{NovaAccent}
-\begin{frame}{Nobody is watching.}
-\framesubtitle{Ralph · 1 of 2 · the message from the last slide, on repeat}
+\begin{frame}{Persistent agentic loop.}
 \vspace*{\fill}
-\ralphcmd
+\goalcmd
 \vskip1mm
-\ralphloop{2}
+\ralphloop
 \vskip2mm
-\muted{It stops on its word, or on the cap. So the message says: phrase only after green.}
+\muted{The message stays fixed. The repo keeps the work. The eval decides whether it runs again.}
 \vfill
 \end{frame}
-\tanote{Ninety seconds. Read the line aloud and name its three inputs: the ask from the last
-slide, a cap on runs, and a phrase. Then walk the row: the agent works in the repo, which has
-their rulebook, their spec and their tests; the tests judge; on red the same message is fed back
-and it goes again; the ghosts behind it are the runs still to come. The three tags are the point:
-the message never changes, the agent is told it again, the repo keeps everything. Now the trap,
-and it is standard 2 again: the loop ends when the agent types the phrase, and that is its own
-word. The plugin's rule is that it may only say it when true, but nothing checks. So the message
-has to say "the phrase only after every test passes", and the cap is there because the plugin's
-own advice is never to trust the phrase alone. Huntley's original was a shell loop that piped a
-prompt file into a fresh agent each run, "deterministically bad in an undeterministic world";
-Anthropic shipped it as an official Claude Code plugin in December 2025, as a Stop hook that
-feeds the same message back into the same conversation, so this agent does remember, and the
-context slide applies: the cap also stops a long, messy conversation. Any agent goes in the
-loop; Codex has the same idea under a different name.}
+\tanote{Two minutes. Name the picture first: the Act 2 agent loop again, one level up --- the inner
+loop is read, edit, run inside one task; this outer one returns to the same assignment after a task
+ends. Walk the row: the agent works in the repo, which holds their rulebook, spec and tests; the
+eval decides whether the goal is met, and today theirs is the test suite, which is why the judge
+slide is where it comes from. On red the same assignment goes back in; the ghosts are the runs still
+to come. The three tags are the point: the message never changes, the agent is told it again, the
+repo keeps everything. Read the goal sentence aloud --- the spec's Done when, plus the fence and a
+cap --- and say it is useful only after the red test exists. Then the trap, which is the judge slide
+again: Codex stops "when it's confident it has reached the stopping condition", its own word, so the
+finish line must be something it shows, the test output on screen. (Claude Code's version has a
+second model read the thread each turn; it cannot run the tests either, which is what the cap is
+for.) The boundary: a goal persists; it does not create the rulebook, the judge or the human review.
+Say the setup aloud, as it is no longer on the slide: once, `codex features enable goals`, restart,
+then /goal plus the sentence in a new thread --- both written out on the Week 4 page.}
 
-% ── Ralph, 2 of 2: a sign
-% Huntley's word for tuning the loop is "signs". Drawn as the thing it is: a run did something
-% dumb, and the fix is one added line in the prompt file, in the same diff language as the
-% rulebook slide. The next fresh agent reads it.
+% ── the act as a procedure
+% The whole act as the things they do, in order: the one slide that is a recipe rather than a
+% picture (2026-09-22, the user: "we need to give very concrete practical steps"). Grouped into
+% three phases later the same day, at the user's request to make it less cluttered and less
+% jargony: eight flat steps with five code chips became six plain ones under set up · hand over ·
+% check. The words dropped on purpose are ours, not the industry's — fence, finish line, proof,
+% judge — which the user had already queried once. Two steps moved off: "same failure twice" is
+% the next slide's whole table, and "write a rule" is the retro slide. File names live on the
+% Week 4 page, which is the deck's standing rule and which this slide had drifted from.
 \hue{NovaAccent}
-\begin{frame}{Don't argue. Add a line.}
-\framesubtitle{Ralph · 2 of 2 · when a run does something dumb}
+\begin{frame}{Delegating coding agents.}
 \vspace*{\fill}
-\ralphloop{3}
-\vskip2mm
-{\tiny\color{NovaMuted}Huntley (2025), \emph{Ralph Wiggum as a ``software engineer''}, ghuntley.com/ralph ·
-a Claude Code plugin since Dec.\ 2025 (same session, not a fresh one)}
+{\eyebrow{First, set it up}}\hfill{\scriptsize\color{NovaMuted}the first three are already in your repo}
+\vskip1.2mm
+\begin{steps}
+  \item \textbf{The rules.} Add the three lines, commit. \hfill\filetag{AGENTS.md}
+  \item \textbf{The task.} What must be true, what to leave alone. \hfill\filetag{specs/feature-2-….md}
+  \item \textbf{The tests.} Run them first: four red, your to-do list. \hfill\filetag{tests/test\_feature\_2.py}
+  \item \textbf{A branch,} named after the task. \hfill\filetag{feature-2-…}
+\end{steps}
+\vskip1.9mm
+{\eyebrow{Then hand it over}}
+\vskip1.2mm
+\begin{steps}[resume]
+  \item \textbf{One task, in a new chat.} Keep going until the tests pass, then paste the test output.
+\end{steps}
+\vskip1.9mm
+{\eyebrow{Then check it yourself}}
+\vskip1.2mm
+\begin{steps}[resume]
+  \item \textbf{Read the diff. Click the app} — no test covers that. Then commit, push, pull
+        request, merge.
+\end{steps}
 \vfill
 \end{frame}
-\tanote{A minute. Same picture, plus what you do when a run goes wrong. Run 4 edited a test to
-make it pass, the exact thing the third rulebook line forbids. In a conversation you would argue
-back; here you cancel the loop, add one line to the message, and start it again, so run 5 reads
-the line before it starts. Huntley calls these signs: every dumb run becomes a line,
-and the file gets better while the agents stay the same. This is the same rule as "twice on the
-same failure, new conversation, better ask", one level up, and it is the same diff they read on
-the rulebook slide. The rest of running it well, only if asked: the message holds one task and
-says what done looks like; every green run commits, so a bad run can be thrown away; and when the
-loop ends, a human reads all of it. Credibility beat: the person who built Claude Code has said he
-uses it. Nobody runs this today. They should recognise that the three standards are exactly what makes it possible.}
-
-% ── the loop, shipped as a feature
-% The visual rhyme with the slide before is the argument: same chip, same place on the page,
-% one year apart. The loop got easier to run; the judge did not get easier to write.
-\hue{NovaAccent}
-\begin{frame}{\codetitle{/goal}}
-\framesubtitle{Standard 3 · the loop, one year later}
-\vspace*{\fill}
-\begin{center}\codeline{/goal every test in tests/ passes, and nothing in tests/ changed}\end{center}
-\vskip2mm
-\begin{center}\muted{2026. The shell loop is now one sentence, in the tool.}\end{center}
-\vskip6mm
-\begin{tcbitemize}[cardsS, raster columns=3]
-  \carditemplain{Who decides}{A \emph{second}, smaller model reads the conversation after each
-    turn: not yet, done, or impossible.}
-  \carditemplain{What it can see}{Only what the agent put on screen. It cannot run your tests,
-    so the finish line must be something the agent shows.}
-  \carditemplain{Still yours}{Nobody has automated deciding what \emph{done} means.}
-\end{tcbitemize}
-\vskip2mm
-{\tiny\color{NovaMuted}Claude Code, \emph{Keep Claude working toward a goal} ·
-code.claude.com/docs/en/goal · Codex ships the same command, behind \emph{features: goals}}
-\vfill
-\end{frame}
-\tanote{The payoff of the act, so do not rush it. A year ago Ralph was a bash loop you wrote
-yourself. Today both Claude Code and Codex ship it: /goal takes a finish line in plain words and
-keeps taking turns until a separate evaluator model agrees it holds. Underneath it is literally a
-Stop hook, which is what the ralph-wiggum plugin was. Two things to land. First: the evaluator
-does not run anything — it only reads the transcript, which is exactly why "paste the final test
-output" is in their loop prompt. Evidence is not politeness, it is the only thing the judge can
-see. Second: everything the tool automated was the easy half. Nothing here writes the rulebook or
-decides what done means. That is the job, and it is theirs. Students on Codex can turn it on today;
-tell them it is in the handout, and that they should not use it until they have a test that fails
-first.}
+\tanote{One minute, and it is the slide to photograph. The phases are the lesson: everything in the
+first group happens before the agent is told anything, the handover is one sentence, and the last
+group is you, not it. Say what is theirs and what is given --- they write the rules today; the spec
+and the tests are written for them this week, and writing those is what changes in Block 2. Step 5
+is the four-part ask in plain words, the same sentence whether they paste it or set it as a goal;
+the named version is two slides back. File names and the exact ask are on the Week 4 page.}
 
 % ═════════════════════════════════════════════ ACT 4 · do it
 \hue{NovaTeal}
 \begin{frame}{Your turn.}
-\framesubtitle{Live, 10 min · then 30 min on your own}
 \vspace*{\fill}
 \noindent\begin{minipage}[t]{0.56\linewidth}
-\vspace{0pt}
+\vspace{0pt}\raggedright
 \begin{steps}
-  \item \textbf{Branch.} Named after the spec.
-  \item \textbf{Red first.} See what is missing before anything is written.
-  \item \textbf{New thread. Paste the ask.} Then sit on your hands.
-  \item \textbf{Watch it loop.}
-  \item \textbf{Green — now don't trust it.} Read the diff. Click the app.
+  \item \textbf{Branch,} named after the task.
+  \item \textbf{Run the tests.} Red is your to-do list.
+  \item \textbf{New chat.} Paste the ask, or set \code{/goal}.
+  \item \textbf{Same red twice?} Stop. Read it yourself.
+  \item \textbf{Green?} Read the diff. Click the app.
   \item \textbf{Commit, push, pull request, merge.}
 \end{steps}
 \end{minipage}\hfill
@@ -871,17 +1107,17 @@ first.}
 \vspace{0pt}
 \begin{tcbitemize}[cardsS, raster columns=1]
   \carditem{SplitIt}{Bug 2, then feature 2}{Removing a member crashes the page. Then expense
-    categories.}
+    categories.\\[1.2mm]\filetag{issues/002 · specs/feature-2-categories.md}}
   \carditem{Tiny CRM}{Bug 3, then feature 2}{``Won this month'' is always zero. Then conversion by
-    source.}
+    source.\\[1.2mm]\filetag{issues/003 · specs/feature-2-conversion.md}}
 \end{tcbitemize}
 \end{minipage}
 \vskip3mm
-\muted{Files, test names and the ask: Week 4 page.}
+\muted{The ask to paste, and the \code{/goal} sentence: Week 4 page.}
 \vfill
 \end{frame}
 \tanote{This slide stays on screen for forty minutes. First the live ten: do feature 2 on stage and
-let it loop for real, 2--4 rounds is normal. Narrate it as the loop: "that's a read, that's an
+let it loop for real, 2--4 rounds is normal. Narrate the workflow: "that's a read, that's an
 edit, that's a run — red — round again." Commands and file names are on the Week 4 page if you want
 them on screen. The two things it commonly misses on this feature: it forgets to refresh the data
 files from the seed (tests stay green while the app crashes on load) and it never adds the form
@@ -896,7 +1132,6 @@ Anyone still on feature 1 does that first; feature 2 becomes homework.}
 
 \hue{NovaAccent}
 \begin{frame}{When it goes wrong.}
-\framesubtitle{Your turn}
 \vspace*{\fill}
 \begin{steps}
   \item \textbf{It edited a test.} Discard. Say the rule. Run again.
@@ -913,7 +1148,6 @@ Anyone still on feature 1 does that first; feature 2 becomes homework.}
 % ── retro
 \hue{NovaYellow}
 \begin{frame}{Write one rule.}
-\framesubtitle{Retro · 6 min}
 \vspace*{\fill}
 \begin{itemize}
   \item The worst thing it did today — one sentence.
@@ -932,7 +1166,6 @@ this?".}
 % ── wrap
 \hue{NovaTeal}
 \begin{frame}{Before next week.}
-\framesubtitle{Class 4 · wrap}
 \vspace*{\fill}
 \begin{itemize}
   \item Feature 2: green, merged, pushed.

@@ -24,6 +24,14 @@
 % tracked uppercase: microtype's \textls is pdfTeX-only, so use the OpenType feature
 \newcommand{\lsp}[2][14]{{\addfontfeature{LetterSpace=#1}#2}}
 
+% ────────────────────────────────────────────────────── citations, clickable
+% Every source line on a slide is a live link in the published PDF. The styling is deliberately
+% unchanged: hyperref's defaults are a coloured word or a ruled box, and a footnote full of blue
+% would shout louder than the slide it belongs under. \srclink keeps the surrounding muted tone
+% and removes the border, so the citation still reads as a whisper but the title is clickable.
+\hypersetup{colorlinks=false, pdfborder={0 0 0}, breaklinks=true}
+\newcommand{\srclink}[2]{\href{#1}{#2}}
+
 % ─────────────────────────────────────────────────────────── palette
 \definecolor{NovaBg}{HTML}{FFFCF7}
 \definecolor{NovaCard}{HTML}{F4EDE0}
@@ -99,9 +107,9 @@
 \newcommand{\setfootertext}[1]{\renewcommand{\footertext}{#1}}
 \setbeamertemplate{footline}{%
   \hbox{%
-    \begin{beamercolorbox}[wd=\paperwidth,ht=2.0ex,dp=1.0ex,leftskip=13mm,rightskip=13mm]{footer}%
-      {\scriptsize\color{NovaMuted}\footertext}\hfill
-      {\scriptsize\color{NovaMuted}\insertframenumber\,/\,\inserttotalframenumber}%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=1.4ex,dp=0.7ex,leftskip=13mm,rightskip=13mm]{footer}%
+      {\tiny\color{NovaMuted}\footertext}\hfill
+      {\tiny\color{NovaMuted}\insertframenumber\,/\,\inserttotalframenumber}%
     \end{beamercolorbox}%
   }%
   % plain dimen arithmetic: pgfmath here produced overfull boxes every frame.
@@ -117,7 +125,7 @@
       \multiply\novaprogress by \insertframenumber\relax
     \fi
   \fi
-  \hbox to \paperwidth{\color{NovaAccent}\rule[0pt]{\novaprogress}{1.6pt}\hfil}%
+  \hbox to \paperwidth{\color{NovaAccent}\rule[0pt]{\novaprogress}{1.1pt}\hfil}%
 }
 
 % ─────────────────────────────────────────────────────────── building blocks
@@ -150,6 +158,52 @@
   \tcbox[on line, boxsep=0pt, left=3.6mm, right=3.6mm, top=2.4mm, bottom=2.4mm,
          colback=NovaChip, boxrule=0pt, arc=2.4mm]%
         {\monofont\color{NovaFg}#1}}
+
+% ────────────────────────────────────────────── a diff, the way git prints one
+% minted drives Pygments' diff lexer, so the +/- lines are lexed rather than hand-coloured and
+% a slide cannot drift out of sync with what the shell would actually show. Two conditions:
+% tectonic needs -Z shell-escape (build.sh passes it) with pygmentize on PATH, and any frame
+% holding one of these must be \begin{frame}[fragile] — minted is verbatim.
+% Pygments' default style is a different deck (pillar-box red, spring green, bold navy), so the
+% four diff tokens are repainted in the course palette. It has to be done as a patch to
+% \minted@defstyle rather than once in the preamble: minted replays Pygments' own style
+% definitions before every single listing, which would undo a preamble override.
+\RequirePackage{minted}
+\setminted{fontsize=\scriptsize, breaklines=false, autogobble, numbers=none,
+           baselinestretch=1.02}
+\@namedef{nova@PYG@gi}{\def\PYG@tc##1{\textcolor{NovaTeal}{##1}}}%   added
+\@namedef{nova@PYG@gd}{\def\PYG@tc##1{\textcolor{NovaAccent}{##1}}}% removed
+\@namedef{nova@PYG@gh}{\def\PYG@tc##1{\textcolor{NovaMuted}{##1}}}%  "diff --git", "======="
+\@namedef{nova@PYG@gu}{\def\PYG@tc##1{\textcolor{NovaPurple}{##1}}}% "@@" hunk headers
+\newcommand{\novaPYGpalette}{%
+  \expandafter\let\csname PYG@tok@gi\expandafter\endcsname\csname nova@PYG@gi\endcsname
+  \expandafter\let\csname PYG@tok@gd\expandafter\endcsname\csname nova@PYG@gd\endcsname
+  \expandafter\let\csname PYG@tok@gh\expandafter\endcsname\csname nova@PYG@gh\endcsname
+  \expandafter\let\csname PYG@tok@gu\expandafter\endcsname\csname nova@PYG@gu\endcsname}
+\apptocmd{\minted@defstyle}{\novaPYGpalette}{}%
+  {\PackageWarning{beamerthemenovasbe}{minted's diff colours are Pygments' own, not the palette}}
+% \begin{gitdiff}[width]{the command that printed it} ... \end{gitdiff}
+% The command line above the card is half the lesson: which question produces which diff.
+% \VerbatimEnvironment is what lets the minted block hide inside this wrapper: it points
+% fancyvrb's end-of-verbatim scan at \end{gitdiff} instead of the \end{minted} nobody types.
+\newenvironment{gitdiff}[2][\linewidth]{%
+  \VerbatimEnvironment
+  \par\noindent{\tiny\color{NovaMuted}\monofont \$\ #2}\par\vskip1.1mm
+  \begin{tcolorbox}[enhanced, width=#1, colback=NovaCard, boxrule=0pt, arc=2.4mm,
+      fuzzy shadow={0.3mm}{-0.3mm}{-0.2mm}{0.05mm}{NovaShadow},
+      left=3.2mm, right=3.2mm, top=2.0mm, bottom=2.0mm]%
+  \begin{minted}{diff}%
+}{%
+  \end{minted}%
+  \end{tcolorbox}}
+% the same card for the case that teaches the most: the command ran and printed nothing
+\newcommand{\gitnodiff}[3][\linewidth]{%
+  \par\noindent{\tiny\color{NovaMuted}\monofont \$\ #2}\par\vskip1.1mm
+  \begin{tcolorbox}[enhanced, width=#1, colback=NovaCard, boxrule=0pt, arc=2.4mm,
+      fuzzy shadow={0.3mm}{-0.3mm}{-0.2mm}{0.05mm}{NovaShadow},
+      left=3.2mm, right=3.2mm, top=2.0mm, bottom=2.0mm]%
+    {\scriptsize\color{NovaMuted}\emph{#3}}%
+  \end{tcolorbox}}
 
 % pill badge
 \newcommand{\pill}[2][NovaAccent]{%
@@ -184,23 +238,39 @@
 
 % numbered steps
 \newlist{steps}{enumerate}{1}
+% Drawn with tcbox, not a TikZ node. A tikz node here leaks its fill colour onto the following
+% text through pgf's colour stack whenever the frame is re-boxed, which is what the notes build
+% does: in class-4-notes.pdf every numbered step rendered in the chip's 16% tint, i.e. invisible,
+% while \code chips (tcbox) on the same slides were fine. Found 2026-09-22 by rendering the notes
+% pages; the log never mentions it, because nothing overflows — the ink is just the wrong colour.
 \newcommand{\stepchip}[1]{%
-  \tikz[baseline=(c.base)]{\node[fill=\novakickercolor!16!NovaBg, text=\novakickercolor,
-    rounded corners=1.2mm, inner xsep=2.0mm, inner ysep=0.9mm,
-    font=\footnotesize\bfseries](c){#1};}}
+  \tcbox[on line, boxsep=0pt, left=2.0mm, right=2.0mm, top=0.9mm, bottom=0.9mm,
+         colback=\novakickercolor!16!NovaBg, coltext=\novakickercolor, boxrule=0pt, arc=1.2mm]%
+        {\footnotesize\bfseries #1}}
+% before=\color{NovaFg}: the notes build ships each frame through pgfpages, whose box re-use
+% leaves the pdf colour stack out of step, and the item bodies came out in the page background —
+% invisible in class-4-notes.pdf while the same slides were perfect in class-4.pdf. Stating the
+% colour inside the list overrides whatever the stack is holding. Verified by sampling pixels in
+% both builds, because nothing about this reaches the log.
 \setlist[steps]{label=\protect\stepchip{\arabic*}, leftmargin=9mm, labelsep=3mm,
-                itemsep=1.7mm, topsep=1.6mm, parsep=0pt}
+                itemsep=1.7mm, topsep=1.6mm, parsep=0pt, before=\color{NovaFg}}
 % enumitem's \setlist wins over beamer's itemize template, so name the label here too
 \newcommand{\novabullet}{\raisebox{0.30ex}{\tikz{\fill[NovaAccent] (0,0) circle (1.15pt);}}}
 \newcommand{\novabulletsub}{\raisebox{0.30ex}{\tikz{\fill[NovaMuted] (0,0) circle (0.85pt);}}}
+% before=\color{NovaFg} for the same reason as steps above: plain itemize bodies were rendering
+% in the page colour in the notes build too — Your GitHub page, Why git exists, Write one rule
+% and Before next week. Same pgfpages colour stack, same silence in the log.
 \setlist[itemize,1]{label=\protect\novabullet, leftmargin=5mm, labelsep=2.6mm,
-                    itemsep=1.6mm, topsep=1.4mm, parsep=0pt}
+                    itemsep=1.6mm, topsep=1.4mm, parsep=0pt, before=\color{NovaFg}}
 \setlist[itemize,2]{label=\protect\novabulletsub, leftmargin=4.4mm, labelsep=2.2mm,
-                    itemsep=1.0mm, topsep=1.0mm, parsep=0pt}
+                    itemsep=1.0mm, topsep=1.0mm, parsep=0pt, before=\color{NovaFg}}
 
 % muted lead paragraph under a frame title
 \newcommand{\lead}[1]{{\color{NovaBody}#1\par}\vskip0.6em}
-\newcommand{\muted}[1]{{\color{NovaMuted}#1}}
+% NovaBody, not NovaMuted: these captions are the sentence under every figure, and muted grey
+% measures 4.16:1 against the paper — under the 4.5:1 floor for body text, and thin in a lit
+% lecture hall. NovaBody is 6.99:1 and still reads as secondary next to the near-black titles.
+\newcommand{\muted}[1]{{\color{NovaBody}#1}}
 
 % a full-width quote/callout with an accent rule on the left
 \newtcolorbox{callout}[1][NovaAccent]{enhanced, colback=NovaCard, boxrule=0pt, arc=3.6mm,
@@ -216,8 +286,8 @@
 \tikzset{
   tl axis/.style      ={draw=NovaLine, line width=0.9pt},
   tl stem/.style      ={draw=NovaLine, line width=0.6pt, dash pattern=on 1pt off 1.6pt},
-  tl band/.style      ={line width=2.4pt, draw=#1, line cap=butt},
-  tl bandlabel/.style ={font=\scriptsize\bfseries, text=#1, anchor=west, inner sep=0pt},
+  tl band/.style      ={line width=2.4pt, draw=#1, line cap=round},
+  tl bandlabel/.style ={font=\scriptsize\bfseries, text=#1, inner sep=0pt},
   tl year/.style      ={font=\scriptsize\bfseries, text=#1, anchor=south, inner sep=1.4pt},
   tl dot/.style       ={circle, fill=#1, inner sep=0pt, minimum size=5.6pt},
   tl title/.style     ={font=\scriptsize\bfseries, text=NovaFg, anchor=north, align=left,
@@ -236,10 +306,25 @@
   \draw[tl stem]    (#2\linewidth, -1.1mm) -- (#2\linewidth, {-3.4mm-#1});
   \node[tl title, text width=#7] at (#2\linewidth, {-3.6mm-#1})
     {#5\\[0.7mm]{\normalfont\scriptsize\color{NovaBody}#6}};}
-% \tlband{x from}{x to}{colour}{LABEL}
-\newcommand{\tlband}[4]{%
-  \draw[tl band=#3] (#1\linewidth, 7.4mm) -- (#2\linewidth, 7.4mm);
-  \node[tl bandlabel=#3] at (#1\linewidth, 9.6mm) {\lsp[13]{\MakeUppercase{#4}}};}
+% \tlband[anchor]{x from}{x to}{colour}{Label}
+% Sentence case, not letterspaced caps: the deck dropped those everywhere else, and an era name
+% like "Autonomous agentic" is already wider than the span it labels.
+% The label hugs the band's leading edge; pass [east] and it hugs the trailing edge instead,
+% which is how the last era stays on the page rather than running into the right margin.
+\newcommand{\tlband}[5][west]{%
+  \draw[tl band=#4] (#2\linewidth, 7.4mm) -- (#3\linewidth, 7.4mm);
+  \def\tl@anchor{#1}\def\tl@west{west}%
+  \ifx\tl@anchor\tl@west \def\tl@labelx{#2}\else \def\tl@labelx{#3}\fi
+  \node[tl bandlabel=#4, anchor=#1] at (\tl@labelx\linewidth, 9.8mm) {#5};}
+
+% ── one image per stop on the run-up slide
+% Real pictures rather than drawn glyphs, at the user's request: the machine itself, the four
+% points no straight line can split, layers, a cell that feeds itself, and the transformer nobody
+% means in a paper. Sources and licences are credited on the slide; files live in figures/tl-*.
+% \tlpic{x as a fraction of \linewidth}{y}{height}{file}
+\newcommand{\tlpic}[4]{%
+  \node[anchor=north, inner sep=0pt] at (#1\linewidth,#2)
+    {\includegraphics[height=#3]{figures/#4}};}
 
 % ─────────────────────────────────────────────────── a transcript, as a transcript
 % Reasoning is easier to believe when you watch it happen than when it is described, so the
@@ -275,6 +360,31 @@
     \fill[#3] ([xshift=-4.2mm]frame.west) circle (1.1mm);
     \node[anchor=east, font=\scriptsize\bfseries, text=#3, inner sep=0pt]
       at ([xshift=-8mm]frame.west) {\lsp[12]{\MakeUppercase{#2}}};}}
+% The same turn, labelled by WHO is acting instead of by which part of the loop: the icons are the
+% ones the stack slides introduced, one colour per actor, so the same actor never appears twice in
+% two colours. \begin{turnwho}[fill]{you|model|harness} ... \end{turnwho}
+\newcommand{\turnwhoicon}[1]{%
+  \ifstrequal{#1}{you}{\icperson[NovaBody]{0}{0}}{%
+    \ifstrequal{#1}{model}{\icmodel[NovaPurple]{0}{0}}{\icharness[NovaAccent]{0}{0}}}}
+% via \colorlet, not by expanding a macro into the option list: pgf builds option keys with
+% \csname, and \ifstrequal is not expandable there
+\newcommand{\turnwhocolour}[1]{%
+  \ifstrequal{#1}{you}{\colorlet{turnwhoc}{NovaBody}}{%
+    \ifstrequal{#1}{model}{\colorlet{turnwhoc}{NovaPurple}}{\colorlet{turnwhoc}{NovaAccent}}}}
+\newtcolorbox{turnwho}[2][NovaCard]{enhanced, colback=#1, colframe=#1, boxrule=0pt, arc=2.4mm,
+  left=3.4mm, right=3.4mm, top=1.1mm, bottom=1.1mm,
+  width=\dimexpr\linewidth-24mm\relax, enlarge left by=24mm,
+  fontupper=\scriptsize\raggedright\color{NovaFg},
+  overlay={%
+    \draw[NovaLine, line width=0.9pt] ([xshift=-4.2mm, yshift=1.8mm]frame.north west)
+      -- ([xshift=-4.2mm, yshift=-1.8mm]frame.south west);
+    \turnwhocolour{#2}%
+    \fill[turnwhoc] ([xshift=-4.2mm]frame.west) circle (1.1mm);
+    \begin{scope}[shift={([xshift=-11.5mm]frame.west)}, x=0.8mm, y=0.8mm]
+      % the box is drawn at 0.8, but node text does not scale with the unit vectors
+      \renewcommand{\icmodelfont}{\tiny}%
+      \turnwhoicon{#2}
+    \end{scope}}}
 \newtcolorbox{turnthinks}[1][REASON]{enhanced, colback=NovaBg, colframe=NovaBg, boxrule=0pt, arc=2.4mm,
   borderline={0.9pt}{0pt}{NovaLine, dash pattern=on 1.5mm off 1.1mm},
   left=3.4mm, right=3.4mm, top=1.1mm, bottom=1.1mm,
@@ -291,13 +401,14 @@
 % Drawn, not imported: no icon font is guaranteed on the presenting machine, and a hand-drawn
 % glyph in the deck's own line weight sits better next to the cards than a pasted symbol.
 % Each takes [colour]{x}{y} and is about 7mm tall, meant for a picture with x=1mm, y=1mm.
+% f(x), not a sparkle: the sparkle is the industry's mark for magic, and the whole history act
+% argues the opposite — a model is a function, text in and numbers out. \icmodelfont lets a
+% caller that draws the icon smaller shrink the glyph with it.
+\newcommand{\icmodelfont}{\scriptsize}
 \newcommand{\icmodel}[3][NovaPurple]{%
   \begin{scope}[shift={(#2,#3)}]
     \draw[#1, line width=1.1pt, rounded corners=1mm] (-3.5,-3.5) rectangle (3.5,3.5);
-    \fill[#1] (0,2.3) .. controls (0.4,0.4) and (0.4,0.4) .. (2.3,0)
-              .. controls (0.4,-0.4) and (0.4,-0.4) .. (0,-2.3)
-              .. controls (-0.4,-0.4) and (-0.4,-0.4) .. (-2.3,0)
-              .. controls (-0.4,0.4) and (-0.4,0.4) .. cycle;
+    \node[text=#1, inner sep=0pt, font=\icmodelfont] at (0,0.1) {$f(x)$};
   \end{scope}}
 \newcommand{\icperson}[3][NovaBody]{%
   \begin{scope}[shift={(#2,#3)}]
@@ -311,6 +422,29 @@
     \draw[#1, line width=1.1pt] (-3.3,-1.0) -- (-4.6,-2.6);
     \draw[#1, line width=1.1pt] (3.3,-1.0) -- (4.6,-2.6);
   \end{scope}}
+% The harness gets no icon on the stack slides — there it IS the card everything else sits
+% inside — so it gets one here: a window with a prompt in it, wider and shorter than \icmodel's
+% square so the two silhouettes never read as the same thing. Drawn rather than a vendor mark:
+% Codex is the harness on their laptops, but the word on the slide is "harness".
+\newcommand{\icharness}[3][NovaAccent]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \draw[#1, line width=1.1pt, rounded corners=1mm] (-4.0,-2.7) rectangle (4.0,2.7);
+    \draw[#1, line width=1.1pt] (-2.1,1.0) -- (-0.9,0) -- (-2.1,-1.0);
+    \draw[#1, line width=1.1pt] (0.2,-1.0) -- (2.3,-1.0);
+  \end{scope}}
+% The harness slide names a category, not a product, so it is labelled with the products
+% themselves. Marks: OpenAI's 2025 symbol (Wikimedia, public domain) for Codex, Antigravity's own
+% site icon, and Simple Icons (CC0) for Claude Code, Pi and OpenCode. All flattened to one ink —
+% five brand palettes at the top of a slide would read as a sponsor wall, not as examples.
+\newcommand{\harnessmark}[3]{%
+  \raisebox{-0.32ex}{\includegraphics[height=3.1mm]{figures/logo-#1.#2}}\hskip1.0mm #3}
+\newcommand{\harnessrow}{%
+  \harnessmark{codex}{pdf}{Codex}\hskip3.4mm
+  \harnessmark{antigravity}{png}{Antigravity}\hskip3.4mm
+  \harnessmark{claudecode}{pdf}{Claude Code}\hskip3.4mm
+  \harnessmark{pi}{pdf}{Pi}\hskip3.4mm
+  \harnessmark{opencode}{pdf}{OpenCode}}
+
 % six short fat teeth read as a gear; eight thin ones read as a sun
 \newcommand{\icgear}[3][NovaBlue]{%
   \begin{scope}[shift={(#2,#3)}]
@@ -411,6 +545,98 @@
   \end{tikzpicture}%
 }
 
+% \gitconflict{stage} — the same graph with two branches off one commit, both editing one file.
+% Stage 1 is the divergence; stage 2 is what happens when the second one comes home to a main
+% that moved under it. Built in two stages like \gitgraph so it can be split across two slides
+% later without redrawing anything; used as one picture today.
+\newcommand{\gitconflict}[1]{%
+  \setlength{\ggw}{\linewidth}%
+  % y is squeezed to 0.82mm so the picture and a five-line conflict card both fit the frame:
+  % positions compress, type does not, which is why the coordinates below are unchanged
+  \par\noindent\begin{tikzpicture}[x=\ggw, y=0.82mm]
+    \useasboundingbox (0,-22) rectangle (1,22);
+    % main sits in the middle so the two branches come home from opposite sides and the merge
+    % curves never cross; the file chips live in the two gaps, each beside its own commit
+    \draw[gg lane=NovaTeal] (0.12,0) -- (1,0);
+    \node[gg pill=NovaTeal, anchor=east] at (0.105,0) {main};
+    \node[gg dot=NovaTeal] at (0.22,0) {};
+    % feature-a, above
+    \draw[gg lane=NovaAccent] (0.22,0) .. controls (0.31,0) and (0.30,14) .. (0.39,14) -- (0.54,14);
+    \node[gg dot=NovaAccent] at (0.54,14) {};
+    \node[gg tag=NovaAccent, anchor=south] at (0.44,16.2) {feature-a};
+    \node[gp file, fill=NovaCard, anchor=north] at (0.545,11.2) {logic.py};
+    % feature-b, below
+    \draw[gg lane=NovaPurple] (0.22,0) .. controls (0.31,0) and (0.30,-14) .. (0.39,-14) -- (0.54,-14);
+    \node[gg dot=NovaPurple] at (0.54,-14) {};
+    \node[gg tag=NovaPurple, anchor=north] at (0.44,-16.2) {feature-b};
+    \node[gp file, fill=NovaCard, anchor=south] at (0.545,-11.2) {logic.py};
+    \ifnum#1>1
+      % a comes home first, and main moves under b
+      \draw[gg lane=NovaAccent] (0.54,14) .. controls (0.66,14) and (0.67,0) .. (0.76,0);
+      \node[gg dot=NovaTeal] at (0.76,0) {};
+      \node[gg tag=NovaTeal, anchor=south] at (0.785,1.8) {merged};
+      % b arrives at a file that no longer looks the way it did when it left
+      \draw[gg lane=NovaPurple, dash pattern=on 2mm off 1.6mm]
+        (0.54,-14) .. controls (0.70,-14) and (0.72,0) .. (0.815,0);
+      \node[gg pill=NovaYellow, anchor=west] at (0.822,0) {conflict};
+    \fi
+  \end{tikzpicture}%
+}
+
+% ─────────────────────────────────────────────────────────── git log, drawn
+% The history the way GitHub Desktop's History tab shows it, which is what they will see: one
+% panel, the commits as rows on the left with the graph's two lanes running through them, and
+% the selected commit's diff in the pane on the right. The five commits are the five from
+% \gitgraph, in its colours. Every row says what, who and when; the selected one shows its
+% change; the chip in the pane header is the way back. Drawn on one canvas (a list beside a
+% floating diff card was tried first, 2026-09-22, and looked stuck together).
+\tikzset{
+  gl hash/.style ={font=\tiny\ttfamily, text=NovaMuted, anchor=east, inner sep=0pt},
+  gl msg/.style  ={font=\scriptsize\bfseries, text=NovaFg, anchor=west, inner sep=0pt},
+  gl who/.style  ={font=\tiny, text=NovaBody, anchor=west, inner sep=0pt},
+  gl code/.style ={font=\scriptsize\ttfamily, anchor=west, inner sep=0pt},
+}
+% \gitlogrow{y}{hash}{message}{who · when}: the text of one row; the dot is placed by the caller
+\newcommand{\gitlogrow}[4]{%
+  \node[gl msg]  at (14,{#1+1.6}) {#3};
+  \node[gl who]  at (14,{#1-2.3}) {#4};
+  \node[gl hash] at (57,#1) {#2};}
+\newcommand{\gitlog}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-47) rectangle (134,1);
+    % the panel, its header band, and the split between the two panes
+    \path[gp card=NovaBg] (0,0) rectangle (134,-46);
+    \draw[NovaLine, line width=0.9pt, rounded corners=2.4mm] (0,0) rectangle (134,-46);
+    \draw[NovaLine, line width=0.7pt] (0.5,-6.5) -- (133.5,-6.5) (60,-0.5) -- (60,-45.5);
+    \node[pg head] at (4,-3.3) {\lsp[12]{HISTORY}};
+    % ── left pane: the rows, the selected one filled
+    \path[fill=NovaCard] (0.6,-24.1) rectangle (59.4,-31.9);
+    \draw[gg lane=NovaTeal] (5,-12) -- (5,-36);
+    \draw[gg lane=NovaAccent] (5,-36) .. controls (5,-33) and (9.5,-35) .. (9.5,-32) -- (9.5,-16)
+      .. controls (9.5,-13) and (5,-15) .. (5,-12);
+    \node[gg open=NovaTeal]  at (5,-12)   {};
+    \node[gg dot=NovaAccent] at (9.5,-20) {};
+    \node[gg dot=NovaAccent] at (9.5,-28) {};
+    \node[gg dot=NovaTeal]   at (5,-36)   {};
+    \gitlogrow{-12}{c41d8e2}{Merge feature-2: categories}{you · today, 10:42}
+    \gitlogrow{-20}{7d21e0b}{Add the totals}{you · yesterday, 17:05}
+    \gitlogrow{-28}{4c8ab77}{Add the category column}{you · yesterday, 14:02}
+    \gitlogrow{-36}{91e04d5}{Feature 1: balances}{you · 15 Sep}
+    % ── right pane: the selected commit, and its one change
+    \node[cx mono] at (64,-3.3) {4c8ab77};
+    \node[gl who, text=NovaFg] at (78,-3.3) {Add the category column · you};
+    \node[rounded corners=1.2mm, draw=NovaBody, line width=0.6pt, text=NovaBody, font=\tiny\bfseries,
+          inner xsep=1.8mm, inner ysep=0.9mm, anchor=east] at (130.5,-3.3) {go back to here};
+    \node[font=\tiny\ttfamily, text=NovaMuted, anchor=west, inner sep=0pt] at (64,-11) {db.py};
+    \node[gl code, text=NovaBody] at (64,-15.6) {\ \ COLUMNS = ["id", "payer", "amount",};
+    \fill[NovaAccent!10!NovaBg] (60.5,-18.4) rectangle (133.5,-24.4);
+    \node[gl code, text=NovaAccent] at (64,-21.4) {-\ \ \ \ \ \ \ \ \ \ \ \ "date"]};
+    \fill[NovaTeal!12!NovaBg] (60.5,-24.4) rectangle (133.5,-30.4);
+    \node[gl code, text=NovaTeal] at (64,-27.4) {+\ \ \ \ \ \ \ \ \ \ \ \ "date", "category"]};
+    \node[font=\tiny, text=NovaMuted, anchor=west, inner sep=0pt] at (64,-35) {1 file changed · 1 line};
+  \end{tikzpicture}%
+}
+
 % ──────────────────────────────────────────────── from a model to an agent
 % One canvas, four stages, like the git graph: a language model, then tools, then the loop that
 % makes it an agent, then the harness drawn around all of it. Because nothing moves between
@@ -426,29 +652,38 @@
 }
 \newcommand{\agentstack}[1]{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-46) rectangle (134,4);
+    % stage 1 is a slide of its own now that the placeholder circle is gone, so it gets a box
+    % its own size and is shifted to the middle of it; from stage 2 the canvas fills out to the
+    % right and the pair sits where it stays for the rest of the build
+    \useasboundingbox (0,\ifnum#1<2 -26\else -46\fi) rectangle (134,4);
     % stage 4: the harness is the box everything else was already inside
     \ifnum#1>3
       \path[gp card=NovaPurpleBg] (24,-1) rectangle (134,-44);
-      \node[gp eyebrow=NovaPurple] at (24,1.6) {\lsp[13]{CODEX · THE HARNESS}};
+      \node[anchor=west, inner sep=0pt, font=\scriptsize, text=NovaBody] at (24,1.6) {\harnessrow};
       \node[as chip, draw=NovaPurple, line width=0.8pt, font=\scriptsize\bfseries,
             text=NovaPurple] at (24,-16) {may I?};
-      \node[as name, anchor=south west, text=NovaPurple, font=\scriptsize] at (30,-42.4)
-        {reads the rulebook first \,·\, keeps the whole conversation \,·\, runs every tool};
+      % the harness's three jobs, as a footer inside its own box rather than one long dotted
+      % line: a hairline separates them from the loop above, and each sits in its own third
+      \draw[NovaPurple, opacity=0.28, line width=0.5pt] (28,-38.6) -- (130,-38.6);
+      % x set per item, not on a stride: the three phrases are 27, 33 and 18mm wide
+      \foreach \x/\t in {28.8/{reads the rulebook first},
+                         64.5/{keeps the whole conversation},
+                         107/{runs every tool}} {%
+        \fill[NovaPurple] (\x,-41.4) circle (0.6);
+        \node[anchor=west, inner sep=0pt, text=NovaPurple, font=\scriptsize]
+          at ({\x+1.8},-41.4) {\t};}
     \fi
     % you, and the model: text goes in, text comes out
+    \ifnum#1<2 \begin{scope}[xshift=32.5mm] \fi
     \icperson[NovaBody]{12}{-15}
     \node[as name] at (12,-22.5) {you};
     \icmodel[NovaPurple]{58}{-16}
-    \node[as name] at (58,-22.5) {the model};
+    \node[as name] at (58,-22.5) {model};
     \draw[as arrow=NovaBody] (18,-12.5) -- (52,-12.5);
     \node[as label=NovaBody, anchor=south] at (35,-11.7) {you type};
     \draw[as arrow=NovaBody] (52,-19.5) -- (18,-19.5);
     \node[as label=NovaBody, anchor=north] at (35,-20.3) {it writes};
-    \ifnum#1<2
-      \node[as ghost] at (108,-16) {};
-      \node[as name, text=NovaMuted] at (108,-24.5) {nothing else};
-    \fi
+    \ifnum#1<2 \end{scope} \fi
     % stage 2: tools, and the result comes back to the model
     \ifnum#1>1
       \iclaptop[NovaPurple]{108}{-16}
@@ -457,9 +692,9 @@
       \node[as chip] (t2) at (108,-29.5) {edit};
       \node[as chip] (t3) at (120,-29.5) {run};
       \draw[as arrow=NovaPurple] (65,-12.5) -- (100,-12.5);
-      \node[as label=NovaPurple, anchor=south] at (82.5,-11.7) {asks for one};
+      \node[as label=NovaPurple, anchor=south] at (82.5,-11.7) {asks for a tool};
       \draw[as arrow=NovaPurple] (100,-19.5) -- (65,-19.5);
-      \node[as label=NovaPurple, anchor=north] at (82.5,-20.3) {the result};
+      \node[as label=NovaPurple, anchor=north] at (82.5,-20.3) {tool results};
     \fi
     % stage 3: the loop; the result is read and the next call chosen, until done
     \ifnum#1>2
@@ -474,23 +709,29 @@
 % ───────────────────────────────────────────────────────────── the ReAct ring
 % The one architecture the class rests on, drawn once and reused: three cards in a row, the
 % "not yet" return underneath, the "done" exit to the right. \reactring{reason}{act}{observe}{stop}
+% hierarchy inside the card: the step name is \small bold in the act's colour with a hairline
+% under it, the description is \scriptsize body text well clear of it. At the same size and two
+% millimetres apart the two read as one block, which is what they were doing.
 \newcommand{\reactcard}[4]{%
-  \path[gp card=NovaCard] (#1,-3) rectangle ({#1+30},-21);
-  \node[gp eyebrow=#4, anchor=north west] at ({#1+3.4},-6) {\lsp[13]{#2}};
-  \node[gp body, anchor=north west, align=left, text width=24mm] at ({#1+3.4},-11) {#3};}
+  \path[gp card=NovaCard] (#1,-3) rectangle ({#1+30},-23);
+  \node[text=#4, font=\small\bfseries, anchor=north west, inner sep=0pt]
+    at ({#1+3.4},-6.2) {\lsp[8]{#2}};
+  \draw[#4, opacity=0.3, line width=0.5pt] ({#1+3.4},-11.2) -- ({#1+26.6},-11.2);
+  \node[gp body, anchor=north west, align=left, text width=23.2mm] at ({#1+3.4},-13.4) {#3};}
 \newcommand{\reactring}[4]{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-31) rectangle (134,0);
+    % arrows ride the cards' new centre line (-13, for cards spanning -3 to -23)
+    \useasboundingbox (0,-32.5) rectangle (134,0);
     \reactcard{0}{REASON}{#1}{NovaPurple}
     \reactcard{40}{ACT}{#2}{NovaPurple}
     \reactcard{80}{OBSERVE}{#3}{NovaPurple}
-    \draw[as arrow=NovaBody] (30.6,-12) -- (39.4,-12);
-    \draw[as arrow=NovaBody] (70.6,-12) -- (79.4,-12);
-    \draw[as arrow=NovaAccent, rounded corners=2mm] (95,-21.6) -- (95,-27.5) -- (15,-27.5) -- (15,-21.6);
-    \node[as label=NovaAccent, fill=NovaBg, inner xsep=1.6mm, anchor=center] at (55,-27.5) {not yet};
-    \draw[as arrow=NovaTeal] (110.6,-12) -- (119.4,-12);
-    \node[gg open=NovaTeal] at (122.6,-12) {};
-    \node[as label=NovaTeal, anchor=north, align=center, text width=22mm] at (125,-14.6) {#4};
+    \draw[as arrow=NovaBody] (30.6,-13) -- (39.4,-13);
+    \draw[as arrow=NovaBody] (70.6,-13) -- (79.4,-13);
+    \draw[as arrow=NovaAccent, rounded corners=2mm] (95,-23.6) -- (95,-29) -- (15,-29) -- (15,-23.6);
+    \node[as label=NovaAccent, fill=NovaBg, inner xsep=1.6mm, anchor=center] at (55,-29) {not yet};
+    \draw[as arrow=NovaTeal] (110.6,-13) -- (119.4,-13);
+    \node[gg open=NovaTeal] at (122.6,-13) {};
+    \node[as label=NovaTeal, anchor=north, align=center, text width=22mm] at (125,-15.6) {#4};
   \end{tikzpicture}%
 }
 
@@ -513,8 +754,8 @@
 \newcommand{\threeqs}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
     \useasboundingbox (0,-36) rectangle (134,1);
-    \tqcol{0}{NovaYellow}{1 · THE BRIEF}{How do I brief it?}{Once, in writing. It reads it
-      before every task, and never tires of it.}{THE RULEBOOK}
+    \tqcol{0}{NovaYellow}{1 · THE BRIEF}{How do I brief it?}{In writing, twice: the rules for
+      every task, and a spec for this one. It reads both first.}{RULEBOOK + SPEC}
     \tqcol{47}{NovaAccent}{2 · THE CHECK}{How do I know it is done?}{Not by asking it. A check
       written before the work, by someone who is not the agent.}{THE TESTS}
     \tqcol{94}{NovaPurple}{3 · THE RETRY}{And when it is not?}{Send the failure back and let it
@@ -523,12 +764,9 @@
   \end{tikzpicture}%
 }
 
-% ───────────────────────────────────────────────────────────── the Ralph loop
-% Standard 3 with nobody watching, as one canvas grown three times: a single run (prompt →
-% fresh agent → repo → tests), then the loop (the red verdict sends the same prompt to a new
-% agent that remembers nothing; the repo is the only memory), then the four signs that make
-% it safe to walk away from. \ralphloop{1..3}. A page glyph for the prompt, drawn like the
-% other icons.
+% ───────────────────────────────────────────────────────────── the loop's command
+% The plugin's one line, drawn in pieces so each input carries a label; \ralphloop (below)
+% sits under it. A page glyph for a prompt file, drawn like the other icons.
 \newcommand{\icdoc}[3][NovaBody]{%
   \begin{scope}[shift={(#2,#3)}]
     \path[rounded corners=0.7mm, fill=NovaBg, draw=#1, line width=1.1pt]
@@ -547,90 +785,32 @@
   rc mono/.style ={font=\scriptsize\ttfamily, text=#1, anchor=west, inner sep=0pt},
   rc lab/.style  ={font=\tiny\bfseries, text=#1, anchor=north, inner sep=0pt, align=center},
 }
+\newcommand{\ralphcmdcore}{%
+    \path[rounded corners=2.4mm, fill=NovaChip] (7,3.2) rectangle (127,-3.2);
+    \node[rc mono=NovaMuted] (a) at (10.6,0) {/ralph-loop};
+    \node[rc mono=NovaFg, anchor=west] (b) at ([xshift=1.6mm]a.east) {"the assignment"};
+    \node[rc mono=NovaYellow, anchor=west] (c) at ([xshift=1.6mm]b.east) {--max-iterations 20};
+    \node[rc mono=NovaTeal, anchor=west] (d) at ([xshift=1.6mm]c.east) {--completion-promise "GREEN"};
+    \node[rc lab=NovaFg] at ([yshift=-4.4mm]b.south) {the handover card};
+    \node[rc lab=NovaYellow] at ([yshift=-4.4mm]c.south) {a cap on runs};
+    \node[rc lab=NovaTeal] at ([yshift=-4.4mm]d.south) {the phrase it may only say when true};}
 \newcommand{\ralphcmd}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
     \useasboundingbox (0,-9) rectangle (134,3.5);
+    \ralphcmdcore
+  \end{tikzpicture}%
+}
+% the same line as Codex ships it: /goal and the spec's Done when, with the fence and a cap in
+% the sentence. Same chip, same place on the page as the Ralph line.
+\newcommand{\goalcmdcore}{%
     \path[rounded corners=2.4mm, fill=NovaChip] (7,3.2) rectangle (127,-3.2);
-    \node[rc mono=NovaMuted] (a) at (10.6,0) {/ralph-loop};
-    \node[rc mono=NovaFg, anchor=west] (b) at ([xshift=1.6mm]a.east) {"the message"};
-    \node[rc mono=NovaYellow, anchor=west] (c) at ([xshift=1.6mm]b.east) {--max-iterations 20};
-    \node[rc mono=NovaTeal, anchor=west] (d) at ([xshift=1.6mm]c.east) {--completion-promise "GREEN"};
-    \node[rc lab=NovaFg] at ([yshift=-4.4mm]b.south) {the ask};
-    \node[rc lab=NovaYellow] at ([yshift=-4.4mm]c.south) {a cap on runs};
-    \node[rc lab=NovaTeal] at ([yshift=-4.4mm]d.south) {the phrase it may only say when true};
-  \end{tikzpicture}%
-}
-\newcommand{\ralphloop}[1]{%
-  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,\ifnum#1>2 -52.5\else -33\fi) rectangle (134,4);
-    % the prompt: one file
-    \icdoc{13}{-11}
-    \node[as name] at (13,-21) {the prompt};
-    % a fresh agent; from stage 2 on, the queue of identical ones behind it
-    \ifnum#1>1
-      \node[as ghost, minimum size=12mm] at (45.2,-3) {};
-      \node[as ghost, minimum size=12mm] at (43.6,-7) {};
-    \fi
-    \fill[NovaPurpleBg] (42,-11) circle (7.2);
-    \icmodel[NovaPurple]{42}{-11}
-    \node[as name] at (42,-21) {the agent};
-    % the repo: the files it reads and writes
-    \path[gp card=NovaCard] (66,-3) rectangle (94,-19);
-    \node[gp eyebrow=NovaMuted, anchor=north west] at (68.6,-5.2) {\lsp[13]{THE REPO}};
-    \node[rl chip] at (73.6,-11.4) {rulebook};
-    \node[rl chip] at (86.4,-11.4) {spec};
-    \node[rl chip] at (73.6,-16) {tests};
-    \node[rl chip] at (86.4,-16) {code};
-    \node[as name] at (80,-21) {the repo};
-    % the judge: the tests run, red or green
-    \path[rounded corners=1.8mm, fill=NovaCard, draw=none] (102,-4.5) rectangle (114,-17.5);
-    \node[gg dot=NovaAccent] at (108,-8.2) {};
-    \node[gg open=NovaTeal]  at (108,-13.8) {};
-    \node[as name] at (108,-21) {the tests};
-    % the flow, left to right, and the way out
-    \draw[as arrow=NovaBody] (18.8,-11) -- (33.4,-11);
-    \draw[as arrow=NovaPurple] (50.4,-11) -- (65,-11);
-    \draw[as arrow=NovaBody] (95,-11) -- (101,-11);
-    \draw[as arrow=NovaTeal] (115,-11) -- (123.4,-11);
-    \node[gg open=NovaTeal] at (126.6,-11) {};
-    \node[as label=NovaTeal, anchor=north, align=center, text width=18mm] at (127,-13.6)
-      {green: stop};
-    % stage 2: red sends the same prompt to a new agent; only the repo carries over
-    \ifnum#1>1
-      \draw[as arrow=NovaAccent, rounded corners=2mm]
-        (114.4,-15.5) -- (117.5,-15.5) -- (117.5,-30) -- (1,-30) -- (1,-11) -- (8.2,-11);
-      \node[as label=NovaAccent, fill=NovaBg, inner xsep=1.6mm, anchor=center] at (59,-30)
-        {red: again};
-      \node[rl tag=NovaMuted] at (13,-24.4) {never changes};
-      \node[rl tag=NovaMuted] at (42,-24.4) {told it again};
-      \node[rl tag=NovaTeal]  at (80,-24.4) {keeps everything};
-    \fi
-    % stage 3: a sign. A run did something dumb; the answer is one added line in the prompt
-    % file, drawn as the rulebook diff was, and the next fresh agent reads it.
-    \ifnum#1>2
-      \draw[NovaAccent, line width=1.3pt] (1,-37.6) -- (3.8,-40.4) (1,-40.4) -- (3.8,-37.6);
-      \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=north west, align=left,
-            text width=34mm, inner sep=0pt] at (6.2,-36.6)
-        {run 4 edited a test to make it pass};
-      \node[font=\scriptsize, text=NovaBody, anchor=north west, align=left, text width=34mm,
-            inner sep=0pt] at (6.2,-44.6) {Don't argue in the chat. Cancel, add a line, start again:};
-      \draw[as arrow=NovaBody] (42,-43) -- (49,-43);
-      % the prompt file, as a diff
-      \path[gp card=NovaBg] (52,-34) rectangle (106,-52);
-      \fill[NovaTeal!12!NovaBg] (52.5,-44.2) rectangle (105.5,-48.6);
-      \draw[NovaLine, line width=0.9pt, rounded corners=2.4mm] (52,-34) rectangle (106,-52);
-      \node[pg head] at (55,-36.8) {\lsp[12]{THE MESSAGE}};
-      \node[pg text=NovaMuted, text width=48mm] at (55,-40.2) {Fix bug 002. Run the tests until green.};
-      \node[font=\scriptsize\bfseries, text=NovaTeal, anchor=north west, inner sep=0pt] at (55,-45) {+};
-      \node[pg text=NovaFg, text width=46mm] at (58.5,-45) {Never edit a test. Say so instead.};
-      % the next agent reads it
-      \draw[as arrow=NovaPurple] (109,-43) -- (116,-43);
-      \node[font=\scriptsize\bfseries, text=NovaPurple, anchor=north west, align=left,
-            text width=17mm, inner sep=0pt] at (118,-39.6) {run 5 reads it first};
-    \fi
-  \end{tikzpicture}%
-}
-
+    \node[rc mono=NovaMuted] (a) at (10.6,0) {/goal};
+    \node[rc mono=NovaAccent, anchor=west] (b) at ([xshift=1.6mm]a.east) {tests/test\_feature\_2.py all pass,};
+    \node[rc mono=NovaYellow, anchor=west] (c) at ([xshift=1.6mm]b.east) {nothing in tests/ changed,};
+    \node[rc mono=NovaTeal, anchor=west] (d) at ([xshift=1.6mm]c.east) {stop after 20 turns};
+    \node[rc lab=NovaAccent] at ([yshift=-4.4mm]b.south) {the finish line: the spec's Done when};
+    \node[rc lab=NovaYellow] at ([yshift=-4.4mm]c.south) {the fence};
+    \node[rc lab=NovaTeal] at ([yshift=-4.4mm]d.south) {a cap};}
 % ──────────────────────────────────────────────────────── GPT-2, in three pictures
 % After the unicorn: how it was trained (hide the next word, guess, get corrected), what it
 % learned (words as positions, directions as relations), how it writes (one block repeated,
@@ -646,7 +826,8 @@
     \useasboundingbox (0,-27) rectangle (134,4);
     % 1 · a page from the web, with the next word hidden
     \node[gp eyebrow=NovaMuted] at (0,1.6) {\lsp[13]{1 · HIDE A WORD}};
-    \path[gp card=NovaCard] (0,0) rectangle (50,-16);
+    % 12mm, not 16: the sentence is two lines and the card was half empty underneath
+    \path[gp card=NovaCard] (0,0) rectangle (50,-12);
     \node[gp body, anchor=north west, align=left, text width=44mm, text=NovaFg, execute at begin node={\hyphenpenalty=10000\relax}] at (3,-3)
       {The scientist named the population, after their distinctive
        \textcolor{NovaAccent}{\rule[-0.6mm]{9mm}{0.7pt}}};
@@ -664,9 +845,11 @@
     \draw[as arrow=NovaBody] (104,-8) -- (108.5,-8);
     \node[gp eyebrow=NovaMuted] at (109.5,1.6) {\lsp[13]{3 · CORRECT}};
     \node[as chip, draw=NovaTeal, line width=0.8pt, text=NovaTeal, anchor=west] at (109.5,-4) {the page says: horn};
-    \node[as label=NovaAccent, anchor=north west, align=left] at (109.5,-9) {off by a bit?\\nudge the numbers};
+    % the caption's third beat, word for word: "nudge the numbers" was the mechanism, which is
+    % true but is a different question from the one the strip is asking. It lives in the notes.
+    \node[as label=NovaAccent, anchor=north west, align=left] at (109.5,-9) {off by a bit?\\get corrected};
     % and round again
-    \draw[as arrow=NovaAccent, rounded corners=2mm] (121,-16.5) -- (121,-22) -- (25,-22) -- (25,-17.5);
+    \draw[as arrow=NovaAccent, rounded corners=2mm] (121,-16.5) -- (121,-22) -- (25,-22) -- (25,-13.5);
     \node[as label=NovaAccent, fill=NovaBg, inner xsep=1.6mm] at (73,-22) {next word, next page · a few billion times};
   \end{tikzpicture}%
 }
@@ -676,82 +859,196 @@
 % neural-network training is nothing but parallel arithmetic. Top row: a CPU as a few big
 % workers against a GPU as a grid of tiny ones. Bottom row: the four uses, in order, with the
 % software step highlighted because it is the answer.
+% Five across 134mm: 23.2mm each, 4.5mm gaps. The eyebrow is letterspaced less than the deck's
+% usual 13 because at this width 13 overflows a fourteen-character label.
 \newcommand{\nvcard}[5]{%
-  \path[rounded corners=2.4mm, fill=#5, draw=none] (#1,-22) rectangle ({#1+30},-41);
-  \node[gp eyebrow=#4, anchor=north west] at ({#1+2.6},-24.4) {\lsp[13]{#2}};
-  \node[gp body, anchor=north west, align=left, text width=25mm,
-        execute at begin node={\hyphenpenalty=10000\relax}] at ({#1+2.6},-29) {#3};}
+  \path[rounded corners=1.8mm, fill=#5, draw=none] (#1,-28) rectangle ({#1+23.2},-38);
+  \node[gp eyebrow=#4, anchor=north west, font=\tiny\bfseries] at ({#1+2},-29.3) {\lsp[6]{#2}};
+  \node[gp body, anchor=north west, align=left, text width=19.2mm, font=\tiny,
+        execute at begin node={\hyphenpenalty=10000\relax}] at ({#1+2},-32.3) {#3};}
+% Two zones, not four: the comparison on top, the four uses as a compact strip underneath. The
+% restated question and the logo were dropped on 2026-09-21 (the frame title and subtitle already
+% carry them); the cards stayed but lost two thirds of their prose, so the strip reads as a
+% timeline at a glance instead of four paragraphs competing with the picture above it.
 \newcommand{\cudafig}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-41) rectangle (134,2);
-    % the question, beside the logo (placed by the frame)
-    \node[anchor=north west, align=left, text width=56mm, font=\normalsize\bfseries, text=NovaFg,
-          inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}] at (31,-1) {Why is NVIDIA the most valuable company in the world?};
-    \node[anchor=north west, align=left, font=\normalsize, text=NovaAccent, inner sep=0pt]
-      at (31,-13.5) {One piece of software.};
-    % a CPU: a few fast workers · a GPU: thousands of slow ones
-    \node[gp eyebrow=NovaMuted] at (90,0.4) {\lsp[13]{A CPU}};
-    \foreach \x in {90,96} {\foreach \y in {-3,-9} {\path[rounded corners=0.6mm, fill=NovaBody] (\x,\y) rectangle ({\x+5},{\y-5});}}
-    \node[as name, font=\tiny, text=NovaMuted, anchor=north west, align=left] at (90,-16) {a few, fast,\\one thing each};
-    \node[gp eyebrow=NovaTeal] at (106,0.4) {\lsp[13]{A GPU}};
-    \foreach \x in {106,108.2,...,132} {\foreach \y in {-3,-5.2,...,-14} {\fill[NovaTeal] (\x,\y) rectangle ({\x+1.6},{\y-1.6});}}
-    \node[as name, font=\tiny, text=NovaTeal, anchor=north west, align=left] at (106,-16) {thousands, slower,\\all at once};
-    % the four uses
-    \nvcard{0}{GAMES · 1999}{Millions of pixels, none waiting for another. Parallel by necessity.}{NovaMuted}{NovaCard}
-    \nvcard{34.7}{CUDA · 2007}{Any maths, by any programmer, on the games chip.}{NovaAccent}{NovaAccent!10!NovaBg}
-    \path[rounded corners=2.4mm, draw=NovaAccent, line width=0.9pt] (34.7,-22) rectangle (64.7,-41);
-    \nvcard{69.3}{MINING · 2010s}{The same trick: billions of hashes, side by side.}{NovaMuted}{NovaCard}
-    \nvcard{104}{TRAINING · 2012 $\rightarrow$}{AlexNet on two gaming cards. Today: thousands of chips, one model.}{NovaTeal}{NovaCard}
-    \draw[as arrow=NovaBody] (30.6,-31.5) -- (34.1,-31.5);
-    \draw[as arrow=NovaBody] (65.3,-31.5) -- (68.7,-31.5);
-    \draw[as arrow=NovaBody] (99.9,-31.5) -- (103.4,-31.5);
+    \useasboundingbox (0,-39) rectangle (134,5);
+    % a CPU: a few fast workers
+    \node[gp eyebrow=NovaMuted] at (30,2.6) {\lsp[13]{A CPU}};
+    \foreach \x in {30,38.5} {\foreach \y in {-2,-10.5}
+      {\path[rounded corners=0.9mm, fill=NovaBody] (\x,\y) rectangle ({\x+7},{\y-7});}}
+    % both captions share a baseline below the taller of the two blocks (the GPU grid ends at -19.2)
+    \node[as name, font=\tiny, text=NovaMuted, anchor=north west, align=left]
+      at (30,-21) {a few, fast · one thing each};
+    % a GPU: thousands of slow ones
+    \node[gp eyebrow=NovaTeal] at (72,2.6) {\lsp[13]{A GPU}};
+    \foreach \x in {72,75.2,...,110} {\foreach \y in {-2,-5.2,...,-17}
+      {\fill[NovaTeal] (\x,\y) rectangle ({\x+2.4},{\y-2.4});}}
+    \node[as name, font=\tiny, text=NovaTeal, anchor=north west, align=left]
+      at (72,-21) {thousands, slower · all at once};
+    % the same parallel trick, five uses in order, with the software step highlighted: it is the
+    % answer to the question in the title, and everything after it is the trick getting bigger
+    \nvcard{0}{CUDA · 2007}{Any maths, by any programmer.}{NovaAccent}{NovaAccent!10!NovaBg}
+    \path[rounded corners=1.8mm, draw=NovaAccent, line width=0.9pt] (0,-28) rectangle (23.2,-38);
+    \nvcard{27.7}{MINING · 2015+}{Billions of hashes at once.}{NovaMuted}{NovaCard}
+    \nvcard{55.4}{ALEXNET · 2012}{Two gaming cards win images.}{NovaMuted}{NovaCard}
+    \nvcard{83.1}{BERT · 2018}{Language, on eight GPUs.}{NovaMuted}{NovaCard}
+    \nvcard{110.8}{LLMs · 2020 $\rightarrow$}{Tens of thousands of GPUs.}{NovaTeal}{NovaCard}
+    \draw[as arrow=NovaBody] (23.8,-33) -- (27.1,-33);
+    \draw[as arrow=NovaBody] (51.5,-33) -- (54.8,-33);
+    \draw[as arrow=NovaBody] (79.2,-33) -- (82.5,-33);
+    \draw[as arrow=NovaBody] (106.9,-33) -- (110.2,-33);
   \end{tikzpicture}%
 }
 
 % ─────────────────────────────────────────────────────── the context window
-% A fixed-width bar filling up. Segments are proportional to what a real session looks like
-% after an hour: the rulebook is small, the files it read and the command output are not.
-% The window as one page. Everything the model can see is a single long text, read top to
-% bottom before every word it writes: the tools' one-line descriptions, the rulebook, your
-% message, then its own thought, its call and the result, appended at the bottom. The bracket
-% answers "how does it know which tool?": the tool's line is on the page, above the thought.
+% The window as an open box, drawn in oblique 3D, with the things it holds standing inside as
+% cards, like folders in a file box (a flat bordered panel with tagged lines until 2026-09-22;
+% the user asked for a box you could believe was one). Rows run back to front along one axis,
+% which is time: the tools and the rulebook at the back, there before the first thought; then
+% one card per turn — your message, a thought, a call, the file that came back — the newest at
+% the front where the next one will go. Each card shows its tag and one real line, every example
+% is bug 002, and the front card, the only one seen almost whole, carries three lines of the
+% file. read_file is outlined twice, on the tools card and on the call card: the tool's own line
+% is in the box, and that is how it knows which one to call (the notes say so; the slide no
+% longer does). The model reads from beside the box.
+% The same shell is drawn twice more on the context-rot slide: stuffed with files and command
+% output, the rulebook lost at the back, and again after /compact with four cards in it.
+% Geometry, in mm, with the box's front-bottom-left corner at the origin: the receding axis is
+% (\cxdx, \cxdy) per row, \cxdepth rows to the back wall; the front wall is \cxwall high and hides
+% the bottom of every card, cards are \cxcardh high and \cxw+4 is the width of the box, so each
+% row shows \cxdy mm of the one behind it.
 \tikzset{
   pg tag/.style  ={rounded corners=1.1mm, fill=#1, text=NovaBg, font=\tiny\bfseries,
                    inner xsep=1.4mm, inner ysep=0.9mm, anchor=west, minimum width=13mm},
   pg line/.style ={font=\scriptsize, text=NovaFg, anchor=west, align=left, text width=50mm,
                    inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}},
+  cx text/.style ={font=\scriptsize, text=NovaFg, anchor=west, align=left, text width=47mm,
+                   inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}},
+  cx small/.style={font=\tiny, text=NovaFg, anchor=west, inner sep=0pt},
+  cx mono/.style ={rounded corners=0.9mm, fill=NovaChip, text=NovaFg, font=\tiny\ttfamily,
+                   inner xsep=1.3mm, inner ysep=0.8mm, anchor=west},
+  cx gloss/.style={font=\tiny, text=NovaBody, anchor=west, inner sep=0pt},
+  cx face/.style ={fill=#1, draw=NovaBody, line width=0.8pt, line join=round},
+  cx axis/.style ={-{Stealth[length=2mm, width=1.6mm]}, draw=NovaMuted, line width=0.7pt},
+  cx axislabel/.style={font=\tiny, text=NovaMuted, align=left, inner sep=0pt},
 }
-\newcommand{\pgrow}[4]{% y colour TAG text
-  \node[pg tag=#2] at (3,#1) {#3};
-  \node[pg line] at (19,#1) {#4};}
-\newcommand{\ctxpage}{%
+% \cxgeom{dx}{dy}{card width}{wall height}{card height}{rows to the back wall}
+\newcommand{\cxgeom}[6]{\def\cxdx{#1}\def\cxdy{#2}\def\cxw{#3}\def\cxwall{#4}\def\cxcardh{#5}\def\cxdepth{#6}\def\cxoff{0}}
+% \cxoffset{rows}: push every card that many rows towards the back, so the free floor — where
+% the next card goes — is in front of them, where the axis points, and not behind
+\newcommand{\cxoffset}[1]{\def\cxoff{#1}}
+% the back of the box: back wall, left inner wall, floor — drawn before the cards
+\newcommand{\cxback}{%
+  \path[cx face=NovaChip]  ({\cxdepth*\cxdx},{\cxdepth*\cxdy}) rectangle ({\cxw+4+\cxdepth*\cxdx},{\cxdepth*\cxdy+\cxwall});
+  \path[cx face=NovaCard2] (0,0) -- ({\cxdepth*\cxdx},{\cxdepth*\cxdy}) -- ({\cxdepth*\cxdx},{\cxdepth*\cxdy+\cxwall}) -- (0,\cxwall) -- cycle;
+  \path[cx face=NovaLine]  (0,0) -- ({\cxw+4},0) -- ({\cxw+4+\cxdepth*\cxdx},{\cxdepth*\cxdy}) -- ({\cxdepth*\cxdx},{\cxdepth*\cxdy}) -- cycle;}
+% the front of the box: right outer wall and front wall — drawn after the cards
+\newcommand{\cxfront}{%
+  \path[cx face=NovaShadow] ({\cxw+4},0) -- ({\cxw+4+\cxdepth*\cxdx},{\cxdepth*\cxdy}) -- ({\cxw+4+\cxdepth*\cxdx},{\cxdepth*\cxdy+\cxwall}) -- ({\cxw+4},\cxwall) -- cycle;
+  \path[cx face=NovaCard]  (0,0) rectangle ({\cxw+4},\cxwall);}
+% a standing card in row #1 (0 = front): the slab, its tag and, on its top line, whatever #4 draws
+% at the card's own origin (x = card left + 18.5, y = card top - 3.4)
+% [fill]: the cards that are there before the first thought — the tools and the rulebook — are
+% tinted — pale teal, not amber: anything warm disappears against the cream box — so the two
+% kinds of card can be told apart across the box without a heading
+\colorlet{NovaFixedCard}{NovaTeal!16!NovaBg}
+\newcommand{\ctxcard}[5][NovaBg]{%
+  \begin{scope}[shift={({(#2+\cxoff)*\cxdx},{(#2+\cxoff)*\cxdy})}]
+    \fill[NovaShadow] (2.5,-0.5) rectangle ({\cxw+2.5},{\cxcardh-0.5});
+    \path[fill=#1, draw=NovaLine, line width=0.6pt] (2,0) rectangle ({\cxw+2},\cxcardh);
+    \node[pg tag=#3] at (5,{\cxcardh-3.4}) {#4};
+    \begin{scope}[shift={(20.5,{\cxcardh-3.4})}] #5 \end{scope}
+  \end{scope}}
+% the empty slot in row #1: where the next card goes
+\newcommand{\ctxghost}[2]{% row, height (kept low so it stops short of the card behind it)
+  \begin{scope}[shift={({(#1+\cxoff)*\cxdx},{(#1+\cxoff)*\cxdy})}]
+    \draw[NovaMuted, line width=0.6pt, dash pattern=on 1.2mm off 0.9mm, rounded corners=0.4mm]
+      (2,0) rectangle ({\cxw+2},#2);
+    \node[font=\tiny, text=NovaMuted, anchor=west, inner sep=0pt] at (5,{#2-2.6}) {the next turn};
+  \end{scope}}
+% a card that is only a tag and a few words, for the stuffed box
+\newcommand{\ctxcardsmall}[5][NovaBg]{\ctxcard[#1]{#2}{#3}{#4}{\node[cx small] at (0,0) {#5};}}
+% ── the context slide
+\newcommand{\ctxbox}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-50.5) rectangle (134,5.5);
-    \node[gp eyebrow=NovaMuted] at (0,3.4) {\lsp[13]{ONE PAGE · EVERYTHING IT CAN SEE}};
-    \path[gp card=NovaBg] (0,0) rectangle (78,-50);
-    \draw[NovaLine, line width=0.9pt, rounded corners=3.6mm] (0,0) rectangle (78,-50);
-    \node[font=\tiny\bfseries, text=NovaMuted, anchor=west, inner sep=0pt] at (3,-3.2) {\lsp[12]{THERE BEFORE THE FIRST THOUGHT}};
-    \pgrow{-7.4}{NovaMuted}{TOOLS}{read a file · edit lines · run a command}
-    \pgrow{-13}{NovaYellow}{RULEBOOK}{Run the tests before saying done.}
-    \pgrow{-19.6}{NovaBody}{YOU}{Bug 002: removing a member crashes the app.}
-    \draw[NovaLine, line width=0.9pt] (3,-24.2) -- (75,-24.2);
-    \node[font=\tiny\bfseries, text=NovaMuted, anchor=west, inner sep=0pt] at (3,-26.8) {\lsp[12]{ADDED AS IT WORKS, AT THE BOTTOM}};
-    \pgrow{-31.6}{NovaPurple}{IT THINKS}{Where is a member removed? I have a tool that reads files.}
-    \pgrow{-38.6}{NovaBlue}{CALL}{read the file that holds the logic}
-    \pgrow{-44.6}{NovaBlue}{RESULT}{the whole file, 140 lines, now on the page}
-    % ── how it picks a tool
-    \draw[as arrow=NovaAccent, dash pattern=on 1.4mm off 0.9mm, rounded corners=1.5mm]
-      (71,-31.6) -- (75,-31.6) -- (75,-7.4) -- (70,-7.4);
-    \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=north west, align=left, text width=48mm,
-          inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}] at (85,-30.6) {the tool's own
-          line is on the page — that is how it knows which one to call};
+    \useasboundingbox (0,-57.5) rectangle (134,3);
+    \cxgeom{2.5}{5.5}{68}{7}{16}{9.1}\cxoffset{2.4}
+    \begin{scope}[shift={(19,-56)}]
+      \cxback
+      \ctxcard[NovaFixedCard]{5}{NovaMuted}{TOOLS}{%
+        \node[cx mono, draw=NovaAccent, line width=0.5pt] (r) at (0,0) {read\_file};
+        \node[cx gloss, anchor=west] (g) at ([xshift=1.2mm]r.east) {$\rightarrow$ the file's text};
+        \node[cx mono] (e) at ([xshift=2.6mm]g.east) {edit\_file};
+        \node[cx mono] at ([xshift=1.6mm]e.east) {run};}
+      \ctxcard[NovaFixedCard]{4}{NovaYellow}{RULEBOOK}{%
+        \node[cx text] at (0,0) {Never touch tests/. Paste the output.};}
+      \ctxcard{3}{NovaBody}{YOU}{%
+        \node[cx text] at (0,0) {Bug 002: deleting a member crashes.};}
+      \ctxcard{2}{NovaPurple}{REASONING}{%
+        \node[cx text, font=\scriptsize\itshape, text=NovaMuted] at (0,0)
+          {Which file removes a member? Read it.};}
+      \ctxcard{1}{NovaBlue}{CALL}{%
+        \node[cx mono, draw=NovaAccent, line width=0.5pt] at (0,0) {read\_file("logic.py")};}
+      \ctxcard{0}{NovaBlue}{RESULT}{%
+        \node[font=\tiny\ttfamily, text=NovaFg, anchor=west, inner sep=0pt] at (0,0)
+          {def remove\_member(group, member):};
+        \node[font=\tiny\ttfamily, text=NovaFg, anchor=west, inner sep=0pt] at (0,-3.1)
+          {\hspace{3.2mm}members.remove(member)};
+        \node[font=\tiny\ttfamily, text=NovaMuted, anchor=west, inner sep=0pt] at (0,-6.2)
+          {\hspace{3.2mm}\ldots\ 140 lines};}
+      \ctxghost{-1.2}{5.9}
+      \cxfront
+    \end{scope}
+    % ── the one axis: time, back to front. Parallel to the left wall's top edge, 7 mm out.
+    \draw[cx axis] (32,-5) -- (13,-46.8);
+    \node[cx axislabel, anchor=south east, align=right] at (33,-3.4)
+      {initial context};
+    \node[cx axislabel, anchor=north west, align=left] at (0,-47)
+      {one card per turn,\\the newest in front};
     % ── the reader
-    \begin{scope}[scale=2.2, shift={(49.5,-5.2)}]\icmodel[NovaPurple]{0}{0}\end{scope}
-    \draw[as arrow=NovaPurple] (100,-11.5) -- (81,-11.5);
-    \node[as label=NovaPurple, anchor=south] at (90.5,-10.7) {reads all of it};
-    \node[gp body, text width=46mm, anchor=north] at (109,-20.6) {before every word it writes};
-    \node[gp body, text width=46mm, anchor=north, text=NovaMuted] at (109,-43) {Nothing that is
-      not on the page exists for it.};
+    \begin{scope}[scale=2.2, shift={(55.5,-5.4)}]\icmodel[NovaPurple]{0}{0}\end{scope}
+    \draw[as arrow=NovaPurple] (114.4,-11.9) -- (110,-11.9);
+    \node[gp body, text width=26mm, anchor=north] at (122,-20.8)
+      {reads all of it, before every word it writes};
+  \end{tikzpicture}%
+}
+% ── the context-rot slide: the same box some way into a bug, and after /compact
+% Left, eleven cards deep at a tighter pitch: the rulebook is one thin line at the back, and
+% everything in front of it is files it read, command output, and three unrelated questions.
+% Right, after /compact: the rulebook, the summary it wrote of its own conversation, and the
+% last turns, with the box mostly empty again. The percentages are the tool's own /context line.
+\newcommand{\ctxrot}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-52.5) rectangle (134,3.5);
+    \node[gp eyebrow=NovaMuted] at (2,2.4) {\lsp[13]{87\% FULL}};
+    \cxgeom{1.6}{4.9}{40}{8}{14}{8.9}\cxoffset{0.9}
+    \begin{scope}[shift={(2,-52)}]
+      \cxback
+      \ctxcardsmall[NovaFixedCard]{7}{NovaMuted}{TOOLS}{read\_file · edit\_file · run}
+      \ctxcardsmall[NovaFixedCard]{6}{NovaYellow}{RULEBOOK}{Never touch tests/.}
+      \ctxcardsmall{5}{NovaBody}{YOU}{bug 002}
+      \ctxcardsmall{4}{NovaBlue}{RESULT}{logic.py · 140 lines}
+      \ctxcardsmall{3}{NovaBody}{YOU}{a git question}
+      \ctxcardsmall{2}{NovaBlue}{OUTPUT}{git log · 80 lines}
+      \ctxcardsmall{1}{NovaBody}{YOU}{how is the CSV read?}
+      \ctxcardsmall{0}{NovaBlue}{RESULT}{csv.py · 200 lines}
+      \cxfront
+    \end{scope}
+    % ── /compact
+    \draw[as arrow=NovaPurple] (67,-28) -- (75,-28);
+    \node[font=\small\ttfamily\bfseries, text=NovaPurple, anchor=south, inner sep=0pt] at (71,-26.6) {/compact};
+    \node[gp eyebrow=NovaMuted] at (78,2.4) {\lsp[13]{12\% FULL}};
+    \cxgeom{1.6}{4.9}{40}{8}{14}{8.9}\cxoffset{3.9}
+    \begin{scope}[shift={(78,-52)}]
+      \cxback
+      \ctxcardsmall[NovaFixedCard]{4}{NovaMuted}{TOOLS}{read\_file · edit\_file · run}
+      \ctxcardsmall[NovaFixedCard]{3}{NovaYellow}{RULEBOOK}{Never touch tests/.}
+      \ctxcardsmall{2}{NovaPurple}{SUMMARY}{helper written, red}
+      \ctxcardsmall{1}{NovaBody}{YOU}{run the tests again}
+      \ctxcardsmall{0}{NovaBlue}{OUTPUT}{test run · 1 failed}
+      \cxfront
+    \end{scope}
   \end{tikzpicture}%
 }
 % ─────────────────────────────────────────────────────────── Act 3 pages
@@ -764,37 +1061,64 @@
   pg side/.style ={font=\scriptsize, text=NovaBody, anchor=north west, align=left, text width=44mm,
                    inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}},
 }
-% the rulebook as the diff they will read today: the file with its three sections, the three
-% boundary lines drawn as GitHub Desktop draws added lines (green band, a plus in the gutter)
+% the rulebook as the file students actually have open: the real AGENTS.md from the Class 2 ZIP,
+% in monospace, with its real headings and commands (Streamlit, not Flask). The hunk is the one
+% they make today and the Week 4 page describes: the No-git line struck out in terracotta, the
+% three new rules added in teal under "How to answer". Long lines are truncated with an ellipsis
+% rather than paraphrased, because they will have the file beside the slide. Right of it, what
+% belongs in one and what does not.
+\tikzset{
+  pg mono/.style ={font=\scriptsize\ttfamily, text=#1, anchor=west, inner sep=0pt},
+  pg mhead/.style={font=\scriptsize\ttfamily, text=NovaMuted, anchor=west, inner sep=0pt},
+  pg bul/.style  ={font=\scriptsize, text=#1, anchor=west, inner sep=0pt, align=left,
+                   text width=38mm},
+}
 \newcommand{\rulebookpage}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
     \useasboundingbox (0,-50.5) rectangle (134,1);
-    \path[gp card=NovaBg] (0,0) rectangle (80,-50);
-    \foreach \t in {-20.6,-25,-29.4} {
-      \fill[NovaTeal!12!NovaBg] (0.5,\t) rectangle (79.5,{\t-4.4});}
-    \draw[NovaLine, line width=0.9pt, rounded corners=3.6mm] (0,0) rectangle (80,-50);
-    \node[font=\tiny\ttfamily, text=NovaMuted, anchor=west, inner sep=0pt] at (4,-3.2) {AGENTS.md};
-    \node[pg head] at (4,-7.2) {\lsp[12]{HOW TO RUN}};
-    \node[pg text=NovaBody] at (4,-9.8) {The app, the tests, and how to reset the data: one
-      command each. Things it cannot guess.};
-    \node[pg head] at (4,-18.6) {\lsp[12]{BOUNDARIES}};
-    \foreach \y/\l in {-21.4/{One branch per spec. Never straight to \code{main}.},
-                       -25.8/{Show me the test output, not a summary of it.},
-                       -30.2/{Never touch the tests. If one looks wrong, say so.}} {
-      \node[font=\scriptsize\bfseries, text=NovaTeal, anchor=north west, inner sep=0pt] at (4,\y) {+};
-      \node[pg text=NovaFg, text width=66mm] at (7.5,\y) {\l};}
-    \node[pg head] at (4,-37.2) {\lsp[12]{HOW TO REPORT BACK}};
-    \node[pg text=NovaBody] at (4,-39.8) {File and line for every claim. Change code only when
-      asked.};
-    % ── the reader, and what happens today
-    \begin{scope}[scale=2, shift={(54.5,-4.5)}]\icmodel[NovaPurple]{0}{0}\end{scope}
-    \draw[as arrow=NovaPurple] (101,-9) -- (83,-9);
-    \node[as label=NovaPurple, anchor=south] at (92,-8.2) {reads it first};
-    \node[pg side] at (86,-18.6) {every new conversation, before your message.};
-    \draw[as arrow=NovaTeal] (86,-27.2) -- (81.5,-27.2);
-    \node[font=\scriptsize\bfseries, text=NovaTeal, anchor=north west, align=left, text width=46mm,
-          inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}] at (88,-25.6)
-      {today: these three lines. Read the diff, commit.};
+    % ── the file, with its name strip
+    \path[rounded corners=1.4mm, fill=NovaBg] (0,0) rectangle (88,-50);
+    \path[rounded corners=1.4mm, fill=NovaCard] (0,0) rectangle (88,-7);
+    \path[fill=NovaCard] (0,-4) rectangle (88,-7);
+    \node[font=\scriptsize\ttfamily, text=NovaMuted, anchor=west, inner sep=0pt] at (4,-3.6)
+      {AGENTS.md};
+    % ── the hunk: one line out, three in, drawn as one contiguous block
+    \fill[NovaAccent!11!NovaBg] (0.5,-31.5) rectangle (87.5,-34.9);
+    \fill[NovaTeal!13!NovaBg]   (0.5,-34.9) rectangle (87.5,-45.1);
+    \draw[NovaLine, line width=0.9pt, rounded corners=1.4mm] (0,0) rectangle (88,-50);
+    \draw[NovaLine, line width=0.9pt] (0,-7) -- (88,-7);
+    % ── what the file says
+    \node[pg mhead] at (4,-11.6) {\#\# Running things};
+    \node[pg mono=NovaFg] at (4,-15) {uv run streamlit run app.py};
+    \node[pg mono=NovaFg] at (4,-18.4) {uv run pytest};
+    \node[pg mhead] at (4,-23) {\#\# How to answer};
+    \node[pg mono=NovaFg] at (4,-26.4) {- Every claim about the code comes with file …};
+    \node[pg mono=NovaFg] at (4,-29.8) {- Change code only when asked to fix one issue …};
+    % the line that goes: true until last week, when git arrived
+    \node[pg mono=NovaAccent] at (4,-33.2) {-};
+    \node[pg mono=NovaAccent] (gone) at (7.4,-33.2)
+      {- No git in this project unless the student asks …};
+    \draw[NovaAccent, line width=0.5pt] ([xshift=-0.3mm]gone.west) -- ([xshift=0.3mm]gone.east);
+    % the three that arrive
+    \foreach \y/\l in {-36.6/{- Build each spec on a branch named after it, …},
+                       -40/{- After every change, run the tests for the task …},
+                       -43.4/{- Never edit, delete or skip anything in tests/. …}} {
+      \node[pg mono=NovaTeal] at (4,\y) {+};
+      \node[pg mono=NovaFg] at (7.4,\y) {\l};}
+    % ── the reader
+    \begin{scope}[scale=2, shift={(56.5,-4.5)}]\icmodel[NovaPurple]{0}{0}\end{scope}
+    \draw[as arrow=NovaPurple] (105,-9) -- (91,-9);
+    \node[as label=NovaPurple, anchor=south] at (98,-8.2) {reads it first};
+    % ── what belongs in one
+    \node[gp eyebrow=NovaYellow] at (92,-20.4) {\lsp[12]{WHAT GOES IN}};
+    \foreach \y/\l in {-25.2/{commands it cannot guess},
+                       -29/{rules you would repeat anyway},
+                       -32.8/{what is off limits}} {
+      \fill[NovaYellow] (93,\y) circle (0.55);
+      \node[pg bul=NovaFg] at (95.4,\y) {\l};}
+    \node[gp eyebrow=NovaMuted] at (92,-38.6) {\lsp[12]{WHAT STAYS OUT}};
+    \fill[NovaMuted] (93,-43.4) circle (0.55);
+    \node[pg bul=NovaMuted] at (95.4,-43.4) {what it can read in the code};
   \end{tikzpicture}%
 }
 % the judge: what the agent says next to what the tests say. The claim is a chat bubble, the
@@ -802,169 +1126,256 @@
 \tikzset{
   tm num/.style ={circle, fill=NovaAccent, text=NovaBg, font=\tiny\bfseries, inner sep=0pt,
                   minimum size=3.4mm},
+  tm big/.style ={font=\scriptsize\ttfamily, text=NovaBg, anchor=north west, inner sep=0pt},
 }
-% the judge, slide one: what it says next to what the tests say, and the three things that
-% make a check a judge. \claimpanel.
-\newcommand{\claimpanel}{%
+% the judge, slide one: where the tests come from. The spec's What lines on the left, the test
+% that checks each one in the middle (the real names from tests/test_feature_2.py), one verdict
+% on the right, and under it the three things that make the check a judge. \testchain.
+\tikzset{
+  tc row/.style  ={rounded corners=1.4mm, fill=NovaCard, text=NovaFg, font=\scriptsize,
+                   anchor=west, inner xsep=2mm, inner ysep=1.4mm, minimum width=46mm,
+                   minimum height=7mm, align=left},
+  tc test/.style ={rounded corners=1.4mm, fill=NovaFg, text=NovaBg, font=\tiny\ttfamily,
+                   anchor=west, inner xsep=2mm, inner ysep=1.4mm, minimum width=50mm,
+                   minimum height=7mm},
+}
+\newcommand{\testchain}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-41) rectangle (134,4);
-    % ── the claim
-    \begin{scope}[scale=0.75, shift={(4.6,2)}]\icmodel[NovaPurple]{0}{0}\end{scope}
-    \node[pg head, text=NovaPurple] at (7.5,1.5) {\lsp[12]{WHAT IT SAYS}};
-    \path[gp card=NovaPurpleBg] (0,-3.5) rectangle (58,-19);
-    \node[pg text=NovaFg, text width=52mm] at (3,-6) {Done. Removing a member no longer crashes
-      the page, and the tests pass.};
-    \draw[NovaAccent, line width=1.3pt] (1.4,-23.3) -- (4.2,-26.1) (1.4,-26.1) -- (4.2,-23.3);
-    \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=west, inner sep=0pt] at (6.5,-24.7)
-      {a sentence. Anyone can type it.};
-    % ── the verdict
-    \node[pg head, text=NovaAccent] at (66,1.5) {\lsp[12]{WHAT THE TESTS SAY}};
-    \path[rounded corners=2.4mm, fill=NovaFg] (66,-3.5) rectangle (134,-19);
-    \node[tm big, text=NovaLine] at (69,-6) {>};
-    \node[tm big] at (73,-6) {run the tests};
-    \node[tm big] at (69,-10.5) {test\_bug\_002.py F};
-    \node[tm big, text=NovaAccent!75!white] at (69,-15) {1 failed, 12 passed};
-    \draw[NovaTeal, line width=1.3pt] (67.3,-24.7) -- (68.6,-26) -- (71.2,-23.1);
-    \node[font=\scriptsize\bfseries, text=NovaTeal, anchor=west, inner sep=0pt] at (73,-24.5)
-      {a verdict. When they disagree, this wins.};
-    % ── what makes it a judge
-    \node[pg head] at (0,-32) {\lsp[12]{WHAT MAKES A CHECK A JUDGE}};
-    \foreach \x/\t in {0/{written before the work}, 46/{by someone who is not the agent},
-                       92/{the same answer every time}} {
+    \useasboundingbox (0,-46) rectangle (134,3);
+    % numbered, like the three-step strip on the GPT-2 slide: the point is that this is a
+    % derivation, spec first, and the numbers say so before anyone reads a row
+    \node[pg head, text=NovaAccent] at (0,1.5) {\lsp[12]{1 · THE SPEC · WHAT}};
+    \node[pg head, text=NovaFg] at (56,1.5) {\lsp[12]{2 · THE TESTS · test\_feature\_2.py}};
+    \node[pg head, text=NovaAccent] at (114,1.5) {\lsp[12]{3 · ONE VERDICT}};
+    \foreach \y/\t/\n in {-6/{\ckbox\ a fixed list of five categories}/test\_the\_category\_list\_is\_fixed,
+                          -15/{\ckbox\ a category column in expenses.csv}/test\_expenses\_have\_a\_category\_column,
+                          -24/{\ckbox\ add\_expense takes a category}/test\_add\_expense\_saves\_the\_category,
+                          -33/{\ckbox\ category\_totals(group\_id)}/test\_category\_totals\_for\_a\_group} {
+      \node[tc row] at (0,\y) {\t};
+      \draw[as arrow=NovaBody] (47,\y) -- (55,\y);
+      \node[tc test] at (56,\y) {\n};
+      \draw[NovaAccent, line width=1.1pt] (106.5,\y) -- (110,\y) -- (110,-13.5);}
+    \draw[as arrow=NovaAccent] (110,-13.5) -- (113.4,-13.5);
+    \path[rounded corners=2.4mm, fill=NovaFg] (114,-6) rectangle (134,-21);
+    \node[tm big, text=NovaLine] at (116.5,-8.4) {> pytest};
+    \node[font=\footnotesize\bfseries, text=NovaAccent!75!white, anchor=west, inner sep=0pt]
+      at (116.5,-14.5) {4 failed};
+    \node[font=\tiny, text=NovaLine, anchor=west, inner sep=0pt] at (116.5,-18.6) {before you start};
+    % what makes it a judge — a claim about the whole picture, not a fourth column, so it sits
+    % under a hairline instead of floating as another row
+    \draw[NovaLine, line width=0.7pt] (0,-38) -- (134,-38);
+    \node[pg head] at (0,-42.5) {\lsp[12]{A JUDGE:}};
+    \foreach \x/\t in {16/{written before the work}, 58/{not by the agent}, 92/{same answer every time}} {
       \node[rounded corners=1.2mm, draw=NovaAccent, line width=0.8pt, text=NovaFg,
-            font=\scriptsize\bfseries, inner xsep=2mm, inner ysep=1.3mm, anchor=north west]
-        at (\x,-35) {\t};}
+            font=\scriptsize\bfseries, inner xsep=2mm, inner ysep=1.2mm, anchor=west]
+        at (\x,-42.5) {\t};}
   \end{tikzpicture}%
 }
-% the judge, slide two: the failing test in full, read from the bottom by number. \redread.
-\newcommand{\redread}{%
-  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-41) rectangle (134,1);
-    \path[rounded corners=2.4mm, fill=NovaFg] (0,0) rectangle (134,-31.5);
-    \node[tm big, text=NovaLine] at (3,-2.5) {>};
-    \node[tm big] at (7,-2.5) {run the tests};
-    \node[tm big] at (3,-6.5) {test\_bug\_002.py F};
-    \node[tm big, text=NovaAccent!75!white] at (3,-10.5) {\_\_\_ removing\_a\_member\_removes\_their\_expenses \_\_\_};
-    \node[tm big] at (3,-14.5) {AssertionError: removing a member must also remove};
-    \node[tm big] at (3,-18.5) {\hspace{4mm}their expenses. Write remove\_member\_expenses and};
-    \node[tm big] at (3,-22.5) {\hspace{4mm}call it from remove\_member};
-    \node[tm big, text=NovaAccent!75!white] at (3,-26.5) {1 failed, 12 passed};
-    \node[tm num] at (129.5,-12.1) {3};
-    \node[tm num] at (129.5,-16.1) {2};
-    \node[tm num] at (129.5,-28.1) {1};
-    % ── how to read it, from the bottom
-    \node[tm num] at (1.7,-36.5) {1};
-    \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=west, inner sep=0pt] at (4.4,-36.5)
-      {how far from done};
-    \node[tm num] at (40.7,-36.5) {2};
-    \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=west, inner sep=0pt] at (43.4,-36.5)
-      {why: that is the to-do, from whoever wrote the test};
-    \node[tm num] at (107.7,-36.5) {3};
-    \node[font=\scriptsize\bfseries, text=NovaAccent, anchor=west, inner sep=0pt] at (110.4,-36.5)
-      {what is checked};
-  \end{tikzpicture}%
-}
-% the ask as a message: the skeleton every loop prompt has, the two slots that change
-% highlighted, and beside each paragraph the part it is and the reason it is there
+% the assignment: one handover card, the exact object pasted into a new thread. Four coloured
+% strips down its edge name the parts (task · fence · finish line · proof); the two slots that
+% change between tasks are highlighted. No rails: the reasons live in the notes. \askpage.
 \tikzset{
   ak slot/.style ={rounded corners=0.8mm, fill=NovaAccent!16!NovaBg, draw=NovaAccent!60!NovaBg,
                    line width=0.5pt, text=NovaFg, inner xsep=0.7mm, inner ysep=0.3mm},
-  ak why/.style  ={font=\scriptsize, text=NovaBody, anchor=north west, align=left, text width=46mm,
-                   inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}},
+  ak strip/.style={font=\tiny\bfseries, text=NovaBg, anchor=center, inner sep=0pt, rotate=90},
 }
 \newcommand{\askslot}[1]{\tikz[baseline=(s.base)]\node[ak slot] (s) {#1};}
-\newcommand{\askpart}[5]{% y colour TAG why text
-  \fill[#2, rounded corners=0.4mm] (3,{#1+3.6}) rectangle (4.2,{#1-3.6});
-  \node[pg line, text width=62mm] at (7,#1) {#5};
-  \draw[#2, line width=1.1pt] (80,{#1+3.6}) -- (80,{#1-3.6});
-  \node[gp eyebrow=#2, anchor=north west] at (84,{#1+3.6}) {\lsp[13]{#3}};
-  \node[ak why] at (84,{#1-0.2}) {#4};}
+\newcommand{\askpart}[4]{% y colour TAG text
+  \fill[#2] (0,{#1+5.75}) rectangle (7,{#1-5.75});
+  \node[ak strip] at (3.5,#1) {\lsp[2]{#3}};
+  \node[pg line, text width=96mm, font=\small] at (12,#1) {#4};}
 \newcommand{\askpage}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-44) rectangle (134,4);
-    \node[pg head] at (0,2) {\lsp[12]{NEW CONVERSATION · YOUR MESSAGE}};
-    \path[gp card=NovaBg] (0,0) rectangle (76,-43);
-    \draw[NovaLine, line width=0.9pt, rounded corners=3.6mm] (0,0) rectangle (76,-43);
-    \askpart{-6}{NovaFg}{1 · THE TASK}{One thing, named. Not two.}%
-      {Fix \askslot{bug 002: removing a member crashes the page}. Nothing else.}
-    \askpart{-16}{NovaYellow}{2 · THE FENCE}{The rulebook, repeated for this task.}%
-      {Work on \askslot{this branch} only. Do not change any test.}
-    \askpart{-26}{NovaAccent}{3 · THE FINISH LINE}{The tests decide, not the agent.}%
-      {Run the tests, and keep going until every one passes.}
-    \askpart{-36}{NovaTeal}{4 · THE PROOF}{What you read before you believe it.}%
-      {Then paste the full test output and list every file you touched.}
+    \useasboundingbox (0,-47) rectangle (134,4);
+    \node[pg head] at (0,2.4) {\lsp[12]{HANDED TO THE AGENT · A NEW THREAD, ON THE BRANCH}};
+    \begin{scope}
+      \clip[rounded corners=3.6mm] (0,0) rectangle (118,-46);
+      \path[gp card=NovaBg] (0,0) rectangle (118,-46);
+      \askpart{-6}{NovaFg}{TASK}%
+        {Fix \askslot{bug 002: removing a member crashes the page}. Nothing else.}
+      \askpart{-17.5}{NovaYellow}{FENCE}%
+        {Work on \askslot{this branch} only. Do not change any test.}
+      \askpart{-29}{NovaAccent}{FINISH LINE}%
+        {Run the tests, and keep going until every one passes.}
+      \askpart{-40.5}{NovaTeal}{PROOF}%
+        {Then paste the full test output and list every file you touched.}
+    \end{scope}
+    \draw[NovaLine, line width=0.9pt, rounded corners=3.6mm] (0,0) rectangle (118,-46);
+    % who uses it next
+    \draw[as arrow=NovaPurple] (119.5,-23) -- (124,-23);
+    \begin{scope}[scale=1.5, shift={(86.3,-15.3)}]\icmodel[NovaPurple]{0}{0}\end{scope}
+    \node[as name, text=NovaPurple, text width=14mm, align=center] at (129.5,-29.5) {reads it first};
   \end{tikzpicture}%
 }
-% ────────────────────────────────────────────────── /context and /compact
-% Two mock terminal panels, imitating what Codex and Claude Code print. Left, /context an hour
-% in: the usage grid (one cell = 1.25% of the window) and the legend, coloured with the deck's
-% own categories rather than the tool's. Right, /compact: the "Compacted" line and the opening of
-% the summary the model writes, with the same grid after. The notes underneath say what to see.
-\tikzset{
-  tm text/.style ={font=\tiny\ttfamily, text=NovaBg, anchor=north west, inner sep=0pt},
-  tm dim/.style  ={font=\tiny\ttfamily, text=NovaLine, anchor=north west, inner sep=0pt},
-  tm big/.style  ={font=\scriptsize\ttfamily, text=NovaBg, anchor=north west, inner sep=0pt},
-  tm note/.style ={font=\scriptsize\bfseries, text=NovaAccent, anchor=north west, align=left,
-                   text width=38mm, inner sep=0pt, execute at begin node={\hyphenpenalty=10000\relax}},
-}
-% a 10x8 grid at (x,y) with cell pitch #3; #4 = index/colour pairs; free = outline, buf = hatched
-\newcommand{\tmgrid}[4]{%
-  \foreach \i/\c in {#4} {
-    \pgfmathsetmacro{\cx}{#1+mod(\i,10)*#3}
-    \pgfmathsetmacro{\cy}{#2-floor(\i/10)*#3}
-    \ifthenelse{\equal{\c}{free}}
-      {\draw[NovaMuted, line width=0.35pt] (\cx,\cy) rectangle ({\cx+0.8*#3},{\cy-0.8*#3});}
-      {\ifthenelse{\equal{\c}{buf}}
-        {\draw[NovaMuted, line width=0.35pt] (\cx,\cy) rectangle ({\cx+0.8*#3},{\cy-0.8*#3});
-         \draw[NovaMuted, line width=0.35pt] (\cx,{\cy-0.8*#3}) -- ({\cx+0.8*#3},\cy);}
-        {\fill[\c] (\cx,\cy) rectangle ({\cx+0.8*#3},{\cy-0.8*#3});}}
-  }}
-\newcommand{\tmrow}[4]{% y colour label value
-  \fill[#2] (29,{#1-0.3}) rectangle (30.8,{#1-2.1});
-  \node[tm text] at (31.5,#1) {#3};
-  \node[tm text, anchor=north east] at (58.5,#1) {#4};}
-\newcommand{\ctxterminal}{%
+
+% the Ralph canvas: the prompt file, a fresh agent (the queue of identical ones behind it),
+% the repo it works in, and the eval that decides; red sends the same prompt back to the next
+% agent, and three tags say what each part does. \ralphloop. The Codex slide reuses it under
+% the /goal line, changing nothing else.
+\newcommand{\ralphloop}{%
   \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
-    \useasboundingbox (0,-44.5) rectangle (134,1);
-    % ── left · /context
-    \path[rounded corners=2.4mm, fill=NovaFg] (0,0) rectangle (61,-33);
-    \node[tm dim] at (3,-2.4) {>};
-    \node[tm text] at (6,-2.4) {/context};
-    \tmgrid{3}{-7}{2.2}{0/NovaMuted, 1/NovaMuted, 2/NovaMuted, 3/NovaMuted, 4/NovaMuted, 5/NovaMuted, 6/NovaYellow, 7/NovaBody, 8/NovaBody, 9/NovaBody, 10/NovaBody, 11/NovaBody, 12/NovaBody, 13/NovaBlue, 14/NovaBlue, 15/NovaBlue, 16/NovaBlue, 17/NovaBlue, 18/NovaBlue, 19/NovaBlue, 20/NovaBlue, 21/NovaBlue, 22/NovaBlue, 23/NovaBlue, 24/NovaBlue, 25/NovaBlue, 26/NovaBlue, 27/NovaBlue, 28/NovaBlue, 29/NovaBlue, 30/NovaBlue, 31/NovaBlue, 32/NovaBlue, 33/NovaBlue, 34/NovaBlue, 35/NovaBlue, 36/NovaBlue, 37/NovaBlue, 38/NovaBlue, 39/NovaBlue, 40/NovaBlue, 41/NovaBlue, 42/NovaBlue, 43/NovaTeal, 44/NovaTeal, 45/NovaTeal, 46/NovaTeal, 47/NovaTeal, 48/NovaTeal, 49/NovaTeal, 50/NovaTeal, 51/NovaTeal, 52/NovaTeal, 53/NovaTeal, 54/NovaTeal, 55/NovaTeal, 56/NovaTeal, 57/NovaTeal, 58/NovaTeal, 59/NovaTeal, 60/NovaTeal, 61/NovaTeal, 62/NovaTeal, 63/NovaTeal, 64/NovaTeal, 65/NovaTeal, 66/NovaTeal, 67/free, 68/free, 69/free, 70/free, 71/free, 72/free, 73/free, 74/free, 75/buf, 76/buf, 77/buf, 78/buf, 79/buf}
-    \node[tm text] at (29,-2.4) {174k / 200k · 87\% full};
-    \tmrow{-7}{NovaMuted}{system prompt + tools}{14k}
-    \tmrow{-9.8}{NovaYellow}{rulebook}{2k}
-    \tmrow{-12.6}{NovaBody}{your messages}{16k}
-    \tmrow{-15.4}{NovaBlue}{files it read}{78k}
-    \tmrow{-18.2}{NovaTeal}{command output}{64k}
-    \draw[NovaMuted, line width=0.35pt] (29,-21.3) rectangle (30.8,-23.1);
-    \node[tm text] at (31.5,-21) {free}; \node[tm text, anchor=north east] at (58.5,-21) {26k};
-    \draw[NovaMuted, line width=0.35pt] (29,-24.1) rectangle (30.8,-25.9);
-    \draw[NovaMuted, line width=0.35pt] (29,-25.9) -- (30.8,-24.1);
-    \node[tm text] at (31.5,-23.8) {autocompact buffer};
-    % ── /compact, then the right panel
-    \draw[as arrow=NovaPurple] (62.5,-17) -- (70.5,-17);
-    \node[font=\tiny\ttfamily\bfseries, text=NovaPurple, anchor=south, inner sep=0pt] at (66.5,-15.6) {/compact};
-    \path[rounded corners=2.4mm, fill=NovaFg] (72,0) rectangle (134,-33);
-    \node[tm text, text=NovaPurple!60!white] at (75,-2.4) {Compacted. Continuing from a summary:};
-    \node[tm text, text width=40mm, align=left] at (75,-6.4) {%
-      Topics so far: bug 002, a git question,\\
-      how the CSV is read.\\
-      1. Request: removing a member crashes.\\
-      \hphantom{1. }Fix the logic; do not touch tests.\\
-      2. Done: crash found, one helper\\
-      \hphantom{1. }written, tests still red.\\
-      3. Open: run the tests, read the diff.};
-    \tmgrid{118}{-6}{1.45}{0/NovaMuted, 1/NovaMuted, 2/NovaMuted, 3/NovaMuted, 4/NovaMuted, 5/NovaMuted, 6/NovaYellow, 7/NovaPurple, 8/NovaPurple, 9/NovaPurple, 10/NovaPurple, 11/NovaPurple, 12/NovaBlue, 13/NovaBlue, 14/NovaTeal, 15/NovaTeal, 16/free, 17/free, 18/free, 19/free, 20/free, 21/free, 22/free, 23/free, 24/free, 25/free, 26/free, 27/free, 28/free, 29/free, 30/free, 31/free, 32/free, 33/free, 34/free, 35/free, 36/free, 37/free, 38/free, 39/free, 40/free, 41/free, 42/free, 43/free, 44/free, 45/free, 46/free, 47/free, 48/free, 49/free, 50/free, 51/free, 52/free, 53/free, 54/free, 55/free, 56/free, 57/free, 58/free, 59/free, 60/free, 61/free, 62/free, 63/free, 64/free, 65/free, 66/free, 67/free, 68/free, 69/free, 70/free, 71/free, 72/free, 73/free, 74/free, 75/buf, 76/buf, 77/buf, 78/buf, 79/buf}
-    \node[tm text, anchor=north] at (124,-19) {24k / 200k};
-    \node[tm text, anchor=north] at (124,-21.8) {12\% full};
-    % ── notes
-    \draw[as arrow=NovaAccent] (14,-36) -- (14,-27);
-    \node[tm note] at (0,-36.6) {files, outputs and three unrelated questions, all still in there};
-    \draw[as arrow=NovaAccent] (46,-36) -- (46,-26.6);
-    \node[tm note] at (43,-36.6) {here it compacts on its own — or you ask first};
-    \draw[as arrow=NovaAccent] (96,-36) -- (96,-30.5);
-    \node[tm note, text width=44mm] at (90,-36.6) {the conversation folded into a short summary; the rules and the last turns kept};
+    \useasboundingbox (0,-33) rectangle (134,4);
+    \icdoc{13}{-11}
+    \node[as name] at (13,-21) {prompt};
+    \node[as ghost, minimum size=12mm] at (45.2,-3) {};
+    \node[as ghost, minimum size=12mm] at (43.6,-7) {};
+    \fill[NovaPurpleBg] (42,-11) circle (7.2);
+    \icmodel[NovaPurple]{42}{-11}
+    \node[as name] at (42,-21) {agent};
+    \path[gp card=NovaCard] (66,-3) rectangle (94,-19);
+    \node[gp eyebrow=NovaMuted, anchor=north west] at (68.6,-5.2) {\lsp[13]{REPO}};
+    \node[rl chip] at (73.6,-11.4) {rulebook};
+    \node[rl chip] at (86.4,-11.4) {spec};
+    \node[rl chip] at (73.6,-16) {tests};
+    \node[rl chip] at (86.4,-16) {code};
+    \node[as name] at (80,-21) {repo};
+    \path[rounded corners=1.8mm, fill=NovaCard, draw=none] (102,-4.5) rectangle (114,-17.5);
+    \node[gg dot=NovaAccent] at (108,-8.2) {};
+    \node[gg open=NovaTeal]  at (108,-13.8) {};
+    \node[as name] at (108,-21) {eval};
+    \draw[as arrow=NovaBody] (18.8,-11) -- (33.4,-11);
+    \draw[as arrow=NovaPurple] (50.4,-11) -- (65,-11);
+    \draw[as arrow=NovaBody] (95,-11) -- (101,-11);
+    \draw[as arrow=NovaTeal] (115,-11) -- (123.4,-11);
+    \node[gg open=NovaTeal] at (126.6,-11) {};
+    \node[as label=NovaTeal, anchor=north, align=center, text width=18mm] at (127,-13.6)
+      {it says done:\\stop};
+    \draw[as arrow=NovaAccent, rounded corners=2mm]
+      (114.4,-15.5) -- (117.5,-15.5) -- (117.5,-30) -- (1,-30) -- (1,-11) -- (8.2,-11);
+    \node[as label=NovaAccent, fill=NovaBg, inner xsep=1.6mm, anchor=center] at (59,-30)
+      {a test fails · same message again};
+    \node[rl tag=NovaMuted] at (13,-24.4) {never changes};
+    \node[rl tag=NovaMuted] at (42,-24.4) {told it again};
+    \node[rl tag=NovaTeal]  at (80,-24.4) {keeps everything};
+  \end{tikzpicture}%
+}
+\newcommand{\goalcmd}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-9) rectangle (134,3.5);
+    \goalcmdcore
+  \end{tikzpicture}%
+}
+
+% ───────────────────────────────────────────── prompt-engineering bloopers
+% Three years of tricks that moved the score of a next-word machine, as a table: the year, the
+% prompt, the effect, and the source. A real tabular rather than TikZ, so the source links
+% are clickable (hyperref annotations do not survive inside a TikZ node). What ended it, a model
+% that works the problem out first, is the caption and the note, not a row.
+\RequirePackage{colortbl}
+\RequirePackage{array}
+\RequirePackage{booktabs}
+\newcommand{\blq}[1]{\emph{#1}}
+\newcommand{\bloopers}{%
+  \par\noindent{\tiny\renewcommand{\arraystretch}{1.4}\arrayrulecolor{NovaLine}%
+  \setlength{\tabcolsep}{1mm}%
+  \begin{tabular}{@{}>{\bfseries\color{NovaMuted}}p{9mm}>{\color{NovaFg}\raggedright}p{45mm}>{\color{NovaBody}\raggedright}p{48mm}>{\color{NovaMuted}\raggedright\arraybackslash}p{26mm}@{}}
+  \lsp[12]{WHEN} & \lsp[12]{PROMPT} & \lsp[12]{EFFECT(S)} & \lsp[12]{SOURCE} \\[-0.6mm]
+  \specialrule{0.9pt}{0pt}{0.4mm}
+  2022 & \blq{``Let's think step by step.''} & maths score 18\% $\to$ 79\%, same model &
+    \srclink{https://arxiv.org/abs/2205.11916}{Kojima et al., NeurIPS} \\ \hline
+  2023 & \blq{``Take a deep breath and work on this problem step-by-step.''} & maths score 72\% $\to$ 80\%, over ``step by step'' &
+    \srclink{https://arxiv.org/abs/2309.03409}{Yang et al., Google DeepMind} \\ \hline
+  2023 & \blq{``This is very important to my career.''} & +8\% on instruction tasks &
+    \srclink{https://arxiv.org/abs/2307.11760}{Li et al.} \\ \hline
+  2023 & \blq{``I'm going to tip \$200 for a better solution!''} & +45\% ``quality'' on GPT-4, judged by hand on twenty questions &
+    \srclink{https://arxiv.org/abs/2312.16171}{Bsharat et al., MBZUAI} \\ \hline
+  2024 & \blq{``Please'' and ``thank you''} & rude prompts score lower; polite ones cost ``tens of millions'' in power &
+    \srclink{https://arxiv.org/abs/2402.14531}{Yin et al.} · Altman, on X (2025) \\
+  \specialrule{0.9pt}{0pt}{0pt}
+  \end{tabular}\par}%
+}
+
+% ───────────────────────────────────────────── the hand-over (the bridge from Class 3)
+% Two lanes, the same seven stations in the same columns: last week, with a person over every
+% station; today, with three stations inside a purple panel under the model, a loop arrow
+% beneath them, and the first station redrawn amber as the thing that is new. Because the
+% columns line up, the eye reads the handover as a region rather than a sentence. \handover.
+\tikzset{
+  ho card/.style  ={rounded corners=1.6mm, fill=NovaBg, draw=NovaLine, line width=0.8pt,
+                    text=NovaFg, font=\scriptsize\bfseries, align=center, text width=15.4mm,
+                    inner xsep=0.6mm, inner ysep=1.6mm, minimum height=9.5mm},
+  ho agent/.style ={ho card, fill=NovaBg, draw=NovaPurple!45!NovaBg, text=NovaPurple},
+  ho brief/.style ={ho card, fill=NovaYellow!14!NovaBg, draw=NovaYellow, text=NovaYellow},
+  ho lane/.style  ={font=\scriptsize\bfseries, text=NovaMuted, anchor=west, inner sep=0pt},
+  ho note/.style  ={font=\tiny, text=#1, anchor=north, inner sep=0pt, align=center},
+}
+\newcommand{\handover}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-50.5) rectangle (134,4);
+    % ── last week
+    \node[ho lane] at (0,2.6) {\lsp[13]{LAST WEEK}};
+    \node[font=\tiny, text=NovaBody, anchor=west, inner sep=0pt] at (24,2.6) {you, at every station};
+    \draw[NovaLine, line width=1.2pt] (8.5,-12) -- (122.5,-12);
+    \foreach \x/\t in {8.5/{the spec}, 27.5/{branch}, 46.5/{red tests}, 65.5/{prompt,\\read the diff},
+                       84.5/{run: green}, 103.5/{click app}, 122.5/{merge}} {
+      \begin{scope}[shift={(\x,-4.6)}, scale=0.55]\icperson[NovaBody]{0}{0}\end{scope}
+      \node[ho card] at (\x,-12) {\t};}
+    % ── today
+    \node[ho lane] at (0,-24) {\lsp[13]{TODAY}};
+    \node[font=\tiny, text=NovaBody, anchor=west, inner sep=0pt] at (16,-24) {same stations; three of them run without you};
+    % the agent's region, behind the middle stations
+    \fill[NovaPurpleBg, rounded corners=2.6mm] ({46.5-9.5},-27.5) rectangle ({84.5+9.5},-50);
+    \draw[NovaLine, line width=1.2pt] (8.5,-38.5) -- (122.5,-38.5);
+    \foreach \x/\t in {27.5/{branch}, 103.5/{read diff,\\click app}, 122.5/{merge}} {
+      \begin{scope}[shift={(\x,-31.1)}, scale=0.55]\icperson[NovaBody]{0}{0}\end{scope}
+      \node[ho card] at (\x,-38.5) {\t};}
+    \begin{scope}[shift={(8.5,-31.1)}, scale=0.55]\icperson[NovaYellow]{0}{0}\end{scope}
+    \node[ho brief] at (8.5,-38.5) {the brief};
+    \foreach \x/\t in {46.5/{red tests}, 65.5/{build}, 84.5/{run: green}} {
+      \node[ho agent] at (\x,-38.5) {\t};}
+    % the model over its region, and the loop under it
+    \begin{scope}[shift={(65.5,-31.4)}, scale=0.75]\icmodel[NovaPurple]{0}{0}\end{scope}
+    \node[font=\tiny\bfseries, text=NovaPurple, anchor=west, inner sep=0pt] at ({65.5+3.8},-31.4) {the agent};
+    \draw[as arrow=NovaAccent, rounded corners=1.6mm]
+      ({84.5},-43.5) -- ({84.5},-47) -- ({46.5},-47) -- ({46.5},-43.5);
+    \node[as label=NovaAccent, fill=NovaPurpleBg, inner xsep=1.2mm, anchor=center] at (65.5,-47) {red: again};
+    % what the two rows say
+    \node[ho note=NovaYellow] at (8.5,-44.4) {new, and yours:\\rulebook + spec};
+    \node[ho note=NovaBody] at ({103.5+9.5},-44.4) {still yours};
+  \end{tikzpicture}%
+}
+
+% ───────────────────────────────────────────────────── the spec, as a page
+% The brief for one task: the spec they read last week, drawn as the page the agent reads,
+% with the four sections tagged beside it by what each one does for the agent. Every line is
+% feature 2. \specpage.
+\newcommand{\ckbox}{\tikz[baseline=-0.35ex]\draw[NovaMuted, line width=0.55pt] (0,-0.8mm) rectangle (1.6mm,0.8mm);}
+\newcommand{\specband}[4]{% ytop ybot colour LABEL
+  \fill[#3!9!NovaBg] (0.6,#1) rectangle (79.4,#2);
+  \fill[#3] (0.6,#1) rectangle (2.6,#2);
+  \node[gp eyebrow=#3, anchor=north west] at (6,{#1-1.4}) {\lsp[13]{#4}};}
+\newcommand{\specnext}[4]{% y colour TAG text   (who uses it next)
+  \draw[as arrow=#2] (81.5,#1) -- (87,#1);
+  \node[gp eyebrow=#2, anchor=south west] at (89,{#1-0.2}) {\lsp[13]{#3}};
+  \node[font=\scriptsize, text=NovaBody, anchor=north west, align=left, text width=44mm,
+        inner sep=0pt] at (89,{#1-0.8}) {#4};}
+\newcommand{\specline}[2]{\node[pg line, text width=66mm] at (7,#1) {#2};}
+\newcommand{\specpage}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-59.5) rectangle (134,2.5);
+    \node[pg head] at (0,2) {\lsp[12]{THE TASK TICKET · specs/feature-2-categories.md}};
+    \node[pg head] at (89,2) {\lsp[12]{WHO USES IT NEXT}};
+    \begin{scope}
+      \clip[rounded corners=3.6mm] (0,0) rectangle (80,-59);
+      \path[gp card=NovaBg] (0,0) rectangle (80,-59);
+      \specband{-0.6}{-11.5}{NovaPurple}{WHY}
+      \specline{-8}{Expenses tagged, so we see where the money went.}
+      \specband{-11.5}{-33.5}{NovaAccent}{WHAT}
+      \specline{-18.9}{\ckbox\ a fixed list of five categories}
+      \specline{-22.9}{\ckbox\ a {\ttfamily category} column in {\ttfamily expenses.csv}}
+      \specline{-26.9}{\ckbox\ {\ttfamily add\_expense} takes a category}
+      \specline{-30.9}{\ckbox\ {\ttfamily category\_totals(group\_id)}: a total per category}
+      \specband{-33.5}{-44}{NovaYellow}{FENCE · OUT OF SCOPE}
+      \specline{-40.4}{Editing later · custom categories · charts.}
+      \specband{-44}{-58.4}{NovaTeal}{DONE WHEN}
+      \specline{-51.4}{Tests green. The seed script runs.}
+      \specline{-55.2}{A form box, page totals. \textcolor{NovaAccent}{\bfseries No test: you click.}}
+    \end{scope}
+    \draw[NovaLine, line width=0.9pt, rounded corners=3.6mm] (0,0) rectangle (80,-59);
+    \specnext{-6}{NovaPurple}{ITS REASONING}{when a line reads two ways, this is how it picks}
+    \specnext{-22.5}{NovaAccent}{THE TESTS}{one line, one test: the judge, next slide}
+    \specnext{-38.8}{NovaYellow}{THE ASSIGNMENT}{the fence goes into the handover card}
+    \specnext{-51.2}{NovaTeal}{THE GOAL}{the finish line becomes the /goal sentence}
   \end{tikzpicture}%
 }
 
@@ -981,6 +1392,48 @@
     \vfill
   \end{frame}
   \endgroup}
+
+% A step's anchor in the repo: the real file it acts on, set quietly to the right of the step so
+% the instruction stays plain English and the concrete thing is still on the slide. \filetag{...}
+\newcommand{\filetag}[1]{{\scriptsize\monofont\color{NovaMuted}#1}}
+
+% ───────────────────────────────────────────── what a test actually is
+% The course has had students running tests since Class 3 without ever opening one, and Act 3
+% asks them to read the tests and judge whether each checks its What line — impossible if a test
+% is an opaque thing that goes red. So: one real test from their own repo, verbatim from
+% tests/test_feature_2.py, in the dark chip the judge slide already uses for test names, with the
+% three parts named beside it. Drawn rather than minted: Pygments' Python style is a different
+% palette, and only the diff tokens are repainted. \testanatomy.
+\tikzset{
+  ta code/.style ={rounded corners=1.8mm, fill=NovaFg, text=NovaBg, font=\scriptsize\ttfamily,
+                   anchor=north west, inner xsep=3.2mm, inner ysep=2.6mm, align=left},
+  ta tag/.style  ={font=\scriptsize\bfseries, text=#1, anchor=west, inner sep=0pt},
+  ta note/.style ={font=\tiny, text=NovaBody, anchor=west, inner sep=0pt},
+  ta tick/.style ={draw=#1, line width=0.9pt, -{Stealth[length=1.6mm, width=1.4mm]}},
+}
+\newcommand{\testanatomy}{%
+  \par\noindent\begin{tikzpicture}[x=1mm, y=1mm]
+    \useasboundingbox (0,-33) rectangle (134,3);
+    \node[ta code, text width=84mm] at (0,1) {%
+      \textcolor{NovaTeal}{def} test\_the\_category\_list\_is\_fixed():\\[0.6mm]
+      \hspace*{4mm}\textcolor{NovaMuted}{"""The five categories, in this order."""}\\[0.6mm]
+      \hspace*{4mm}\textcolor{NovaYellow}{assert} logic.CATEGORIES == [\\[0.4mm]
+      \hspace*{8mm}"rent", "groceries", "fun",\\[0.4mm]
+      \hspace*{8mm}"transport", "other"]};
+    % the three parts, named where they sit
+    \draw[ta tick=NovaTeal]   (85,-2.6)  -- (90,-2.6);
+    \node[ta tag=NovaTeal]  at (91,-2.6) {its name is the What line};
+    \draw[ta tick=NovaMuted]  (85,-8.4)  -- (90,-8.4);
+    \node[ta tag=NovaMuted] at (91,-8.4) {what it claims, in English};
+    \draw[ta tick=NovaYellow] (85,-14.2) -- (90,-14.2);
+    \node[ta tag=NovaYellow]at (91,-14.2) {\code{assert}: what must be true};
+    \node[ta note] at (91,-19.4) {true $\to$ green \quad false $\to$ red};
+    \node[ta note, text width=41mm, align=left, anchor=north west] at (91,-24.6)
+      {Nobody's opinion. The same answer every time, before the agent starts and after it stops.};
+    \node[font=\tiny, text=NovaMuted, anchor=north west, inner sep=0pt] at (0,-24.6)
+      {\monofont tests/test\_feature\_2.py \normalfont· in your repo now, one of four};
+  \end{tikzpicture}%
+}
 
 % Speaker notes. beamer lays \note{} out even when notes are hidden, which overfills a
 % box on every frame, so in the slides build the macro expands to nothing.

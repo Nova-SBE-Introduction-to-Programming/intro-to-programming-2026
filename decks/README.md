@@ -59,7 +59,15 @@ page) and `teaching/class-4-notes.pdf` (speaker notes, not published).
 
 Also available: `steps` (numbered chips), `callout`, `\code{}`, `\codeline{}` (a chip big enough
 to carry a slide), `\pill{}`, `\muted{}`, `\roundedpic`, the `chatsaid`/`chatthinks` transcript
-environments, `\contextbar`, and `\sectionslide{W4}{kicker}{Title}{subtitle}`.
+environments, `\ctxbox` and `\ctxrot` (the context window as an open 3D box of cards, and the same box
+stuffed and then compacted), `\handover` (Class 3's loop as chips, then today's with the middle handed
+to the agent), and the Act 3 artefact chain: `\rulebookpage`, `\specpage` (the task ticket, four bands,
+each arrowed to who uses it next), `\testanatomy` (one real test from the students' repo, opened up:
+name · docstring · `assert`), `\testchain` (What lines → tests → one verdict),
+`\askpage` (the handover card with four strips), and `\ralphloop` (prompt → agent → repo → eval, drawn
+under `\goalcmd` on the persistent-loop slide; `\ralphcmd` is the `/ralph-loop` variant, still defined
+but no longer used by a slide), and
+`\sectionslide{W4}{kicker}{Title}{subtitle}`.
 
 Beamer will not reflow to fit: if a frame overruns, the build says
 `Overfull \vbox ... too high` and you trim it. Keep the build warning-free, and look at the

@@ -81,27 +81,106 @@ result comes back), repeat until done. It is the architecture underneath every a
 and the three standards below are you configuring it: what it reads before the first thought, what
 it observes, and when the loop is allowed to stop.
 
-**How we got here: the ideas came first, by decades.** 1958: Frank Rosenblatt's **perceptron** — a machine that learns from examples instead of being programmed rule by rule, which is still the idea. 1969: Marvin Minsky and Seymour Papert's book *Perceptrons* proved that a single layer cannot learn even XOR, and the funding went away — the first "AI winter". (Careful with the attribution: they wrote the critique that made multi-layer networks the open problem; they did not invent them.) 1986: Rumelhart, Hinton and Williams published **backpropagation** in *Nature* — an error signal that flows back through every layer, so networks many layers deep finally become trainable. That is the answer to 1969, seventeen years late. 1997: Hochreiter and Schmidhuber's **LSTM** carries memory across a sequence, so word 200 can depend on word 3. 2017: ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762) introduces the **Transformer** — attention instead of recurrence, and it trains in parallel. Every model in the list below is one of these. (Hinton shared the [2024 Nobel Prize in Physics](https://www.nobelprize.org/prizes/physics/2024/summary/) with John Hopfield for this line of work.)
+**How we got here, in short.** The ideas are decades old: the **perceptron** (1958) learns from
+examples instead of being programmed rule by rule; **backpropagation** (1986) makes networks many
+layers deep trainable; **LSTM** (1997) carries memory across a sequence; the
+[**Transformer**](https://arxiv.org/abs/1706.03762) (2017) lets every word look at every other, in
+parallel. What was missing was never an idea — it was compute and text: cheap parallel arithmetic
+(NVIDIA's CUDA in 2007; AlexNet winning an image competition on two gaming cards in 2012) and a
+scraped web to read. Training itself is one game repeated a few billion times: hide the next word,
+guess, get corrected. No grammar and no facts are typed in, which is why a fluent paragraph can
+walk into four-horned unicorns and keep going.
 
-**What was missing was not the idea. It was compute and text.** NVIDIA's CUDA (2007) let ordinary programmers run their own maths on a graphics card, which is thousands of tiny arithmetic units built for game pixels, which turned out to be what a neural network needs; in 2012 AlexNet (Krizhevsky, Sutskever and Hinton) trained on two consumer graphics cards and won the ImageNet image-recognition competition with roughly half the error of the runner-up, and that is the moment it became obvious to everyone. Common Crawl — a non-profit founded in 2007 that has published full-scale crawls of the public web since 2011 — made the web itself available as a training corpus. Neither one is an idea about intelligence: neural networks are not new, cheap parallel arithmetic and a scraped web are. That is why this happened now and not in 1990.
-
-**How GPT-2 did that.** Training is one game: take a page from the web, hide the next word, let the model guess a probability for every word it knows, uncover the real one, and nudge all 1.5 billion of its numbers a hair towards the answer. Repeat a few billion times. No grammar and no facts are typed in. The pages were OpenAI's *WebText*: 8 million pages that Reddit users had linked to, 40 GB of text (the paper rejected Common Crawl as too messy; GPT-3, a year later, was trained on a filtered Common Crawl). What the game produces is a map: every word becomes a point in a space with 1,600 dimensions, neighbours mean similar things and directions mean relations, so *horse* plus *horn* lands near *unicorn* and Lisbon→Portugal is the same arrow as Madrid→Spain. Writing is that map run forwards: words become numbers, one block repeated 48 times lets each word look back at the ones before it (attention, the 2017 idea), out comes a guess, the chosen word is appended, and the whole box runs again. One word at a time, no plan, nothing checking — which is why a fluent paragraph can walk into four-horned unicorns and keep going.
-
-**Then, one line per year.** 2018 GPT-1 continues text · 2019 GPT-2 writes coherent paragraphs · 2020–21 GPT-3 learns from examples in the prompt, Codex/Copilot autocomplete code · 2022 ChatGPT follows instructions and converses, ReAct is published · 2023 GPT-4 and tool calling: the model can request an action and read the result · 2024 reasoning models (OpenAI o1, DeepSeek-R1, Claude's extended thinking) work through a problem step by step before answering — asked *why do the balances sum to +10?* they trace the arithmetic to line 95 instead of guessing a fix — and computer use lets a model look at a screen and click · 2025 coding harnesses (Claude Code, Codex CLI, Cursor's agent) build features in your repo, `AGENTS.md` becomes a convention · 2026 long-running agents work for hours with a judge. Size, for scale: GPT-1 had 117 million parameters, GPT-2 1.5 billion, GPT-3 175 billion, a thousandfold in two years; GPT-4's was never published (a 2023 report put it near 1.8 trillion, unconfirmed) and no lab has published a count since. The model got better every year; the two jumps that changed the job were *instructions* (2022) and *tools + a loop* (2023–25). The standards exist because a model that can act for hours needs rules and a judge.
+**The two jumps that changed the job** were *instructions* (2022: ChatGPT follows them) and *tools
++ a loop* (2023–25: the model can request an action, read the result, and choose again). That is
+the whole reason the three standards below exist — a model that can act for hours in your repo
+needs rules and a judge. The year-by-year timeline is in the standards sheet.
 
 ### Then, three standards
 
-You will use all three before you leave:
+These three are the class. Everything above is background; everything below is you doing them.
 
-1. **The rulebook — `AGENTS.md`.** The file Codex reads before it reads anything else. What goes in, what stays out, and why it lives in git like any other code. In class you add three rules to yours and commit them: a boundary, an evidence rule, and one thing that is off-limits (written out below).
-2. **The judge.** Define *done* before you build. The spec's *Done when* and the tests in `tests/test_feature_2.py` are the judge: four red tests are your to-do list, and you never edit them to make them pass. After green, the human check: read the diff, click the app.
-3. **The loop.** Red → build → run the tests → read the failure → fix → run again → green → stop. One task per loop. When it goes wrong twice, stop the thread and start a new one with a better prompt.
+1. **The brief, in two files.** The **rulebook — `AGENTS.md`** — is what Codex reads before it
+   reads anything else: the rules for *every* task. Commands it cannot guess, boundaries, what is
+   off limits — and nothing it could work out by reading the code. It lives in git and gets
+   reviewed like code, so when the agent does something wrong the fix is usually a line here, not a
+   longer prompt. Today you add three rules to the one already in your repo (below) and commit
+   them; Codex reads the file only at the *start* of a thread, so open a new one afterwards.
+   The **spec** is the brief for *one* task, in four sections: *Why* (the intent — how it picks
+   when a line can be read two ways), *What* (a checklist, one line per thing that must be true),
+   *Out of scope* (the fence for this task), *Done when* (the finish line in plain words). Today's
+   is already in your repo; from Block 2 you write them.
 
-Live on SplitIt: the three lines go into `AGENTS.md`, feature 2 starts on a branch, the loop prompt goes in, we watch it loop, then we read the diff before we trust it.
+2. **The judge — define done before you build.** An agent stops when the work *looks* done, so
+   give it something that answers pass or fail. Today that is `tests/test_feature_2.py`: four
+   tests, already red, and that is your to-do list. **A test is a claim you can run** — a small
+   function whose name is the spec's *What* line, and one word, `assert`, saying what must be true.
+   Open one and read it; you cannot trust a judge you have not read. Two rules follow: never edit a
+   test to make it pass (that is cheating, not finishing), and ask for the test *output*, never the
+   sentence "all tests pass". And green is still not the end — one *Done when* line has no test at
+   all, and you catch that one by clicking.
+
+3. **The loop — one task, and a stop condition.** Red → hand it over → it edits and runs → read the
+   failure → again → green. One task per loop, on its own branch. The handover is four things in
+   plain words: what to build, what to leave alone, keep going until the tests pass, then paste the
+   output. When the same failure comes back twice, stop: read it yourself and start a **new thread**
+   with a better ask, because a long thread that is going wrong rarely recovers. With nobody
+   watching, the same loop becomes a command — `/goal`, below.
+
+Live on SplitIt: the three lines go into `AGENTS.md`, feature 2 starts on a branch, the ask goes
+in, we watch it loop, then we read the diff before we trust it.
+
+### Delegating coding agents
+
+The whole of the above as the things you do, in order — the same six steps that are on the slide.
+Three of the four things in the first group are already in your repo; what changes in Block 2 is
+that you write the spec and ask for the tests yourself.
+
+**First, set it up** — all of this happens before the agent is told anything.
+
+1. **The rules.** Open `AGENTS.md`; under *How to answer*, replace the *No git* line with the three
+   lines below. Read the diff, commit, push. Then open a **new thread** — Codex reads the file only
+   at the start of one.
+2. **The task.** Read the spec: *Why* · *What* (one `- [ ]` line per thing that must be true) ·
+   *Out of scope* · *Done when*. Already in your repo as `specs/feature-2-*.md`. From Block 2 you
+   write it: same four headings.
+3. **The tests.** Run them before anything is built. Already in your repo as
+   `tests/test_feature_2.py` — four red, and that is your to-do list. From Block 2, ask for them
+   first: *"Write one test per line of the What checklist in `specs/<spec>.md`, in
+   `tests/test_<name>.py`. No implementation yet."* Run them; they must fail.
+4. **A branch,** named after the task (`feature-2-categories`, `feature-2-conversion`).
+
+**Then hand it over** — one task, one chat.
+
+5. **The ask,** in a new thread: what to build, what to leave alone, and keep going until the tests
+   pass, then paste the test output. The exact wording is [below](#the-loop-prompt); or set it as a
+   goal and leave it.
+
+**Then check it yourself** — the part no test can do.
+
+6. **Read the diff, click the app.** Then commit, push, pull request, merge.
+
+Two things that are not steps, because they are what you do when it goes wrong: if the same failure
+comes back twice, stop, read it yourself and start a new thread with a better ask; and when the
+agent does something you did not want, that is one new line in `AGENTS.md`, with the reason in the
+commit message.
+
+### `/goal` in Codex
+
+The loop as a command: you give Codex a finish line and it keeps taking turns until it holds. Two things to know before you use it. Codex decides for itself when it is "confident" it is there — that is its own word, so the goal must say how to prove it (run the tests, show the output). And nothing in it writes the rulebook or the spec; it automates the easy half.
+
+1. Once, in a terminal: `codex features enable goals`. Restart Codex.
+2. Red test first. Never set a goal without one.
+3. In a new thread on the branch: `/goal` followed by the spec's *Done when* with the fence in it — for SplitIt:
+   > `/goal every test in tests/test_feature_2.py passes, shown by the final pytest output, and nothing in tests/ changed. Stop after 20 turns.`
+4. `/goal` on its own shows the goal and how it is going. `/goal pause`, `/goal resume`, `/goal clear` do what they say.
+5. When it stops: the same human check. Read the diff, click the app.
+
+Not on Codex? Claude Code has the same command with the same name; there a second, smaller model reads the thread after each turn and rules *not yet*, *met* or *impossible*. It cannot run your tests either.
 
 ### The three rules you add to `AGENTS.md`
 
-Copy these under **How to answer** in your own `AGENTS.md`, read the diff, then commit and push.
+Your `AGENTS.md` has been in the repo since Class 2 (it came in the ZIP). Open it. Under **How to answer**, the last line says *No git in this project unless the student asks for it explicitly*: that was true until last week. Delete that line and put these three in its place, read the diff, then commit and push.
 
 ```
 - Build each spec on a branch named after it, e.g. feature-2-categories. Never commit a feature to main directly.

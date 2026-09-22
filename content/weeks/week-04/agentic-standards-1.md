@@ -87,7 +87,7 @@ the tool being lazy; it is dropping the part the model was using worst.
 
 **What stays out.** Anything it can read in the code. Long explanations. "Write clean code." Every extra line makes the important lines easier to miss — if the agent keeps ignoring a rule, the file is probably too long.
 
-**The three rules you add today.** A boundary, an evidence rule, and one thing that is off-limits:
+**The three rules you add today.** A boundary, an evidence rule, and one thing that is off-limits. They replace the last line under *How to answer* (*No git in this project unless the student asks*), which stopped being true in Class 3:
 
 ```
 - Build each spec on a branch named after it, e.g. feature-2-categories. Never commit a feature to main directly.
@@ -97,7 +97,49 @@ the tool being lazy; it is dropping the part the model was using worst.
 
 **It is code.** It lives in git, it gets reviewed, it gets pruned. When the agent does something wrong, the fix is often a line here, not a longer prompt. *Would removing this line cause a mistake? If not, cut it.*
 
+### The spec — the brief for one task
+
+The rulebook is the brief for every task; the spec is the brief for this one. You read one in
+Class 3 (`specs/feature-1`) and you build from one today (`specs/feature-2`). From Block 2 you write
+them, and the shape does not change: four headings, each doing one job for the agent.
+
+| Section | What it is for the agent | Feature 2, for example |
+|---|---|---|
+| **Why** | The intent. When a line can be read two ways, this is how it picks the safe reading. | *As a flatmate, I want each expense tagged, so I can see where the money went.* |
+| **What** | A checklist: one `- [ ]` line per thing that must be true. **One line, one test** — this is the judge, in prose. | `CATEGORIES` is exactly the five names · `expenses.csv` gets a `category` column · `add_expense` takes one · `category_totals(group_id)` |
+| **Out of scope** | The fence for this task (the rulebook is the fence for all of them). | Editing a category later · custom categories · charts |
+| **Done when** | The finish line in plain words. It goes in your ask today, and it is the sentence `/goal` takes. | Tests green · a category box on the form and totals on the page · `seed.py` runs · on the branch, pushed |
+
+**Writing one.** Start from *Done when*: if you cannot say how you would know it is done, you are not
+ready to delegate it. Then the *What* lines, each one checkable by a test you could describe. Keep
+*Why* to two sentences. Put in *Out of scope* the thing the agent will be tempted to do (it will
+refactor the neighbouring function; say no). One spec, one branch, one loop.
+
+**Tests first, from the checklist.** Today they are already written for you:
+`tests/test_feature_2.py`, four red — run them and read them before anything else. From Block 2,
+when nobody writes them for you, ask for them before any implementation: *"Write one test
+per line of the What checklist in `specs/<spec>.md`, in `tests/test_<name>.py`. No implementation
+yet."* Run them; they must fail. Read them: do they check what the line says? Only then the ask. A
+*Done when* line that no test covers (today: the form field and the page section) is the line you
+check by clicking.
+
 ## 2 · The judge — define done before you build
+
+**First, what a test actually is.** You have been running them since Class 3 without opening one.
+Open `tests/test_feature_2.py` now: a test is a small function whose name is the *What* line, with a
+sentence saying what it claims, and one word — `assert` — that does the work.
+
+```python
+def test_the_category_list_is_fixed():
+    """The five categories, in this order, live in logic.CATEGORIES."""
+    assert logic.CATEGORIES == ["rent", "groceries", "fun", "transport", "other"]
+```
+
+`assert` means *this must be true*. If it is, the test passes silently; if it is not, it stops and
+prints what it expected against what it got — that is the red you will be reading all afternoon.
+Nobody's opinion is involved, and it gives the same answer every time. The honest limit: a test only
+checks what someone thought to write down, which is why green is not the end and why one *Done when*
+line has no test at all.
 
 **Something that can't lie.** The agent stops when the work *looks* done. Without a check it can run, you are the check, and every mistake waits for you to notice it. Give it something that answers pass or fail: today, the spec's *Done when* and the tests. Four red tests are the to-do list; green is *done*.
 
@@ -178,18 +220,29 @@ You give it a finish line in plain words and it keeps taking turns until that fi
 /goal every test in tests/ passes, and nothing in tests/ changed
 ```
 
-After each turn a *second, smaller* model reads the conversation and rules: not yet, done, or
-impossible. Two things about it are worth more than the command itself. The evaluator **cannot run
-your tests** — it only reads what the agent put on screen, which is exactly why "paste the final
-test output" belongs in your ask. And everything that got automated here was the easy half: nothing
-in it writes your rulebook or decides what *done* means. On Codex it is off by default; turn it on
-with `codex features enable goals`. Don't reach for it until you have a test that fails first.
+The sentence is the spec's *Done when*, with the fence in it. Who decides it holds differs by tool,
+and the difference is standard 2 again. In **Codex**, the agent itself: its page says a goal should
+name *what to achieve, what not to change, how to validate, and when to stop* — your four-part ask —
+and that it stops "when it's confident it has reached the stopping condition". *Confident* is its own
+word, so the goal has to say how it proves it. In **Claude Code**, a *second, smaller* model reads
+the conversation after each turn and rules *not yet*, *met* or *impossible*. Neither one **can run
+your tests** — they only read what the agent put on screen, which is exactly why "shown by the final
+test output" belongs in the sentence. And everything that got automated here was the easy half:
+nothing in it writes your rulebook, writes your spec, or decides what *done* means.
+
+To use it in Codex:
+
+1. Once, in a terminal: `codex features enable goals`, then restart Codex.
+2. A red test first. Never set a goal without one.
+3. In a new thread on the branch: `/goal every test in tests/test_feature_2.py passes, shown by the final pytest output, and nothing in tests/ changed. Stop after 20 turns.`
+4. `/goal` alone shows the goal and its progress; `/goal pause`, `/goal resume`, `/goal clear`.
+5. When it stops, the human check as always: read the diff, click the app.
 
 **Why it needs the first two standards.** Nobody is watching. The rulebook is what keeps it inside the lines, and the judge is what tells it to stop. Get either wrong and
 it will spend an hour going confidently in the wrong direction. That is why the rulebook and the
 judge come first in this course: they are what makes walking away possible. Part II, in Block 3.
 
-Sources: ² Liu, N. F. et al. (2024). *Lost in the Middle: How Language Models Use Long Contexts.*
+Sources: OpenAI, *Follow a goal* (Codex), learn.chatgpt.com/use-cases/follow-goals · ² Liu, N. F. et al. (2024). *Lost in the Middle: How Language Models Use Long Contexts.*
 TACL 12, arxiv.org/abs/2307.03172 · ³ Chroma (2025), *Context Rot: How Increasing Input Tokens
 Impacts LLM Performance*, trychroma.com/research/context-rot · ⁴ Rando, S. et al. (2025). *LongCodeBench:
 Evaluating Coding LLMs at 1M Context Windows.* arxiv.org/abs/2505.07897 · Geoffrey Huntley,
