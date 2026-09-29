@@ -1,0 +1,77 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Choose your solo project · Nova SBE</title><style>
+  :root{
+    --bg:#0f1115; --bg2:#161a22; --fg:#f2f3f5; --muted:#9aa3b2; --line:#2a3040;
+    --accent:#ff6a3d; --accent2:#5ad1b3; --accent3:#f5c542;
+    --b1:#5ad1b3; --b2:#f5c542; --b3:#ff6a3d; --pres:#b28dff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+  .slide{position:absolute;inset:0;padding:6vh 8vw;display:none;flex-direction:column;justify-content:center;
+    opacity:0;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease}
+  .slide.active{display:flex;opacity:1;transform:none}
+  h1{font-size:clamp(40px,6.5vw,88px);line-height:1.02;margin:0 0 .3em;letter-spacing:-.02em;font-weight:800}
+  h2{font-size:clamp(30px,4.2vw,58px);line-height:1.08;margin:0 0 .5em;letter-spacing:-.02em;font-weight:800}
+  h3{font-size:clamp(18px,1.8vw,26px);margin:0 0 .4em;font-weight:700}
+  p,li{font-size:clamp(17px,1.6vw,24px);line-height:1.45;margin:0}
+  p+p{margin-top:.6em}
+  .muted{color:var(--muted)}
+  .kicker{font-size:clamp(13px,1.1vw,16px);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:1.2em}
+  .kicker.b1{color:var(--b1)} .kicker.b2{color:var(--b2)} .kicker.b3{color:var(--b3)} .kicker.pres{color:var(--pres)}
+  .big{font-size:clamp(26px,3vw,42px);line-height:1.25;font-weight:600;max-width:22ch}
+  .accent{color:var(--accent)}
+  .grid{display:grid;gap:clamp(12px,1.6vw,24px)}
+  .g2{grid-template-columns:1fr 1fr} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:clamp(14px,1.8vw,26px)}
+  .card h3{margin-bottom:.35em}
+  .card p{font-size:clamp(15px,1.25vw,19px);color:#c9d0db}
+  .card .n{font-size:clamp(11px,.95vw,13px);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.6em;font-weight:700}
+  .tbd{border:1px dashed var(--accent3);color:var(--accent3);border-radius:8px;padding:.15em .5em;font-size:.85em;font-weight:700;white-space:nowrap}
+  .tbd-card{border-style:dashed;border-color:var(--accent3)}
+  /* timeline */
+  .tl{display:grid;grid-template-columns:repeat(12,1fr);gap:8px;margin-top:2vh}
+  .tl .w{height:clamp(64px,9vh,96px);border-radius:12px;display:flex;flex-direction:column;justify-content:space-between;padding:10px 10px;font-size:clamp(12px,1vw,15px);font-weight:700;color:#0f1115}
+  .tl .w small{font-weight:600;opacity:.8;font-size:.85em}
+  .w.b1{background:var(--b1)} .w.b2{background:var(--b2)} .w.b3{background:var(--b3)} .w.pres{background:var(--pres)}
+  .w.t{outline:3px solid rgba(255,255,255,.55);outline-offset:-3px}
+  .legend{display:flex;gap:2.2em;margin-top:2.2vh;font-size:clamp(13px,1.15vw,17px);color:var(--muted)}
+  .legend span::before{content:"";display:inline-block;width:.9em;height:.9em;border-radius:4px;margin-right:.5em;vertical-align:-1px}
+  .legend .l1::before{background:var(--b1)} .legend .l2::before{background:var(--b2)} .legend .l3::before{background:var(--b3)} .legend .l4::before{background:var(--pres)}
+  .legend .lt::before{background:transparent;outline:3px solid rgba(255,255,255,.55);outline-offset:-3px}
+  /* tables */
+  table{border-collapse:collapse;width:100%;font-size:clamp(15px,1.35vw,21px)}
+  th,td{text-align:left;padding:.55em .8em;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:700;font-size:.8em;letter-spacing:.12em;text-transform:uppercase}
+  td.w{width:3.5em;color:var(--muted);font-weight:700}
+  .pill{display:inline-block;padding:.1em .55em;border-radius:999px;font-size:.75em;font-weight:800;letter-spacing:.06em;color:#0f1115}
+  .pill.t{background:#fff} .pill.p{background:var(--muted)}
+  /* section slides */
+  .section{justify-content:flex-end}
+  .section .num{font-size:clamp(90px,16vw,220px);font-weight:900;line-height:.9;letter-spacing:-.05em;opacity:.18}
+  .section.b1 .num{color:var(--b1)} .section.b2 .num{color:var(--b2)} .section.b3 .num{color:var(--b3)} .section.pres .num{color:var(--pres)}
+  .section h2{max-width:16ch}
+  .section .sub{font-size:clamp(18px,1.8vw,26px);color:var(--muted);max-width:40ch}
+  /* misc */
+  .rule{display:grid;grid-template-columns:auto 1fr;gap:1.2em;align-items:baseline;margin-top:.9em}
+  .rule b{color:var(--accent);font-size:1.3em}
+  ul.clean{list-style:none;padding:0;margin:.4em 0 0}
+  ul.clean li{padding:.35em 0 .35em 1.4em;position:relative}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--accent)}
+  .stack{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em}
+  .stack span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.35em .9em;font-size:clamp(14px,1.2vw,18px);font-weight:600}
+  .foot{position:absolute;left:8vw;right:8vw;bottom:3.5vh;display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+  .progress{position:fixed;left:0;bottom:0;height:3px;background:var(--accent);width:0;transition:width .3s}
+  .counter{position:fixed;right:18px;bottom:12px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .help{position:fixed;left:18px;bottom:12px;font-size:12px;color:var(--muted)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--bg2);border:1px solid var(--line);padding:.1em .4em;border-radius:6px;font-size:.9em}
+  @media (max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}.tl{grid-template-columns:repeat(6,1fr)}.slide{padding:5vh 6vw;justify-content:flex-start;overflow:auto}}
+  @media print{.slide{display:flex!important;opacity:1!important;transform:none!important;position:relative;height:100vh;page-break-after:always}.progress,.counter,.help{display:none}}
+  .notes{display:none;position:absolute;left:8vw;right:8vw;bottom:9vh;background:#1d2230;border-left:4px solid var(--accent3);padding:.8em 1em;font-size:15px;line-height:1.45;color:#dfe4ec;border-radius:8px}
+  body.show-notes .slide.active .notes{display:block}
+
+html,body{height:auto}body{font-size:18px}.wrap{max-width:1200px;margin:auto;padding:0 48px}a{color:inherit}a:focus-visible,button:focus-visible{outline:3px solid var(--b2);outline-offset:5px}.topnav{border-bottom:1px solid var(--line);padding:23px 0}.topnav .wrap{display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{font-size:13px;font-weight:700;letter-spacing:.12em;text-decoration:none}.topnav nav{display:flex;gap:22px;font-size:14px;color:#c9d0db}.topnav nav a{text-decoration:none}.topnav nav a:hover,.topnav nav a[aria-current=page]{color:var(--b2)}.hero{padding:74px 0 46px}.hero h1{font-size:clamp(42px,6vw,76px);max-width:900px}.hero .lead{font-size:23px;line-height:1.5;max-width:760px;color:#c9d0db}.kicker{color:var(--b2)}.grid{gap:20px}.product{display:flex;flex-direction:column;padding:28px}.product .n{color:var(--b2);margin-bottom:25px}.product h2{font-size:29px}.product p{font-size:18px;line-height:1.6}.product .scope{font-size:14px;color:var(--accent2);margin-top:24px}.button{display:inline-block;background:var(--b2);color:var(--bg);border-radius:8px;padding:13px 18px;font-size:15px;font-weight:750;text-decoration:none;margin-top:28px;align-self:flex-start}.product .button{margin-top:auto}.product .scope{padding-bottom:26px}.section-block{margin:55px 0}.section-block h2{font-size:34px}.section-block>p{max-width:820px;font-size:19px;line-height:1.65}.section-block .card p{font-size:18px;line-height:1.65}.reading{display:grid;grid-template-columns:190px minmax(0,1fr);gap:58px}.toc{position:sticky;top:24px;align-self:start;display:grid;gap:16px;font-size:14px;color:#c9d0db}.toc a{text-decoration:none}.toc a:hover{color:var(--b2)}.content section{scroll-margin-top:25px;margin-bottom:48px}.content h2{font-size:32px;margin-bottom:23px}.content p{font-size:18px;line-height:1.65;color:#dce1e9}.content .intro{font-size:21px;color:var(--fg)}.requirement{display:grid;grid-template-columns:72px minmax(0,1fr);gap:20px;padding:22px 0;border-top:1px solid var(--line)}.req-id{font-size:13px;font-weight:750;color:var(--accent2);letter-spacing:.03em;padding-top:5px}.requirement h3{font-size:20px;margin-bottom:8px}.checks{display:grid;gap:14px}.check{padding:23px 26px}.check h3{font-size:19px}.check p{font-size:17px}.check .n{color:var(--accent2)}.footnote{font-size:14px!important;color:var(--muted)!important}footer{border-top:1px solid var(--line);padding:28px 0;margin-top:65px;font-size:13px;color:var(--muted)}footer .wrap{display:flex;justify-content:space-between}.subgrid{display:grid;grid-template-columns:1fr 1fr;gap:25px}.subgrid h3{font-size:20px}.subgrid p{font-size:18px;line-height:1.6;color:#c9d0db}
+@media(max-width:900px){.wrap{padding:0 24px}.topnav .wrap{align-items:flex-start;flex-direction:column}.topnav nav{flex-wrap:wrap;gap:15px}.hero{padding:44px 0 30px}.reading{grid-template-columns:1fr;gap:30px}.toc{position:static;display:flex;flex-wrap:wrap;gap:18px}.subgrid{grid-template-columns:1fr}.hero .lead{font-size:20px}.requirement{grid-template-columns:56px 1fr;gap:12px}.product .button{margin-top:0}}
+@media print{html,body{background:white!important;color:#111!important}.topnav,.toc,.button{display:none}.wrap{max-width:none;padding:0}.hero{padding:0 0 20px}.hero h1{font-size:36px}.hero .lead,.content p,.card p,.subgrid p,.section-block p{color:#222!important}.reading{display:block}.card{background:white;border-color:#bbb;break-inside:avoid}.g3{grid-template-columns:1fr}.requirement{break-inside:avoid}.kicker,.req-id,.n,.scope{color:#333!important}.content h2,.section-block h2{font-size:25px}footer{margin-top:20px}.hero h1{color:#111}}
+</style></head><body><header class="topnav"><div class="wrap"><a class="brand" href="00-project-overview.html">NOVA SBE / INTRO TO PROGRAMMING</a><nav aria-label="Project documents"><a href="00-project-overview.html" aria-current="page">Overview</a><a href="01-plot-twist-brd.html">Plot Twist</a><a href="02-campus-tycoon-brd.html">Campus Tycoon</a><a href="03-festival-architect-brd.html">Festival Architect</a></nav></div></header><main class="wrap"><div class="hero"><div class="kicker">Block 2 · Weeks 5–7</div><h1>Choose your<br>solo project.</h1><p class="lead">Three products. Pick the experience you want to create, then use its brief as your PM handoff.</p></div><div class="grid g3"><article class="card product"><div class="n">Product 01</div><h2>Plot Twist</h2><p>Build a playable mystery where clues unlock paths and choices change the ending. Players can leave and resume their progress.</p><p class="scope">5 scenes · 2 items · 2 endings</p><a class="button" href="01-plot-twist-brd.html">Read the brief →</a></article><article class="card product"><div class="n">Product 02</div><h2>Campus Tycoon</h2><p>Build a campus business simulation. Players buy stock, set prices, and trade for five days, watching decisions change cash, inventory, and profit.</p><p class="scope">3 products · 5 days · €100 starting cash</p><a class="button" href="02-campus-tycoon-brd.html">Read the brief →</a></article><article class="card product"><div class="n">Product 03</div><h2>Festival Architect</h2><p>Build a festival planner. Organisers book artists and arrange a timetable while resolving stage conflicts and staying within budget.</p><p class="scope">2 stages · 8 artists · €10,000 budget</p><a class="button" href="03-festival-architect-brd.html">Read the brief →</a></article></div><section class="section-block"><h2>One complete first release.</h2><p>Build an experience that works from beginning to end, with sample content, clear rules, and progress that survives an app restart. Every brief includes concrete acceptance scenarios so you can check the result.</p></section><section class="section-block subgrid"><div><h3>You choose the design.</h3><p>Make the name, setting, content, and interface your own. Meet the required behaviour before adding extensions. You may use AI to build; you must be able to explain and verify what it produces.</p></div><div><h3>Keep the scope manageable.</h3><p>Support one user at a time. Accounts, payments, multiplayer, external APIs, and LLM features are not required. Build individually in W5–W7 and keep your work on GitHub, ready for W8.</p></div></section><p class="footnote">The solo project is examined rather than submitted for a separate grade. Acceptance scenarios are product checks, not the exam question template.</p></main><footer><div class="wrap"><span>Introduction to Programming · 2026/27</span><span>Block 2 · Solo project</span></div></footer></body></html>

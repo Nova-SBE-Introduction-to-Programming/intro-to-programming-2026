@@ -27,6 +27,8 @@ What happened, homework, links.
 Then drop the deck (`class-5.html`) and any files (PDFs, CSVs, zips, extra `.md` pages) into the same folder and push.
 The home page lists the week, and the week page lists every file in the folder with its size — nothing else to write.
 
+Files named `class-*.html` or `class-*.pdf` appear as presentations. Other HTML files are linked as documents using their HTML title, so standalone briefs can sit beside the deck. Keep related briefs in the same week folder to preserve their relative links. Instructor-only guides go in `teaching/`, outside the published `content/` tree.
+
 ## Preview locally
 
 ```

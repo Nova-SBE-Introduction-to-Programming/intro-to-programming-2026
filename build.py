@@ -4,6 +4,8 @@ Run:  python build.py
 Then: python -m http.server -d _site
 """
 import shutil
+from html import escape
+from html.parser import HTMLParser
 from pathlib import Path
 
 import markdown
@@ -53,12 +55,12 @@ def materials_list(week_dir):
     """HTML listing every file in a week folder except index.md."""
     def is_deck(f):
         """A deck is a self-contained .html slide file, or a class-N.pdf built from LaTeX."""
-        return f.suffix == ".html" or (f.suffix == ".pdf" and f.stem.startswith("class-"))
+        return f.suffix in (".html", ".pdf") and f.stem.startswith("class-")
 
-    files = [f for f in week_dir.iterdir() if f.name != "index.md" and not f.name.startswith(".")]
+    files = [f for f in week_dir.iterdir() if f.is_file() and f.name != "index.md" and not f.name.startswith(".")]
     items = []
     # decks first, then pages, then downloads
-    for f in sorted(files, key=lambda f: (0 if is_deck(f) else (1 if f.suffix == ".md" else 2), f.name)):
+    for f in sorted(files, key=lambda f: (0 if is_deck(f) else (1 if f.suffix in (".md", ".html") else 2), f.name)):
         if is_deck(f):
             size = f' <span class="size">{human_size(f.stat().st_size)}</span>' if f.suffix == ".pdf" else ""
             items.append(f'<li class="deck"><span>{f.stem}</span>'
@@ -66,6 +68,9 @@ def materials_list(week_dir):
         elif f.suffix == ".md":
             title = read_page(f)[0]["title"]
             items.append(f'<li class="page"><a href="{f.stem}.html">{title}</a></li>')
+        elif f.suffix == ".html":
+            title = html_title(f)
+            items.append(f'<li class="page"><a href="{f.name}">{escape(title)}</a></li>')
         else:
             size = human_size(f.stat().st_size)
             items.append(f'<li class="file"><a href="{f.name}" download>{f.name}</a>'
@@ -73,6 +78,31 @@ def materials_list(week_dir):
     if not items:
         return ""
     return '<section class="materials"><h2>Materials</h2><ul>' + "".join(items) + "</ul></section>"
+
+
+def html_title(path):
+    """Use the document title for standalone HTML briefs in the materials list."""
+    class TitleParser(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.in_title = False
+            self.parts = []
+
+        def handle_starttag(self, tag, attrs):
+            if tag == "title":
+                self.in_title = True
+
+        def handle_endtag(self, tag):
+            if tag == "title":
+                self.in_title = False
+
+        def handle_data(self, data):
+            if self.in_title:
+                self.parts.append(data)
+
+    parser = TitleParser()
+    parser.feed(path.read_text(encoding="utf-8"))
+    return "".join(parser.parts).removesuffix(" · Nova SBE").strip() or path.stem
 
 
 def weeks_index():

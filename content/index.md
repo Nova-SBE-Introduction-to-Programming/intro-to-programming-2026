@@ -15,7 +15,7 @@ The semester runs like a developer onboarding: read a codebase first, build alon
 | Block | Weeks | What happens |
 |---|---|---|
 | **1 · Join the company** | 1–4 | You get hired into a small company with an existing codebase (SplitIt or Tiny CRM). You learn to design workflows, read the code, and ship a feature. |
-| **2 · Solo project** | 5–7 | You build a small app alone on the same skeleton. Never submitted — examined. Details in week 5. |
+| **2 · Solo project** | 5–7 | Choose Plot Twist, Campus Tycoon, or Festival Architect and build it individually. Never submitted — examined. [Start with Class 5](weeks/week-05/index.html). |
 | **3 · Team project** | 8–10 | Open scope: your team extends the best of your solo projects. Details in week 8. |
 | **Presentations** | 11–12 | Live demo at a deployed URL + code walkthrough. Half the groups each week. |
 
